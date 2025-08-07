@@ -9,8 +9,8 @@
     },
     "favicon": "/logo/favicon.svg",
     "logo": {
-        "light": "https://img2024.cnblogs.com/blog/2872556/202508/2872556-20250807165537349-404798918.svg",
-        "dark": "https://img2024.cnblogs.com/blog/2872556/202508/2872556-20250807165556163-392157384.svg"
+        "light": "/logo/light.svg",
+        "dark": "/logo/dark.svg"
     },
     "navigation": {
         "versions": [
