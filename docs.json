@@ -1,16 +1,16 @@
 {
     "$schema": "https://mintlify.com/docs.json",
     "theme": "mint",
-    "name": "Dify Docs",
+    "name": "Agentify Docs",
     "colors": {
         "primary": "#0060FF",
         "light": "#688FE8",
         "dark": "#0034FF"
     },
-    "favicon": "/logo/dify-logo.png",
+    "favicon": "/logo/favicon.svg",
     "logo": {
-        "light": "https://assets-docs.dify.ai/2025/05/d05cfc6ebe48f725d171dc71c64a5d16.svg",
-        "dark": "https://assets-docs.dify.ai/2025/05/c51f1cda47c1d9a4a162d7736f6e4c53.svg"
+        "light": "/logo/light.svg",
+        "dark": "/logo/dark.svg"
     },
     "navigation": {
         "versions": [
@@ -24,7 +24,7 @@
                                 "group": "Getting Started",
                                 "pages": [
                                     {
-                                        "group": "Welcome to Dify",
+                                        "group": "Welcome to Agentify",
                                         "pages": [
                                             "en/documentation/introduction",
                                             "en/documentation/getting-started/readme/features-and-specifications",
@@ -499,7 +499,7 @@
                                 "group": "入门",
                                 "pages": [
                                     {
-                                        "group": "欢迎使用 Dify",
+                                        "group": "欢迎使用 Agentify",
                                         "pages": [
                                             "zh-hans/documentation/introduction",
                                             "zh-hans/documentation/getting-started/readme/features-and-specifications",
@@ -1022,7 +1022,7 @@
                                 "group": "入門",
                                 "pages": [
                                     {
-                                        "group": "Difyへようこそ",
+                                        "group": "Agentifyへようこそ",
                                         "pages": [
                                             "ja-jp/documentation/introduction",
                                             "ja-jp/documentation/getting-started/readme/features-and-specifications",
