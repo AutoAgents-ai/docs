@@ -1,0 +1,295 @@
+---
+title: "Product updates"
+description: "New updates and improvements"
+rss: true
+noindex: true
+---
+
+
+<Update label="July 14 - July 25" tags={["v1.8.9.0"]} rss={{ title: "Dify v1.8.9.0", description: "Permission policies, agent allocation, conversation editing and more new features and optimizations" }}>
+  ## New Features & Improvements
+
+  ### Permission Management
+  - Added permission policy functionality
+  - Agent allocation usage popup now includes "Usage Records" permission
+  - Published agents controlled by roles for user access
+  - Optimized login password error prompts with admin unlock support
+
+  ### Agents & Conversations
+  - Added top_p parameter to intelligent conversation and image Q&A components
+  - Conversation boxes now support repeated editing and modification
+  - Added stop button for trial runs
+  - Knowledge Q&A answers now linked with referenced documents
+
+  ### Knowledge Base
+  - Knowledge base parsing methods, token count, and knowledge enhancement are now editable
+  - Added image understanding models
+  - Redesigned knowledge base download switch default logic
+  - Support for uploading doc files manually converted to docx format
+
+  ### System Features
+  - Online search now supports Alibaba Search
+  - LDAP login upgraded to RSA2048 encryption
+  - Optimized all role suggestions and user suggestions in the system
+  - Integrated universal document parsing model
+  - Added new dependencies to code block component: python-pptx, pdf2image, openpyxl
+  - Redesigned data dashboard
+  - Optimized mobile password-protected share link navigation
+
+  ## Bug Fixes
+
+  - Fixed knowledge base audit model not taking effect after review
+  - Fixed password dialog not appearing when login required + password required + auto-fill disabled
+  - Fixed knowledge base search result anomalies in conversation orchestration
+  - Fixed password-protected share link refresh error on logged-in pages
+  - Fixed missing save success prompt for large workflow orchestrations
+  - Fixed style anomalies when conversation page questions are pure numbers
+</Update>
+
+<Update label="June 30 - July 11" tags={["v1.8.8.0"]} rss={{ title: "Dify v1.8.8.0", description: "MCP refactor, permission configuration, voice activation and other new features" }}>
+  ## New Features & Improvements
+
+  ### Files & Knowledge Base
+  - Configurable file upload types
+  - Optimized knowledge base website import
+  - Enhanced knowledge base dataset page return logic (current page memory)
+  - Removed automatic/manual options when creating knowledge bases
+  - Knowledge base dataset pages now support pagination selection
+  - Knowledge base search supports context expansion
+
+  ### MCP & Tools
+  - MCP (Model Context Protocol) refactor
+  - Custom tools now support timeout settings
+  - Toolbox refactor: crawler cards + contract review with permission-based control
+
+  ### Permissions & Security
+  - Model management permission configuration
+  - Discover Agent data permission control with additional query conditions
+  - Improved error handling when MCP permissions are missing
+  - RSA password encryption for LDAP system configuration
+  - Multi-tenant login logic adjustments
+
+  ### Agent Features
+  - Redesigned recommended questions
+  - Agent high-frequency question statistics
+  - Unpublished agents can now access scheduled task functionality
+  - Large agent orchestration exports now go directly to txt files
+
+  ### User Experience
+  - Voice activation functionality
+  - Slice viewing supports [Previous]/[Next] navigation
+  - Search boxes added to all model selection areas
+  - Custom tool interface document import supports model selection
+  - Usage record page dashboard dimensions support multi-selection
+  - Component style optimizations
+
+  ## Bug Fixes
+
+  - Fixed Chinese text display after switching to English/Japanese and refreshing
+  - Fixed toast style anomalies
+  - Fixed external link edit popup related issues
+  - Fixed knowledge base parsing failure when word-to-PDF is enabled
+  - Fixed Reranker model selection not taking effect in knowledge base retrieval tests
+  - Fixed planning page resource loading timeout issues
+</Update>
+
+<Update label="June 16 - June 27" tags={["v1.8.7.0"]} rss={{ title: "Dify v1.8.7.0", description: "MCP integration, Markdown to Word, verification code configuration and other new features" }}>
+  ## New Features & Improvements
+
+  ### MCP Integration
+  - Brand new MCP (Model Context Protocol) integration functionality
+
+  ### Document Processing
+  - Markdown to Word component now supports style settings
+  - Knowledge base slice preview sorted by similarity
+  - Knowledge base references collapsed by default
+  - Knowledge base slice preview is now controllable
+
+  ### System Features
+  - Configurable verification codes
+  - Crawler with JavaScript rendering support
+  - Added new Python libraries to code blocks: pycryptodome, cryptography
+  - Separate control for Discover Agent/external link top-left navigation
+  - Unpublished agents now show usage record buttons
+
+  ### User Experience
+  - Added department filtering to usage records
+  - Create new conversation button retained after clicking history
+  - Mobile users can properly enter chat page when external link requires login
+  - Redesigned execution record page
+
+  ## Bug Fixes
+
+  - Fixed MD to Word not working when MD content is images
+  - Fixed multiple invalid requests on database table pages
+  - Fixed missing empty validation after deleting uploaded files in contract review rule sources
+  - Fixed input field character limit issues
+  - Fixed style issues with excessive characters
+  - Fixed missing edit popup and delete button for HTTP call parameters
+  - Fixed external link creation/edit popup link initialization
+  - Fixed first question stop resulting in response to second question
+  - Fixed page anomalies when agent description is numeric with excessive content
+  - Fixed agent market search box not retaining input after pressing Enter
+  - Fixed history record sorting disorder after modifying custom titles
+  - Fixed non-functional cancel and close buttons in avatar modification popup
+  - Fixed uninitialized data when reopening add knowledge base/database popup
+  - Fixed document output images not rendering
+  - Fixed universal document parsing not displaying PDF images
+  - Fixed external link page showing previous extension questions after creating new conversation
+  - Fixed document content being included in second response when uploading documents then images
+</Update>
+
+<Update label="June 3 - June 13" tags={["v1.8.6.0"]} rss={{ title: "Dify v1.8.6.0", description: "AI code generation, knowledge base review, database authorization and other new features" }}>
+  ## New Features & Improvements
+
+  ### AI & Code
+  - Code blocks can now generate Python statements through AI natural language
+  - Authorized agents can now be added to agent components
+
+  ### Knowledge Base
+  - Knowledge base review functionality
+  - Added document reference count feature to knowledge base
+  - Knowledge base dataset export functionality
+  - Added close button to slice preview
+  - Controllable dataset downloads
+  - Knowledge base configurable external knowledge base embedding
+
+  ### Database
+  - Added authorization functionality to databases
+  - Added filtering functionality to database tables
+  - nl2sql CSV files display Chinese correctly on bank system computers
+
+  ### System Configuration
+  - Configurable timer quantity limits
+  - Changed page file interfaces to relative paths
+  - Updated Alibaba Cloud Bailian implementation for model management
+
+  ### External Links & Sharing
+  - Share links support both login and login-free access
+  - Added control switches when creating external links
+  - Agent external link logos, redirect addresses, and display are controllable
+
+  ### Other Features
+  - Extension question functionality
+
+  ## Bug Fixes
+
+  - Fixed contract review document and review rule component anomalies
+  - Fixed inability to delete files in contract review rule sources
+  - Fixed external link token loss
+  - Fixed external link parent-child Agent conversation title errors
+  - Fixed copied knowledge base unable to access external link slice preview
+</Update>
+
+<Update label="May 19 - May 30" tags={["v1.8.5.0"]} rss={{ title: "Dify v1.8.5.0", description: "Model management, knowledge base reference viewing and other new features" }}>
+  ## New Features & Improvements
+
+  ### Model Management
+  - Brand new model management functionality
+
+  ### Knowledge Base
+  - Knowledge base references can now view referenced slices
+  - Added new slice functionality to knowledge base
+
+  ## Bug Fixes
+
+  - Fixed issue where calling agent API with personal key still attributed history to agent creator
+  - Fixed document review re-parsing files on every upload
+  - Fixed model unable to read content after uploading files in document review
+  - Fixed error when deleting history records while accessing outlink in logged-out state
+</Update>
+
+<Update label="May 6 - May 16" tags={["v1.8.4.0"]} rss={{ title: "Dify v1.8.4.0", description: "Data dashboard, sharing function permission control and other new features" }}>
+  ## New Features & Improvements
+
+  ### Data Dashboard
+  - Brand new data dashboard functionality (East Asia Bank/East China Power Grid)
+
+  ### Permissions & Sharing
+  - Sharing function permission control
+  - File upload encryption/decryption for OpenAPI
+
+  ### Agents
+  - Prompts when importing agents with associated knowledge bases
+  - Refresh debug records when clicking debug record button
+
+  ### System Optimizations
+  - Modified reply character limit prompt text
+  - Code blocks now support beautifulsoup4 library
+  - Optimized knowledge base slicing underlying strategy
+  - Fixed Guangming Baidu model bugs
+  - Open API chat interface asynchronous calls support component message callbacks
+
+  ## Bug Fixes
+
+  - Fixed incorrect return position when returning from retrieval test after creating knowledge base from agent configuration page
+  - Fixed file upload entry disappearing for file-capable agents in Discover Agents
+</Update>
+
+<Update label="April 21 - April 30" tags={["v1.8.3.0"]} rss={{ title: "Dify v1.8.3.0", description: "Knowledge base OFD support, code block external dependencies, new models and more" }}>
+  ## New Features & Improvements
+
+  ### Document Processing
+  - Knowledge base parsing now supports OFD file type
+  - Automatic removal of controls when uploading docx documents with controls
+
+  ### System Optimizations
+  - Platform-wide change to field key + field description, all keys in lowercase
+  - Configurable timeout for HTTP components
+  - React page top title supports internationalization
+  - Modified random password generation logic
+
+  ### Models & Code
+  - Added new model: doubao-1.5-thinking-pro
+  - Code block Python now supports external dependency libraries
+  - Qwen3 model
+
+  ## Bug Fixes
+
+  - Fixed abnormal connections after deleting variables
+  - Fixed historical content residue when importing plans
+  - Fixed orchestration anomalies caused by cross-environment import/export
+  - Fixed knowledge base export failure issues
+  - Fixed issue where the 2nd component connected after code block component execution exception wouldn't execute
+</Update>
+
+<Update label="March 31 - April 18" tags={["v1.8.2.0"]} rss={{ title: "Dify v1.8.2.0", description: "Scheduled triggers, security logs, document processing components and more" }}>
+  ## New Features & Improvements
+
+  ### Triggers & Permissions
+  - Scheduled trigger functionality
+  - Hide create agent button when user lacks "my agents" creation permission
+  - Added route permission controls
+  - Permission control support for Qingju Yuanzhi chat pages
+
+  ### Search & Models
+  - Added Tencent search model to web search
+  - Baidu model now supports privatization
+
+  ### Agent Features
+  - Create agents from templates
+  - Security logging
+  - Added Word to PDF toggle on conversation page
+
+  ### Document Processing Components
+  - PDF to image component (refactored + multi-document support)
+  - Universal document parsing component (refactored + multi-document support + any document type support)
+  - Markdown to Word component (supports bold and italic)
+  - OCR component (refactored + multi-document support)
+  - JSON to spreadsheet component
+
+  ### System Features
+  - Image to base64 conversion
+  - Single sign-on (requires backend configuration)
+  - HTTP supports XML, webservice calls
+  - Knowledge base image enhancement + toggle for showing image references
+  - Adjusted conversation box sending logic
+  - Fixed markdown a tag rendering
+  - Reverse order for new conversations in Yuanzhi and Qingju
+
+  ## Bug Fixes
+
+  - Fixed agent UUID confusion occasionally being null when uploading to agent marketplace
+  - Fixed duplicate agents appearing in "Shared with me" interface
+  - Fixed OCR and PDF to image components unable to connect "execution success/failure" buttons
+</Update>
