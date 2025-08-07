@@ -49,11 +49,6 @@
             }
         ]
     },
-    "contextual": {
-        "options": [
-            "view"
-        ]
-    },
     "styling": {
         "codeblocks": "system"
     },
