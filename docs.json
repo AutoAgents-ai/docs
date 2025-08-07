@@ -51,7 +51,6 @@
     },
     "contextual": {
         "options": [
-            "copy",
             "view"
         ]
     },
