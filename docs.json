@@ -15,23 +15,23 @@
     "navigation": {
         "versions": [
             {
-                "version": "English",
-                "tabs": [
-                    {
-                        "tab": "Changelog",
-                        "pages": [
-                            "en/changelog/product-updates"
-                        ]
-                    }
-                ]
-            },
-            {
                 "version": "简体中文",
                 "tabs": [
                     {
                         "tab": "更新日志",
                         "pages": [
                             "zh-hans/changelog/product-updates"
+                        ]
+                    }
+                ]
+            },
+            {
+                "version": "English",
+                "tabs": [
+                    {
+                        "tab": "Changelog",
+                        "pages": [
+                            "en/changelog/product-updates"
                         ]
                     }
                 ]
@@ -258,8 +258,12 @@
             "destination": "/zh-hans/introduction"
         },
         {
+            "source": "/",
+            "destination": "/zh-hans/introduction"
+        },
+        {
             "source": "/introduction",
-            "destination": "/en/introduction"
+            "destination": "/zh-hans/introduction"
         },
         {
             "source": "/getting-started/readme/features-and-specifications",
