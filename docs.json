@@ -54,6 +54,22 @@
     },
     "redirects": [
         {
+            "source": "/changelog",
+            "destination": "/zh-hans/changelog/product-updates"
+        },
+        {
+            "source": "/changelog/product-updates",
+            "destination": "/zh-hans/changelog/product-updates"
+        },
+        {
+            "source": "changelog",
+            "destination": "zh-hans/changelog/product-updates"
+        },
+        {
+            "source": "changelog/product-updates",
+            "destination": "zh-hans/changelog/product-updates"
+        },
+        {
             "source": "plugins/schema-definition/model",
             "destination": "en/plugins/schema-definition/model/model-designing-rules"
         },
