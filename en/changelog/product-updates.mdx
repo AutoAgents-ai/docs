@@ -2,6 +2,8 @@
 title: "Product updates"
 description: "New updates and improvements"
 filters:
+  - label: "v1.9.0.0"
+    value: "v1.9.0.0"
   - label: "v1.8.10.0"
     value: "v1.8.10.0"
   - label: "v1.8.9.0"
@@ -22,6 +24,32 @@ filters:
     value: "v1.8.2.0"
 ---
 
+<Update label="August 09 - August 22" tags={["v1.9.0.0"]} rss={{ title: "Agentify v1.9.0.0", description: "Multi-turn conversation logic upgrade, enhanced code block copy functionality, knowledge base parsing capability upgrade, and more new features and optimizations" }}>
+  ## Feature Optimizations
+
+  - Multi-turn conversation logic upgrade: Adjusted core multi-turn conversation logic to optimize interaction flow coherence and response efficiency
+  - Enhanced code block copy functionality: Support for code block copying in nested tag scenarios, improving code reuse convenience during development
+  - Knowledge base parsing capability upgrade: Knowledge base custom parsing function now supports model selection, adapting to parsing needs of different document types
+  - PPT code component encapsulation: Completed PPT custom code component encapsulation with support for sending file-type messages, expanding content interaction forms
+  - Universal document parsing URL optimization: Modified URL concatenation method for universal document parsing to improve parsing request accuracy and stability
+  - Account organization display logic adjustment: Organizations default to collapsed when creating new accounts, and only expand current user's organization when editing accounts, optimizing operation interface clarity
+  - PostgreSQL database configuration enhancement: Added database schema parameters to improve database connection and usage flexibility
+  - Multi-tenant login logic update: Adjusted multi-tenant user login logic - usernames no longer need to carry tenant code; if multiple matching users with tenant id 1 exist, default returns one of them, simplifying login process
+  - Reference superscript information enhancement: Added "sourced from certain knowledge base" source prompt when reference superscripts are opened, improving content traceability clarity
+  - Function unlock permission adjustment: Removed administrator restrictions for unlock functionality, adapting to operational permission needs of more roles
+  - Application superscript style optimization: Adjusted display style for unreferenced documents in application superscripts, improving interface visual consistency and information differentiation
+  - System prompt configuration optimization: Improved system prompt-related configurations to ensure prompt accuracy and effectiveness in intelligent interaction scenarios
+  - External link redirect logic unification: Organized and optimized external link redirect logic: 1. When not logged in using external links, URL changes redirect to external link conversation page; 2. When logged in using external links, URL changes jump to the modified page; 3. In login-required scenarios, automatically jump to external link conversation page after login completion, ensuring external link usage experience across different login states
+  - MCP functionality upgrade: MCP upgraded to support Streamable, expanding data processing and transmission capabilities
+
+  ## Bug Fixes
+
+  - Fixed abnormal redirection to login page for embedded React pages after automatic logout, ensuring normal page navigation flow
+  - Fixed incomplete display of agent external link description information, ensuring complete content display on hover for complete information delivery
+  - Fixed automatic reset of [Reply Character Limit] to 100 in intelligent Q&A module, ensuring stable configuration of reply character limits
+  - Fixed incomplete display of agent external link description information and inability to show complete content on hover, ensuring complete external link information presentation
+  - Fixed multi-tenant login logic to resolve issue where multiple matching users with tenant id 1 could not be correctly returned when username doesn't carry tenant code, ensuring normal login functionality
+</Update>
 
 <Update label="July 28 - August 08" tags={["v1.8.10.0"]} rss={{ title: "Agentify v1.8.10.0", description: "Platform announcements, code block copy button, knowledge base permissions, and more." }}>
   ## New Features & Improvements
