@@ -1,7 +1,7 @@
 {
     "$schema": "https://mintlify.com/docs.json",
     "theme": "mint",
-    "name": "Agentify Docs",
+    "name": "Agents Platform Docs",
     "colors": {
         "primary": "#0060FF",
         "light": "#688FE8",
