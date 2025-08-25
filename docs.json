@@ -9,8 +9,8 @@
     },
     "favicon": "/logo/favicon.svg",
     "logo": {
-        "light": "/logo/light.svg",
-        "dark": "/logo/dark.svg"
+        "light": "/logo/logo.png",
+        "dark": "/logo/logo.png"
     },
     "navigation": {
         "versions": [
@@ -1146,19 +1146,6 @@
             "destination": "/en/guides/workflow/readme"
         }
     ],
-    "navbar": {
-        "links": [
-            {
-                "label": "Official Website",
-                "href": "https://autoagents.ai/"
-            }
-        ],
-        "primary": {
-            "type": "button",
-            "label": "Agentify",
-            "href": "https://uat.agentspro.cn"
-        }
-    },
     "integrations": {
         "ga4": {
             "measurementId": "G-HHGQ6GKNCE"
