@@ -28,47 +28,33 @@ filters:
 
 <Update label="August 23 - September 05" tags={["v1.9.1.0"]} rss={{ title: "Agentify v1.9.1.0", description: "Permission control optimization, code block output optimization, external link login mechanism optimization, agent configuration optimization and more new features and optimizations" }}>
   ## Feature Optimizations
-
-  ### Permissions & Security
-  - **Permission Control Optimization**: Added unauthorized access prompts when non-root certificate tenants attempt to modify License-related configurations
-  - **External Link Permission Management Enhancement**: Added external link authentication mechanism with support for assigning specific usage permissions to external links
-  - **Security Label Optimization**: Adjusted security label transmission method, no longer passed through request objects, now implemented via SystemContext for cross-thread transmission
-
-  ### External Links & Login
-  - **External Link Login Mechanism Optimization**: Automatically invalidate anonymous user login information when external links switch from "No Login Required" to "Login Required"
-  - **Document Access Optimization**: Support automatic redirection to corresponding language version documents based on user's current system language
-
-  ### Agents & Components
-  - **Agent Configuration Optimization**: Support individual modification of file upload types and size limits for single agents
-  - **Agent Market Optimization**: Support backend configuration of default displayed categories in agent marketplace
-  - **Sub-agent Component Enhancement**: Added image information and document information nodes
-  - **PPT Generation Component Optimization**: Support custom naming of generated files
-
-  ### Knowledge Base Features
-  - **Knowledge Base Feature Enhancement**: Support manual addition of images to knowledge base slices
-  - **Knowledge Base Interaction Optimization**: Added search button and "Knowledge Bases Authorized to Me" button
-  - **Knowledge Base Search Optimization**: When reference superscript switch is disabled, search results no longer distinguish between referenced and unreferenced files
-
-  ### System Optimizations
-  - **Code Block Output Optimization**: Ensure key order in output results matches definition order
-  - **Document Review Mechanism Optimization**: Adjusted document review timeout to 2 hours
-  - **MCP Tool Optimization**: Optimized error message prompts to improve readability and problem identification efficiency
-  - **Platform Interaction Optimization**: Support expand and collapse operations for platform menu bar
+  
+  - Permission control optimization: Added unauthorized access prompts when non-root certificate tenants attempt to modify License-related configurations
+  - Code block output optimization: Ensure key order in output results matches definition order
+  - External link login mechanism optimization: Automatically invalidate anonymous user login information when external links switch from "No Login Required" to "Login Required"
+  - External link permission management enhancement: Added external link authentication mechanism with support for assigning specific usage permissions to external links
+  - Agent configuration optimization: Support individual modification of file upload types and size limits for single agents
+  - Document review mechanism optimization: Adjusted document review timeout to 2 hours
+  - Security label optimization: Adjusted security label transmission method, no longer passed through request objects, now implemented via SystemContext for cross-thread transmission
+  - Knowledge base feature enhancement: Support manual addition of images to knowledge base slices
+  - Agent market optimization: Support backend configuration of default displayed categories in agent marketplace
+  - Sub-agent component enhancement: Added image information and document information nodes
+  - PPT generation component optimization: Support custom naming of generated files
+  - Knowledge base interaction optimization: Added search button and "Knowledge Bases Authorized to Me" button
+  - Document access optimization: Support automatic redirection to corresponding language version documents based on user's current system language
+  - MCP tool optimization: Optimized error message prompts to improve readability and problem identification efficiency
+  - Knowledge base search optimization: When reference superscript switch is disabled, search results no longer distinguish between referenced and unreferenced files
+  - Platform interaction optimization: Support expand and collapse operations for platform menu bar
 
   ## Bug Fixes
-
-  ### Component Function Fixes
-  - **Information Classification Component**: Fixed issue where deleting input box after clicking add button caused default nodes to be mistakenly deleted
-  - **Image Interaction Scenarios**: Fixed "loading failed" display for image information in execution records under "Image Generation + Image Q&A" scenarios
-  - **Knowledge Base Search Component**: Fixed abnormal display of name and delete button when knowledge base names are too long
-
-  ### Interface Interaction Fixes
-  - **Custom Title Interaction**: Fixed inability to display full content when hovering over custom titles
-  - **External Link Interaction**: Fixed unresponsive clicks on external link history conversation superscripts
-  - **DingTalk Adaptation Optimization**: Fixed role list display exceeding boundaries after screen resolution changes
-
-  ### Business Function Fixes
-  - **Contract Review Function**: Fixed abnormal linkage between uploaded area and document filter box
+  
+  - Information classification component: Fixed issue where deleting input box after clicking add button caused default nodes to be mistakenly deleted
+  - Image interaction scenarios: Fixed "loading failed" display for image information in execution records under "Image Generation + Image Q&A" scenarios
+  - Custom title interaction: Fixed inability to display full content when hovering over custom titles
+  - Contract review function: Fixed abnormal linkage between uploaded area and document filter box
+  - Knowledge base search component: Fixed abnormal display of name and delete button when knowledge base names are too long
+  - External link interaction: Fixed unresponsive clicks on external link history conversation superscripts
+  - DingTalk adaptation optimization: Fixed role list display exceeding boundaries after screen resolution changes
 </Update>
 
 <Update label="August 09 - August 22" tags={["v1.9.0.0"]} rss={{ title: "Agentify v1.9.0.0", description: "Multi-turn conversation logic upgrade, enhanced code block copy functionality, knowledge base parsing capability upgrade, and more new features and optimizations" }}>
