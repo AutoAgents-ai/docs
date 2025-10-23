@@ -2,6 +2,8 @@
 title: "Product updates"
 description: "New updates and improvements"
 filters:
+  - label: "v1.9.3.0"
+    value: "v1.9.3.0"
   - label: "v1.9.2.0"
     value: "v1.9.2.0"
   - label: "v1.9.1.0"
@@ -27,6 +29,25 @@ filters:
   - label: "v1.8.2.0"
     value: "v1.8.2.0"
 ---
+
+<Update label="September 24 - October 10" tags={["v1.9.3.0"]} rss={{ title: "Agentify v1.9.3.0", description: "Code block performance optimization, knowledge base tagging functionality, conversation history management, permission display optimization and more feature enhancements" }}>
+  ## Feature Optimizations
+  
+  - Code block performance optimization: Added active memory reclamation mechanism to optimize memory management strategy, significantly improving system efficiency and stability
+  - Knowledge base tagging functionality: Support adding custom tags to knowledge bases for categorized management and quick retrieval, enhancing knowledge resource organization efficiency
+  - Conversation history management: Support collapsible chat history records on conversation pages, optimizing page display for long conversation scenarios
+  - Reference experience optimization: Display full document names when hovering over knowledge base reference files, enhancing traceability and transparency of referenced content
+  - Interface icon upgrade: Updated Excel generation component icon design to improve overall interface visual consistency and professionalism
+  - Retrieval testing enhancement: Display RerankScore values in knowledge base retrieval test results, helping users understand search ranking logic and relevance
+  - Reasoning model identification: Added "Is Reasoning Model" field in model configuration to distinguish between regular conversation models and specialized reasoning models
+  - Asynchronous processing optimization: Refactored knowledge base copying operations to asynchronous processing mode, completely resolving page response issues when copying large knowledge bases
+  - Permission display optimization: Display "No Permission" labels for unauthorized agents instead of completely hiding them, improving user experience friendliness
+  - Model parameter control: Added "Maximum Token Limit" field in rerank model configuration for more granular model parameter control
+  - Upload status feedback: Added success/failure status icons for document uploads, providing users with intuitive upload progress and result feedback
+  - API user tracking: Include user login name (x-username) in request headers during API calls, enabling user-dimension call recording and permission management
+  - Permission management refactoring: Architectural renovation of super administrator model management permissions, achieving more fine-grained permission control and security management
+  - Content security protection: Built intelligent sensitive word filtering system based on dictionaries, comprehensively enhancing platform content security management and compliance assurance
+</Update>
 
 <Update label="September 06 - September 23" tags={["v1.9.2.0"]} rss={{ title: "Agentify v1.9.2.0", description: "Rerank model optimization, Agent MCP functionality enhancement, agent configuration expansion, slice page experience optimization and more new features and optimizations" }}>
   ## Feature Optimizations
