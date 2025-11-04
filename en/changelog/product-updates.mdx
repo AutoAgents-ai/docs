@@ -2,6 +2,8 @@
 title: "Product updates"
 description: "New updates and improvements"
 filters:
+  - label: "v1.9.4.0"
+    value: "v1.9.4.0"
   - label: "v1.9.3.0"
     value: "v1.9.3.0"
   - label: "v1.9.2.0"
@@ -29,6 +31,40 @@ filters:
   - label: "v1.8.2.0"
     value: "v1.8.2.0"
 ---
+
+<Update label="October 11 - October 31" tags={["v1.9.4.0"]} rss={{ title: "Agentify v1.9.4.0", description: "Enhanced data permission control, upgraded security protection, user experience optimization, database functionality expansion and more features and fixes" }}>
+  ## Feature Optimizations
+  
+  ### Permissions & Security
+  - Data permission management system upgrade: Improved user data permission control mechanism for more granular data access control
+  - Server-side SSRF security validation: Added server-side request forgery protection mechanism to comprehensively enhance system security protection capabilities
+  - Retrieval testing security enhancement: Fixed knowledge base file traversal vulnerability to prevent unauthorized access to sensitive files
+  - Stored XSS vulnerability protection: Fixed cross-site scripting attack vulnerability to ensure user data and system security
+  
+  ### Document Processing
+  - Document parsing capability upgrade: Universal document parsing component now supports MinerU engine, converting image content to base64 encoding to improve image processing efficiency
+  - Document upload interaction optimization: Removed mutual exclusion between document upload and image upload, supporting simultaneous upload of multiple file types to enhance flexibility
+  
+  ### Database Functionality
+  - Database support expansion: Database connection functionality now includes Oracle 11g database type support, covering more enterprise-level data sources
+  - Database details display optimization: Optimized database details page text display for improved information readability and professionalism
+  
+  ### User Experience
+  - Page embedding configuration enhancement: Page embedding functionality now supports hiding left menu bar and top navigation for a more streamlined embedded display
+  - Smart sorting functionality: Tab content intelligently sorted by activity level with flame icons indicating activity intensity for quick identification of popular content
+  - User management convenience improvement: Added "Add User" quick button to user list page to simplify user creation workflow
+  
+  ### System Configuration
+  - Model configuration standardization: Optimized model configuration field name definitions and improved character length restrictions for better configuration standards
+  
+  ## Bug Fixes
+  
+  - Knowledge base functionality fix: Fixed abnormal default state of knowledge base PPT to PDF button to ensure correct switch state initialization
+  - Data permission display fix: Fixed issue where user management page still displayed all users when user data permission was set to "Self Only", ensuring effective permission isolation
+  - User management interaction fix: Fixed issue where selected organization was not correctly displayed in edit interface after user selected deep-level organization
+  - Code block component fix: Fixed interactive anomaly issue where code block component output parameters could not be selected and deleted
+  - Conversation stability fix: Fixed backend service exception issue when re-asking questions after clicking "Stop Generation" during agent conversation, improving conversation flow stability
+</Update>
 
 <Update label="September 24 - October 10" tags={["v1.9.3.0"]} rss={{ title: "Agentify v1.9.3.0", description: "Code block performance optimization, knowledge base tagging functionality, conversation history management, permission display optimization and more feature enhancements" }}>
   ## Feature Optimizations
