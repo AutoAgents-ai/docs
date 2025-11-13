@@ -2,6 +2,8 @@
 title: "Product updates"
 description: "New updates and improvements"
 filters:
+  - label: "v1.9.5.0"
+    value: "v1.9.5.0"
   - label: "v1.9.4.0"
     value: "v1.9.4.0"
   - label: "v1.9.3.0"
@@ -31,6 +33,31 @@ filters:
   - label: "v1.8.2.0"
     value: "v1.8.2.0"
 ---
+
+<Update label="August 23 - September 05" tags={["v1.9.5.0"]} rss={{ title: "Agentify v1.9.5.0", description: "Knowledge base search capability upgrade, NL2SQL functionality expansion, file upload mechanism optimization, streaming output issue fixes, and more new features and optimizations" }}>
+  ## Feature Enhancements & Expansions
+
+  - Knowledge base search capability upgrade: When synchronizing knowledge base search results to large language models, associated tags are now included, providing more complete context information to the models and improving response accuracy.
+  - NL2SQL functionality expansion: Added external database connectivity, breaking data usage boundaries and supporting data extraction and analysis from more data sources.
+  - File upload mechanism optimization: Implemented module-based configuration for file uploads, allowing flexible file upload rules for different modules based on business needs, improving configuration flexibility.
+  - System configuration functionality upgrade: Added dynamic form capabilities, supporting quick adjustment of system configuration items based on actual business scenarios, adapting to diverse configuration needs.
+  - Component structure optimization: Transformed component JSON configuration format to "single component single line" mode, improving configuration file readability and maintainability, facilitating development and debugging.
+
+  ## Bug Fixes & Feedback Improvements
+
+  - Streaming output issue fix: Completely resolved character loss issues in streaming output for Chinese scenarios, ensuring text transmission completeness and accuracy.
+  - Mermaid syntax error prompts: In the Yuanzhi module, when Mermaid syntax errors exist, error prompts are now displayed in real-time at the bottom left of the page, making it easier for users to quickly locate and fix issues.
+  - MCP module adaptation optimization: Resolved the issue where the MCP module did not support Header information when connecting to MCP Server, completing adaptation adjustments to ensure module communication stability.
+
+  ## User Experience & Performance Optimizations
+
+  - Streaming rendering experience upgrade: Introduced streaming rendering buffer mechanism, optimizing content loading smoothness, reducing stuttering, and improving user reading and operation experience.
+  - Page navigation logic optimization: When navigating to large language model aggregation results, now opens in a new page to avoid overwriting the current operation page, ensuring user operation continuity.
+
+  ## Compatibility Assurance
+
+  - Legacy version feature compatibility: Improved compatibility for legacy version export functionality, ensuring historical export features remain usable after upgrades, maintaining business process continuity.
+</Update>
 
 <Update label="October 11 - October 31" tags={["v1.9.4.0"]} rss={{ title: "Agentify v1.9.4.0", description: "Enhanced data permission control, upgraded security protection, user experience optimization, database functionality expansion and more features and fixes" }}>
   ## Feature Optimizations
