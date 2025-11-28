@@ -2,6 +2,8 @@
 title: "Product updates"
 description: "New updates and improvements"
 filters:
+  - label: "v1.9.6.0"
+    value: "v1.9.6.0"
   - label: "v1.9.5.0"
     value: "v1.9.5.0"
   - label: "v1.9.4.0"
@@ -33,6 +35,32 @@ filters:
   - label: "v1.8.2.0"
     value: "v1.8.2.0"
 ---
+
+<Update label="November 17 - November 28" tags={["v1.9.6.0"]} rss={{ title: "Agentify v1.9.6.0", description: "Knowledge base dataset upload optimization, knowledge base slice filtering functionality, knowledge base upload format expansion, code block generation optimization and more new features and optimizations" }}>
+  ## Feature Optimizations
+
+  - Knowledge base dataset upload optimization: Added automatic decompression functionality for compressed packages, supporting upload of compressed dataset formats with automatic decompression processing.
+  - Knowledge base slice filtering functionality: Support filtering knowledge base slices by content keywords and slice status.
+  - Knowledge base upload format expansion: Added support for XLS format file uploads to knowledge bases.
+  - Knowledge base image processing enhancement: Added image parsing strategy configuration to optimize image content recognition and processing effectiveness.
+  - Code block generation optimization: Optimized the Prompt logic for code block generation to improve code output accuracy and standardization.
+  - Streaming rendering experience optimization: Optimized scrollbar response logic during streaming rendering to avoid scrolling anomalies.
+  - Agent history record display optimization: In Agent history records after publication, Excel files are no longer displayed directly, instead showing corresponding JSON format data.
+  - Knowledge base slice preview control: Support manual switching between "Display Full Text" or "Display Fragment" modes when previewing knowledge base slices.
+  - Opening statement editing adaptation: Adjusted character limit for opening statement editing popup to match the outer input area.
+  - Dataset slice status display: Added display of parsing status for each slice in the dataset slice list.
+  - Chat page image upload enhancement: Support direct image upload to chat page via clipboard.
+  - Template file download functionality: Added download functionality for uploaded Excel/Word/PPT template files in document output/Excel/PPT generation nodes.
+  - Extension question configuration optimization: Modified extension question Prompt to configurable mode.
+
+  ## Bug Fixes
+
+  - Conversation display fix: Resolved conversation ghosting issues to ensure accurate and non-duplicate conversation content display.
+  - Document browsing stability fix: Fixed occasional page crash issue when clicking "Next Page" while browsing PPTX and Word files.
+  - Multi-page login status synchronization fix: When multiple system interfaces are opened in the same browser, if one interface logout causes Token invalidation, other interfaces no longer show system errors when logging out, optimizing status synchronization logic.
+  - Role data permission fix: Resolved issue where selecting "Select All" when adding custom data permissions during role creation did not actually select all permissions.
+  - Knowledge base search prompt fix: Fixed abnormal issue in knowledge base search component where selecting "All Files" as query scope still prompted "Please select tags".
+</Update>
 
 <Update label="November 01 - November 15" tags={["v1.9.5.0"]} rss={{ title: "Agentify v1.9.5.0", description: "Knowledge base search capability upgrade, NL2SQL functionality expansion, file upload mechanism optimization, streaming output issue fixes, and more new features and optimizations" }}>
   ## Feature Enhancements & Expansions
