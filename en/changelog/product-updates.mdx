@@ -2,6 +2,8 @@
 title: "Product updates"
 description: "New updates and improvements"
 filters:
+  - label: "v1.9.7.0"
+    value: "v1.9.7.0"
   - label: "v1.9.6.0"
     value: "v1.9.6.0"
   - label: "v1.9.5.0"
@@ -35,6 +37,25 @@ filters:
   - label: "v1.8.2.0"
     value: "v1.8.2.0"
 ---
+
+<Update label="December 01 - December 12" tags={["v1.9.7.0"]} rss={{ title: "Agentify v1.9.7.0", description: "AutoGenUI deployment and sandbox environment upgrade, intelligent gateway service, SSO transformation, recommended question sensitive word filtering, NL2SQL component, DaMeng database support and more new features and optimizations" }}>
+  ## Feature Optimizations
+
+  - AutoGenUI (My Applications) Deployment and Sandbox Environment Upgrade: Sandbox environment migrated from CodeSandbox cloud to local sandbox, with application source code development and code execution based on proprietary sandbox environment, improving deployment stability and usage security.
+  - Platform Core Service Capability Enhancement: Platform now supports configuration and deployment of "Intelligent Gateway Service", enabling unified gateway service calls to agent application services and model services, simplifying service call chains and improving integration efficiency and system scalability.
+  - Single Sign-On (SSO) Process Transformation: Optimized login verification logic to improve cross-system access convenience and identity authentication security.
+  - Recommended Question Function Logic Upgrade: Added sensitive word filtering configuration capability, supporting on-demand sensitive word rule settings to optimize recommended question content compliance.
+  - Component Expansion: Added NL2SQL component, supporting rapid conversion from natural language to SQL query statements, lowering the barrier to database operations.
+  - Database Compatibility Expansion: Added adaptation support for DaMeng database, expanding platform database connectivity range.
+  - Yuanzhi Chatbot Capability Upgrade: Completed Yuanzhi feature expansion, enriching interactive scenarios and service capabilities; synchronized front-end engineering architecture transformation to improve front-end system maintainability and development efficiency.
+
+  ## Bug Fixes
+
+  - Agent Conversation Attribution Anomaly Fix: Resolved conversation cross-talk issues between different agents, ensuring Agent A's chat content is only responded to by itself, avoiding Agent B incorrectly responding to other agents' conversations.
+  - RAG VL Model Function Fix: Fixed issue where modelId loss during RAG VL model visual enhancement process caused enhancement failure, ensuring normal execution of visual enhancement functionality.
+  - Document Download Format Optimization: Fixed issues with chaotic structure and abnormal content layout after document downloads, ensuring downloaded document structure integrity and readability.
+  - RAG Module Excel Parsing Fix: Fixed issue where Excel file parsing in RAG module would remain stuck in parsing state, ensuring smooth completion of Excel file parsing process.
+</Update>
 
 <Update label="November 17 - November 28" tags={["v1.9.6.0"]} rss={{ title: "Agentify v1.9.6.0", description: "Knowledge base dataset upload optimization, knowledge base slice filtering functionality, knowledge base upload format expansion, code block generation optimization and more new features and optimizations" }}>
   ## Feature Optimizations
