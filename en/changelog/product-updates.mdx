@@ -2,6 +2,8 @@
 title: "Product updates"
 description: "New updates and improvements"
 filters:
+  - label: "v2.0.0-M2"
+    value: "v2.0.0-M2"
   - label: "v2.0.0-M1"
     value: "v2.0.0-M1"
   - label: "v1.9.7.0"
@@ -39,6 +41,21 @@ filters:
   - label: "v1.8.2.0"
     value: "v1.8.2.0"
 ---
+
+<Update label="February 02 - February 13" tags={["v2.0.0-M2"]} rss={{ title: "Agentify v2.0.0-M2", description: "Dictionary management, document display optimization, component expansion, compatibility optimization and bug fixes" }}>
+  ## Feature Optimizations
+  
+  - Dictionary management feature added: Added dictionary management module, supporting unified configuration, editing and management of sensitive words, synonyms, and professional terms, improving content compliance and professionalism.
+  - Document content display optimization: Added Markdown syntax card document functionality, enriching document display formats and improving document readability and layout flexibility.
+  - Component expansion upgrade: Added 4 practical components, including synonym rewriting component, sensitive word interception component, professional term injection component, and web scraping component, expanding business scenario adaptability.
+  - Compatibility optimization: Optimized agent database configuration logic, achieving compatibility with legacy version data, ensuring smooth data migration and normal usage after version upgrades.
+
+  ## Bug Fixes
+
+  - Interface adaptation issue fix: Fixed the issue where agents could not load properly when display resolution is not 100%, improving system interface adaptability and usage stability.
+  - Knowledge base Excel parsing issue fix: Fixed the issue where after uploading Excel files to knowledge base and setting indexes, slices only displayed index columns while other column contents were not shown, ensuring completeness and accuracy of Excel parsing.
+  - System configuration feature fix: Fixed the issue where adding new agent type operations in the system configuration module was ineffective, ensuring agent type configuration functionality works properly.
+</Update>
 
 <Update label="December 15 - January 23" tags={["v2.0.0-M1"]} rss={{ title: "Agentify v2.0.0-M1", description: "Agentic capability module, Workflow 2.0, universal document parsing upgrade, data dashboard enhancement and more features and optimizations" }}>
   ## Feature Optimizations
