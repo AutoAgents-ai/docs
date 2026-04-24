@@ -2,6 +2,14 @@
 title: "Product updates"
 description: "New updates and improvements"
 filters:
+  - label: "v2.0.0.0"
+    value: "v2.0.0.0"
+  - label: "v2.0.0-RC2"
+    value: "v2.0.0-RC2"
+  - label: "v2.0.0-RC1"
+    value: "v2.0.0-RC1"
+  - label: "v2.0.0-M4"
+    value: "v2.0.0-M4"
   - label: "v2.0.0-M3"
     value: "v2.0.0-M3"
   - label: "v2.0.0-M2"
@@ -43,6 +51,53 @@ filters:
   - label: "v1.8.2.0"
     value: "v1.8.2.0"
 ---
+
+<Update label="April 07 - April 15" tags={["v2.0.0.0"]} rss={{ title: "Agentify v2.0.0.0", description: "MFA sign-in, usage and token reporting, API to MCP, multi-turn chat and code block fixes" }}>
+  ## Feature Optimizations
+
+  - Stronger sign-in security: Multi-factor authentication (MFA) adds a verification step beyond the password, reducing account takeover risk and better aligning with common enterprise security practices.
+  - Clearer usage reporting: Usage views now include token consumption from model “thinking” phases, so you can judge model cost and distribution more accurately.
+  - API to MCP: Turn existing HTTP APIs into MCP (Model Context Protocol) tools so agents can call your services like any other tool—standardized integration with less one-off wiring.
+
+  ## Bug Fixes
+
+  - Code block language display: Fixed cases where switching the displayed language for a code block had no effect, making multi-language snippets easier to read and share.
+  - Usage attribution: Fixed scenarios where token usage was attributed to the agent creator instead of the account that actually used the agent, so reports and reconciliation better match real usage.
+  - Multi-turn conversations: Fixed occasional reply issues in multi-turn chats for smoother follow-up questions and collaboration.
+</Update>
+
+<Update label="April 01 - April 07" tags={["v2.0.0-RC2"]} rss={{ title: "Agentify v2.0.0-RC2", description: "Text2Agent and smart edition page experience" }}>
+  ## Feature Optimizations
+
+  - Text2Agent and smart edition page: Improved the experience of building agents from descriptions, with a smart edition interface that makes setup and tuning more intuitive with less effort.
+</Update>
+
+<Update label="March 21 - March 31" tags={["v2.0.0-RC1"]} rss={{ title: "Agentify v2.0.0-RC1", description: "Agent evaluation, knowledge base permissions and review flow, model configuration" }}>
+  ## Feature Optimizations
+
+  - Agent evaluation: New evaluation capabilities help you compare options and validate agent behavior for your scenarios before go-live.
+  - Knowledge base download control: Configure whether a knowledge base allows downloads, balancing collaboration with how documents may leave the platform.
+  - Disabled chunk editing: Disabled knowledge base chunks can no longer be edited, reducing accidental changes to historical content and keeping data management clearer.
+  - Review flow refinement: After knowledge base review completes, the return entry is restricted according to policy, making review and revision more consistent and traceable.
+  - Creator edit rights: For agents and knowledge bases, the creator keeps edit permission by default and it cannot be removed, so owners can always maintain and iterate content.
+  - Azure model options: When using Azure-hosted models, more optional parameters are available to suit different regions and deployment setups.
+</Update>
+
+<Update label="March 07 - March 20" tags={["v2.0.0-M4"]} rss={{ title: "Agentify v2.0.0-M4", description: "Agent rate limits, usage record filters, thinking display, workflow debugging, knowledge base pipeline" }}>
+  ## Feature Optimizations
+
+  - Agent traffic pacing: Set an upper bound on how often an agent can be called, helping protect overall stability during peaks or traffic spikes.
+  - Richer usage record filters: Combine filters such as conversation time, session, account, agent name, and input/output text for operations, troubleshooting, and audit-friendly trails.
+  - Accurate user counts: User-cap checks exclude disabled accounts so limits reflect seats that are actually in use.
+  - Workflow single-node try-run: Run one workflow node at a time to verify each step’s output before going end-to-end, making troubleshooting faster.
+  - Masked credentials for custom tools: Auth details for custom tools are shown masked in the UI to avoid exposing secrets in plain text.
+  - Optional hidden “thinking”: For models that expose a thinking phase, you can hide intermediate reasoning and show only the final answer for a cleaner page.
+  - Knowledge base pipeline upgrade: Pipeline-style processing and retrieval paths are clearer and easier to arrange and maintain.
+
+  ## Bug Fixes
+
+  - Workflow 2.0 prompt editing: Fixed awkward paste behavior and content disappearing after pressing Enter when editing prompts, for smoother authoring.
+</Update>
 
 <Update label="February 23 - March 06" tags={["v2.0.0-M3"]} rss={{ title: "Agentify v2.0.0-M3", description: "HttpMan feature, variable reminder, code block external execution environment, database management optimization, AutoGenUI optimization and bug fixes" }}>
   ## Feature Optimizations
