@@ -27,7 +27,7 @@ body:
     attributes:
       label: Documentation Page URL or Path
       description: Please provide the URL or file path of the documentation page you're referring to.
-      placeholder: e.g., https://docs.dify.ai/getting-started or /getting-started.md
+      placeholder: e.g., https://docs.autoagents.ai/getting-started or /getting-started.md
     validations:
       required: false
   
@@ -64,5 +64,5 @@ body:
       label: Code of Conduct
       description: By submitting this issue, you agree to follow our contribution guidelines
       options:
-        - label: I agree to follow Dify's documentation [contribution guidelines](https://github.com/langgenius/dify/blob/0277a37fcad5ad86aeb239485c27fffd5cd90043/CONTRIBUTING.md)
+        - label: I agree to follow this repository's [contribution guidelines](https://github.com/AutoAgents-ai/docs/blob/main/CONTRIBUTING.md)
           required: true
