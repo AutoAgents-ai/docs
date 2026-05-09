@@ -1,6 +1,6 @@
-## 📘 Dify Documentation
+# 📘 Documentation
 
-Welcome to the documentation repository for Dify.
+Welcome to the documentation repository.
 
 We warmly welcome your contributions — whether it’s proofreading, fixing typos, or submitting new content. Please feel free to open issues or PRs if you find anything that could be improved!
 
@@ -41,10 +41,8 @@ Your help in reviewing, editing, and expanding the documentation is truly apprec
    - If you’ve added new pages or sections, don’t forget to update docs.json to include them in the sidebar navigation.
    - We welcome tri-lingual contributions (English, Simplified Chinese, Japanese) — contribute in one or more languages if possible.
 
-Please submit PRs to this repository instead of the legacy one: 📘 https://github.com/langgenius/dify-docs-archived
-
-Thanks again for being part of Dify’s documentation journey!
+Thanks again for being part of this documentation journey!
 
 ## 📄 License
 
-The Dify product documentation in the assets, content, and data folders are licensed under a [CC-BY license](LICENSE).
+The product documentation in the assets, content, and data folders are licensed under a [CC-BY license](LICENSE).
