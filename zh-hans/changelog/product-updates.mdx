@@ -2,6 +2,8 @@
 title: "更新日志"
 description: "新功能和优化"
 filters:
+  - label: "v2.0.1.0"
+    value: "v2.0.1.0"
   - label: "v2.0.0.0"
     value: "v2.0.0.0"
   - label: "v2.0.0-RC2"
@@ -51,6 +53,23 @@ filters:
   - label: "v1.8.2.0"
     value: "v1.8.2.0"
 ---
+
+<Update label="v2.0.1.0" tags={["v2.0.1.0"]} rss={{ title: "Agentify v2.0.1.0", description: "数据库能力增强、skill 管理与 skillHub、灵搭能力接入与平台协议封装等新功能优化及问题修复" }}>
+  ## 新功能优化
+
+  - 数据库增加增删改功能。
+  - 新增 skill 管理能力。
+  - 新增 skillHub 能力。
+  - 新增智能终端-灵搭。
+  - 主页菜单样式优化。
+  - 灵搭平台所有资源统一 OpenAPI 接口调用协议封装：智能体 / 知识库 / 数据库 / MCP / 自定义工具 / 文档解析 / 图片解析。
+  - 灵搭模型支持 Anthropic 协议调用。
+
+  ## Bug 修复
+
+  - 修复分辨率问题导致“未发布”3个字换行的问题。
+  - 修复通用文档解析 tika 方式失效的问题。
+</Update>
 
 <Update label="4月07日 - 4月15日" tags={["v2.0.0.0"]} rss={{ title: "Agentify v2.0.0.0", description: "MFA 登录、用量与 Token 统计优化、API 转 MCP、多轮对话与代码块体验修复" }}>
   ## 新功能优化
