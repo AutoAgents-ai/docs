@@ -1,0 +1,88 @@
+---
+title: "Basic Configuration"
+---
+
+### Feature Overview
+
+When you click "Create Agent" on the homepage, you'll be taken to the Agent basic configuration page. On this page, you can configure the Agent's basic information, which determines how the Agent is presented and what it can do. You can also review the Agent's usage data here, continuously optimize its performance, or publish the Agent to serve more users.
+
+### Entry Point
+
+Log in to the Agents Platform, click "Create Agent" at the top of the homepage, select "Agent Workflow" as the Agent type, and choose to create either from a blank canvas or from a template. After creating the Agent, fill in the relevant configuration information in the configuration panel on the right.
+
+<Frame>
+  <img src="/images/documentation/ch6_6.1.3.2_0009.png" alt="Basic Configuration" />
+</Frame>
+
+### Interface Description
+
+Agent basic configuration page
+Agent avatar: Set the Agent's avatar. You can upload a custom avatar image in JPG or PNG format.
+
+<Frame>
+  <img src="/images/documentation/ch6_6.1.3.3_0010.png" alt="Basic Configuration" />
+</Frame>
+
+Agent avatar settings
+Agent name: Set the name of the Agent.
+Description: Set a brief introduction describing the Agent's purpose.
+Agent type: Set the Agent's type, which determines how it is categorized on the publish page.
+Chat background: Set the background image for the Agent's chat page. You can upload a custom background image in JPG or PNG format; the recommended size is 1920×1080.
+Voice input: Set whether the voice input feature is shown on the Agent's chat page. When enabled, users can click the microphone icon to the right of the input box to use voice input.
+Opening line: Set the Agent's opening line. When a user opens the Agent's page for the first time, the chat window displays this opening message.
+Suggested questions: Set suggested questions for the Agent. When a user opens the Agent's page for the first time, the chat window displays quick-input buttons for the recommended questions.
+
+<Frame>
+  <img src="/images/documentation/ch6_6.1.3.3_0011.png" alt="Basic Configuration" />
+</Frame>
+
+Agent basic information configuration
+Chat model: Set the large language model used by the Agent. Note: this setting will be overridden by the intelligent chat configuration defined later in the workflow.
+Prompt: Set the Agent's prompt content. Note: this setting will be overridden by the intelligent chat configuration defined later in the workflow.
+Privacy-protection keywords for suggested questions: Set privacy-protection keywords for the Agent. When generating suggested questions, the Agent will proactively avoid generating questions that touch on privacy-related topics.
+Enable rich text display: When rich text display is enabled, the Agent's output content is rendered in Markdown format. When disabled, the Agent's output is displayed as plain text.
+Enable Word-to-PDF conversion: When enabled, Word files uploaded by the user in the chat box are automatically converted to PDF for subsequent Agent file processing, such as OCR, document parsing, and so on.
+Show knowledge base citations: When enabled, the Agent's output will display the retrieved knowledge base and specific source files, which users can click to view.
+Show image citations: When enabled, the Agent's output will display retrieved images, which users can click to view.
+Show citation markers: When enabled, the Agent's output will include citation markers at the end of sentences, which users can click to view the source of that content.
+
+<Frame>
+  <img src="/images/documentation/ch6_6.1.3.3_0012.png" alt="Basic Configuration" />
+</Frame>
+
+Knowledge base citations
+Enable expanded questions: When enabled, the Agent will generate several suggested follow-up questions after completing a response, allowing users to quickly click and ask them.
+Show suggested questions: When enabled, the Agent will generate suggested questions based on the knowledge base content. When a user opens the Agent's page for the first time, the chat window displays quick-input buttons for these suggested questions.
+Knowledge base: Set the knowledge base(s) used by the Agent. Note: this setting will be overridden by the knowledge base search configuration defined later in the workflow.
+
+<Frame>
+  <img src="/images/documentation/ch6_6.1.3.3_0013.png" alt="Basic Configuration" />
+</Frame>
+
+Adding a knowledge base
+Sensitive word review: Set the sensitive word list(s) used by the Agent. When user input triggers a sensitive word, the Agent will proactively detect and block it.
+
+<Frame>
+  <img src="/images/documentation/ch6_6.1.3.3_0014.png" alt="Basic Configuration" />
+</Frame>
+
+Sensitive word review
+Scheduled trigger: Set a time for the Agent to automatically execute. When the scheduled time is reached, the Agent runs its workflow based on the configured trigger input.
+
+<Frame>
+  <img src="/images/documentation/ch6_6.1.3.3_0015.png" alt="Basic Configuration" />
+</Frame>
+
+### Feature Overview
+
+Supports custom time ranges for viewing PV, UV, DAU, total number of Agents, and total Token consumption. Provides charts such as department interaction rankings, average daily conversation trends, user activity trends, and page traffic trends.
+
+### Entry Point
+
+Log in to the Agents Platform, click "Create Agent" at the top of the homepage, select "Agent Workflow" as the Agent type, and choose to create either from a blank canvas or from a template.
+Sensitive word review
+Adding sensitive word review: After adding a sensitive word list, when user input contains a sensitive word, the Agent will automatically display a prompt: "Your input contains prohibited content. Please revise it and try again."
+
+<Frame>
+  <img src="/images/documentation/ch6_6.1.3.5_0016.png" alt="Basic Configuration" />
+</Frame>

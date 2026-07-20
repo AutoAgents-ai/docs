@@ -1,0 +1,34 @@
+---
+title: "Natural Language App Generation"
+---
+
+After entering the editing workbench, users can drive page generation through conversation and fine-tune the details.
+
+<Frame>
+  <img src="/images/documentation/ch6_6.4.4_0142.png" alt="Natural Language App Generation" />
+</Frame>
+
+### Interface Overview
+
+Conversation-driven area (left):
+Instruction input box: Users describe the desired interface layout or functionality in natural language (e.g., "Generate a financial scenario analysis page").
+Model switching: Supports switching between connected private LLMs at the bottom of the chat box.
+
+<Frame>
+  <img src="/images/documentation/ch6_6.4.4.1_0143.png" alt="Natural Language App Generation" />
+</Frame>
+
+Add Agent: Supports adding or replacing the associated Agent asset at any point during the build process.
+Visual workbench (right):
+Preview tab: Renders and displays the AI-generated visual interface in real time.
+Code tab: Supports viewing the underlying frontend source code generated for the app (such as HTML/TSX files).
+"Edit Page" button: Once enabled, lets you select specific modules in the preview area and refine them through instructions.
+
+### Operations
+
+Building with natural language: Enter an interface description in the chat box on the left, and the system will automatically generate the corresponding frontend components (such as data charts, workflow progress bars, etc.) and preview them on the right.
+Selecting and fine-tuning: Click "Edit Page" in the top-right corner, select the target content block in the preview area, and enter your revision request in the input box that appears (e.g., "Change the style of this section"). The AI will update the module immediately.
+
+<Frame>
+  <img src="/images/documentation/ch6_6.4.4.2_0144.png" alt="Natural Language App Generation" />
+</Frame>

@@ -1,0 +1,122 @@
+---
+title: "自定义工具"
+---
+
+### 创建并发布自定义工具
+
+### 创建自定义工具
+
+导航至自定义工具
+在左侧导航栏中，点击“工具箱”，然后选择“自定义工具”按钮。
+
+<Frame>
+  <img src="/images/documentation/ch6_6.7.2.2_0219.png" alt="自定义工具" />
+</Frame>
+
+### 创建流程
+
+目前，流程分为手动填写和快捷导入两种方式。建议优先选择快捷导入，尤其是在有接口文档或接口 URL 时，这样可以更快速、更方便地创建工具。手动填写虽然更灵活，但对业务人员来说操作复杂且耗时较长。
+
+<Frame>
+  <img src="/images/documentation/ch6_6.7.2.3_0220.png" alt="自定义工具" />
+</Frame>
+
+填写工具的基本信息
+示例：使用外部手机号归属查询接口：<https://api.oioweb.cn/doc/common/teladress>
+导入工具：支持以下三种导入方式
+导入文件
+导入 URL
+导入文本
+
+<Frame>
+  <img src="/images/documentation/ch6_6.7.2.3_0221.png" alt="自定义工具" />
+</Frame>
+
+导入过程：
+
+<Frame>
+  <img src="/images/documentation/ch6_6.7.2.3_0222.png" alt="自定义工具" />
+</Frame>
+
+导入完成：
+导入后的信息可能不完全，缺失的必填信息需要手动补充。
+
+<Frame>
+  <img src="/images/documentation/ch6_6.7.2.3_0223.png" alt="自定义工具" />
+</Frame>
+
+请求方式说明
+自定义工具支持五种请求方式，具体说明如下：
+GET（获取）
+定义：GET 请求用于向服务器请求访问某个资源，常用于查询或检索信息。请求参数通过 URL 传递，不会改变服务器状态。
+使用场景：如查询用户列表、获取文章详情。
+示例：查询某商品价格：GET https://api.example.com/products/123。其中123是商品ID。
+POST（提交）
+定义：POST 请求用于向服务器提交数据，常用于创建新资源或处理数据。数据通过请求体传输。
+使用场景：如注册新用户、提交表单、上传文件。
+示例：创建新用户账户：POST https://api.example.com/users，请求体包含用户名、密码等信息。
+PUT（替换）
+定义：PUT 请求用于替换服务器上的现有资源或创建新资源，要求提供完整的资源数据。
+使用场景：如更新用户资料、替换文件内容。
+示例：更新用户资料：PUT https://api.example.com/users/456，请求体包含用户所有更新后的信息，其中456是用户ID。
+DELETE（删除）
+定义：DELETE 请求用于删除服务器上的指定资源，操作幂等，重复执行结果一致。
+使用场景：如删除文件、删除用户账号。
+示例：删除一篇博客文章：DELETE https://api.example.com/blogs/789，其中789是文章ID。
+PATCH（局部更新）
+定义：PATCH 请求用于对资源进行部分更新，只需提供需要修改的属性，较 PUT 更为灵活。
+使用场景：如修改文档的某个字段、更新用户的部分信息。
+示例：仅修改文章标题：PATCH https://api.example.com/articles/1010，请求体只包含新标题，1010是文章ID。
+选择请求方式时，请根据实际情况参考接口文档的要求。
+
+<Frame>
+  <img src="/images/documentation/ch6_6.7.2.3_0224.png" alt="自定义工具" />
+</Frame>
+
+### 鉴权方式说明
+
+在网络请求中，鉴权用于确保请求者有权访问资源。常用的鉴权方式包括 Basic Auth、Bearer Token 和 Custom。具体说明如下：
+Basic Auth 鉴权
+定义：使用用户名和密码的基本身份验证方式。
+操作：将用户名和密码通过冒号连接后进行 Base64 编码，并在请求头中添加 Authorization: Basic \<encoded-credentials\>。
+示例：
+Bearer Token 鉴权
+定义：客户端通过某种方式（如 OAuth2.0 授权）获取令牌，并在请求头中添加 Authorization: Bearer \<token\>。
+示例：
+Custom 鉴权
+定义：允许开发者定义自定义的鉴权方式，通过自定义请求头的键和值进行鉴权。
+操作：在请求头中添加任意的键值对，以满足特殊的鉴权需求。
+示例：
+在创建自定义工具时，请根据实际需要选择合适的鉴权方式。
+填写对应的入参和出参
+参数配置：
+目前参数类型支持string、boolean、any类型，若输入和输出未识别出明确的参数类型，则默认为string类型。输出的参数配置需要考虑工具作为编排节点的连接适配，目前编排节点也是支持string、boolean、any三种类型类型。
+
+<Frame>
+  <img src="/images/documentation/ch6_6.7.2.4_0225.png" alt="自定义工具" />
+</Frame>
+
+参数传入方法说明：
+
+### 调试与校验
+
+保存后进入第三步调试，填写对应的输入，请求接口。根据调试成功与否，决定是否可以发布。测试通过则可发布。测试未通过可保存但无法发布。
+
+<Frame>
+  <img src="/images/documentation/ch6_6.7.2.5_0226.png" alt="自定义工具" />
+</Frame>
+
+### 工具发布
+
+保存并调试后，新建的工具会在列表有对应的记录
+
+<Frame>
+  <img src="/images/documentation/ch6_6.7.2.6_0227.png" alt="自定义工具" />
+</Frame>
+
+列表支持编辑、删除、发布和下架
+注意：
+调试通过的agent才可发布
+发布后的工具可在编排里拖动使用
+
+### 如果工具下架，工具侧边栏则不可见，但历史的agent使用此工具不影响

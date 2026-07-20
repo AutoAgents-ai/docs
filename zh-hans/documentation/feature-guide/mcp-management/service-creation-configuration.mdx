@@ -1,0 +1,73 @@
+---
+title: "服务创建与配置"
+---
+
+### 功能概述
+
+随着 Agent 应用的快速发展，工具的开发与接入面临诸多挑战：
+缺乏统一的工具开发规范，导致效率低下；
+平台需重复适配各类工具，增加了时间与成本；
+高质量工具的整合和运维压力巨大。
+MCP（Model Context Protocol）是 Anthropic 推出的开放标准协议，旨在构建大模型与工具/数据源之间安全、标准、高效的连接通道。它解决了工具实现风格不一致、难以跨模型通用等问题，逐渐成为行业主流方案。
+MCP 管理模块是用于创建、管理和配置MCP 服务的核心工具。该模块简化了对 MCP 服务 的部署与管理，用户可以通过直观的界面进行快速操作。
+通过 MCP，您可以将外部服务作为标准化工具接入，让平台能够处理更复杂的任务。
+
+### 页面入口
+
+点击左侧工具栏即可进入，默认页面展示已部署的MCP列表
+
+<Frame>
+  <img src="/images/documentation/ch6_6.8.1.2_0228.png" alt="服务创建与配置" />
+</Frame>
+
+### MCP服务创建与配置
+
+### 创建MCP服务
+
+点击MCP管理页面下的创建MCP服务按钮，进入创建页面，该页面可创建MCP服务的基本信息
+
+<Frame>
+  <img src="/images/documentation/ch6_6.8.1.4_0229.png" alt="服务创建与配置" />
+</Frame>
+
+<Frame>
+  <img src="/images/documentation/ch6_6.8.1.4_0230.png" alt="服务创建与配置" />
+</Frame>
+
+填写对应服务信息：
+服务名称：为此MCP服务命名；
+描述：描述该MCP服务的功能；
+安装方式：选择服务的安装方式，目前支持SSE和Streamable HTTP
+MCP配置：填写mcp服务的配置，要求使用JSON表示，例如：
+{
+"mcpServers":{
+"ocr_edu":{
+"url":"https://aip.baidubce.com/mcp/ocr_general/sse?Authorization=Bearer+<YOUR_ACCESS_TOKEN>"
+}
+}
+}
+点击确定，系统将开始部署该MCP服务。
+
+<Frame>
+  <img src="/images/documentation/ch6_6.8.1.4_0231.png" alt="服务创建与配置" />
+</Frame>
+
+### 配置MCP服务
+
+点击智能体“规划”页面，选择MCP工具，将所需的MCP组件拖拽至画布中。
+
+<Frame>
+  <img src="/images/documentation/ch6_6.8.1.5_0232.png" alt="服务创建与配置" />
+</Frame>
+
+可点击MCP组件调试功能进行调试。
+
+<Frame>
+  <img src="/images/documentation/ch6_6.8.1.5_0233.png" alt="服务创建与配置" />
+</Frame>
+
+在Agent节点可以配置对应MCP服务。
+
+<Frame>
+  <img src="/images/documentation/ch6_6.8.1.5_0234.png" alt="服务创建与配置" />
+</Frame>

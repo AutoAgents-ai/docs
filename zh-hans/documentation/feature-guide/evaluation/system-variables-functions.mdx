@@ -1,0 +1,203 @@
+---
+title: "系统设置"
+---
+
+### 系统内置变量
+
+### 使用语法
+
+{{var}}表示引用变量
+{{var:defautValue}}表示引用变量并设置默认值
+{{@var}}表示引用变量，如果变量不存在则仍然显示此表达式
+{{cTime}}当前日期和时间 yyyy-MM-dd HH:mm:ss
+{{cDate}}当前日期 yyyy-MM-dd
+{{cYear}}当前年 yyyy
+
+### {{cMonth}}当前月
+
+### {{cDay}}当前日
+
+{{cHHmmss}}当前时钟时间 HH:mm:ss
+
+### {{cMills}}当前时间戳
+
+{{cWeekdayNum}}周-数字
+{{cWeekdayEn}}周-英文
+{{cWeekdayEn2}}周-英文缩写
+{{cWeekdayCn}}周-中文
+{{\_input}}所有输入参数信息
+{{\_state}}输入状态参数信息
+{{userChatInput}}输入文字参数信息
+{{\_images\_}}输入图片参数信息
+{{\_files\_}}输入文件参数信息
+{{\$*db_type*}}Agent引入的数据库类型信息
+{{\$*db_schema*}}Agent引入的数据库表结构信息
+{{\$kbIdList}}获取用户选择的知识库ID列表
+{{systemContext}}获取当前系统环境和登录用户信息（v1.9.0.0+）
+示例：
+
+### 系统内置函数
+
+### 使用语法
+
+\[@\["functionName", "args1", "args2",....\]@\] 表示函数调用
+
+### 日期格式化
+
+\[@\["DateFormatFromMills","your mills", "your formats"\]@\]
+说明：
+
+<Frame>
+  <img src="/images/documentation/ch6_6.10.12.8_0284.png" alt="系统设置" />
+</Frame>
+
+示例：
+
+### 日期格式化
+
+\[@\["DateFormatFromSeconds","your seconds", "your formats"\]@\]
+说明：
+示例：
+
+### 日期转换为毫秒
+
+\[@\["DateStrToMills","your date", "your date format"\]@\]
+示例：
+
+### 日期转换为秒
+
+\[@\["DateStrToSeconds","your date", "your date format"\]@\]
+示例：
+
+### 提取包围的子字符串
+
+\[@\["ExtractAroundStr","your text", "your start str", "your end str", "containsBorder true\|false"\]@\]
+示例：
+
+### 提取第一个符合正则的字符串
+
+\[@\["ExtractStrByRegex","your text", "your regex"\]@\]
+去学习正则怎么写：
+https://www.runoob.com/regexp/regexp-tutorial.html
+示例：
+
+### 提取所有符合正则的字符串
+
+\[@\["ExtractArrByRegex","your text", "your regex"\]@\]
+去学习正则怎么写：
+https://www.runoob.com/regexp/regexp-tutorial.html
+示例：
+
+### 提取json对象
+
+\[@\["ExtractJsonObj","your text", "your jsonpath"\]@\]
+去学习JSON Path:
+https://github.com/alibaba/fastjson/wiki/JSONPath
+https://jsonpath.com/
+示例：
+
+### 提取json数组
+
+\[@\["ExtractJsonArr","your text", "your jsonpath"\]@\]
+去学习JSON Path:
+https://github.com/alibaba/fastjson/wiki/JSONPath
+https://jsonpath.com/
+示例：
+
+### 正则提取json
+
+\[@\["ExtractJsonByRegex","your text", "your json key1", "your json key1 regex", "your json key2", "your json key2 regex"\]@\]
+去学习正则怎么写：
+https://www.runoob.com/regexp/regexp-tutorial.html
+示例：
+
+### 日期加减
+
+\[@\["GetDateFromNow","your add/substract days"\]@\]
+示例：
+
+### URL编码
+
+\[@\["UrlEncode","your text", "your charset, default is UTF-8"\]@\]
+示例：
+
+### URL解码
+
+\[@\["UrlDecode","your text", "your charset, default is UTF-8"\]@\]
+示例：
+自动检测指定用什么语言回复
+\[@\["AutoSpecifyResponseLanguage","your text", "your default lang, The optional values are EN,CN, default value is CN"\]@\]
+示例：
+字符串替换
+\[@\["Replace","your text", "your old str", "your new str"\]@\]
+示例：
+字符串正则替换
+\[@\["ReplaceRegex","your text", "your regex str", "your new str"\]@\]
+去学习正则怎么写：
+https://www.runoob.com/regexp/regexp-tutorial.html
+示例：
+字符串转义
+\[@\["EscapeStr","your text"\]@\]
+示例：
+text={"dataList":\[{"aiSkipType":"3","play_id":"1613810","guest_name":"广岛蜻蜓","play_msg":"今天 日联季后 冲绳金帝皇VS广岛蜻蜓 赛事预测"}
+\[@\["EscapeStr","{{text}}"\]@\]：
+{\\dataList\\:\[{\\aiSkipType\\:\\3\\,\\play_id\\:\\1613810\\,\\guest_name\\:\\广岛蜻蜓\\,\\play_msg\\:\\今天 日联季后 冲绳金帝皇VS广岛蜻蜓 赛事预测\\}
+RSA加密
+\[@\["RSAEncode","your text", "your public key"\]@\]
+示例：
+根据条件赋值
+\[@\["CaseWhenThen","your case value", "when value1", "then value1", "when value2", "then value2"..., "default value"\]@\]
+示例：
+根据条件赋值-区分大小写
+\[@\["CaseWhenThenIgnoreCase","your case value", "when value1", "then value1", "when value2, optional", "then value2, optional"..., "default value, optional"\]@\]
+示例：
+是否与任意给定的候选值相等
+\[@\["EqualsAny","your value", "your other value1", "your other value2, optional"...\]@\]
+示例：
+是否与任意给定的候选值相等-区分大小写
+\[@\["EqualsAnyIgnoreCase","your value", "your other value1", "your other value2, optional"...\]@\]
+示例：
+日期格式转换
+\[@\["DateStrReFormat","your date", "your target format", "your source format, optional"\]@\]
+示例：
+
+### 字符串拼接
+
+\[@\["Concat","your text1","your text2","your text3",...\]@\]
+示例：
+
+### 数组拼接
+
+\[@\["ConcatArray","your array1","your arr2","your arr3",...\]@\]
+示例：
+
+### 数据对象合并
+
+\[@\["MergeObject","your obj1","your obj2","your obj3",...\]@\]
+示例：
+
+### 自然语言转日期
+
+\[@\["JionlpParseTime","your text1"\]@\]
+示例：
+\[@\["JionlpParseTime","今天"\]@\]
+说明文档
+时间语义解析-说明文档
+
+### Md5摘要
+
+\[@\["Md5Digest","your text"\]@\]
+示例：
+
+### 通过Tika解析文件
+
+\[@\["ParseDocByTika","FileInput\[\]"\]@\]
+示例：
+
+### 函数解析文件成功后以JSON数组的形式返回文件内容
+
+### 抓取网页内容
+
+\[@\["FetchUrl","UrlFetchReq\[\]"\]@\]
+输入：
+输出：

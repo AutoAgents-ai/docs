@@ -1,0 +1,203 @@
+---
+title: "System Settings"
+---
+
+### System Built-in Variables
+
+### Usage Syntax
+
+{{var}} references a variable
+{{var:defautValue}} references a variable and sets a default value
+{{@var}} references a variable; if the variable does not exist, this expression is still displayed as-is
+{{cTime}} current date and time, yyyy-MM-dd HH:mm:ss
+{{cDate}} current date, yyyy-MM-dd
+{{cYear}} current year, yyyy
+
+### {{cMonth}} Current Month
+
+### {{cDay}} Current Day
+
+{{cHHmmss}} current clock time, HH:mm:ss
+
+### {{cMills}} Current Timestamp
+
+{{cWeekdayNum}} day of week - number
+{{cWeekdayEn}} day of week - English
+{{cWeekdayEn2}} day of week - English abbreviation
+{{cWeekdayCn}} day of week - Chinese
+{{\_input}} all input parameter information
+{{\_state}} input state parameter information
+{{userChatInput}} input text parameter information
+{{\_images\_}} input image parameter information
+{{\_files\_}} input file parameter information
+{{\$*db_type*}} database type information referenced by the Agent
+{{\$*db_schema*}} database table schema information referenced by the Agent
+{{\$kbIdList}} retrieves the list of knowledge base IDs selected by the user
+{{systemContext}} retrieves the current system environment and logged-in user information (v1.9.0.0+)
+Example:
+
+### System Built-in Functions
+
+### Usage Syntax
+
+\[@\["functionName", "args1", "args2",....\]@\] represents a function call
+
+### Date Formatting
+
+\[@\["DateFormatFromMills","your mills", "your formats"\]@\]
+Description:
+
+<Frame>
+  <img src="/images/documentation/ch6_6.10.12.8_0284.png" alt="System Settings" />
+</Frame>
+
+Example:
+
+### Date Formatting
+
+\[@\["DateFormatFromSeconds","your seconds", "your formats"\]@\]
+Description:
+Example:
+
+### Convert Date to Milliseconds
+
+\[@\["DateStrToMills","your date", "your date format"\]@\]
+Example:
+
+### Convert Date to Seconds
+
+\[@\["DateStrToSeconds","your date", "your date format"\]@\]
+Example:
+
+### Extract a Substring Between Delimiters
+
+\[@\["ExtractAroundStr","your text", "your start str", "your end str", "containsBorder true\|false"\]@\]
+Example:
+
+### Extract the First String Matching a Regular Expression
+
+\[@\["ExtractStrByRegex","your text", "your regex"\]@\]
+Learn how to write regular expressions:
+https://www.runoob.com/regexp/regexp-tutorial.html
+Example:
+
+### Extract All Strings Matching a Regular Expression
+
+\[@\["ExtractArrByRegex","your text", "your regex"\]@\]
+Learn how to write regular expressions:
+https://www.runoob.com/regexp/regexp-tutorial.html
+Example:
+
+### Extract a JSON Object
+
+\[@\["ExtractJsonObj","your text", "your jsonpath"\]@\]
+Learn about JSON Path:
+https://github.com/alibaba/fastjson/wiki/JSONPath
+https://jsonpath.com/
+Example:
+
+### Extract a JSON Array
+
+\[@\["ExtractJsonArr","your text", "your jsonpath"\]@\]
+Learn about JSON Path:
+https://github.com/alibaba/fastjson/wiki/JSONPath
+https://jsonpath.com/
+Example:
+
+### Extract JSON Using a Regular Expression
+
+\[@\["ExtractJsonByRegex","your text", "your json key1", "your json key1 regex", "your json key2", "your json key2 regex"\]@\]
+Learn how to write regular expressions:
+https://www.runoob.com/regexp/regexp-tutorial.html
+Example:
+
+### Add or Subtract Days from a Date
+
+\[@\["GetDateFromNow","your add/substract days"\]@\]
+Example:
+
+### URL Encode
+
+\[@\["UrlEncode","your text", "your charset, default is UTF-8"\]@\]
+Example:
+
+### URL Decode
+
+\[@\["UrlDecode","your text", "your charset, default is UTF-8"\]@\]
+Example:
+Automatically detect which language to reply in
+\[@\["AutoSpecifyResponseLanguage","your text", "your default lang, The optional values are EN,CN, default value is CN"\]@\]
+Example:
+String replace
+\[@\["Replace","your text", "your old str", "your new str"\]@\]
+Example:
+String replace using a regular expression
+\[@\["ReplaceRegex","your text", "your regex str", "your new str"\]@\]
+Learn how to write regular expressions:
+https://www.runoob.com/regexp/regexp-tutorial.html
+Example:
+String escape
+\[@\["EscapeStr","your text"\]@\]
+Example:
+text={"dataList":\[{"aiSkipType":"3","play_id":"1613810","guest_name":"广岛蜻蜓","play_msg":"今天 日联季后 冲绳金帝皇VS广岛蜻蜓 赛事预测"}
+\[@\["EscapeStr","{{text}}"\]@\]：
+{\\dataList\\:\[{\\aiSkipType\\:\\3\\,\\play_id\\:\\1613810\\,\\guest_name\\:\\广岛蜻蜓\\,\\play_msg\\:\\今天 日联季后 冲绳金帝皇VS广岛蜻蜓 赛事预测\\}
+RSA Encryption
+\[@\["RSAEncode","your text", "your public key"\]@\]
+Example:
+Assign a value based on conditions
+\[@\["CaseWhenThen","your case value", "when value1", "then value1", "when value2", "then value2"..., "default value"\]@\]
+Example:
+Assign a value based on conditions - case-sensitive
+\[@\["CaseWhenThenIgnoreCase","your case value", "when value1", "then value1", "when value2, optional", "then value2, optional"..., "default value, optional"\]@\]
+Example:
+Whether the value equals any of the given candidate values
+\[@\["EqualsAny","your value", "your other value1", "your other value2, optional"...\]@\]
+Example:
+Whether the value equals any of the given candidate values - case-sensitive
+\[@\["EqualsAnyIgnoreCase","your value", "your other value1", "your other value2, optional"...\]@\]
+Example:
+Date format conversion
+\[@\["DateStrReFormat","your date", "your target format", "your source format, optional"\]@\]
+Example:
+
+### String Concatenation
+
+\[@\["Concat","your text1","your text2","your text3",...\]@\]
+Example:
+
+### Array Concatenation
+
+\[@\["ConcatArray","your array1","your arr2","your arr3",...\]@\]
+Example:
+
+### Merge Data Objects
+
+\[@\["MergeObject","your obj1","your obj2","your obj3",...\]@\]
+Example:
+
+### Convert Natural Language to a Date
+
+\[@\["JionlpParseTime","your text1"\]@\]
+Example:
+\[@\["JionlpParseTime","今天"\]@\]
+Documentation
+Time Semantic Parsing - Documentation
+
+### MD5 Digest
+
+\[@\["Md5Digest","your text"\]@\]
+Example:
+
+### Parse a File Using Tika
+
+\[@\["ParseDocByTika","FileInput\[\]"\]@\]
+Example:
+
+### After Successfully Parsing a File, the Function Returns the File Content as a JSON Array
+
+### Fetch Web Page Content
+
+\[@\["FetchUrl","UrlFetchReq\[\]"\]@\]
+Input:
+Output:

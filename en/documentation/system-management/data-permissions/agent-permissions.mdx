@@ -1,0 +1,186 @@
+---
+title: "Agent Permission Management"
+---
+
+### Feature Overview
+
+Feature Name: The Agent Permission Management capability under the Data Permission Management module. Core Value: Enables fine-grained control over "who can use / edit which Agent," supporting authorization assignment along four dimensions—department, user, role, or predefined permission policy—to achieve granular access control over Agent resources. Use Cases: Used by system administrators when assigning access and operation permissions for internal enterprise Agents, or when defining the scope of Agent usage for different users.
+
+Through the Agent Permission Management feature, administrators can flexibly configure access permissions for each Agent based on the enterprise's organizational structure, personnel responsibilities, or predefined rules, ensuring that only authorized users can view, use, or edit the corresponding Agent, thereby safeguarding the secure and orderly use of enterprise Agent resources.
+
+### Accessing the Feature
+
+Log in to the Agents platform, click the top-level [Data Permission Management] menu in the left navigation, then click the [Agent Permission Management] submenu after the menu list expands, to enter the Agent Permission Management page.
+
+<Frame>
+  <img src="/images/documentation/ch7_7.5.2.2_0307.png" alt="Agent Permission Management" />
+</Frame>
+
+### Interface Overview
+
+The Agent Permission Management page is divided into two sections: the search area and the Agent list area, as described below:
+
+<Frame>
+  <img src="/images/documentation/ch7_7.5.2.3_0308.png" alt="Agent Permission Management" />
+</Frame>
+
+### Search Area
+
+Search box: Enter the Agent's name, description, or creator information to quickly filter matching Agents; supports fuzzy search.
+
+<Frame>
+  <img src="/images/documentation/ch7_7.5.2.4_0309.png" alt="Agent Permission Management" />
+</Frame>
+
+### Agent List
+
+Displays basic information and the permission management entry point for all Agents on the platform. Each record includes the following fields:
+ID: The unique identifier number of the Agent
+Name: The name of the Agent
+Creator: The user account that created the Agent
+Description: A description of the Agent's functionality and purpose
+Authorization Management: Provides a "Manage Permissions" button; clicking it opens the usage permission assignment dialog for the Agent
+The bottom of the list shows the total number of Agents and pagination controls, supporting browsing across multiple pages via page numbers or navigation buttons.
+
+<Frame>
+  <img src="/images/documentation/ch7_7.5.2.5_0310.png" alt="Agent Permission Management" />
+</Frame>
+
+### Assign Usage Permissions
+
+Click the "Manage Permissions" button next to any Agent to open the usage permission assignment dialog, which contains four authorization dimension tabs plus a global authorization option:
+
+<Frame>
+  <img src="/images/documentation/ch7_7.5.2.6_0311.png" alt="Agent Permission Management" />
+</Frame>
+
+### Department Tab
+
+Organizational structure tree: Displays the enterprise's complete department hierarchy, supporting expand / collapse at each level
+Search box: Enter a department name to quickly locate the target department
+Checkbox: Select the departments to authorize; all users in the selected department(s) will gain access to the corresponding Agent
+Visible to All option: When checked, the Agent becomes visible to all platform users with basic access permissions
+
+<Frame>
+  <img src="/images/documentation/ch7_7.5.2.7_0312.png" alt="Agent Permission Management" />
+</Frame>
+
+### User Tab
+
+User list: Displays all user accounts on the platform, with search support
+Selected Users area: Displays the users who have been selected for authorization, with support for removal
+Permission settings area: Configure fine-grained permissions for selected users, supporting the following options:
+Read: Can view and use the Agent
+Write: Can edit the Agent's configuration and content
+Usage Records: Can view the Agent's usage records
+
+<Frame>
+  <img src="/images/documentation/ch7_7.5.2.8_0313.png" alt="Agent Permission Management" />
+</Frame>
+
+### Role Tab
+
+Role list: Displays all predefined user roles on the platform, with search support
+Selected Roles area: Displays the roles that have been selected for authorization, with support for removal
+Permission settings area: Configure "Read" and "Write" permissions for selected roles
+
+<Frame>
+  <img src="/images/documentation/ch7_7.5.2.9_0314.png" alt="Agent Permission Management" />
+</Frame>
+
+### Permission Policy Tab
+
+Permission policy list: Displays all predefined permission policies on the platform (a permission policy is a collection of permission rules that can be applied uniformly across multiple resources), with search support
+Selected Policies area: Displays the policies that have been selected for authorization, with support for removal
+Once a permission policy is selected, all permissions defined in that policy are automatically applied to the corresponding Agent
+
+<Frame>
+  <img src="/images/documentation/ch7_7.5.2.10_0315.png" alt="Agent Permission Management" />
+</Frame>
+
+### Dialog Footer Buttons
+
+Cancel: Closes the dialog without saving any authorization changes
+Confirm: Saves and applies all authorization configurations
+
+<Frame>
+  <img src="/images/documentation/ch7_7.5.2.11_0316.png" alt="Agent Permission Management" />
+</Frame>
+
+### Operation Steps
+
+### 1. Access the Agent Permission Management Page
+
+Following the steps above, log in to the Agents platform and navigate to the Agent Permission Management page
+
+<Frame>
+  <img src="/images/documentation/ch7_7.5.2.13_0317.png" alt="Agent Permission Management" />
+</Frame>
+
+To quickly locate a target Agent, enter its name, description, or creator information in the search box to filter results
+
+<Frame>
+  <img src="/images/documentation/ch7_7.5.2.13_0318.png" alt="Agent Permission Management" />
+</Frame>
+
+### 2. Assign Agent Usage Permissions
+
+Find the Agent for which you want to configure permissions in the Agent list, then click the [Manage Permissions] button on its right to open the usage permission assignment dialog
+
+<Frame>
+  <img src="/images/documentation/ch7_7.5.2.14_0319.png" alt="Agent Permission Management" />
+</Frame>
+
+Select one or more of the following authorization methods based on your needs:
+
+<Frame>
+  <img src="/images/documentation/ch7_7.5.2.14_0320.png" alt="Agent Permission Management" />
+</Frame>
+
+Method 1: Authorize by Department
+Switch to the [Department] tab
+Select the departments to authorize in the organizational structure tree (multiple departments can be selected at once)
+To grant access to all users, check the [Visible to All] option in the lower-left corner
+Click [Confirm] to complete department authorization
+
+<Frame>
+  <img src="/images/documentation/ch7_7.5.2.14_0321.png" alt="Agent Permission Management" />
+</Frame>
+
+Method 2: Authorize by User
+Switch to the [User] tab
+Select the users to authorize in the user list (multiple users can be selected at once)
+In the permission settings area on the right, select the corresponding permissions for the selected users (Read / Write / Usage Records)
+Click [Confirm] to complete user authorization
+
+<Frame>
+  <img src="/images/documentation/ch7_7.5.2.14_0322.png" alt="Agent Permission Management" />
+</Frame>
+
+<Frame>
+  <img src="/images/documentation/ch7_7.5.2.14_0323.png" alt="Agent Permission Management" />
+</Frame>
+
+Method 3: Authorize by Role
+Switch to the [Role] tab
+Select the roles to authorize in the role list (multiple roles can be selected at once)
+In the permission settings area on the right, select the corresponding permissions for the selected roles (Read / Write)
+Click [Confirm] to complete role authorization
+
+<Frame>
+  <img src="/images/documentation/ch7_7.5.2.14_0324.png" alt="Agent Permission Management" />
+</Frame>
+
+Method 4: Authorize by Permission Policy
+Switch to the [Permission Policy] tab
+Select the predefined permission policies to apply in the permission policy list (multiple policies can be selected at once)
+Click [Confirm] to complete policy authorization
+Once authorization is configured, the corresponding departments / users / roles will immediately gain the corresponding access and operation permissions for the Agent
+
+<Frame>
+  <img src="/images/documentation/ch7_7.5.2.14_0325.png" alt="Agent Permission Management" />
+</Frame>
+
+\*\*Permission Policy Note\*\*
+
+For details on \[Permission Policies\], see the Permission Policy Management section in the [System Management] module.

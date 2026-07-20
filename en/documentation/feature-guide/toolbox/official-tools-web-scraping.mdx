@@ -1,0 +1,183 @@
+---
+title: "Official Tools: Web Scraping"
+---
+
+### Web Scraping
+
+Crawler usage guide
+The crawler tool helps customers collect information from websites and, combined with an agent's capabilities, further process the raw data to meet their own use cases.
+The specific entry point is as follows:
+
+<Frame>
+  <img src="/images/documentation/ch6_6.7.1.18_0201.png" alt="Official Tools: Web Scraping" />
+</Frame>
+
+1. Home page - click the "New Crawl Task" button to enter the crawler configuration page
+
+<Frame>
+  <img src="/images/documentation/ch6_6.7.1.18_0202.png" alt="Official Tools: Web Scraping" />
+</Frame>
+
+2. Crawler configuration
+The following walks through how to use the crawler tool with a real web page as an example.
+Step 1:
+Configure the target web page, using http://www.cbssports.com/nba/ as an example.
+
+<Frame>
+  <img src="/images/documentation/ch6_6.7.1.18_0203.png" alt="Official Tools: Web Scraping" />
+</Frame>
+
+Step 2:
+Configure the fields to scrape from the page
+Real-world example
+
+<Frame>
+  <img src="/images/documentation/ch6_6.7.1.18_0204.png" alt="Official Tools: Web Scraping" />
+</Frame>
+
+Capability description:
+Example configuration
+
+<Frame>
+  <img src="/images/documentation/ch6_6.7.1.18_0205.png" alt="Official Tools: Web Scraping" />
+</Frame>
+
+Capability breakdown
+Add a scraping field
+Directly configure which fields to scrape from the page
+
+<Frame>
+  <img src="/images/documentation/ch6_6.7.1.18_0206.png" alt="Official Tools: Web Scraping" />
+</Frame>
+
+Clearly define the field key, field description, and field extraction rule, which is generally written as a regular expression.
+Learn the field extraction rules:
+Crawler instruction script usage guide
+Example description:
+Field types fall into two categories:
+string: for fields with actual textual content, such as a page's title or body text.
+Web page: generally used when the main page contains further pages that need to be drilled into; configure this as the web page type, which comes with a built-in scrape button.
+
+<Frame>
+  <img src="/images/documentation/ch6_6.7.1.18_0207.png" alt="Official Tools: Web Scraping" />
+</Frame>
+
+Clicking "Scrape" automatically expands one more level, used to configure what to scrape from the drilled-down page under the main site. For example, in the image below, clicking "Scrape" automatically expands the sub-page level, and the button automatically changes to "Cancel Scrape."
+Clicking "Cancel Scrape" clears the configuration below it.
+
+<Frame>
+  <img src="/images/documentation/ch6_6.7.1.18_0208.png" alt="Official Tools: Web Scraping" />
+</Frame>
+
+Export configuration
+
+### This release currently supports exporting to an agent or exporting via HTTP
+
+Export to agent
+Exporting to an agent lets you use the agent's capabilities to further process and refine the raw crawler data, which better fits most real-world use cases.
+Using the example page, the English content could be translated and then stored in a knowledge base.
+
+<Frame>
+  <img src="/images/documentation/ch6_6.7.1.19_0209.png" alt="Official Tools: Web Scraping" />
+</Frame>
+
+Select the agent(s) to export to; multiple selection is supported.
+Example of exporting to an agent:
+To standardize how data is exported, the backend currently defines two standard fields:
+The crawler's dataset content is `_state.data.xx`, and the dataset name is `_state.url`.
+The `xx` portion refers to the field of the crawled content that needs to be translated. For example, if the body field configured for the page crawl is `content`, this would be filled in as `_state.data.content`.
+
+<Frame>
+  <img src="/images/documentation/ch6_6.7.1.19_0210.png" alt="Official Tools: Web Scraping" />
+</Frame>
+
+Details of storing to the knowledge base:
+
+<Frame>
+  <img src="/images/documentation/ch6_6.7.1.19_0211.png" alt="Official Tools: Web Scraping" />
+</Frame>
+
+Export via HTTP
+
+<Frame>
+  <img src="/images/documentation/ch6_6.7.1.19_0212.png" alt="Official Tools: Web Scraping" />
+</Frame>
+
+You can push content directly to a database via an API by calling a POST endpoint.
+Step 3: Configuration complete
+
+<Frame>
+  <img src="/images/documentation/ch6_6.7.1.19_0213.png" alt="Official Tools: Web Scraping" />
+</Frame>
+
+Click "View Task" to return to the crawler task list.
+3. Crawler task management
+
+<Frame>
+  <img src="/images/documentation/ch6_6.7.1.19_0214.png" alt="Official Tools: Web Scraping" />
+</Frame>
+
+### Settings
+
+<Frame>
+  <img src="/images/documentation/ch6_6.7.1.20_0215.png" alt="Official Tools: Web Scraping" />
+</Frame>
+
+The interval can be set in minutes, hours, or days, for scheduled polling.
+Custom cron expression: users with the relevant knowledge can write their own cron expression to define more personalized scraping schedules, for example scraping every Monday, Wednesday, and Friday.
+Start
+Once configured, the task can be started, and it can be stopped at any time after starting.
+Stop is not the same as pause—it stops the task outright, so use it with caution.
+Edit and delete
+A running task cannot be edited, deleted, or have its settings changed.
+
+<Frame>
+  <img src="/images/documentation/ch6_6.7.1.20_0216.png" alt="Official Tools: Web Scraping" />
+</Frame>
+
+Crawler instruction script usage guide
+
+### Overview
+
+### Syntax Introduction
+
+The script syntax consists of instructions and instruction parameters. Each instruction must occupy its own line.
+Syntax: \<instruction\> \[=> instruction parameters\]
+Instruction: Required; only one instruction is allowed per line. If an instruction's return value is a selector type, the chain of operations can continue; if it is not a selector type, the operation terminates and returns the final result. The last instruction must always be of a terminating (non-selector) type.
+=> : Optional; the symbol used to specify parameters.
+Instruction parameters: Optional; instructions with no parameters do not need to include them.
+Example 1:
+Get all links and filter to only those containing /articles/
+Example 2:
+Get the heading text under any \<h1\> tag nested within a node whose \<article\> tag has the class attribute article-body
+Example 3:
+Get all article content under a node whose \<div\> tag has the class attribute article-body
+
+### Instruction List
+
+### Related Syntax Reference
+
+### xpath Syntax
+
+xpath follows the Xsoup syntax specification.
+XPath 1.0:
+Function supported:
+In Xsoup, we use some functions (maybe not in Standard XPath 1.0):
+Extended syntax supported:
+These XPath syntax extensions are only available in Xsoup (for convenience in extracting HTML, refer to the Jsoup CSS Selector):
+
+### regex Syntax
+
+Learn and practice here: https://regexlearn-com.vercel.app/zh/cheatsheet
+
+<Frame>
+  <img src="/images/documentation/ch6_6.7.1.26_0217.png" alt="Official Tools: Web Scraping" />
+</Frame>
+
+### jsonPath Syntax
+
+Learn and practice here: https://jsonpath.com/
+
+<Frame>
+  <img src="/images/documentation/ch6_6.7.1.27_0218.png" alt="Official Tools: Web Scraping" />
+</Frame>

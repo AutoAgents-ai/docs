@@ -1,0 +1,171 @@
+---
+title: "Confirm Reply"
+---
+
+### Module Introduction
+
+When you need to reply to the user with specific content, you can use the Confirm Reply module. When the trigger condition is met, the user will receive exactly the content configured in the "Reply Content" text box. If the Reply Content node is connected to an external information source, the linked information will override the content configured in the "Reply Content" input box.
+
+<Frame>
+  <img src="/images/documentation/ch6_6.1.36.1_0101.png" alt="Confirm Reply" />
+</Frame>
+
+### Built-in System Variables
+
+Syntax
+`{{var}}` references a variable
+`{{cTime}}` current time, yyyy-MM-dd HH:mm:ss
+`{{cMills}}` current timestamp
+`{{cWeekdayNum}}` day of week - number
+`{{cWeekdayEn}}` day of week - English
+`{{cWeekdayEn2}}` day of week - English abbreviation
+`{{cWeekdayCn}}` day of week - Chinese
+
+### Built-in System Functions
+
+Note: The most commonly used function is for extracting JSON data, followed by regular expressions.
+Extracting JSON data:
+Extraction for dictionaries and arrays works the same way, for example: `[@["ExtractJsonArr","{{list}}", "$.0.baseUrl"]@]`
+The only difference is: when the outermost structure is `[]` (an array), use the `ExtractJsonArr` function;
+when the outermost structure is `{}` (a dictionary), use the `ExtractJsonObj` function.
+
+<Frame>
+  <img src="/images/documentation/ch6_6.1.36.3_0102.png" alt="Confirm Reply" />
+</Frame>
+
+<Frame>
+  <img src="/images/documentation/ch6_6.1.36.3_0103.png" alt="Confirm Reply" />
+</Frame>
+
+<Frame>
+  <img src="/images/documentation/ch6_6.1.36.3_0104.png" alt="Confirm Reply" />
+</Frame>
+
+Regular expressions: It's recommended to have AI write these for you directly; if you're bored, you can also learn to write them yourself. A regex syntax cheat sheet and tutorial are linked below.
+Syntax cheat sheet: https://tools.suried.com/cn/tutorial/regex-cheat-sheet
+Tutorial: https://www.runoob.com/regexp/regexp-syntax.html
+Where to use these functions — the Information Processing module
+
+<Frame>
+  <img src="/images/documentation/ch6_6.1.36.3_0105.png" alt="Confirm Reply" />
+</Frame>
+
+Syntax
+`[@["functionName", "args1", "args2",....]@]` represents a function call
+Date formatting
+`[@["DateFormatFromMills","your mills", "your formats"]@]`
+Description:
+
+<Frame>
+  <img src="/images/documentation/ch6_6.1.36.3_0106.png" alt="Confirm Reply" />
+</Frame>
+
+Example:
+Date formatting
+`[@["DateFormatFromSeconds","your seconds", "your formats"]@]`
+Description:
+Example:
+Convert date to milliseconds
+`[@["DateStrToMills","your date", "your date format"]@]`
+Example:
+Convert date to seconds
+`[@["DateStrToSeconds","your date", "your date format"]@]`
+Example:
+Extract a substring between delimiters
+`[@["ExtractAroundStr","your text", "your start str", "your end str"]@]`
+Example:
+Extract the first string matching a regex
+`[@["ExtractStrByRegex","your text", "your regex"]@]`
+Learn how to write regex:
+https://www.runoob.com/regexp/regexp-tutorial.html
+Example:
+Extract all strings matching a regex
+`[@["ExtractArrByRegex","your text", "your regex"]@]`
+Learn how to write regex:
+https://www.runoob.com/regexp/regexp-tutorial.html
+Example:
+Extract a JSON object
+`[@["ExtractJsonObj","your text", "your jsonpath"]@]`
+Learn JSON Path:
+https://jsonpath.com/
+Example:
+Extract a JSON array
+`[@["ExtractJsonArr","your text", "your jsonpath"]@]`
+Learn JSON Path:
+https://jsonpath.com/
+Example:
+Extract JSON via regex
+`[@["ExtractJsonByRegex","your text", "your json key1", "your json key1 regex", "your json key2", "your json key2 regex"]@]`
+Learn how to write regex:
+https://www.runoob.com/regexp/regexp-tutorial.html
+Example:
+Add or subtract days from a date
+`[@["GetDateFromNow","your add/substract days"]@]`
+Example:
+URL encoding
+`[@["UrlEncode","your text", "your charset, default is UTF-8"]@]`
+Example:
+URL decoding
+`[@["UrlDecode","your text", "your charset, default is UTF-8"]@]`
+Example:
+Automatically detect which language to reply in
+`[@["AutoSpecifyResponseLanguage","your text", "your default lang, The optional values are EN,CN, default value is CN"]@]`
+Example:
+String replacement
+`[@["Replace","your text", "your old str", "your new str"]@]`
+Example:
+String replacement via regex
+`[@["ReplaceRegex","your text", "your regex str", "your new str"]@]`
+Learn how to write regex:
+https://www.runoob.com/regexp/regexp-tutorial.html
+Example:
+String escaping
+`[@["EscapeStr","your text"]@]`
+Example:
+RSA encryption
+`[@["RSAEncode","your text", "your public key"]@]`
+Example:
+Assign a value based on conditions
+`[@["CaseWhenThen","your case value", "when value1", "then value1", "when value2", "then value2"..., "default value"]@]`
+Example:
+Assign a value based on conditions - case-sensitive
+`[@["CaseWhenThenIgnoreCase","your case value", "when value1", "then value1", "when value2, optional", "then value2, optional"..., "default value, optional"]@]`
+Example:
+Check whether a value equals any of the given candidates
+`[@["EqualsAny","your value", "your other value1", "your other value2, optional"...]@]`
+Example:
+Check whether a value equals any of the given candidates - case-sensitive
+`[@["EqualsAnyIgnoreCase","your value", "your other value1", "your other value2, optional"...]@]`
+Example:
+Date format conversion
+`[@["DateStrReFormat","your date", "your target format", "your source format, optional"]@]`
+Example:
+String concatenation
+`[@["Concat","your text1","your text2","your text3",...]@]`
+Example:
+Array concatenation
+`[@["ConcatArray","your array1","your arr2","your arr3",...]@]`
+Example:
+Natural language to date conversion
+`[@["JionlpParseTime","your text1"]@]`
+Example:
+`[@["JionlpParseTime","今天"]@]`
+Documentation
+Time semantic parsing - documentation
+Canvas operations
+Added canvas enhancements including node collapsing, undo/redo, smart auto-layout, and adaptive view fitting. Selected nodes and connections now support highlighting, significantly improving the editing experience in multi-node scenarios.
+Node collapsing:
+
+<Frame>
+  <img src="/images/documentation/ch6_6.1.36.3_0107.png" alt="Confirm Reply" />
+</Frame>
+
+<Frame>
+  <img src="/images/documentation/ch6_6.1.36.3_0108.png" alt="Confirm Reply" />
+</Frame>
+
+Undo (cmd/ctrl+z)
+[Screen recording 2026-04-10 16.10.17.mov]
+Adaptive view and one-click layout
+[Screen recording 2026-04-10 16.08.58.mov]
+Workflow 2.0 is a major upgrade in the platform's 2026 enhanced release, aimed at improving development efficiency and canvas readability in complex scenarios, while supporting stability at scale and intelligent dynamic decision-making in workflows.

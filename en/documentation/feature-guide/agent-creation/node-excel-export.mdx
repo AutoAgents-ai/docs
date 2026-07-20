@@ -1,0 +1,26 @@
+---
+title: "Excel Generation Module"
+---
+
+Introduction
+Simply put, this module is like an "auto form-filling robot." In your workflow, if you need to export data you've collected, or turn it into a report, this is the right tool for the job. It takes your template and automatically fills the data in, generating a complete Excel spreadsheet.
+What does the module look like? (Inputs and outputs)
+As the form-filling specialist on the assembly line, it likewise has an "inbound" side that receives its task and an "outbound" side that hands off the finished table.
+Inbound side (input node): What instructions and materials does the robot need?
+Start switch (execution logic):
+Activate when all conditions met: It only starts filling in the form once every preceding step has completed successfully.
+Activate when any condition met: As soon as any preceding step completes, it starts working right away.
+Information input (form-filling data): This is the "answers to fill in" (a JSON data package) passed over by the system.
+💡 Beginner tip: How does it know where to put each value? You simply write special markers in the Excel template (such as `{{var1}}`), and the robot will automatically fill the corresponding data into that cell.
+Excel document name (dynamic naming): The preceding workflow can pass in a name, which directly determines what the final generated spreadsheet will be called.
+Outbound side (output node): What does the robot hand off once it's done?
+Document information (handing off the table): Once the table is ready, it outputs a data package containing "file information." The two most important pieces are `fileName` (the table's name) and `fileURL` (the download link for the table). With this link, the next step can download it directly.
+Module execution complete (handoff signal): As soon as the table is finished, this signal switch turns on, telling the next step: "My table is ready, go ahead and continue."
+How is it configured internally? (Configuring the form-filling rules)
+Open this component, and we need to give the "auto form-filling robot" some basic settings, telling it which template to use and what to name the output.
+In the panel, you need to complete the following configuration steps in order:
+① Excel name (fallback name): There's an input box here. If the preceding workflow doesn't pass in a name (i.e., the "Excel document name" mentioned above has no data), the robot will use the name you enter here as the table's final name.
+② Document information visible to user (display toggle): There's a toggle below. Turn it on, and the user of this workflow will be able to see the generated table's information.
+③ Excel template (upload a blank table): This is where you give the robot its "blank table." The system thoughtfully provides an [Upload Area] and an [Upload File] button (these two do the same thing — you can either drag a file into the area, or click the button to upload; use whichever you're more comfortable with).
+⚠️ Friendly reminder: The template you upload determines what the final table will look like — remember to write the `{{variableName}}` syntax ahead of time wherever a value needs to be filled in!
+④ File size limit: There's a small note at the bottom — the Excel template file you upload cannot exceed 30MB. Try to keep your template lean, so the robot can work faster too!

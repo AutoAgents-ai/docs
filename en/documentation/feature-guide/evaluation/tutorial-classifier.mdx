@@ -1,0 +1,20 @@
+---
+title: "Intermediate: Information Classification"
+---
+
+Besides the knowledge base, the platform also provides a variety of text-processing modules for more diverse scenarios.
+For example, the "Information Classification" module uses AI to classify information so that different workflows can be triggered based on the classification. The "Field Extraction" module can extract specified fields from information, making them easy to use later wherever those fields are needed. The "Information Processing" module can process information further, such as combining and reformatting it.
+
+### Canvas Planning
+
+In this example, we'll use the "Literary Master" Agent to demonstrate how AI handles different poetry-creation requests and outputs them in different formats. The overall plan for this Agent starts with an "Information Classification" module that classifies the user's intent, after which content creation is carried out according to the resulting classification.
+Connection 1: The "User Question" module captures the user's input and outputs it via "User Question."
+The "Information Classification" module takes the user's question as input through "Information Input," and then performs the following steps:
+It passes the module's prompt, together with the "User Question" and the chat context, to the Tiangong model for classification.
+It returns the classification result and triggers the function of the next module.
+Connections 2-4: Next, based on the classification result, different Intelligent Dialogue functions are triggered. In this Agent, three "Intelligent Dialogue" modules each handle the creation of "poetry / nursery rhymes / song lyrics," producing the output the user requested.
+Connection 5: In the "Information Classification" module, we recommend adding an "Other" category to catch anything that cannot be recognized or has not been defined, so that users can be guided to express their needs more clearly. So when a user's message doesn't fall into any of the categories above, the "Fixed Reply" module is triggered and returns the specified content.
+
+<Frame>
+  <img src="/images/documentation/ch6_6.10.7.1_0255.png" alt="Intermediate: Information Classification" />
+</Frame>

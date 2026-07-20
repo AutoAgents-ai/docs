@@ -1,0 +1,387 @@
+---
+title: "Dictionary Management"
+---
+
+### Feature Overview
+
+Feature Name: The dictionary management capability under the System Management module. Core Value: Provides unified management of an enterprise's dedicated terminology systems, covering three types of word lists—sensitive word lists (for risk control and compliance interception), synonym lists (for standardizing terminology), and specialized term lists (for injecting industry-specific terminology)—supporting create, read, update, and delete operations on word lists and entries, as well as batch import and bulk export, improving the Agent model's comprehension accuracy and compliance safeguards. Use Cases: Used by system administrators when configuring an Agent's language understanding rules, setting content risk-control policies, or injecting industry-specific knowledge.
+The dictionary management feature helps enterprises build a terminology system tailored to their own business needs: sensitive word lists enforce content compliance and risk control, synonym lists standardize the interpretation of different expressions, and specialized term lists inject industry-specific knowledge into the Agent—ensuring the accuracy, professionalism, and compliance of Agent responses.
+
+### Accessing the Feature
+
+Log in to the Agents platform, click the top-level [System Management] menu in the left navigation, then click the [Dictionary Management] submenu after the menu list expands, to enter the Dictionary Management page.
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.2_0418.png" alt="Dictionary Management" />
+</Frame>
+
+### Interface Overview
+
+The Dictionary Management page is divided into four sections: the word list category tabs area, the search area, the word list area, and the create word list button area, as described below:
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.3_0419.png" alt="Dictionary Management" />
+</Frame>
+
+### Word List Category Tabs Area
+
+Provides three word list category tabs; click to switch between the corresponding word list types:
+Sensitive Word List: Manages words that require risk-control interception; the Agent automatically detects and blocks user input containing these words during conversations
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.4_0420.png" alt="Dictionary Management" />
+</Frame>
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.4_0421.png" alt="Dictionary Management" />
+</Frame>
+
+Synonym List: Manages words with the same meaning; the Agent can automatically recognize synonyms to standardize interpretation and improve comprehension accuracy
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.4_0422.png" alt="Dictionary Management" />
+</Frame>
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.4_0423.png" alt="Dictionary Management" />
+</Frame>
+
+Specialized Term List: Manages industry-specific terms and their definitions, injecting professional knowledge into the Agent to ensure the professionalism and accuracy of its responses
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.4_0424.png" alt="Dictionary Management" />
+</Frame>
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.4_0425.png" alt="Dictionary Management" />
+</Frame>
+
+### Search Area
+
+Search box: Enter a keyword to quickly filter word lists under the current tab; supports fuzzy search
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.5_0426.png" alt="Dictionary Management" />
+</Frame>
+
+### Word List Area
+
+Displays all word lists under the current tab. Each word list record includes the following fields:
+Word List Name: The unique name identifying the word list
+Description: A description of the word list's purpose and content
+Creator: The user account that created the word list
+Last Modified: The time the word list was last modified
+Actions: Provides "Edit" and "Delete" buttons for modifying or deleting the word list
+The bottom of the list shows the total number of word lists and pagination controls for browsing multiple pages.
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.6_0427.png" alt="Dictionary Management" />
+</Frame>
+
+### Create Word List Button Area
+
+Create Word List button: Located in the top-right corner of the page; the button label changes based on the current tab (e.g., "Create Sensitive Word List," "Create Synonym List," "Create Specialized Term List"). Clicking it opens the new word list dialog.
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.7_0428.png" alt="Dictionary Management" />
+</Frame>
+
+New Word List dialog
+Dictionary Type: Automatically determined by the currently selected word list tab; cannot be manually selected, and cannot be changed after creation
+Word List Name\*: Required. Enter the word list name, up to 50 characters
+Word List Description: Optional. Enter a description of the word list's purpose and content, up to 500 characters
+Cancel / Confirm buttons: Click "Cancel" to close the dialog, or "Confirm" to complete word list creation
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.7_0429.png" alt="Dictionary Management" />
+</Frame>
+
+Word List Detail Page
+
+Click any word list name to enter its detail page, used to manage the entries within it. The page is divided into three sections: the search area, the entry list area, and the function button area:
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.7_0430.png" alt="Dictionary Management" />
+</Frame>
+
+### Search Area
+
+Search box: Enter a keyword to quickly filter entries within the current word list; supports fuzzy search
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.8_0431.png" alt="Dictionary Management" />
+</Frame>
+
+### Entry List Area
+
+Displays all entries within the current word list. Entry fields vary by word list type:
+Sensitive word list entry fields: Sensitive Word, Last Modified By, Last Modified, Actions (Delete)
+Synonym list entry fields: Base Term, Synonyms (multiple synonyms displayed as tags), Last Modified By, Last Modified, Actions (Delete)
+Specialized term list entry fields: Term, Definition, Last Modified By, Last Modified, Actions (Delete)
+The bottom of the list shows the total number of entries and pagination controls for browsing multiple pages.
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.9_0432.png" alt="Dictionary Management" />
+</Frame>
+
+### Function Button Area
+
+Located in the top-right corner of the page, providing three function buttons:
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.10_0433.png" alt="Dictionary Management" />
+</Frame>
+
+Import: Click to open the batch import entries dialog, supporting bulk addition of entries
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.10_0434.png" alt="Dictionary Management" />
+</Frame>
+
+Export: Click to export all entries in the current word list to a file
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.10_0435.png" alt="Dictionary Management" />
+</Frame>
+
+Add New Entry: Click to add a single entry (the button label changes based on word list type, e.g., "Add Sensitive Word," "Add Synonym," "Add Term")
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.10_0436.png" alt="Dictionary Management" />
+</Frame>
+
+Batch Import Entries dialog
+
+Import methods vary slightly by word list type:
+Sensitive Word List: Supports two import methods
+Batch Add Sensitive Words: Enter sensitive words in the text box, one per line, up to 1,000 lines, each word up to 50 characters
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.10_0437.png" alt="Dictionary Management" />
+</Frame>
+
+Upload File: Upload a file containing sensitive words, supporting .csv, .xlsx, .xls, and .txt formats, with one sensitive word per line
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.10_0438.png" alt="Dictionary Management" />
+</Frame>
+
+Synonym List / Specialized Term List: Only file upload is supported
+Synonym List: Supports .csv, .xlsx, and .xls formats; the file column format should be "Base Term \| Synonym 1 \| Synonym 2\|..."
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.10_0439.png" alt="Dictionary Management" />
+</Frame>
+
+Specialized Term List: Supports .csv, .xlsx, and .xls formats; the file column format should be "Term \| Definition"
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.10_0440.png" alt="Dictionary Management" />
+</Frame>
+
+The bottom of the dialog provides "Cancel" and "Confirm" buttons; click "Confirm" to complete the entry import.
+
+### Operation Steps
+
+### 1. Create a Word List
+
+Following the steps above, navigate to the Dictionary Management page
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.12_0441.png" alt="Dictionary Management" />
+</Frame>
+
+Click the top tab to switch to the word list type you want to create (Sensitive Word List / Synonym List / Specialized Term List)
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.12_0442.png" alt="Dictionary Management" />
+</Frame>
+
+Click the [Create XX Word List] button in the top-right corner of the page to open the new word list dialog
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.12_0443.png" alt="Dictionary Management" />
+</Frame>
+
+Fill in the required word list name, and optionally add a description
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.12_0444.png" alt="Dictionary Management" />
+</Frame>
+
+Click [Confirm] to complete word list creation; the newly created word list will appear in the word list area under the corresponding tab
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.12_0445.png" alt="Dictionary Management" />
+</Frame>
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.12_0446.png" alt="Dictionary Management" />
+</Frame>
+
+### 2. Edit a Word List
+
+Find the word list you want to edit in the word list area, then click the [Edit] button on its right to open the edit word list dialog
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.13_0447.png" alt="Dictionary Management" />
+</Frame>
+
+Modify the word list name and / or description
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.13_0448.png" alt="Dictionary Management" />
+</Frame>
+
+Click [Confirm] to save the changes
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.13_0449.png" alt="Dictionary Management" />
+</Frame>
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.13_0450.png" alt="Dictionary Management" />
+</Frame>
+
+### 3. Delete a Word List
+
+Find the word list you want to delete in the word list area, then click the [Delete] button on its right to open the delete confirmation dialog
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.14_0451.png" alt="Dictionary Management" />
+</Frame>
+
+The dialog prompts "Please confirm that you want to delete this word list. This action cannot be undone." After confirming, click [Confirm] to complete the deletion
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.14_0452.png" alt="Dictionary Management" />
+</Frame>
+
+Note: Deleting a word list will also delete all entries within it, and this action cannot be undone. Please proceed with caution.
+
+### 4. Manage Entries
+
+### Access Word List Details
+
+Click any word list name in the word list area to enter its detail page
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.16_0453.png" alt="Dictionary Management" />
+</Frame>
+
+### Add a Single Entry
+
+In the top-right corner of the word list detail page, click the [Add XX] button (e.g., "Add New Entry")
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.17_0454.png" alt="Dictionary Management" />
+</Frame>
+
+Fill in the entry information in the add entry dialog that appears
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.17_0455.png" alt="Dictionary Management" />
+</Frame>
+
+Click the [✅] button to complete adding the single entry
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.17_0456.png" alt="Dictionary Management" />
+</Frame>
+
+### Batch Import Entries
+
+In the top-right corner of the word list detail page, click the [Import] button to open the batch import entries dialog
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.18_0457.png" alt="Dictionary Management" />
+</Frame>
+
+Select an import method (sensitive word lists support both batch entry and file upload; synonym lists / specialized term lists support file upload only)
+If choosing batch entry: Enter the entries in the text box following the required format
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.18_0458.png" alt="Dictionary Management" />
+</Frame>
+
+If choosing file upload: Click the upload area to select a local file, or drag and drop the file into the upload area, ensuring the file format and content meet the requirements
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.18_0459.png" alt="Dictionary Management" />
+</Frame>
+
+File upload example: Supports csv, xlsx, xls, and txt formats, with one word per line
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.18_0460.png" alt="Dictionary Management" />
+</Frame>
+
+Click [Confirm] to complete the batch import of entries
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.18_0461.png" alt="Dictionary Management" />
+</Frame>
+
+### Export Entries
+
+In the top-right corner of the word list detail page, click the [Export] button
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.19_0462.png" alt="Dictionary Management" />
+</Frame>
+
+The system automatically generates a file containing all entries in the current word list and downloads it locally
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.19_0463.png" alt="Dictionary Management" />
+</Frame>
+
+### Delete an Entry
+
+Find the entry you want to delete in the entry list, then click the [Delete] button on its right
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.20_0464.png" alt="Dictionary Management" />
+</Frame>
+
+Click [Confirm] in the confirmation dialog that appears to complete the entry deletion
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.20_0465.png" alt="Dictionary Management" />
+</Frame>
+
+### Examples
+
+### 1. Sensitive Word List Example
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.22_0466.png" alt="Dictionary Management" />
+</Frame>
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.22_0467.png" alt="Dictionary Management" />
+</Frame>
+
+### 2. Synonym List Example
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.23_0468.png" alt="Dictionary Management" />
+</Frame>
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.23_0469.png" alt="Dictionary Management" />
+</Frame>
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.23_0470.png" alt="Dictionary Management" />
+</Frame>
+
+### 3. Specialized Term List Example
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.24_0471.png" alt="Dictionary Management" />
+</Frame>
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.24_0472.png" alt="Dictionary Management" />
+</Frame>

@@ -1,0 +1,39 @@
+---
+title: "Information Extraction Module"
+---
+
+Overview
+In simple terms, this module works like a sharp-eyed reading assistant. You hand it a lengthy document, and it precisely picks out the "core key information" and organizes it into a neat format the system can understand, so the process downstream can keep working with it.
+
+### What does the module look like? (Inputs and outputs)
+
+Like the other components in the workflow, this "assistant" has an "intake" for receiving work and an "outtake" for handing off the result.
+Intake (input node): When does the assistant start reading the file?
+Trigger switch (execution logic):
+Linked activation: It only starts working once every upstream step has finished.
+Any activation: It starts working as soon as any single upstream step completes.
+Data received (content input logic): It receives data called document information (the raw document content that the assistant needs to read and extract from).
+Outtake (output node): What does the assistant hand over once the work is done?
+Data delivered (content output logic): Once extraction is complete, it hands over the organized extraction result (a JSON data package the system can read) to the next stage.
+Work status (execution logic):
+Execution succeeded or Execution failed: These two are an "either/or" report (either the key information was extracted successfully, or something went wrong and an error was raised).
+Module run complete: This is the final wrap-up signal. As soon as the assistant finishes the job (whether it succeeded or errored above), this switch turns on to notify the next stage: "I've finished my part, you can move on."
+
+### How is the module configured internally? (Setting extraction rules)
+
+Opening this component, we need to fit this "reading assistant" with the right "magnifying glass" — telling it which parsing method to use for which type of file.
+In "Extraction Configuration," you need to make two choices: first select the file type, then select the parsing method. The system provides several common file types (choose one of eight), each with its own dedicated parsing options:
+① All-purpose (all): Parsing method: auto. The simplest option — let the system decide on its own.
+② Spreadsheet files (excel): Choose one of three parsing methods: general, tika, excel (spreadsheet-specific parsing).
+③ Audio files (voice):
+Parsing method: general. Extracts information from audio.
+④ PDF files (pdf): (Since PDFs have the most complex structure, the system offers the most tools for them)
+Choose one of five parsing methods: mineru, general, tika, pp_structure_v3 (good at recognizing layout structure), paddleocr-vl (good at combined text-and-image recognition).
+⑤ Document files (document, e.g. Word):
+Choose one of two parsing methods: general, tika.
+⑥ Plain text files (text):
+Choose one of two parsing methods: general, tika.
+⑦ Presentation files (powerpoint, e.g. PPT):
+Choose one of two parsing methods: general, tika.
+💡 Pro tip: Adding multiple rule sets
+What if your workflow needs to handle both PDF and Excel files? No problem — next to this configuration option there's an "Add" button. Click it to add several extraction configurations at once (for example, one rule dedicated to PDFs and another dedicated to Excel files). This way, the "assistant" can comfortably handle all kinds of complex tasks!

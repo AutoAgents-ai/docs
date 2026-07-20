@@ -1,0 +1,74 @@
+---
+title: "Advanced: Field Extraction + HTTP Module"
+---
+
+The "Field Extraction" module analyzes the input content and extracts the fields you need, while the "HTTP Call" tool can connect to third-party systems—by configuring input and output parameters—to communicate with them, greatly expanding the scenarios an Agent can support.
+In this example, we'll mainly use the "Field Extraction" and "HTTP Call" modules to build a simple meeting-room booking Agent that lets users book a meeting room through natural language, with the Agent handling the process.
+
+### Basic Configuration
+
+As the "Meeting Room Booking Assistant" Agent, we want it to support checking meeting room availability and booking a meeting room. Since both of these functions need to communicate with the existing meeting-room booking system, its basic configuration is as follows:
+
+<Frame>
+  <img src="/images/documentation/ch6_6.10.11.1_0278.png" alt="Advanced: Field Extraction + HTTP Module" />
+</Frame>
+
+### Canvas Planning
+
+The general approach for this Agent is: use the "Information Classification" module to determine the user's intent (checking a meeting room / booking a meeting room / other), and trigger different data communication and subsequent steps depending on that intent.
+
+### Planning the "Check Meeting Room" Function
+
+Below is the planning diagram for the "Check Meeting Room" function. The core flow uses the "Information Classification" module to determine the user's intent; if the request is related to "checking a meeting room," it triggers the subsequent "HTTP Call," which queries the meeting-room system for the current booking status.
+
+<Frame>
+  <img src="/images/documentation/ch6_6.10.11.3_0279.png" alt="Advanced: Field Extraction + HTTP Module" />
+</Frame>
+
+Connection 1: The "User Question" module captures the user's input and outputs it via "User Question."
+The "Information Classification" module takes the user's question as input through "Information Input," and then performs the following steps:
+It passes the module's prompt, together with the "User Question" and the chat context, to the Tiangong model for classification.
+It determines the type of the user's message, returns the classification result, and triggers the function of the next module.
+Connection 2: If the user's intent is "check meeting room," the "HTTP Call" module is triggered.
+The "HTTP Call" module is configured with the request URL for "checking meeting rooms." It accepts the query on one side (Connection 3) and outputs the query result on the other (Connection 4), passing the current meeting-room status information to the next module.
+Connection 4: After the "Intelligent Dialogue" module receives the meeting-room booking status information, it will—
+Once the "Intelligent Dialogue" module has received the three inputs above, it performs the following steps:
+It passes the prompt, the user's question, and the HTTP call's query result to the Tiangong model.
+The model processes this information and replies to the user according to the prompt.
+
+### Planning the "Book Meeting Room" Function
+
+In the "Book Meeting Room" flow, the "Information Classification" module determines the user's intent; if the request is related to "booking a meeting room," it triggers the following process. The specific connections and their functions are described below:
+
+<Frame>
+  <img src="/images/documentation/ch6_6.10.11.4_0280.png" alt="Advanced: Field Extraction + HTTP Module" />
+</Frame>
+
+Connection 5: If the user's intent is "book a meeting room," the "Field Extraction" module is triggered.
+The main function of the "Field Extraction" module is to structure the user's input and output it as JSON content.
+For example, given the input "Book Sky Gate, 13:00-18:00, booked by: Assistant," the content after field extraction would be `{"roomName":"Sky Gate","startTime":"13:00","endTime":"18:00","bookerName":"Assistant"}`.
+Connection 6: To better deliver the booking information to the meeting-room booking system, this example adds an extra "Information Processing" module, which further transforms the JSON received above into the format required by the interface, and outputs it to the "HTTP Call" module via Connection 7 for submission to the meeting-room booking system. This step can be added optionally, as needed.
+Connection 8: Once the booking request succeeds, the "Intelligent Dialogue" module is triggered to let the user know the booking is complete, and to relay the booking details back to the user (via Connection 9, which passes the user's booking information along).
+Connection 10: Booking a meeting room requires the user to provide certain necessary information. To prevent missing information, a "Missing Field" prompt is configured here to remind the user to supply the required details.
+
+### Conversation Test
+
+After entering "check meeting room," the Agent returns the current booking status of the meeting room.
+
+<Frame>
+  <img src="/images/documentation/ch6_6.10.11.5_0281.png" alt="Advanced: Field Extraction + HTTP Module" />
+</Frame>
+
+After entering "book meeting room," the Agent prompts the user to provide the relevant booking information.
+
+<Frame>
+  <img src="/images/documentation/ch6_6.10.11.5_0282.png" alt="Advanced: Field Extraction + HTTP Module" />
+</Frame>
+
+After entering "Book Sky Gate at 4 p.m., booked by Assistant," the Agent sends the information to the meeting-room booking system and, once the request succeeds, shows a "Booking Successful" message.
+
+<Frame>
+  <img src="/images/documentation/ch6_6.10.11.5_0283.png" alt="Advanced: Field Extraction + HTTP Module" />
+</Frame>
+
+That covers the basics of building a simple meeting-room booking Agent. By combining the "Field Extraction" and "HTTP Call" modules flexibly, you can create more Agents tailored to your personal or work scenarios.

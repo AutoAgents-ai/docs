@@ -1,0 +1,201 @@
+---
+title: "模型配置"
+---
+
+### 功能概述
+
+系统管理模块下的模型配置能力，用于核心价值：统一纳管平台接入的大模型，支持配置模型类型（对话 / 文生图 / 文本向量 / 重排序）、名称、Base URL 及 API Key（AES 加密存储）；模型创建后可设置上下文长度、是否为推理模型，并按部门 / 人员 / 角色 / 权限策略分配使用权限；提供 "我创建的" 与 "授权给我的" 两个独立视图，实现模型资源的全生命周期管理，适用于适用场景：系统管理员在接入企业自有大模型、配置模型参数、分配模型使用权限、统一管理平台模型资源时使用。
+
+通过模型配置功能，企业可将内部部署或第三方采购的大模型统一接入 Agents 平台，灵活配置模型参数和访问权限，确保模型资源的安全、有序使用，同时满足不同业务场景对模型能力的差异化需求。
+
+### 功能入口
+
+登录 Agents 平台，点击左侧导航栏的【系统管理】一级菜单，展开菜单列表后点击【模型配置】二级菜单，进入模型配置功能页面。
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.3.2_0366.png" alt="模型配置" />
+</Frame>
+
+### 界面说明
+
+### 主界面
+
+模型配置主界面采用双视图设计，顶部为视图切换标签页，右上角为功能按钮，主体区域为模型列表，底部为平台内置模型供应商区域。
+视图切换标签页：包含 "我创建的" 和 "授权给我的" 两个标签，点击可切换查看不同权限范围的模型
+添加自定义模型按钮：位于页面右上角，点击可打开添加自定义模型弹窗
+模型列表：以卡片形式展示模型信息，鼠标悬停在 "我创建的" 模型卡片上会弹出操作按钮
+模型供应商区域：展示平台内置的所有大模型供应商及对应模型，可快速添加对应供应商内的模型
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.3.4_0367.png" alt="模型配置" />
+</Frame>
+
+两个视图功能对比
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.3.4_0368.png" alt="模型配置" />
+</Frame>
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.3.4_0369.png" alt="模型配置" />
+</Frame>
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.3.4_0370.png" alt="模型配置" />
+</Frame>
+
+### 添加 / 编辑自定义模型
+
+点击 "添加自定义模型" 按钮或模型卡片的 "设置" 按钮，打开对应弹窗。弹窗字段根据选择的模型类型动态变化，所有 API Key 均采用 AES 技术加密存储。
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.3.5_0371.png" alt="模型配置" />
+</Frame>
+
+通用字段
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.3.5_0372.png" alt="模型配置" />
+</Frame>
+
+不同模型类型特有字段
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.3.5_0373.png" alt="模型配置" />
+</Frame>
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.3.5_0374.png" alt="模型配置" />
+</Frame>
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.3.5_0375.png" alt="模型配置" />
+</Frame>
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.3.5_0376.png" alt="模型配置" />
+</Frame>
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.3.5_0377.png" alt="模型配置" />
+</Frame>
+
+### 分配使用权限
+
+点击模型卡片的 "分配使用权限" 按钮，打开权限分配弹窗，该弹窗与平台其他权限管理模块逻辑一致，支持四种授权维度。
+部门：按企业组织架构授权，勾选部门后该部门所有用户获得模型使用权限
+人员：按单个用户授权，可精确指定哪些用户可以使用该模型
+角色：按用户角色授权，同一角色下的所有用户获得相同权限
+权限策略：应用预定义的权限策略，批量分配权限
+全部可见：勾选后该模型对平台所有用户开放使用权限
+详细权限控制介绍可查看[\*\*智能体权限管理](https://uxkpl4cba3j.feishu.cn/wiki/KsoowkS6li29rMkdijdc8BjrnRd#share-HUT1dvySPoYtU5x6WDdcFJE8nae) （2.1 - 2.4章节）
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.3.6_0378.png" alt="模型配置" />
+</Frame>
+
+### 操作流程
+
+### 一、添加自定义模型
+
+进入模型配置功能页面，确认在 "我创建的" 视图下
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.3.8_0379.png" alt="模型配置" />
+</Frame>
+
+点击页面右上角的【添加自定义模型】按钮
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.3.8_0380.png" alt="模型配置" />
+</Frame>
+
+在弹窗中选择模型类型，填写对应字段（参考界面说明 2.2 节）
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.3.8_0381.png" alt="模型配置" />
+</Frame>
+
+确认所有信息无误后，点击【确定】按钮，完成模型创建
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.3.8_0382.png" alt="模型配置" />
+</Frame>
+
+### 二、编辑模型
+
+在 "我创建的" 模型列表中，找到需要编辑的模型
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.3.9_0383.png" alt="模型配置" />
+</Frame>
+
+鼠标悬停在模型卡片上，点击弹出的【设置】按钮
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.3.9_0384.png" alt="模型配置" />
+</Frame>
+
+在编辑弹窗中修改可编辑字段（模型类型不可修改）
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.3.9_0385.png" alt="模型配置" />
+</Frame>
+
+点击【确定】按钮，保存修改内容
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.3.9_0386.png" alt="模型配置" />
+</Frame>
+
+### 三、分配模型使用权限
+
+在 "我创建的" 模型列表中，找到需要分配权限的模型
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.3.10_0387.png" alt="模型配置" />
+</Frame>
+
+鼠标悬停在模型卡片上，点击弹出的【分配使用权限】按钮
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.3.10_0388.png" alt="模型配置" />
+</Frame>
+
+在权限弹窗中选择授权维度，勾选需要授权的部门 / 人员 / 角色 / 权限策略
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.3.10_0389.png" alt="模型配置" />
+</Frame>
+
+如需对所有用户开放，勾选左下角的【全部可见】选项
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.3.10_0390.png" alt="模型配置" />
+</Frame>
+
+点击【确定】按钮，完成权限分配
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.3.10_0391.png" alt="模型配置" />
+</Frame>
+
+### 四、删除模型
+
+在 "我创建的" 模型列表中，找到需要删除的模型
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.3.11_0392.png" alt="模型配置" />
+</Frame>
+
+鼠标悬停在模型卡片上，点击弹出的【删除】按钮
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.3.11_0393.png" alt="模型配置" />
+</Frame>
+
+在确认弹窗中点击【确定】按钮，完成模型删除
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.3.11_0394.png" alt="模型配置" />
+</Frame>

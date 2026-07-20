@@ -1,0 +1,103 @@
+---
+title: "Planning Overview"
+---
+
+"Planning" refers to designing an Agent's capabilities. When the Agent runs, the system executes each module in sequence according to the pre-designed flow, to achieve the intended outcome. To help users understand and configure this more easily, the platform's "Planning" feature uses a drag-and-drop, connect-the-nodes approach to chain functional modules together, making "task planning" clearer, easier to use, and highly customizable.
+The whole process is similar to building with blocks — each module has its own distinct capability, and combining these "blocks" appropriately lets you assemble a custom Agent. Getting familiar with what each module does will give you a more complete understanding of what an Agent can do.
+
+### Interface Overview
+
+Module Panel
+After entering the "Planning" page, the area on the left side of the page is the module panel. The platform currently organizes modules into 4 categories: System Modules, Agents, Tools, and MCP.
+System Modules: Connect to AI capabilities to process input text, such as Information Refinement, Knowledge Base Search, and so on.
+Agents: Within a single Agent's task planning, you can call other Agents that have already been published, enabling more sophisticated capability planning.
+Tools: Common tools packaged for reuse, extending an Agent's ability to connect with third-party capabilities. Enterprises can also develop their own custom tools as needed.
+MCP: Uses a universal protocol to bridge the interaction gap between Agent applications and external tools or data sources, improving development efficiency and flexibility.
+
+<Frame>
+  <img src="/images/documentation/ch6_6.1.5.1_0017.png" alt="Planning Overview" />
+</Frame>
+
+Canvas Area
+The canvas area is the design surface for "Planning." You can drag components from the module panel onto the canvas and connect them to combine the capabilities of each module.
+For each module, the connector on the left is the input and the connector on the right is the output. When connecting, you can only connect one "input" to one "output" — you cannot connect "input to input" or "output to output."
+If a connection is made incorrectly, click the "x" in the middle of the connecting line to remove it.
+
+<Frame>
+  <img src="/images/documentation/ch6_6.1.5.1_0018.png" alt="Planning Overview" />
+</Frame>
+
+Toolbar Area
+The toolbar area sits at the top of the page, split across the left and right sides, and is divided into two parts:
+Canvas toolbar
+Agent toolbar
+
+<Frame>
+  <img src="/images/documentation/ch6_6.1.5.1_0019.png" alt="Planning Overview" />
+</Frame>
+
+Canvas toolbar
+Import/Export: Import or export this Agent's orchestration.
+
+<Frame>
+  <img src="/images/documentation/ch6_6.1.5.1_0020.png" alt="Planning Overview" />
+</Frame>
+
+Trial Run: Opens the trial run debugging window for quick conversational debugging, including run debugging and results for every module.
+
+<Frame>
+  <img src="/images/documentation/ch6_6.1.5.1_0021.png" alt="Planning Overview" />
+</Frame>
+
+Agent toolbar
+Share: Shares the current Agent externally, supporting several sharing formats:
+HTTP application: Shares the Agent as a link, and also supports embedding the Agent into a web page;
+API service: Supports being called by external systems or applications via an API interface;
+MCP Server: Supports packaging this Agent as an MCP Server;
+App integration: Supports integration into the external "YuanZhi" application.
+Delete: Deletes the current Agent.
+Save: Saves the Agent's current orchestration and configuration.
+Publish: Publishes this Agent to the "Agent Marketplace."
+
+<Frame>
+  <img src="/images/documentation/ch6_6.1.5.1_0022.png" alt="Planning Overview" />
+</Frame>
+
+<Frame>
+  <img src="/images/documentation/ch6_6.1.5.1_0023.png" alt="Planning Overview" />
+</Frame>
+
+Module Structure
+Each module is made up of three parts:
+The input area in the top-left of the module, where connector nodes feed information in;
+The settings area in the middle of the module, where you configure the module's parameters, prompts, and other content;
+The output area in the bottom-right of the module, where the module outputs information after execution.
+
+<Frame>
+  <img src="/images/documentation/ch6_6.1.5.1_0024.png" alt="Planning Overview" />
+</Frame>
+
+Node Notes
+A node's color is closely tied to its data type. Below are the colors used across the platform and the corresponding data types:
+
+<Frame>
+  <img src="/images/documentation/ch6_6.1.5.1_0025.png" alt="Planning Overview" />
+</Frame>
+
+<Frame>
+  <img src="/images/documentation/ch6_6.1.5.1_0026.png" alt="Planning Overview" />
+</Frame>
+
+<Frame>
+  <img src="/images/documentation/ch6_6.1.5.1_0027.png" alt="Planning Overview" />
+</Frame>
+
+<Frame>
+  <img src="/images/documentation/ch6_6.1.5.1_0028.png" alt="Planning Overview" />
+</Frame>
+
+Yellow nodes: Boolean values, connect to other boolean-type nodes;
+Blue nodes: String type, further divided into text information, image information, and document information — connect to nodes of the same information type;
+Purple nodes: Used exclusively for knowledge base search results, for inputting/outputting knowledge base search results;
+Red nodes: Any type — used only in the For Each module, where the value type must be a JSON array or a target object.
+Connection rule: Nodes of the same type can connect to each other; nodes of different types cannot be connected.

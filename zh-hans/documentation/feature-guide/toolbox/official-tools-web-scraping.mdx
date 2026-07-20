@@ -1,0 +1,183 @@
+---
+title: "官方工具：网页抓取"
+---
+
+### 网页抓取
+
+爬虫使用说明
+爬虫工具旨在帮助客户获取一些网站的资讯并结合agent的能力做原始数据的进一步加工处理，从而满足自身的使用场景
+具体使用入口如下：
+
+<Frame>
+  <img src="/images/documentation/ch6_6.7.1.18_0201.png" alt="官方工具：网页抓取" />
+</Frame>
+
+一.首页-点击新建抓取任务按钮,进入爬虫配置页
+
+<Frame>
+  <img src="/images/documentation/ch6_6.7.1.18_0202.png" alt="官方工具：网页抓取" />
+</Frame>
+
+二.爬虫配置
+接下来以一个真实的网页配置说明爬虫工具如何使用
+第一步：
+配置目标网页，以 http://www.cbssports.com/nba/ 为例
+
+<Frame>
+  <img src="/images/documentation/ch6_6.7.1.18_0203.png" alt="官方工具：网页抓取" />
+</Frame>
+
+第二步：
+配置网页抓取字段
+实际案例
+
+<Frame>
+  <img src="/images/documentation/ch6_6.7.1.18_0204.png" alt="官方工具：网页抓取" />
+</Frame>
+
+能力说明：
+案例配置展示
+
+<Frame>
+  <img src="/images/documentation/ch6_6.7.1.18_0205.png" alt="官方工具：网页抓取" />
+</Frame>
+
+能力分解说明
+添加爬取字段
+直接配置抓取这个网页的哪些字段
+
+<Frame>
+  <img src="/images/documentation/ch6_6.7.1.18_0206.png" alt="官方工具：网页抓取" />
+</Frame>
+
+定义清楚字段key、字段描述、字段提取规则，一般是写正则表达式
+去学习字段提取规则：
+爬虫指令脚本使用指南
+示例说明：
+字段类型这块分为两类：
+string：具有实际内容的，例如抓取网页的标题、正文都选择此类型
+网页：一般是指主网页里还有网页可下钻，且需要下钻，则配置成网页类型，网页类型会自带抓取按钮
+
+<Frame>
+  <img src="/images/documentation/ch6_6.7.1.18_0207.png" alt="官方工具：网页抓取" />
+</Frame>
+
+点击抓取则会自动下扩一层，用于配置主网站下下钻网页的抓取内容，例如下图点击抓取后则自动拓展下层网页，且抓取按钮会自动变为取消抓取
+点击取消抓取，则下方配置会清空
+
+<Frame>
+  <img src="/images/documentation/ch6_6.7.1.18_0208.png" alt="官方工具：网页抓取" />
+</Frame>
+
+导出配置
+
+### 本期先支持导出到agent和导出给http
+
+导出到agent
+导出给agent其实是借助agent对原始爬虫数据做进一步的加工和处理，实际场景下这个能力应该更满足用户的需求
+拿案例网页来讲，可以将英文内容翻译以后存到知识库
+
+<Frame>
+  <img src="/images/documentation/ch6_6.7.1.19_0209.png" alt="官方工具：网页抓取" />
+</Frame>
+
+选择要导出的agent，可多选
+导出agent示例：
+目前为了结构化将数据导出，后端定义了两个标准字段
+爬虫的数据数据集内容为_state.data.xx、数据集名称为为_state.url
+其中xx部分取的是需要翻译的爬虫内容的字段，例如网页爬虫正文字段配置的为content，则这块填写为_state.data.content
+
+<Frame>
+  <img src="/images/documentation/ch6_6.7.1.19_0210.png" alt="官方工具：网页抓取" />
+</Frame>
+
+存储到知识库详情：
+
+<Frame>
+  <img src="/images/documentation/ch6_6.7.1.19_0211.png" alt="官方工具：网页抓取" />
+</Frame>
+
+导出http
+
+<Frame>
+  <img src="/images/documentation/ch6_6.7.1.19_0212.png" alt="官方工具：网页抓取" />
+</Frame>
+
+可通过post请求接口，将内容直接通过api 方式推送到数据库
+第三步：配置完成
+
+<Frame>
+  <img src="/images/documentation/ch6_6.7.1.19_0213.png" alt="官方工具：网页抓取" />
+</Frame>
+
+点击查看任务回到爬虫任务列表
+三.爬虫任务管理
+
+<Frame>
+  <img src="/images/documentation/ch6_6.7.1.19_0214.png" alt="官方工具：网页抓取" />
+</Frame>
+
+### 设置
+
+<Frame>
+  <img src="/images/documentation/ch6_6.7.1.20_0215.png" alt="官方工具：网页抓取" />
+</Frame>
+
+间隔时间可设置分钟、小时、天维度，作为定时轮训
+自定义cron表达式：有能力的可以自己写cron表达式，定义更个性化的抓取规则， 比如按照周一，三，五去抓取
+启动
+设置完毕后可启动任务，启动后可随时停止
+停止非暂停，而是直接停止，谨慎点选
+编辑和删除
+启动中的任务禁止编辑和删除、设置
+
+<Frame>
+  <img src="/images/documentation/ch6_6.7.1.20_0216.png" alt="官方工具：网页抓取" />
+</Frame>
+
+爬虫指令脚本使用指南
+
+### 概述
+
+### 语法介绍
+
+脚本语法由指令和指令参数组成。每个指令必须独占一行。
+语法：\<指令\> \[=\>指令参数\]
+指令：必须，每行只能有一个指令。指令如果返回值是选择器类型，则可以继续链式操作，如果非选择器类型则终止操作返回最终结果。最后一个指令一定是终止类型（非选择器类型）的指令。
+=\> : 非必须，用于指定参数的符号
+指令参数：非必须，无参数的指令就不用输入指令参数
+示例1：
+获取所有链接且过滤出只包含/articles/的链接
+示例2：
+获取任一html标签\<article\>中包含class属性是article-body的节点下的任一html标签\<h1\>下的标题内容
+示例3：
+获取任一html标签\<div\>中包含class属性是article-body的节点下的所有文章内容
+
+### 指令列表
+
+### 相关语法学习
+
+### xpath语法
+
+xpath符合xsoup语法规范。
+XPath1.0:
+Function supported:
+In Xsoup, we use some function (maybe not in Standard XPath 1.0):
+Extended syntax supported:
+These XPath syntax are extended only in Xsoup (for convenience in extracting HTML, refer to Jsoup CSS Selector):
+
+### regex语法
+
+去学习和练手：https://regexlearn-com.vercel.app/zh/cheatsheet
+
+<Frame>
+  <img src="/images/documentation/ch6_6.7.1.26_0217.png" alt="官方工具：网页抓取" />
+</Frame>
+
+### jsonPath语法
+
+去学习和练手：https://jsonpath.com/
+
+<Frame>
+  <img src="/images/documentation/ch6_6.7.1.27_0218.png" alt="官方工具：网页抓取" />
+</Frame>

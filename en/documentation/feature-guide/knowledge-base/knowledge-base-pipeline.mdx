@@ -1,0 +1,80 @@
+---
+title: "Knowledge Base Pipeline Orchestration"
+---
+
+Information Extraction
+Module Overview:
+Information extraction is the core upstream step of the Knowledge Base Pipeline. It extracts valid text and structured content from raw documents in various formats, removes redundant information, and provides high-quality raw data for the subsequent content chunking and vectorization steps — forming the foundation for accurate knowledge base retrieval.
+Module Entry:
+On the Pipeline orchestration canvas, double-click the "Information Extraction" node to open its configuration panel, which contains two core tabs: "Configuration" and "Debug."
+"Configuration" tab: Extraction rule settings
+Core configuration items
+Configuration steps
+Click "+ Add" to create a new extraction rule
+In the "Select File Type" dropdown, select the document formats to support (multiple selection is supported, or select "all" to support every format)
+In the "Select Parsing Method" dropdown, choose the appropriate parsing algorithm for the corresponding format
+To delete a rule, click the "Delete" icon to the right of the rule
+Once configuration is complete, close the panel to automatically save the settings
+"Debug" tab: Single-point functional verification
+Debug parameter description:
+Debug steps
+Click "Drag and drop file to upload, or click to upload" and select a test document (it must match the configured file type)
+After confirming the test document is correct, click "Run Debug" at the bottom
+Review the extraction results to verify that the valid content in the document was fully extracted
+If the extraction results don't meet expectations, return to the "Configuration" tab to adjust the parsing method, then debug again until the results meet requirements
+
+### Module Input/Output Description
+
+### Content Chunking
+
+Module Overview
+Content chunking is the core intermediate step of the Knowledge Base Pipeline. It takes the structured text output by the "Information Extraction" module and splits long documents into short text segments suitable for the vector model according to preset rules, addressing the problems of semantic loss in long text and low retrieval precision — a critical step for ensuring effective knowledge base retrieval.
+Module Entry
+On the Pipeline orchestration canvas, double-click the "Content Chunking" node to open its configuration panel, which contains two core tabs: "Configuration" and "Debug."
+"Configuration" tab: Chunking rule settings
+Core configuration items:
+Details of each algorithm:
+Algorithm 1: LLM-based chunking
+Uses the capabilities of a large language model to intelligently identify text structure for chunking; suitable for unstructured documents without a fixed format.
+Algorithm 2: Chunk by page
+Splits content according to the document's physical page numbers; suitable for paginated formats such as PDF and PPT.
+Algorithm 3: Custom chunking
+Supports chunking based on custom rules; suitable for documents with clear delimiting features (such as tables or text with fixed delimiters).
+Algorithm 4: Parent-child chunking
+A two-tier chunking logic that first splits the "parent document" and then the "child documents"; suitable for long documents or documents with a hierarchical structure.
+Algorithm 5: Chunk by heading
+Splits content in a structured way based on heading hierarchy; suitable for Markdown files and technical documents/manuals with standard headings.
+"Debug" tab: Single-point functional verification
+Debug parameter description
+Debug steps
+In the "Extraction Result" input box, paste the test text output by the upstream node (it must match the algorithm's applicable scenario)
+Click "Run Debug" at the bottom to execute the chunking logic
+Review the chunking results: verify that segment length, splitting logic, and semantic completeness meet expectations
+If the results are abnormal, return to the "Configuration" tab to adjust the algorithm/parameters, then debug again
+
+### Module Input/Output Description
+
+### Content Enhancement
+
+Module Overview
+Content enhancement is the core optimization step of the Knowledge Base Pipeline. It takes the text segments output by the "Content Chunking" module and uses large language model capabilities to perform semantic optimization, summary extraction, and information completion on the segments, improving the semantic completeness and retrieval match rate of the text. This ultimately improves the accuracy of knowledge base Q&A and reduces model hallucination.
+Module Entry
+On the Pipeline orchestration canvas, double-click the "Content Enhancement" node to open its configuration panel, which contains two core tabs: "Configuration" and "Debug."
+"Configuration" tab: Enhancement rule settings
+Core configuration items
+Configuration steps
+Confirm the enhancement algorithm: For common scenarios, "Summary Enhancement" is selected by default and requires no further adjustment
+Select the enhancement model: In the "Select Model" dropdown, choose a large language model that fits your business needs
+Configure the prompt: In the "Prompt" input box, enter a custom enhancement instruction. Examples:
+General enhancement: "Please generate a precise summary of no more than 100 words for this text, preserving the core information and key terms, for use in knowledge base retrieval enhancement."
+Business enhancement: "Please extract the core functions, applicable scenarios, and key parameters of this technical document, and generate a structured summary to improve retrieval match rate."
+Once configuration is complete, close the panel to automatically save the settings
+"Debug" tab: Single-point functional verification
+Debug parameter description
+Debug steps
+In the "Segment Content" input box, paste a test text segment output by the "Content Chunking" module
+After confirming the test text is correct, click "Run Debug" at the bottom
+Review the enhancement results to verify whether they meet the prompt's requirements, whether core information is preserved, and whether semantic completeness has improved
+If the enhancement results don't meet expectations, return to the "Configuration" tab to adjust the prompt or switch models, then debug again until the results meet requirements
+
+### Module Input/Output Description

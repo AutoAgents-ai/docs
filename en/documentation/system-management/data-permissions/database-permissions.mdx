@@ -1,0 +1,178 @@
+---
+title: "Database Permission Management"
+---
+
+### Feature Overview
+
+Feature Name: The Database Permission Management capability under the Data Permission Management module. Core Value: Isolates underlying data sources to ensure business data security across departments, supporting authorization assignment by department, user, role, or predefined permission policy to prevent unauthorized data queries and access. Use Cases: Used by system administrators when assigning access permissions for enterprise database connections, isolating data sources across different business lines, or protecting sensitive business data.
+
+Through the Database Permission Management feature, administrators can apply unified access control across all database connections on the platform, precisely determining which users and roles can access specific database connections—safeguarding enterprise business data at its source and preventing data leaks or unauthorized access.
+
+### Accessing the Feature
+
+Log in to the Agents platform, click the top-level [Data Permission Management] menu in the left navigation, then click the [Database Permission Management] submenu after the menu list expands, to enter the Database Permission Management page.
+
+<Frame>
+  <img src="/images/documentation/ch7_7.5.1.2_0289.png" alt="Database Permission Management" />
+</Frame>
+
+### Interface Overview
+
+The Database Permission Management page is divided into two sections: the search area and the database list area, as described below:
+
+<Frame>
+  <img src="/images/documentation/ch7_7.5.1.3_0290.png" alt="Database Permission Management" />
+</Frame>
+
+### Search Area
+
+Search box: Enter the database connection name to quickly filter matching connections; supports fuzzy search.
+
+<Frame>
+  <img src="/images/documentation/ch7_7.5.1.4_0291.png" alt="Database Permission Management" />
+</Frame>
+
+### Database List
+
+Displays basic information and the permission management entry point for all configured database connections on the platform. Each record includes the following fields:
+Connection Name: The custom name of the database connection
+Creator: The user account that created the database connection
+Database Type: The type of database (e.g., MySQL, SQL Server, etc.)
+Description: Notes describing the database connection
+Authorization Management: Provides a "Manage Permissions" button; clicking it opens the usage permission assignment dialog for the database connection
+The bottom of the list shows the total number of database connections and pagination controls, supporting browsing across multiple pages via page numbers or navigation buttons.
+
+<Frame>
+  <img src="/images/documentation/ch7_7.5.1.5_0292.png" alt="Database Permission Management" />
+</Frame>
+
+### Assign Usage Permissions
+
+Click the "Manage Permissions" button next to any database connection to open the usage permission assignment dialog, which contains four authorization dimension tabs plus a global authorization option:
+
+<Frame>
+  <img src="/images/documentation/ch7_7.5.1.6_0293.png" alt="Database Permission Management" />
+</Frame>
+
+### Department Tab
+
+Organizational structure tree: Displays the enterprise's complete department hierarchy, supporting expand / collapse at each level
+Search box: Enter a department name to quickly locate the target department
+Checkbox: Select the departments to authorize; all users in the selected department(s) will gain access to the corresponding database connection
+Visible to All option: When checked, the database connection becomes visible to all platform users with basic access permissions
+
+<Frame>
+  <img src="/images/documentation/ch7_7.5.1.7_0294.png" alt="Database Permission Management" />
+</Frame>
+
+### User Tab
+
+User list: Displays all user accounts on the platform, with search support
+Selected Users area: Displays the users who have been selected for authorization, with support for removal
+Permission settings area: Configure permissions for selected users; only the "Read" permission is supported (allows viewing and querying via the database connection)
+
+<Frame>
+  <img src="/images/documentation/ch7_7.5.1.8_0295.png" alt="Database Permission Management" />
+</Frame>
+
+### Role Tab
+
+Role list: Displays all predefined user roles on the platform, with search support
+Selected Roles area: Displays the roles that have been selected for authorization, with support for removal
+Once a role is selected, all users under that role automatically gain basic access to the corresponding database connection
+
+<Frame>
+  <img src="/images/documentation/ch7_7.5.1.9_0296.png" alt="Database Permission Management" />
+</Frame>
+
+### Permission Policy Tab
+
+Permission policy list: Displays all predefined permission policies applicable to databases, with search support
+Selected Policies area: Displays the policies that have been selected for authorization, with support for removal
+Once a permission policy is selected, all permissions defined in that policy are automatically applied to the corresponding database connection
+
+<Frame>
+  <img src="/images/documentation/ch7_7.5.1.10_0297.png" alt="Database Permission Management" />
+</Frame>
+
+### Dialog Footer Buttons
+
+Cancel: Closes the dialog without saving any authorization changes
+Confirm: Saves and applies all authorization configurations
+
+<Frame>
+  <img src="/images/documentation/ch7_7.5.1.11_0298.png" alt="Database Permission Management" />
+</Frame>
+
+### Operation Steps
+
+### 1. Access the Database Permission Management Page
+
+Following the steps above, log in to the Agents platform and navigate to the Database Permission Management page
+
+<Frame>
+  <img src="/images/documentation/ch7_7.5.1.13_0299.png" alt="Database Permission Management" />
+</Frame>
+
+To quickly locate a target database connection, enter its connection name in the search box to filter results
+
+<Frame>
+  <img src="/images/documentation/ch7_7.5.1.13_0300.png" alt="Database Permission Management" />
+</Frame>
+
+### 2. Assign Database Usage Permissions
+
+Find the database connection for which you want to configure permissions in the list, then click the [Manage Permissions] button on its right to open the usage permission assignment dialog
+
+<Frame>
+  <img src="/images/documentation/ch7_7.5.1.14_0301.png" alt="Database Permission Management" />
+</Frame>
+
+Select one or more of the following authorization methods based on your needs:
+
+<Frame>
+  <img src="/images/documentation/ch7_7.5.1.14_0302.png" alt="Database Permission Management" />
+</Frame>
+
+Method 1: Authorize by Department
+Switch to the [Department] tab
+Select the departments to authorize in the organizational structure tree (multiple departments can be selected at once)
+To grant access to all users, check the [Visible to All] option in the lower-left corner
+Click [Confirm] to complete department authorization
+
+<Frame>
+  <img src="/images/documentation/ch7_7.5.1.14_0303.png" alt="Database Permission Management" />
+</Frame>
+
+Method 2: Authorize by User
+Switch to the [User] tab
+Select the users to authorize in the user list (multiple users can be selected at once)
+Confirm that the "Read" permission is checked in the permission settings area on the right
+Click [Confirm] to complete user authorization
+
+<Frame>
+  <img src="/images/documentation/ch7_7.5.1.14_0304.png" alt="Database Permission Management" />
+</Frame>
+
+Method 3: Authorize by Role
+Switch to the [Role] tab
+Select the roles to authorize in the role list (multiple roles can be selected at once)
+Click [Confirm] to complete role authorization
+
+<Frame>
+  <img src="/images/documentation/ch7_7.5.1.14_0305.png" alt="Database Permission Management" />
+</Frame>
+
+Method 4: Authorize by Permission Policy
+Switch to the [Permission Policy] tab
+Select the predefined permission policies to apply in the permission policy list (multiple policies can be selected at once)
+Click [Confirm] to complete policy authorization
+Once authorization is configured, the corresponding departments / users / roles will immediately gain access to the database connection, and can use it within an Agent to perform data queries
+
+<Frame>
+  <img src="/images/documentation/ch7_7.5.1.14_0306.png" alt="Database Permission Management" />
+</Frame>
+
+\*\*Permission Policy Note\*\*
+
+For details on \[Permission Policies\], see the Permission Policy Management section in the [System Management] module.

@@ -1,0 +1,64 @@
+---
+title: "Content Chunking Module"
+---
+
+### Introduction
+
+Simply put, this module is like a "smart slicing knife." When the system encounters a lengthy document, it can't read or remember it all in one go. This module's job is to "slice" long documents into appropriately sized pieces (we call them "chunks"), making it easier for the system to store them in a knowledge base and later retrieve them more precisely and quickly.
+
+### What does the module look like? (Inputs and outputs)
+
+Like the other modules, this is a processing station on the assembly line — it has an "inbound" side that receives instructions, and an "outbound" side that hands off its work.
+Inbound side (input node): When does the module start slicing?
+Start switch (execution logic):
+Activate when all conditions met: It only picks up the knife once every preceding step has given the green light.
+Activate when any condition met: As soon as any preceding step gives the green light, it starts working immediately.
+Data received (content input logic): It receives a data package called the extraction result (also in a format the system understands — JSON), which is the "raw material" it's about to slice.
+Outbound side (output node): What does the module hand off once it's done slicing?
+Data handed off (content output logic): Once slicing is complete, it outputs the resulting chunk information (in JSON format) to the next step.
+Working status (execution logic):
+Execution succeeded or Execution failed: These are an "either/or" report (either it finished slicing smoothly, or it got stuck and errored out midway).
+Module execution complete: As long as the work is done (whether successfully or with an error), this switch turns on, telling downstream components: "I'm done processing here, you can carry on."
+
+### How is it configured internally? (Choosing your slicing method)
+
+Open this component and you'll see a "Select Algorithm" option. Here the system offers 5 different "slicing techniques" for you to choose from, based on your document's actual situation:
+① LLM-based chunking (let AI slice it for you)
+This is the smartest slicing method — it lets AI decide how to slice based on semantic meaning.
+Chunking configuration: First, you need to "select a model" from the dropdown menu (pick an AI brain).
+User prompt: The system has already written a "default prompt" for you (the slicing instruction given to the AI). You can also modify it yourself to give the AI more specific slicing requirements.
+
+<Frame>
+  <img src="/images/documentation/ch6_6.1.21.3_0063.png" alt="Content Chunking Module" />
+</Frame>
+
+② Page-based chunking (simple and straightforward)
+As the name suggests, just like tearing pages off a calendar — since the document is naturally page by page, it's sliced page by page.
+③ Custom chunking (do it yourself)
+If you have specific slicing requirements, this is the right choice.
+Segment delimiter: Tells the system what symbol to cut on. The system provides 8 common sentence-break symbols to choose from (including: double line break, single line break, Chinese period, Chinese exclamation mark, English period, English exclamation mark, English question mark, and Chinese question mark).
+Maximum segment length: Limits how large each "chunk" can be at most (enter a number directly, or fine-tune with the plus/minus buttons).
+Segment overlap ratio: To prevent a sentence from being abruptly cut in half and losing context, you can have adjacent chunks retain a small amount of overlapping content. Enter a percentage here (e.g., 10%).
+Text preprocessing rules: The "cleanup" work done before slicing. This is a multi-select option — you can check "collapse consecutive spaces, line breaks, and tabs" to make the formatting more compact, or check "remove all URLs and email addresses" to strip out unnecessary links.
+
+<Frame>
+  <img src="/images/documentation/ch6_6.1.21.3_0064.png" alt="Content Chunking Module" />
+</Frame>
+
+④ Parent-child chunking (outline + detail combination)
+This is an advanced slicing method. Simply put, it keeps a broader piece of content (the parent document, like an outline), and then slices it into smaller pieces (the child documents, like details), so the system can grasp both the big picture and the fine details.
+Document mode selection (ragPipeline.parentMode): Determines whether the "parent document" is defined at the "whole document" level or the "paragraph" level (choose one of the two).
+Parent document settings: You can set the parent document delimiter (the input box defaults to \n\n, meaning split on two consecutive line breaks) and the parent document chunk length (a number input controlling the character limit).
+Child document settings: Similarly, you can set the child document delimiter (also defaults to \n\n) and the maximum chunk length for child documents.
+
+<Frame>
+  <img src="/images/documentation/ch6_6.1.21.3_0065.png" alt="Content Chunking Module" />
+</Frame>
+
+⑤ Heading-based chunking (split by chapter/section)
+If your document has well-structured formatting with clear level-1 and level-2 headings, this is the best fit.
+Heading split level: The system recognizes headings using a special syntax called "regular expressions." Don't worry if you're not familiar with it — the system has already filled in default patterns for you in the input box (for example, H1 corresponds to `^#`, representing a level-1 heading; H2 corresponds to `^##`, representing a level-2 heading, and so on up to H6). Whenever the corresponding heading level is encountered, the system automatically splits the document there.
+
+<Frame>
+  <img src="/images/documentation/ch6_6.1.21.3_0066.png" alt="Content Chunking Module" />
+</Frame>

@@ -1,0 +1,33 @@
+---
+title: "Table Schema and Field Management"
+---
+
+### Interface Description
+
+<Frame>
+  <img src="/images/documentation/ch6_6.6.4.1_0165.png" alt="Table Schema and Field Management" />
+</Frame>
+
+Page header and global actions
+Page title: "Database Configuration Demo," showing the name of the database connection currently being managed. The back arrow on the left returns to the database list page.
+Refresh Data Source button: Located in the upper-right corner of the page; clicking it resynchronizes the latest table structure and data from the database.
+Table search box: Located at the top of the list on the left, supporting fuzzy search of database tables by table name or Chinese name.
+Data table list on the left
+Displays all data tables under the current database in a tree list; click a table name to view its structure details on the right.
+The currently selected table, "XX Chapter," is highlighted, indicating the table currently being operated on.
+Table details and field management area on the right
+
+### Table Basic Information Area
+
+Table name and description: Shows the name of the currently selected table, "XX Chapter." "No description yet" is shown by default.
+Custom table description input box: Supports entering a custom description for the data table.
+Field search box: Supports fuzzy search of the current table's fields by field name or comment.
+Field information management table
+The table contains 5 core columns for managing data table fields:
+Field name: Shows the native database field name (such as chapter_content, chapter_number, etc.); not editable.
+Field comment: Shows the native database field comment; displays "-" when there is no comment.
+Custom comment: Editable; click "Click to edit..." to enter a custom field description.
+Field type: Shows the field's database data type (such as text, int, varchar(255), etc.); not editable.
+Enabled: A toggle control; a blue "on" state indicates the field is available for use.
+
+### Operating Procedure

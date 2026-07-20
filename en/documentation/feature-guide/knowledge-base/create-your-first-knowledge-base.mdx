@@ -1,0 +1,245 @@
+---
+title: "Create Your First Knowledge Base"
+---
+
+A knowledge base is a collection of datasets. You can upload files in various formats (such as documents, spreadsheets, and slides) and parse them into datasets. Agents can generate responses based on one or more knowledge bases.
+
+### Create a Knowledge Base
+
+Click the "Knowledge Base" tab on the left, then click "Create Knowledge Base."
+
+<Frame>
+  <img src="/images/documentation/ch6_6.5.1.1_0146.png" alt="Create Your First Knowledge Base" />
+</Frame>
+
+### Basic Information
+
+Enter a knowledge base name (required)
+Add a description (optional)
+Click "Confirm"
+
+<Frame>
+  <img src="/images/documentation/ch6_6.5.1.2_0147.png" alt="Create Your First Knowledge Base" />
+</Frame>
+
+### Advanced Settings
+
+Select a parsing method (such as Legal, Paper, Book, Manual, FAQ, etc.)
+Specify the embedding model: An embedding model is an algorithm that converts text into vectors (numerical form) to capture the semantic information within the text. Specifying an embedding model determines how text is embedded into a high-dimensional space, so that semantically similar content ends up closer together in that space.
+Set the chunk token count: The chunk token count refers to the number of tokens (words or subwords) contained in each "chunk" (or segment) when the system splits a document during processing. A token is the smallest unit the model uses when processing text — it can be a whole word or part of a word. The purpose of setting the chunk token count is to manage document size and processing efficiency. A larger chunk token count can accommodate more content but may increase computational complexity, while a smaller chunk token count enables more fine-grained text analysis but may require more chunks to process the entire document. Setting an appropriate chunk token count balances processing precision and efficiency.
+Click "Confirm" to complete the creation
+Note: Once an embedding model is selected, it cannot be changed, to ensure that all files in the knowledge base use the same embedding space.
+
+<Frame>
+  <img src="/images/documentation/ch6_6.5.1.3_0148.png" alt="Create Your First Knowledge Base" />
+</Frame>
+
+To accommodate diverse document types, we provide multiple built-in parsing methods covering, but not limited to, legal documents, papers, books, manuals, and FAQs. Please note that once you select and use an embedding model to embed files, you will not be able to change that embedding model. All files within a given knowledge base must be embedded using the same embedding model, so that similarity can be compared and relevant content retrieved within the same embedding space.
+Upload files
+Go to the "Datasets" page of the knowledge base
+Click "Upload" and select files
+After the upload completes, click "Update to Knowledge Base"
+
+### Parse Files
+
+Click the "Parse" button on the file
+The system will automatically chunk and embed the data
+Once parsing succeeds, the status updates to "Success," and the file content becomes available for retrieval
+
+<Frame>
+  <img src="/images/documentation/ch6_6.5.1.4_0149.png" alt="Create Your First Knowledge Base" />
+</Frame>
+
+The knowledge base is the core content input for agents, helping enterprises efficiently manage and leverage their knowledge assets. With the platform, you can:
+Centrally manage enterprise knowledge assets: Comprehensively consolidate and manage all of an enterprise's knowledge resources, ensuring consistency and accessibility of knowledge.
+Fill knowledge gaps in large models: Supplement the blind spots of large models for domain-specific needs, expanding the coverage of agents.
+Improve the accuracy and professionalism of responses: Significantly improve the response quality and professionalism of agents across various scenarios through rich knowledge base support.
+
+### Use Cases
+
+Customer service Q&A: Respond to customer inquiries quickly and accurately, improving customer satisfaction.
+Product consultation: Provide users with detailed product information, boosting purchase confidence.
+Scenarios requiring standardized responses: Ensure accurate information delivery and consistent brand image in situations that demand consistency and authority.
+With professional guidance from the knowledge base, agents can provide users with consistent and authoritative information, ensuring high-quality communication and effectively maintaining the enterprise's brand image.
+
+<Frame>
+  <img src="/images/documentation/ch6_6.5.1.5_0150.png" alt="Create Your First Knowledge Base" />
+</Frame>
+
+### Retrieval Testing
+
+### Retrieval Testing
+
+After file parsing is complete, you can test the query performance of the dataset on the Retrieval Testing page and fine-tune the parameters that best fit your use case. Enter test text and click "Test" to view the results.
+
+<Frame>
+  <img src="/images/documentation/ch6_6.5.1.7_0151.png" alt="Create Your First Knowledge Base" />
+</Frame>
+
+Each parameter comes with a corresponding tooltip to help you better understand and use it.
+
+### Knowledge Graph
+
+### Feature Overview
+
+The knowledge graph feature lets you enable graph extraction when creating a knowledge base. Uploaded documents are automatically parsed to generate entities and relationships, graph-based recall can be enabled during retrieval to improve results, and a visualization interface lets you intuitively view and manage entity relationships, helping users precisely understand and retrieve knowledge.
+
+### Entry Point
+
+In the left navigation bar, click the "Knowledge Base" module. On the "Created by Me" knowledge base list page, click the "+" card in the first position of the list to trigger the creation flow.
+
+### Create a Knowledge Base and Enable Graph Extraction
+
+### Interface Description
+
+<Frame>
+  <img src="/images/documentation/ch6_6.5.1.12_0152.png" alt="Create Your First Knowledge Base" />
+</Frame>
+
+Left navigation bar: The "Knowledge Base" module is currently selected, showing the platform's full range of feature entry points.
+Knowledge base list page: In the background, the "Created by Me" and "Shared with Me" tabs are displayed, along with cards for existing knowledge bases.
+Creation dialog: The "Create Knowledge Base" dialog contains the full set of knowledge base configuration options, with graph extraction as the core toggle:
+The toggle is located at the bottom of the dialog. A blue "on" state indicates that knowledge graph extraction is enabled; when off, no graph is generated.
+Other configuration options: image parsing strategy, image understanding model, image parsing prompt, chunk token count (required), whether newly added knowledge base files are downloadable by default, download permission control, knowledge enhancement, and other basic knowledge base capability settings.
+Action buttons: "Cancel" discards the creation; "Confirm" submits the configuration and creates the knowledge base.
+
+### Operating Instructions
+
+Step 1: Enter the creation page. Click "Knowledge Base" in the left navigation bar, then click the "+" card on the knowledge base list page to open the creation dialog.
+Step 2: Configure basic information. Fill in or select the basic knowledge base configuration (such as required fields like chunk token count and image parsing strategy).
+Step 3: Enable graph extraction. Find the "Graph Extraction" toggle at the bottom of the dialog and click it to switch it to the blue "on" state, enabling knowledge graph generation.
+Step 4: Complete the creation. After confirming that all configurations are correct, click the "Confirm" button to complete creation of the knowledge base with graph capability enabled, and you'll be automatically taken to the knowledge base detail page.
+Upload a dataset and parse it automatically
+
+### Interface Description
+
+<Frame>
+  <img src="/images/documentation/ch6_6.5.1.14_0153.png" alt="Create Your First Knowledge Base" />
+</Frame>
+
+Page title: "物探XXX3" (sample knowledge base name), showing the current knowledge base name. The back arrow on the left returns to the knowledge base list.
+Left navigation: Contains two core entries, "Datasets" and "Retrieval Testing," with "Datasets" currently selected.
+Upload area:
+Top tabs: Supports 4 data source types — "Documents," "Websites," "Audio/Video," and "Archives" — with "Documents" currently selected.
+Upload zone: "Click to upload, or drag and drop documents here." Supports formats including pdf/doc/docx/pptx/xlsx/txt/csv/ofd/png/jpg/jpeg/gif/tif/tiff, with a recommended single-file size of ≤500 MB.
+Uploaded file list: Displays already-uploaded files (e.g., "Work Instruction – P101011 – Observation System Definition.docx"), with support for clicking "×" to delete a file.
+Bottom action area:
+Import summary: Shows import status, such as "1 document imported | 0 websites | 0 audio/video files | 0 archives."
+"Auto-parse" checkbox: Checked by default; when enabled, the system automatically parses documents and generates the knowledge graph.
+"Update Knowledge Base" button: Clicking it triggers document parsing, graph extraction, and knowledge base updates.
+
+### Operating Instructions
+
+Step 1: Enter the Datasets page. After creating the knowledge base, you're automatically taken to its "Datasets" page.
+Step 2: Upload documents. Click the upload area to select local documents (or drag and drop files directly) to complete the upload; the files will appear in the uploaded file list.
+Step 3: Confirm auto-parsing. Keep the "Auto-parse" checkbox checked (enabled by default) to ensure the system automatically extracts knowledge and generates the graph.
+Step 4: Update the knowledge base. After confirming the files are correct, click the "Update Knowledge Base" button. The system will automatically parse the documents, extract entities and relationships, generate the knowledge graph, and complete the knowledge base data update.
+
+### Enable Graph Recall on the Retrieval Testing Page
+
+<Frame>
+  <img src="/images/documentation/ch6_6.5.1.16_0154.png" alt="Create Your First Knowledge Base" />
+</Frame>
+
+### Interface Description
+
+Left navigation: The "Retrieval Testing" tab is currently selected, used to test the recall and re-ranking performance of the knowledge base.
+Core configuration area:
+Basic retrieval settings such as similarity threshold, vector similarity weight / keyword similarity, recall count, re-ranking model, and directory-based recall.
+Graph recall toggle: A blue "on" state enables retrieval that combines knowledge graph associations for recall, improving retrieval results; when off, only traditional vector retrieval is used.
+Graph recall weight and N-hop expansion: Used to configure the weight and relationship depth of graph recall, optimizing recall precision.
+Test text input box: Used to enter test questions to verify retrieval performance.
+Results area on the right: Currently shows "No data yet"; results will be displayed after testing.
+
+### Operating Instructions
+
+Step 1: Go to the Retrieval Testing page. Click "Retrieval Testing" in the left navigation to enter the retrieval configuration and testing page.
+Step 2: Enable graph recall. Find the "Graph Recall" toggle and click it to switch it to the blue "on" state, enabling graph-based associative recall.
+Step 3: Configure graph parameters (optional). Adjust parameters such as "Graph Recall Weight" and "N-hop Expansion" to optimize the scope and effectiveness of graph recall.
+Step 4: Test retrieval (optional). Enter a question in the "Test Text" input box and click "Test" to verify retrieval performance combined with the graph.
+
+### View the Knowledge Graph
+
+<Frame>
+  <img src="/images/documentation/ch6_6.5.1.19_0155.png" alt="Create Your First Knowledge Base" />
+</Frame>
+
+### Interface Description
+
+Left navigation: The "Knowledge Graph" tab is currently selected, used to visually view the entities and relationships in the knowledge base.
+Page header:
+Title "Knowledge Graph," with the description: "The knowledge graph helps you visualize the entities and relationships in your knowledge base."
+Statistics: The upper-right corner shows "Entities: 20 | Relationships: 18," providing an at-a-glance view of the graph's scale.
+Expansion state: Shows "Expanded neighbors of 'XXX' | Showing 14 / 20 nodes," supporting node expand/collapse.
+Search box: "Search nodes...," supporting quick lookup of graph nodes by entity name.
+Graph visualization area:
+Displays the knowledge graph as nodes and edges, with different colors distinguishing different communities (e.g., Community #0, #11, etc.). Nodes represent entities, and edges represent relationships between entities.
+"Refresh Graph" button: Clicking it reloads the graph, syncing the latest entity and relationship data.
+Bottom community bar: Shows the graph's community categories (e.g., 13 communities in total), supporting filtering of graph nodes by community.
+
+### Operating Instructions
+
+Step 1: Go to the Knowledge Graph page. Click "Knowledge Graph" in the left navigation to enter the graph visualization page; the system automatically loads the generated knowledge graph.
+Step 2: View and interact with the graph.
+You can drag the graph to adjust the layout, click a node to expand/collapse its neighboring nodes, and view entity relationships.
+Enter an entity name in the search box in the upper-right corner to quickly locate the target node.
+Step 3: Refresh the graph (optional). If the knowledge base data has been updated, click the "Refresh Graph" button in the lower-right corner to sync the latest entities and relationships and regenerate the visualization.
+Step 4: Filter by community (optional). Click a category in the bottom community bar to filter nodes for the corresponding community, focusing on entity relationships within a specific domain.
+
+### Knowledge Base Creation and Management
+
+### Entry Point
+
+Log in to the Agents Platform and click "Knowledge Base" in the top-level navigation menu on the left to access the knowledge base creation and management page.
+
+<Frame>
+  <img src="/images/documentation/ch6_6.5.1.23_0156.png" alt="Create Your First Knowledge Base" />
+</Frame>
+
+### Knowledge Base Creation
+
+### Interface Description
+
+Supports creation via Traditional Mode, Pipeline Orchestration Mode, and ~~Import Knowledge Base~~.
+Depending on the knowledge base type, you can configure parameters such as name, description, parsing method, embedding model, image parsing strategy, and chunk token count as needed.
+
+### Operating Instructions
+
+Import data
+
+<Frame>
+  <img src="/images/documentation/ch6_6.5.1.26_0157.png" alt="Create Your First Knowledge Base" />
+</Frame>
+
+Knowledge base management
+On the knowledge base page, hover over any knowledge base to reveal the "···" menu, from which you can choose to edit, delete, export, or assign usage permissions as needed.
+
+<Frame>
+  <img src="/images/documentation/ch6_6.5.1.26_0158.png" alt="Create Your First Knowledge Base" />
+</Frame>
+
+On the knowledge base page, click "Shared with Me" to view knowledge bases shared with you, perform corresponding actions, or save a knowledge base as your own copy.
+
+<Frame>
+  <img src="/images/documentation/ch6_6.5.1.26_0159.png" alt="Create Your First Knowledge Base" />
+</Frame>
+
+Dataset management
+On the knowledge base page, click any knowledge base card to access the dataset management page.
+
+<Frame>
+  <img src="/images/documentation/ch6_6.5.1.26_0160.png" alt="Create Your First Knowledge Base" />
+</Frame>
+
+Retrieval testing and tuning
+On the knowledge base page, click any knowledge base card, then click "Retrieval Testing" on the left to access the retrieval testing and tuning page.
+
+<Frame>
+  <img src="/images/documentation/ch6_6.5.1.26_0161.png" alt="Create Your First Knowledge Base" />
+</Frame>
+
+Enter the content you want to test in the test text field and click "Test" to run a retrieval recall test on the knowledge base. Based on the recall results, you can adjust related parameters and repeat the test comparison to optimize retrieval quality.
+
+<Frame>
+  <img src="/images/documentation/ch6_6.5.1.26_0162.png" alt="Create Your First Knowledge Base" />
+</Frame>

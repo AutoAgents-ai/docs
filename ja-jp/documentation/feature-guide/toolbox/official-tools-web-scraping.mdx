@@ -1,0 +1,183 @@
+---
+title: "公式ツール：Webスクレイピング"
+---
+
+### Webスクレイピング
+
+クローラーの利用方法
+クローラーツールは、お客様が各種サイトの情報を取得し、Agent の能力と組み合わせて元データをさらに加工・処理することで、独自の利用シーンに対応できるようにするためのものです。
+具体的な利用方法は以下の通りです。
+
+<Frame>
+  <img src="/images/documentation/ch6_6.7.1.18_0201.png" alt="公式ツール：Webスクレイピング" />
+</Frame>
+
+一．ホーム画面 - 「新規スクレイピングタスク」ボタンをクリックしてクローラー設定ページに移動します
+
+<Frame>
+  <img src="/images/documentation/ch6_6.7.1.18_0202.png" alt="公式ツール：Webスクレイピング" />
+</Frame>
+
+二．クローラー設定
+続いて、実際のWebページを例にクローラーツールの使用方法を説明します。
+ステップ1：
+対象のWebページを設定します。ここでは http://www.cbssports.com/nba/ を例にします。
+
+<Frame>
+  <img src="/images/documentation/ch6_6.7.1.18_0203.png" alt="公式ツール：Webスクレイピング" />
+</Frame>
+
+ステップ2：
+Webページのスクレイピング項目を設定します
+実際のケース
+
+<Frame>
+  <img src="/images/documentation/ch6_6.7.1.18_0204.png" alt="公式ツール：Webスクレイピング" />
+</Frame>
+
+機能説明：
+ケース設定の表示
+
+<Frame>
+  <img src="/images/documentation/ch6_6.7.1.18_0205.png" alt="公式ツール：Webスクレイピング" />
+</Frame>
+
+機能の詳細説明
+スクレイピング項目の追加
+このWebページのどの項目を抽出するかを直接設定します
+
+<Frame>
+  <img src="/images/documentation/ch6_6.7.1.18_0206.png" alt="公式ツール：Webスクレイピング" />
+</Frame>
+
+項目の key、項目の説明、項目の抽出ルール（一般的には正規表現）を明確に定義します
+項目抽出ルールについて学ぶ：
+クローラー命令スクリプト利用ガイド
+サンプル説明：
+項目タイプは以下の2種類に分かれます。
+string：実際のコンテンツを持つもので、例えばWebページのタイトルや本文をスクレイピングする場合はこのタイプを選択します
+Webページ：主となるWebページの中にさらに掘り下げ可能なページがあり、掘り下げが必要な場合はWebページタイプとして設定します。Webページタイプには専用の「スクレイピング」ボタンが付属します
+
+<Frame>
+  <img src="/images/documentation/ch6_6.7.1.18_0207.png" alt="公式ツール：Webスクレイピング" />
+</Frame>
+
+「スクレイピング」をクリックすると自動的に1階層下に展開され、主サイト配下の掘り下げページのスクレイピング内容を設定できます。例えば下図のように「スクレイピング」をクリックすると下層のページが自動的に展開され、「スクレイピング」ボタンは自動的に「スクレイピング取消」に変わります
+「スクレイピング取消」をクリックすると、下部の設定はクリアされます
+
+<Frame>
+  <img src="/images/documentation/ch6_6.7.1.18_0208.png" alt="公式ツール：Webスクレイピング" />
+</Frame>
+
+エクスポート設定
+
+### 現時点では、Agent へのエクスポートと HTTP へのエクスポートのみをサポートしています
+
+Agent へのエクスポート
+Agent へのエクスポートは、実際には Agent の力を借りて元のクローラーデータをさらに加工・処理するものであり、実際のシーンではこの機能がユーザーの需要をより満たすはずです。
+例のWebページで言えば、英語のコンテンツを翻訳してからナレッジベースに保存することができます。
+
+<Frame>
+  <img src="/images/documentation/ch6_6.7.1.19_0209.png" alt="公式ツール：Webスクレイピング" />
+</Frame>
+
+エクスポート先の Agent を選択します（複数選択可）
+Agent エクスポートの例：
+現在、データを構造化してエクスポートするため、バックエンドでは2つの標準項目が定義されています。
+クローラーのデータセット内容は _state.data.xx、データセット名は _state.url です。
+このうち xx の部分は翻訳が必要なクローラーコンテンツの項目名を指し、例えばWebページクローラーの本文項目が content として設定されている場合、この部分は _state.data.content と記入します。
+
+<Frame>
+  <img src="/images/documentation/ch6_6.7.1.19_0210.png" alt="公式ツール：Webスクレイピング" />
+</Frame>
+
+ナレッジベースへの保存の詳細：
+
+<Frame>
+  <img src="/images/documentation/ch6_6.7.1.19_0211.png" alt="公式ツール：Webスクレイピング" />
+</Frame>
+
+HTTP へのエクスポート
+
+<Frame>
+  <img src="/images/documentation/ch6_6.7.1.19_0212.png" alt="公式ツール：Webスクレイピング" />
+</Frame>
+
+POST リクエストのインターフェースを通じて、内容を API 経由で直接データベースにプッシュできます
+ステップ3：設定完了
+
+<Frame>
+  <img src="/images/documentation/ch6_6.7.1.19_0213.png" alt="公式ツール：Webスクレイピング" />
+</Frame>
+
+「タスクを確認」をクリックしてクローラータスク一覧に戻ります
+三．クローラータスク管理
+
+<Frame>
+  <img src="/images/documentation/ch6_6.7.1.19_0214.png" alt="公式ツール：Webスクレイピング" />
+</Frame>
+
+### 設定
+
+<Frame>
+  <img src="/images/documentation/ch6_6.7.1.20_0215.png" alt="公式ツール：Webスクレイピング" />
+</Frame>
+
+間隔時間は分、時間、日単位で設定でき、定期実行のポーリングとして機能します
+カスタム cron 式：スキルがある場合は自分で cron 式を記述し、より個別化されたスクレイピングルール（例：月・水・金にスクレイピングする）を定義できます
+開始
+設定が完了するとタスクを開始でき、開始後はいつでも停止できます
+停止は一時停止ではなく直接停止となるため、選択の際はご注意ください
+編集と削除
+実行中のタスクは編集、削除、設定の変更ができません
+
+<Frame>
+  <img src="/images/documentation/ch6_6.7.1.20_0216.png" alt="公式ツール：Webスクレイピング" />
+</Frame>
+
+クローラー命令スクリプト利用ガイド
+
+### 概要
+
+### 文法の説明
+
+スクリプトの文法は命令と命令パラメータで構成されます。各命令は1行を占有する必要があります。
+文法：\<命令\> \[=\>命令パラメータ\]
+命令：必須項目で、1行に記述できる命令は1つのみです。命令の戻り値がセレクタ型の場合は続けてチェーン操作が可能で、セレクタ型でない場合は処理を終了して最終結果を返します。最後の命令は必ず終端型（セレクタ型でない）の命令になります。
+=\>：任意項目で、パラメータを指定するための記号です
+命令パラメータ：任意項目で、パラメータが不要な命令には入力する必要はありません
+例1：
+すべてのリンクを取得し、/articles/を含むリンクのみに絞り込みます
+例2：
+class 属性が article-body である任意の html タグ \<article\> のノード配下にある、任意の html タグ \<h1\> のタイトル内容を取得します
+例3：
+class 属性が article-body である任意の html タグ \<div\> のノード配下にあるすべての記事内容を取得します
+
+### 命令一覧
+
+### 関連文法の学習
+
+### xpath 文法
+
+xpath は xsoup の文法規則に準拠しています。
+XPath1.0:
+Function supported:
+In Xsoup, we use some function (maybe not in Standard XPath 1.0):
+Extended syntax supported:
+These XPath syntax are extended only in Xsoup (for convenience in extracting HTML, refer to Jsoup CSS Selector):
+
+### regex 文法
+
+学習・練習はこちらから：https://regexlearn-com.vercel.app/zh/cheatsheet
+
+<Frame>
+  <img src="/images/documentation/ch6_6.7.1.26_0217.png" alt="公式ツール：Webスクレイピング" />
+</Frame>
+
+### jsonPath 文法
+
+学習・練習はこちらから：https://jsonpath.com/
+
+<Frame>
+  <img src="/images/documentation/ch6_6.7.1.27_0218.png" alt="公式ツール：Webスクレイピング" />
+</Frame>

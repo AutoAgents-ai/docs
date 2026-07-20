@@ -1,0 +1,387 @@
+---
+title: "词典管理"
+---
+
+### 功能概述
+
+功能名称：系统管理模块下的词典管理能力，用于核心价值：统一管理企业专属词典体系，提供敏感词库（风控合规拦截）、同义词库（标准化表述）、专业名词库（行业术语注入）三类词库管理，支持词库及词条的增删改查、批量导入与整体导出，提升智能体模型理解准确性与合规保障能力，适用于适用场景：系统管理员在配置智能体语言理解规则、设置内容风控策略、注入行业专业知识时使用。
+词典管理功能可帮助企业构建符合自身业务需求的专属语言体系，通过敏感词库实现内容合规风控，通过同义词库统一不同表述的理解标准，通过专业名词库向智能体注入行业专属知识，确保智能体回答的准确性、专业性和合规性。
+
+### 功能入口
+
+登录 Agents 平台，点击左侧导航栏的【系统管理】一级菜单，展开菜单列表后点击【词典管理】二级菜单，进入词典管理功能页面。
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.2_0418.png" alt="词典管理" />
+</Frame>
+
+### 界面说明
+
+词典管理功能页面分为词库分类标签页区域、搜索区域、词库列表区域和创建词库按钮区域四个部分，各区域说明如下：
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.3_0419.png" alt="词典管理" />
+</Frame>
+
+### 词库分类标签页区域
+
+提供三个词库分类标签，点击可切换查看对应类型的词库列表：
+敏感词库：用于管理需要进行风控拦截的敏感词汇，智能体在对话过程中会自动识别并拦截包含这些词汇的用户输入
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.4_0420.png" alt="词典管理" />
+</Frame>
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.4_0421.png" alt="词典管理" />
+</Frame>
+
+同义词库：用于管理具有相同含义的词汇，智能体可自动识别同义词，实现表述标准化，提升理解准确性
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.4_0422.png" alt="词典管理" />
+</Frame>
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.4_0423.png" alt="词典管理" />
+</Frame>
+
+专业名词库：用于管理行业专属术语及定义，向智能体注入专业知识，确保回答的专业性和准确性
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.4_0424.png" alt="词典管理" />
+</Frame>
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.4_0425.png" alt="词典管理" />
+</Frame>
+
+### 搜索区域
+
+搜索框：输入关键词可快速筛选当前标签页下的词库，支持模糊搜索
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.5_0426.png" alt="词典管理" />
+</Frame>
+
+### 词库列表区域
+
+展示当前标签页下的所有词库，每条词库记录包含以下字段：
+词库名称：词库的唯一标识名称
+描述：词库的用途和内容说明
+创建者：创建该词库的用户账号
+最近修改时间：词库最后一次被修改的时间
+操作：提供 "编辑" 和 "删除" 两个操作按钮，可对词库进行修改或删除操作
+列表底部显示词库总条数及分页控件，支持浏览多页词库数据。
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.6_0427.png" alt="词典管理" />
+</Frame>
+
+### 创建词库按钮区域
+
+创建词库按钮：位于页面右上角，按钮名称随当前标签页变化（如 "创建敏感词库"、"创建同义词库"、"创建专业名词库"），点击可打开新建词库弹窗
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.7_0428.png" alt="词典管理" />
+</Frame>
+
+新建词库弹窗
+词典类型：自动关联当前所选词库标签页，无法手动选择词典类型，且创建后不可修改
+词库名称\*：必填项，输入词库名称，最多 50 个字符
+词库描述：选填项，输入词库的用途和内容说明，最多 500 个字符
+取消 / 确定按钮：点击 "取消" 关闭弹窗，点击 "确定" 完成词库创建
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.7_0429.png" alt="词典管理" />
+</Frame>
+
+词库详情页面
+
+点击任意词库名称可进入该词库的详情页面，用于管理词库内的词条，页面分为搜索区域、词条列表区域和功能按钮区域三个部分：
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.7_0430.png" alt="词典管理" />
+</Frame>
+
+### 搜索区域
+
+搜索框：输入关键词可快速筛选当前词库内的词条，支持模糊搜索
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.8_0431.png" alt="词典管理" />
+</Frame>
+
+### 词条列表区域
+
+展示当前词库内的所有词条，不同类型词库的词条字段不同：
+敏感词库词条字段：敏感词、最近修改人、最近修改时间、操作（删除）
+同义词库词条字段：基础词、同义词（多个同义词以标签形式展示）、最近修改人、最近修改时间、操作（删除）
+专业名词库词条字段：术语、定义说明、最近修改人、最近修改时间、操作（删除）
+列表底部显示词条总条数及分页控件，支持浏览多页词条数据。
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.9_0432.png" alt="词典管理" />
+</Frame>
+
+### 功能按钮区域
+
+位于页面右上角，提供三个功能按钮：
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.10_0433.png" alt="词典管理" />
+</Frame>
+
+导入：点击可打开批量导入词条弹窗，支持批量添加词条
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.10_0434.png" alt="词典管理" />
+</Frame>
+
+导出：点击可将当前词库内的所有词条导出为文件
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.10_0435.png" alt="词典管理" />
+</Frame>
+
+添加新词：点击可添加单个词条（按钮名称随词库类型变化，如 "添加敏感词"、"添加同义词"、"添加术语"）
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.10_0436.png" alt="词典管理" />
+</Frame>
+
+批量导入词条弹窗
+
+不同类型词库的导入方式略有不同：
+敏感词库：支持两种导入方式
+批量添加敏感词：在文本框中输入敏感词，每行一个，最多 1000 行，单个词不超过 50 字符
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.10_0437.png" alt="词典管理" />
+</Frame>
+
+上传文件导入：上传包含敏感词的文件，支持.csv、.xlsx、.xls、.txt 格式，每行一个敏感词
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.10_0438.png" alt="词典管理" />
+</Frame>
+
+同义词库 / 专业名词库：仅支持上传文件导入
+同义词库：支持.csv、.xlsx、.xls 格式，文件列格式为 "基础词 \| 同义词 1 \| 同义词 2\|..."
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.10_0439.png" alt="词典管理" />
+</Frame>
+
+专业名词库：支持.csv、.xlsx、.xls 格式，文件列格式为 "专业术语 \| 定义说明"
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.10_0440.png" alt="词典管理" />
+</Frame>
+
+弹窗底部提供 "取消" 和 "确定" 按钮，点击 "确定" 完成词条导入。
+
+### 操作流程
+
+### 一、创建词库
+
+按照上述功能入口指引，进入词典管理功能页面
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.12_0441.png" alt="词典管理" />
+</Frame>
+
+点击顶部标签页切换到要创建的词库类型（敏感词库 / 同义词库 / 专业名词库）
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.12_0442.png" alt="词典管理" />
+</Frame>
+
+点击页面右上角的【创建 XX 词库】按钮，打开新建词库弹窗
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.12_0443.png" alt="词典管理" />
+</Frame>
+
+填写必填的词库名称，可选填写词库描述
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.12_0444.png" alt="词典管理" />
+</Frame>
+
+点击【确定】按钮，完成词库创建，新创建的词库将显示在对应标签页的词库列表中
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.12_0445.png" alt="词典管理" />
+</Frame>
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.12_0446.png" alt="词典管理" />
+</Frame>
+
+### 二、编辑词库
+
+在词库列表中找到需要编辑的词库，点击其右侧的【编辑】按钮，打开编辑词库弹窗
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.13_0447.png" alt="词典管理" />
+</Frame>
+
+修改词库名称和 / 或词库描述
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.13_0448.png" alt="词典管理" />
+</Frame>
+
+点击【确定】按钮，保存修改内容
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.13_0449.png" alt="词典管理" />
+</Frame>
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.13_0450.png" alt="词典管理" />
+</Frame>
+
+### 三、删除词库
+
+在词库列表中找到需要删除的词库，点击其右侧的【删除】按钮，打开删除确认弹窗
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.14_0451.png" alt="词典管理" />
+</Frame>
+
+弹窗提示 "请确认是否删除该词库，删除后不可恢复"，确认无误后点击【确定】按钮，完成词库删除
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.14_0452.png" alt="词典管理" />
+</Frame>
+
+注意：删除词库将同时删除词库内的所有词条，且无法恢复，请谨慎操作
+
+### 四、管理词条
+
+### 进入词库详情
+
+在词库列表中点击任意词库名称，进入该词库的详情页面
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.16_0453.png" alt="词典管理" />
+</Frame>
+
+### 添加单个词条
+
+在词库详情页面右上角点击【添加 XX】按钮（如 "添加新词"）
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.17_0454.png" alt="词典管理" />
+</Frame>
+
+在弹出的添加词条窗口中填写词条信息
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.17_0455.png" alt="词典管理" />
+</Frame>
+
+点击【✅】按钮，完成单个词条添加
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.17_0456.png" alt="词典管理" />
+</Frame>
+
+### 批量导入词条
+
+在词库详情页面右上角点击【导入】按钮，打开批量导入词条弹窗
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.18_0457.png" alt="词典管理" />
+</Frame>
+
+选择导入方式（敏感词库支持批量添加和文件上传，同义词库 / 专业名词库仅支持文件上传）
+若选择批量添加：在文本框中输入词条，按照要求的格式填写
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.18_0458.png" alt="词典管理" />
+</Frame>
+
+若选择文件上传：点击上传区域选择本地文件，或拖拽文件到上传区域，确保文件格式和内容符合要求
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.18_0459.png" alt="词典管理" />
+</Frame>
+
+文件上传样例：支持csv、xlsx、xls、txt格式，每行一个词
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.18_0460.png" alt="词典管理" />
+</Frame>
+
+点击【确定】按钮，完成词条批量导入
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.18_0461.png" alt="词典管理" />
+</Frame>
+
+### 导出词条
+
+在词库详情页面右上角点击【导出】按钮
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.19_0462.png" alt="词典管理" />
+</Frame>
+
+系统自动生成包含当前词库所有词条的文件并下载到本地
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.19_0463.png" alt="词典管理" />
+</Frame>
+
+### 删除词条
+
+在词条列表中找到需要删除的词条，点击其右侧的【删除】按钮
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.20_0464.png" alt="词典管理" />
+</Frame>
+
+在弹出的确认窗口中点击【确定】按钮，完成词条删除
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.20_0465.png" alt="词典管理" />
+</Frame>
+
+### 示例
+
+### 一、敏感词库示例
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.22_0466.png" alt="词典管理" />
+</Frame>
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.22_0467.png" alt="词典管理" />
+</Frame>
+
+### 二、同义词库示例
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.23_0468.png" alt="词典管理" />
+</Frame>
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.23_0469.png" alt="词典管理" />
+</Frame>
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.23_0470.png" alt="词典管理" />
+</Frame>
+
+### 三、专业名词库示例
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.24_0471.png" alt="词典管理" />
+</Frame>
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.10.24_0472.png" alt="词典管理" />
+</Frame>

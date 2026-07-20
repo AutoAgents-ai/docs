@@ -1,0 +1,172 @@
+---
+title: "確定回答"
+---
+
+### モジュール紹介
+
+特定の内容をユーザーに返答したい場合は、確定回答モジュールを使用できます。トリガー条件の判定が成立すると、ユーザーは「回答内容」テキストボックスに設定された内容をそのまま受け取ります。回答内容ノードが外部情報源にリンクされている場合、そのリンク情報が「回答内容」入力欄に設定された情報を上書きします。
+
+<Frame>
+  <img src="/images/documentation/ch6_6.1.36.1_0101.png" alt="確定回答" />
+</Frame>
+
+### システム組み込み変数
+
+使用文法
+{{var}} は変数を参照することを表します
+{{cTime}} 現在時刻 yyyy-MM-dd HH:mm:ss
+{{cMills}} 現在のタイムスタンプ
+{{cWeekdayNum}} 曜日（数字）
+{{cWeekdayEn}} 曜日（英語）
+{{cWeekdayEn2}} 曜日（英語略称）
+{{cWeekdayCn}} 曜日（中国語）
+
+### システム組み込み関数
+
+説明：最もよく使われるのは JSON データの抽出で、次によく使われるのが正規表現です。
+JSON データの抽出：
+辞書と配列の抽出は以下のとおりで、
+文法は同じです。例：\[@\["ExtractJsonArr","{{list}}", "\$.0.baseUrl"\]@\]
+唯一の違いは、最外層が \[\]（配列）の場合は ExtractJsonArr 関数を使用し、
+最外層が {}（辞書）の場合は ExtractJsonObj 関数を使用するという点です。
+
+<Frame>
+  <img src="/images/documentation/ch6_6.1.36.3_0102.png" alt="確定回答" />
+</Frame>
+
+<Frame>
+  <img src="/images/documentation/ch6_6.1.36.3_0103.png" alt="確定回答" />
+</Frame>
+
+<Frame>
+  <img src="/images/documentation/ch6_6.1.36.3_0104.png" alt="確定回答" />
+</Frame>
+
+正規表現：AI に直接書いてもらうことを推奨します。暇なときに自主学習して自分で書くこともできます。以下に正規表現の文法早見表と解説を掲載します。
+文法早見表：https://tools.suried.com/cn/tutorial/regex-cheat-sheet
+解説：https://www.runoob.com/regexp/regexp-syntax.html
+関数の使用箇所——情報処理モジュール
+
+<Frame>
+  <img src="/images/documentation/ch6_6.1.36.3_0105.png" alt="確定回答" />
+</Frame>
+
+使用文法
+\[@\["functionName", "args1", "args2",....\]@\] は関数呼び出しを表します
+日付フォーマット
+\[@\["DateFormatFromMills","your mills", "your formats"\]@\]
+説明：
+
+<Frame>
+  <img src="/images/documentation/ch6_6.1.36.3_0106.png" alt="確定回答" />
+</Frame>
+
+例：
+日付フォーマット
+\[@\["DateFormatFromSeconds","your seconds", "your formats"\]@\]
+説明：
+例：
+日付をミリ秒に変換
+\[@\["DateStrToMills","your date", "your date format"\]@\]
+例：
+日付を秒に変換
+\[@\["DateStrToSeconds","your date", "your date format"\]@\]
+例：
+囲まれた部分文字列の抽出
+\[@\["ExtractAroundStr","your text", "your start str", "your end str"\]@\]
+例：
+正規表現に一致する最初の文字列を抽出
+\[@\["ExtractStrByRegex","your text", "your regex"\]@\]
+正規表現の書き方を学ぶ：
+https://www.runoob.com/regexp/regexp-tutorial.html
+例：
+正規表現に一致するすべての文字列を抽出
+\[@\["ExtractArrByRegex","your text", "your regex"\]@\]
+正規表現の書き方を学ぶ：
+https://www.runoob.com/regexp/regexp-tutorial.html
+例：
+JSON オブジェクトの抽出
+\[@\["ExtractJsonObj","your text", "your jsonpath"\]@\]
+JSON Path を学ぶ：
+https://jsonpath.com/
+例：
+JSON 配列の抽出
+\[@\["ExtractJsonArr","your text", "your jsonpath"\]@\]
+JSON Path を学ぶ：
+https://jsonpath.com/
+例：
+正規表現による JSON の抽出
+\[@\["ExtractJsonByRegex","your text", "your json key1", "your json key1 regex", "your json key2", "your json key2 regex"\]@\]
+正規表現の書き方を学ぶ：
+https://www.runoob.com/regexp/regexp-tutorial.html
+例：
+日付の加減算
+\[@\["GetDateFromNow","your add/substract days"\]@\]
+例：
+URL エンコード
+\[@\["UrlEncode","your text", "your charset, default is UTF-8"\]@\]
+例：
+URL デコード
+\[@\["UrlDecode","your text", "your charset, default is UTF-8"\]@\]
+例：
+指定言語による自動返答検出
+\[@\["AutoSpecifyResponseLanguage","your text", "your default lang, The optional values are EN,CN, default value is CN"\]@\]
+例：
+文字列置換
+\[@\["Replace","your text", "your old str", "your new str"\]@\]
+例：
+文字列の正規表現置換
+\[@\["ReplaceRegex","your text", "your regex str", "your new str"\]@\]
+正規表現の書き方を学ぶ：
+https://www.runoob.com/regexp/regexp-tutorial.html
+例：
+文字列のエスケープ
+\[@\["EscapeStr","your text"\]@\]
+例：
+RSA 暗号化
+\[@\["RSAEncode","your text", "your public key"\]@\]
+例：
+条件による値の割り当て
+\[@\["CaseWhenThen","your case value", "when value1", "then value1", "when value2", "then value2"..., "default value"\]@\]
+例：
+条件による値の割り当て（大文字小文字を区別）
+\[@\["CaseWhenThenIgnoreCase","your case value", "when value1", "then value1", "when value2, optional", "then value2, optional"..., "default value, optional"\]@\]
+例：
+指定した候補値のいずれかと一致するかどうか
+\[@\["EqualsAny","your value", "your other value1", "your other value2, optional"...\]@\]
+例：
+指定した候補値のいずれかと一致するかどうか（大文字小文字を区別）
+\[@\["EqualsAnyIgnoreCase","your value", "your other value1", "your other value2, optional"...\]@\]
+例：
+日付フォーマットの変換
+\[@\["DateStrReFormat","your date", "your target format", "your source format, optional"\]@\]
+例：
+文字列の結合
+\[@\["Concat","your text1","your text2","your text3",...\]@\]
+例：
+配列の結合
+\[@\["ConcatArray","your array1","your arr2","your arr3",...\]@\]
+例：
+自然言語を日付に変換
+\[@\["JionlpParseTime","your text1"\]@\]
+例：
+\[@\["JionlpParseTime","今天"\]@\]
+説明書
+時間セマンティクス解析——説明書
+キャンバス操作
+ノードの折りたたみ、操作の取り消し / やり直し、インテリジェントレイアウト、自動フィット表示などのキャンバス強化機能を追加しました。選択したノードと接続線はハイライト表示に対応し、複数ノードのシナリオにおける編集体験を大幅に向上させます。
+ノードの折りたたみ：
+
+<Frame>
+  <img src="/images/documentation/ch6_6.1.36.3_0107.png" alt="確定回答" />
+</Frame>
+
+<Frame>
+  <img src="/images/documentation/ch6_6.1.36.3_0108.png" alt="確定回答" />
+</Frame>
+
+操作の取り消し（cmd / ctrl+z）
+\[録屏2026-04-10 16.10.17.mov\]
+自動フィット表示とワンクリックレイアウト
+\[録屏2026-04-10 16.08.58.mov\]
+Workflow 2.0 はプラットフォームの 2026 年強化版における重要なアップグレードであり、複雑なシナリオにおける開発効率とキャンバスの可読性を向上させ、大規模ワークフローの安定性とインテリジェントな動的意思決定をサポートすることを目的としています。

@@ -1,0 +1,73 @@
+---
+title: "Service Creation and Configuration"
+---
+
+### Feature Overview
+
+As Agent applications continue to grow rapidly, developing and integrating tools faces a number of challenges:
+The lack of a unified tool development standard leads to low efficiency;
+The platform must repeatedly adapt to different kinds of tools, adding time and cost;
+Integrating and maintaining high-quality tools puts significant pressure on operations.
+MCP (Model Context Protocol) is an open standard protocol introduced by Anthropic, designed to build a secure, standardized, and efficient connection channel between large models and tools/data sources. It addresses issues such as inconsistent tool implementation styles and poor cross-model compatibility, and has gradually become a mainstream industry solution.
+The MCP Management module is the core tool for creating, managing, and configuring MCP services. It simplifies the deployment and management of MCP services, letting users work quickly through an intuitive interface.
+Through MCP, you can connect external services as standardized tools, enabling the platform to handle more complex tasks.
+
+### Page Entry
+
+Click the toolbar on the left to enter; the default page displays the list of deployed MCP services.
+
+<Frame>
+  <img src="/images/documentation/ch6_6.8.1.2_0228.png" alt="Service Creation and Configuration" />
+</Frame>
+
+### Creating and Configuring an MCP Service
+
+### Creating an MCP Service
+
+Click the "Create MCP Service" button on the MCP Management page to enter the creation page, where you can set up the basic information for the MCP service.
+
+<Frame>
+  <img src="/images/documentation/ch6_6.8.1.4_0229.png" alt="Service Creation and Configuration" />
+</Frame>
+
+<Frame>
+  <img src="/images/documentation/ch6_6.8.1.4_0230.png" alt="Service Creation and Configuration" />
+</Frame>
+
+Fill in the corresponding service information:
+Service name: name this MCP service;
+Description: describe what this MCP service does;
+Installation method: choose the installation method for the service; SSE and Streamable HTTP are currently supported.
+MCP configuration: enter the MCP service configuration, which must be provided in JSON format, for example:
+{
+"mcpServers":{
+"ocr_edu":{
+"url":"https://aip.baidubce.com/mcp/ocr_general/sse?Authorization=Bearer+<YOUR_ACCESS_TOKEN>"
+}
+}
+}
+Click Confirm, and the system will begin deploying the MCP service.
+
+<Frame>
+  <img src="/images/documentation/ch6_6.8.1.4_0231.png" alt="Service Creation and Configuration" />
+</Frame>
+
+### Configuring an MCP Service
+
+On the agent's "Planning" page, select the MCP tool and drag the desired MCP component onto the canvas.
+
+<Frame>
+  <img src="/images/documentation/ch6_6.8.1.5_0232.png" alt="Service Creation and Configuration" />
+</Frame>
+
+You can click the debug feature on the MCP component to debug it.
+
+<Frame>
+  <img src="/images/documentation/ch6_6.8.1.5_0233.png" alt="Service Creation and Configuration" />
+</Frame>
+
+The corresponding MCP service can be configured on the Agent node.
+
+<Frame>
+  <img src="/images/documentation/ch6_6.8.1.5_0234.png" alt="Service Creation and Configuration" />
+</Frame>

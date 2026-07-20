@@ -1,0 +1,78 @@
+---
+title: "Database Query"
+---
+
+### Feature Overview
+
+The Database Query module is a key data-processing tool the platform provides for developers, designed to address structured data access needs during micro-app orchestration. It allows developers to perform data retrieval through simple configuration — without needing to directly manage database connection pools or complex drivers — seamlessly integrating the query results into subsequent business logic or AI models.
+The core value of this module lies in:
+Lower barrier to entry: Complete a data query through visual configuration, without writing low-level connection code.
+Improved development efficiency: Embeds structured data query capability directly into the workflow, integrating business processes with data processing.
+Data security assurance: Strictly limits operation permissions — currently only SELECT queries are supported, effectively preventing unauthorized data writes, modifications, or deletions.
+
+### Entry Point
+
+The Database Query module is an independent functional node integrated into the platform's visual workflow orchestration canvas. To access this feature:
+Drag the module: In the "Database" category of the component library on the left side of the workflow canvas, find the "Database Query" module and drag it to the desired position on the canvas.
+Name the module: Rename the module you've dragged onto the canvas for easier understanding and later management of the workflow.
+Set the activation condition: Based on your business logic, configure "activate when all conditions met" or "activate when any condition met" to determine under what conditions the module begins execution.
+The module's entry point is shown in (Figure 1).
+
+<Frame>
+  <img src="/images/documentation/ch6_6.1.27.2_0079.png" alt="Database Query" />
+</Frame>
+
+### Interface Description
+
+The Database Query tool's configuration interface is clear and simple, mainly divided into a database configuration area and a query results display area. The interface layout is shown in (Figure 2).
+
+<Frame>
+  <img src="/images/documentation/ch6_6.1.27.3_0080.png" alt="Database Query" />
+</Frame>
+
+### Database Query Interface
+
+This interface is used to configure a standard SQL query, with core parameters including:
+Database: Dropdown selector. The default option is the platform-provided jointpilot database. To use your own database, it must be configured on the platform's back office beforehand before it can be selected here.
+SQL statement: Text input box. Used to write the query statement. Note: only SELECT statement execution is currently permitted. For update, insert, delete, or other operations, please contact the platform administrator.
+Output: Read-only display area. After the query executes, the system displays the returned data results here in JSON format.
+
+### Search Engine Database Query Interface
+
+This interface is used to configure search-engine-specific queries, with core parameters including:
+Search engine database: Dropdown selector. The platform has a pre-configured "Zhongbiao Biaoxun" search engine. To connect other proprietary search engine databases, contact the platform administrator to configure it on the back office first.
+DSL statement: Text input box. Used to write a Domain Specific Language query statement that conforms to the particular search engine's syntax rules.
+Output: Read-only display area. After the query executes, the result is likewise returned in JSON format.
+Important notes:
+Permission restrictions: The Database Query tool currently only supports SELECT queries, and does not support data writes, modifications, or deletions, ensuring data security.
+Complex queries: The field structure and query syntax of the "Zhongbiao Biaoxun" search engine are relatively complex; first-time users are advised to contact the platform administrator for support or reference examples.
+Configuring your own database: Before using your own database, an administrator must complete the connection configuration (such as address, port, username, and password) on the platform's back office.
+
+### Operating Procedure
+
+The following example demonstrates how to run a simple database query.
+Step 1: Add the query node
+On the micro-app orchestration canvas, drag the "Database Query" node from the toolbox to the desired position.
+Step 2: Configure the query parameters
+Click the node on the canvas, and configure it in the settings panel that appears on the right:
+Select the database: In the "Database" dropdown menu, keep the default jointpilot option or select a configured proprietary database.
+Write the SQL statement: In the "SQL Statement" input box, write your query. For example: `SELECT * FROM sample_table WHERE condition = 'value' LIMIT 10;`.
+Best practice: Where possible, explicitly specify the fields you need rather than using `SELECT *`, to reduce network transfer and improve query efficiency.
+Variable references: The SQL statement supports referencing variables output by upstream nodes, in a format like `WHERE id = {{upstream_var}}` (remove the spaces inside the curly braces), enabling dynamic queries.
+Step 3: Run and get the results
+Click the "Run" or "Test" button at the bottom of the configuration panel.
+The system will execute the SQL statement and display the query results directly in the "Output" area. The result is a JSON array, where each object represents one row of data, with field names corresponding to the database column names.
+This JSON output can be used directly as a variable, referenced and processed by a subsequent large language model (LLM) node, API tool node, or text-processing node.
+
+### Search Engine Database Query Procedure
+
+The operating procedure is similar to the above, with the following differences:
+Select the "Search Engine Database Query" node.
+In "Search Engine Database," select "Zhongbiao Biaoxun."
+In "DSL Statement," enter a query that conforms to that search engine's required syntax.
+After execution, you likewise get a retrieval result in JSON format.
+Best practices and notes
+Query optimization: For queries that might return a large amount of data, be sure to use a `LIMIT` clause in the SQL statement to limit the number of returned rows, avoiding response timeouts or front-end rendering strain.
+Error handling: It's recommended to connect a branch/condition node after the Database Query node in the workflow, designing different downstream paths based on whether the query succeeded or whether the result is empty.
+Result processing: The returned JSON data can be paired with a "JSON Key Extraction" or "JSON Data Parsing" tool node to quickly extract specific fields for further data transformation and display.
+Permission management: Access permissions for database connections can be finely assigned via the platform's Data Permission Management module, supporting authorization by department, individual, role, or predefined policy, ensuring data security.

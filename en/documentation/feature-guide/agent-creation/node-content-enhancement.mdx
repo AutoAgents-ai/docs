@@ -1,0 +1,42 @@
+---
+title: "Content Enhancement Module"
+---
+
+Introduction
+Simply put, this module is like a "top-student assistant." When the system needs to answer a question, it first consults our knowledge base and uses that specialized content to "polish and enhance" the answer, so that the final response is more accurate and more professional.
+
+### What does the module look like? (Inputs and outputs)
+
+This module is a workflow component — like a processing station on an assembly line, it has an "inbound" side (input node) and an "outbound" side (output node).
+Inbound side (input node): When does the module start working?
+This section includes the "start switch" and the "data received":
+Start switch (execution logic): There are two ways to trigger it.
+Activate when all conditions met: It only starts working once every preceding step has completed (everyone's given the green light).
+Activate when any condition met: As soon as any preceding step completes (as soon as even one person gives the green light), it starts working immediately.
+Data received (content input logic): It receives a data package called chunk information (you can think of it as a formatted piece of data the system can understand, usually referred to as JSON information) — this is the "raw material" it's going to process.
+Outbound side (output node): What does the module hand off once it's done working?
+Once processing is complete, it passes the result and status on to the next step:
+Data handed off (content output logic): Once processing is complete, it outputs the enhanced chunk information (again, a JSON-formatted data package) for the next step to use.
+Working status (execution logic): Once the module finishes running, it reports back with one of the following signals:
+Execution succeeded or Execution failed: These two outcomes are an "either/or" (either it succeeded smoothly, or it errored out midway).
+Module execution complete: As long as this module has finished working (regardless of whether it succeeded or errored above), this switch turns on, telling downstream components: "I'm done here, you can carry on."
+
+### How is it configured internally? (Component settings)
+
+Open this component, and you can set exactly which "brain" and "method" it uses to process the data.
+In the panel, you'll see a "Select Algorithm" option, offering three different "processing techniques" to choose from:
+① Summary enhancement: Has the assistant write a more precise summary of the content. After selecting this, you need to configure two things:
+Enhancement configuration: You need to "select a model" from the dropdown menu (pick a capable AI brain to do the job).
+Prompt: There's an input box here where you can write a prompt (essentially specific instructions given to the assistant, such as telling it to "summarize the key points in plain language").
+
+<Frame>
+  <img src="/images/documentation/ch6_6.1.22.2_0067.png" alt="Content Enhancement Module" />
+</Frame>
+
+② Filename enhancement: Supplements and strengthens the content based on the file's name (suitable when the filename itself contains important information).
+③ Directory enhancement: Strengthens the content based on the folder hierarchy where the file is stored.
+Enhancement configuration: After selecting this option, you'll also need to "select a model" — an AI brain designated to process the directory information.
+
+<Frame>
+  <img src="/images/documentation/ch6_6.1.22.2_0068.png" alt="Content Enhancement Module" />
+</Frame>

@@ -1,0 +1,72 @@
+---
+title: "Database Visualization"
+---
+
+### Feature Overview
+
+The Data Visualization module is a core component of the platform's base tier, designed to transform structured data (especially database query results) into intuitive charts, improving data insight and decision-making efficiency. This module is typically used alongside the "Database Query" module — it can automatically or on demand turn abstract JSON query results into various visualization charts such as bar charts and column charts, and supports secondary editing directly within the chat interface.
+Core value:
+Lower barrier to entry: Achieve graphical data presentation through simple configuration, without needing specialized visualization tools or programming skills.
+Improved decision-making efficiency: Presents complex data in intuitive chart form, helping users quickly identify trends, compare differences, and spot anomalies.
+Seamless downstream flow: As a key node in the workflow, the visualization result can be passed directly to subsequent modules (such as "Confirm Reply" or "Document Output"), enabling an automated closed loop from data query to visualization to result delivery.
+Use cases:
+Business report generation: Automatically turn sales or financial data into monthly/quarterly trend charts.
+Data analysis reports: Insert auto-generated comparison charts into industry research or competitive analysis reports.
+Agent chat output: When an Agent answers a user's data-related question, it presents the result directly as a chart, improving the interaction experience.
+
+### Entry Point
+
+The Data Visualization module is an independent functional node integrated into the platform's visual workflow orchestration canvas. To access this feature:
+Log in and enter the canvas: Log in to the platform and enter the "Planning" canvas editor for the target Agent.
+Find the module: In the component library on the left side of the canvas, find and expand the "Database" category.
+Drag in the node: Under the "Database" category, find the "Data Visualization" module and drag it to the desired position on the canvas.
+Name and activate: Rename the module you've dragged onto the canvas, and configure the "activate when all conditions met" or "activate when any condition met" setting based on your business logic.
+The entry point is shown below; it is typically found under the "Database" category.
+
+<Frame>
+  <img src="/images/documentation/ch6_6.1.26.2_0077.png" alt="Database Visualization" />
+</Frame>
+
+### Interface Description
+
+The Data Visualization tool's configuration interface is clear and simple, mainly divided into a parameter configuration area and an information display area. The interface layout is shown below.
+
+<Frame>
+  <img src="/images/documentation/ch6_6.1.26.3_0078.png" alt="Database Visualization" />
+</Frame>
+
+### Data Visualization Interface
+
+This interface is used to configure chart generation parameters, with core parameters including:
+Activate when all conditions met / Activate when any condition met: Boolean input. Used to configure the module's execution condition. "Activate when all conditions met" means execution occurs when all upstream conditions are True; "activate when any condition met" means execution occurs when any upstream condition is True.
+Raw data: Text-type input. The query result (in JSON format) output by the upstream "Database Query" component serves as the input data.
+Chart type: Dropdown selector. Select the desired chart type (such as bar chart or column chart) based on your needs. This parameter is optional — if not set, the front end will fill in a default.
+Module execution complete: Boolean output. Once this module finishes running, the output value is True, typically used to trigger downstream processes.
+Table 1: Data Visualization module parameters
+
+### Operating Procedure
+
+The following example demonstrates a simple "Database Query + Data Visualization" workflow.
+Step 1: Prerequisite — add a Database Query node
+Drag in the query node: In the "Database" category of the component library on the left side of the workflow canvas, drag the "Database Query" module onto the canvas.
+Configure the query parameters:
+Select the database: In the "Database" dropdown menu, select a configured database (such as jointpilot or your own database).
+Write the SQL statement: In the "SQL Statement" input box, write your query. For example: `SELECT * FROM sample_table WHERE condition = 'value' LIMIT 10;`.
+Run a test: Click the "Run" or "Test" button, and check the JSON-formatted query result in the "Output" area.
+Step 2: Add and configure the Data Visualization node
+Drag in the visualization node: Under the "Database" category in the component library on the left, find the "Data Visualization" module, drag it onto the canvas, and place it after the "Database Query" node.
+Build the data connection: Connect the "Database Query" node's "Query Result" output port to the "Data Visualization" node's "Raw Data" input port.
+Configure the chart parameters:
+Set the activation condition: Based on your business logic, configure "activate when all conditions met" or "activate when any condition met."
+Select the chart type: In the "Chart Type" dropdown, select the desired chart style (such as a bar chart).
+Step 3: Run the workflow and view the results
+Save and do a trial run: Save the current workflow, then click the "Trial Run" button in the top-right corner of the canvas.
+Enter a triggering input: In the chat popup that appears, enter a question or instruction that will trigger the "Database Query" node.
+View the visualization result: The system will automatically execute the query and generate the chart. In the chat interface, you can directly see the generated visualization chart, and it supports secondary editing.
+Step 4: Pass along and apply the result (optional)
+The generated visualization chart can be used as a variable, passed directly to a subsequent "Confirm Reply" module (to provide a fixed response to the user) or a "Document Output" module (to generate a report), completing an automated closed loop in the workflow.
+Notes:
+Data format: Make sure the JSON data structure output by the upstream "Database Query" module is clear, with well-defined fields, so it can be correctly mapped to chart dimensions.
+Permission management: Make sure the current user has query permission for the selected database and access permission for the generated visualization result.
+Chart editing: The secondary editing feature in the chat interface allows users to adjust the chart style based on actual needs, so the result better matches presentation requirements.
+Following the steps above, you can efficiently use the Data Visualization module on the platform, turning cold data into clear insight that empowers business decisions.

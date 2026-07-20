@@ -1,0 +1,24 @@
+---
+title: "Save to Knowledge Base"
+---
+
+### Feature Overview
+
+While the workflow is running, this module stores specified output information into a target knowledge base. The stored content is automatically parsed and chunked, after which it can be referenced by other Knowledge Base Search modules — enabling ongoing, dynamic accumulation of knowledge. Both the data content and the dataset name must be provided when configuring input; these are required fields, and the component will not take effect if either is left blank.
+
+<Frame>
+  <img src="/images/documentation/ch6_6.1.24.1_0071.png" alt="Save to Knowledge Base" />
+</Frame>
+
+Interface Walkthrough
+Click the Save to Knowledge Base module to open the configuration page, then click Add to add new data.
+
+<Frame>
+  <img src="/images/documentation/ch6_6.1.24.1_0072.png" alt="Save to Knowledge Base" />
+</Frame>
+
+Click Advanced Settings for detailed configuration. Chunk size sets the maximum number of characters per text chunk — smaller values produce more chunks but yield more precise queries — while overlap ratio sets the amount of overlap between adjacent chunks, which helps preserve context continuity.
+
+<Frame>
+  <img src="/images/documentation/ch6_6.1.24.1_0073.png" alt="Save to Knowledge Base" />
+</Frame>

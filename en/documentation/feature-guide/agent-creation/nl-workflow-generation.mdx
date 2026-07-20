@@ -1,0 +1,116 @@
+---
+title: "Natural Language Workflow Generation"
+---
+
+### Feature Overview
+
+Automatically generates workflow nodes based on a user's natural language description, and completes basic connections and execution order. This feature is designed to simplify the workflow creation process — users no longer need to manually build nodes and connections; a complete workflow architecture can be quickly generated simply by describing it in natural language.
+
+### Entry Point
+
+<Frame>
+  <img src="/images/documentation/ch6_6.1.43.2_0116.png" alt="Natural Language Workflow Generation" />
+</Frame>
+
+<Frame>
+  <img src="/images/documentation/ch6_6.1.43.2_0117.png" alt="Natural Language Workflow Generation" />
+</Frame>
+
+Log in to the platform → Create Agent → Click the "Smart Mode" button in the top-right corner
+
+### Natural Language Workflow Generation
+
+### Interface Description
+
+AI Workflow Assistant: Located in the right-side panel, includes an input box, model selection, and a send button
+Workflow canvas: Located in the central area, used for displaying and editing the generated workflow
+Node list: Located at the top of the right-side panel, shows the generated workflow nodes and their configuration
+Version management: Located in the middle of the right-side panel, provides the ability to save versions
+
+### Operating Instructions
+
+Enter a natural language description of your workflow requirements in the AI Workflow Assistant's input box
+Select a suitable AI model (e.g., Azure GPT-5-Mini)
+Click the send button to trigger workflow generation
+The system automatically generates workflow nodes and connections on the canvas
+You can optionally save the generated workflow version
+
+### Operating Procedure
+
+The user enters a workflow requirement (for example: "Create a data analysis workflow that first reads a data file, then performs data cleaning, and finally generates an analysis report")
+The system parses the natural language description and generates the corresponding workflow nodes
+Connections and execution order between nodes are automatically built
+A complete workflow architecture is generated, including nodes such as data upload, document parsing, data cleaning, report generation, report export, and result reply
+The system automatically generates a version name and offers the option to save it
+
+<Frame>
+  <img src="/images/documentation/ch6_6.1.43.6_0118.png" alt="Natural Language Workflow Generation" />
+</Frame>
+
+### Workflow Tuning
+
+### Interface Description
+
+Workflow canvas: A visual editing area that supports drag-and-drop operations
+Node toolbar: Located at the bottom of the canvas, includes buttons for copying, deleting, and adjusting nodes
+
+### Operating Instructions
+
+Drag a node: Click and drag a node to the target position
+Adjust a connection: Click a connection and drag it to modify the relationship
+Add a node: Drag a new node from the component library on the left onto the canvas
+Delete a node: Select a node and click the delete button
+
+### Operating Procedure
+
+Select the node you want to adjust
+Drag the node to a new position
+The system automatically updates the node's position and related connections
+To modify a connection, click it and adjust its endpoints
+Once adjustments are complete, the workflow automatically saves the changes
+
+### Intelligent Tool Orchestration
+
+### Interface Description
+
+Intelligent tool recommendation: The system automatically recommends suitable tools based on task semantics
+
+### Tool binding interface: Used to bind recommended tools to workflow nodes
+
+### Operating Instructions
+
+Select the workflow node to which you want to add a tool
+The system automatically analyzes the task semantics and recommends suitable tools
+Select the tool you need from the recommendation list
+Complete the binding configuration between the tool and the node
+
+### Operating Procedure
+
+Select the target node in the workflow (e.g., a data processing node)
+The system analyzes the node's task type and recommends relevant tools
+Review and select a recommended tool
+Configure the tool's parameters and execution conditions
+Complete the tool binding; the system automatically updates the workflow configuration
+
+### Automatic Data Source Association
+
+### Interface Description
+
+Data source association prompt: The system automatically detects and suggests data sources that can be associated
+Knowledge base selection: Used to select the knowledge base or data source to associate
+
+### Operating Instructions
+
+Create a workflow task that requires a data source
+The system automatically scans for and recommends relevant knowledge bases or data sources
+Select the data source to associate
+Confirm the association configuration
+
+### Operating Procedure
+
+Enter a workflow requirement that needs data source support (e.g., an information lookup workflow)
+The system analyzes the task type and automatically associates relevant knowledge bases
+The list of available data sources to associate is displayed
+The user selects an appropriate data source to associate
+
+### The system integrates the data source into the workflow, enhancing the Agent's execution capabilities

@@ -1,0 +1,94 @@
+---
+title: "Assigning Usage Permissions for a Database Card"
+---
+
+On the database list page, click the "···" more button in the upper-right corner of the target database card, then click "Assign Usage Permissions" in the menu that appears to open the "Assign Usage Permissions" dialog.
+Dialog structure: Contains 4 core tabs, supporting multi-dimensional permission assignment:
+
+<Frame>
+  <img src="/images/documentation/ch6_6.6.6_0168.png" alt="Assigning Usage Permissions for a Database Card" />
+</Frame>
+
+### Assign Permissions by Department
+
+### Interface Description
+
+(1) Department tab
+Displays the organizational department list in a tree structure (such as Global, R&D Department, Frontend Team, etc.), supporting expand/collapse of hierarchy levels.
+"Search Department" input box at the top, supporting fuzzy search by department name.
+Checkbox: Check the corresponding department to assign database access permissions to all members of that department.
+"Visible to All" checkbox: When checked, all department members can access the database.
+"Cancel" and "Confirm" buttons at the bottom, used to discard or submit the permission configuration.
+
+<Frame>
+  <img src="/images/documentation/ch6_6.6.6.2_0169.png" alt="Assigning Usage Permissions for a Database Card" />
+</Frame>
+
+### Operating Procedure
+
+Step 1: Enter permission configuration. Click "Assign Usage Permissions" on the target database card; the dialog opens to the "Department" tab by default.
+Step 2: Select target departments. Expand the department tree structure and check the departments to be granted access (multiple selection supported), or check "Visible to All" to open access to all departments.
+Step 3: Submit the permission configuration. After confirming the selection is correct, click "Confirm" to complete the department-level permission assignment; the dialog closes automatically.
+Step 4: Cancel the configuration (optional). Click "Cancel" to close the dialog and discard the current permission configuration.
+
+### Assign Permissions by User
+
+### Interface Description
+
+(2) User tab
+The left side displays a list of system users, with a "Search User" input box at the top supporting fuzzy search by username/account.
+The middle "Selected" area shows the users that have been checked, with a "Clear" option for bulk deselection.
+The right "Permissions" area shows information about users who already have assigned permissions.
+Checkbox: Check the target user to assign database access permissions individually.
+"Visible to All" checkbox: When checked, all system users can access the database.
+
+<Frame>
+  <img src="/images/documentation/ch6_6.6.6.5_0170.png" alt="Assigning Usage Permissions for a Database Card" />
+</Frame>
+
+### Operating Procedure
+
+Step 1: Switch tabs. Click the "User" tab to enter the user permission configuration interface.
+Step 2: Select target users. Check the users to be granted access in the user list (multiple selection supported), or use the search box to quickly locate the target user.
+Step 3: Submit the permission configuration. After confirming the selection is correct, click "Confirm" to complete the user-level permission assignment.
+
+### Assign Permissions by Role
+
+### Interface Description
+
+(3) Role tab
+The left side displays a list of system roles (such as Super Admin, Regular User, Test Role, etc.), with a "Search Role" input box at the top supporting fuzzy search by role name.
+The middle "Selected" area shows the roles that have been checked, with a "Clear" option for bulk deselection.
+The right "Permissions" area shows information about roles that already have assigned permissions.
+Checkbox: Check the target role to assign database access permissions in bulk to all members of that role.
+"Visible to All" checkbox: When checked, all members of the role can access the database.
+
+<Frame>
+  <img src="/images/documentation/ch6_6.6.6.8_0171.png" alt="Assigning Usage Permissions for a Database Card" />
+</Frame>
+
+### Operating Procedure
+
+Step 1: Switch tabs. Click the "Role" tab to enter the role permission configuration interface.
+Step 2: Select target roles. Check the roles to be granted access in the role list (multiple selection supported) to grant bulk access to all members of that role.
+Step 3: Submit the permission configuration. After confirming the selection is correct, click "Confirm" to complete the role-level permission assignment.
+Permission policy settings
+
+### Interface Settings
+
+(4) Permission Policy tab
+The left side displays a list of preset system permission policies (such as "test database"), with a "Search Permission Policy" input box at the top supporting fuzzy search by policy name.
+The middle "Selected" area shows the permission policies that have been checked, with a "Clear" option for bulk deselection.
+The right "Permissions" area shows the permission policies that have already been bound.
+Checkbox: Check the target permission policy to assign database access permissions in bulk according to the preset rules.
+"Visible to All" checkbox: When checked, all users meeting the policy criteria can access the database.
+
+<Frame>
+  <img src="/images/documentation/ch6_6.6.6.10_0172.png" alt="Assigning Usage Permissions for a Database Card" />
+</Frame>
+
+### Operating Procedure
+
+Step 1: Switch tabs. Click the "Permission Policy" tab to enter the policy permission configuration interface.
+Step 2: Select target policies. Check the permission policies to be bound in the policy list (multiple selection supported) for bulk authorization according to the preset rules.
+Step 3: Submit the permission configuration. After confirming the selection is correct, click "Confirm" to complete the permission policy-level permission assignment.

@@ -18,6 +18,206 @@
                 "version": "简体中文",
                 "tabs": [
                     {
+                        "tab": "产品手册",
+                        "groups": [
+                            {
+                                "group": "产品简介与适用说明",
+                                "pages": [
+                                    "zh-hans/documentation/introduction",
+                                    "zh-hans/documentation/scope",
+                                    "zh-hans/documentation/environment",
+                                    "zh-hans/documentation/platform-overview",
+                                    "zh-hans/documentation/user-roles"
+                                ]
+                            },
+                            {
+                                "group": "功能操作说明",
+                                "pages": [
+                                    {
+                                        "group": "创建智能体",
+                                        "pages": [
+                                            "zh-hans/documentation/feature-guide/agent-creation/overview",
+                                            "zh-hans/documentation/feature-guide/agent-creation/publish-agent",
+                                            "zh-hans/documentation/feature-guide/agent-creation/scheduled-trigger",
+                                            "zh-hans/documentation/feature-guide/agent-creation/basic-configuration",
+                                            "zh-hans/documentation/feature-guide/agent-creation/multi-agent-collaboration",
+                                            "zh-hans/documentation/feature-guide/agent-creation/planning-overview",
+                                            "zh-hans/documentation/feature-guide/agent-creation/basic-modules",
+                                            "zh-hans/documentation/feature-guide/agent-creation/node-agent",
+                                            "zh-hans/documentation/feature-guide/agent-creation/node-excel-export",
+                                            "zh-hans/documentation/feature-guide/agent-creation/node-json-to-spreadsheet",
+                                            "zh-hans/documentation/feature-guide/agent-creation/node-markdown-to-word",
+                                            "zh-hans/documentation/feature-guide/agent-creation/node-nl2sql",
+                                            "zh-hans/documentation/feature-guide/agent-creation/node-ppt-generation",
+                                            "zh-hans/documentation/feature-guide/agent-creation/node-code",
+                                            "zh-hans/documentation/feature-guide/agent-creation/node-code-extractor",
+                                            "zh-hans/documentation/feature-guide/agent-creation/node-info-classifier",
+                                            "zh-hans/documentation/feature-guide/agent-creation/node-info-processing",
+                                            "zh-hans/documentation/feature-guide/agent-creation/node-info-handling",
+                                            "zh-hans/documentation/feature-guide/agent-creation/node-info-extraction-module",
+                                            "zh-hans/documentation/feature-guide/agent-creation/node-info-extract",
+                                            "zh-hans/documentation/feature-guide/agent-creation/node-keyword-recognition",
+                                            "zh-hans/documentation/feature-guide/agent-creation/node-content-chunking",
+                                            "zh-hans/documentation/feature-guide/agent-creation/node-content-enhancement",
+                                            "zh-hans/documentation/feature-guide/agent-creation/node-image-question",
+                                            "zh-hans/documentation/feature-guide/agent-creation/node-save-to-knowledge-base",
+                                            "zh-hans/documentation/feature-guide/agent-creation/node-loop",
+                                            "zh-hans/documentation/feature-guide/agent-creation/node-database-visualization",
+                                            "zh-hans/documentation/feature-guide/agent-creation/node-database-query",
+                                            "zh-hans/documentation/feature-guide/agent-creation/node-document-review",
+                                            "zh-hans/documentation/feature-guide/agent-creation/node-document-question",
+                                            "zh-hans/documentation/feature-guide/agent-creation/node-document-output",
+                                            "zh-hans/documentation/feature-guide/agent-creation/node-intelligent-dialogue",
+                                            "zh-hans/documentation/feature-guide/agent-creation/node-permission-assignment",
+                                            "zh-hans/documentation/feature-guide/agent-creation/node-memory-variable",
+                                            "zh-hans/documentation/feature-guide/agent-creation/node-user-question",
+                                            "zh-hans/documentation/feature-guide/agent-creation/node-knowledge-base-search",
+                                            "zh-hans/documentation/feature-guide/agent-creation/node-final-reply",
+                                            "zh-hans/documentation/feature-guide/agent-creation/architecture-upgrade",
+                                            "zh-hans/documentation/feature-guide/agent-creation/canvas-optimization",
+                                            "zh-hans/documentation/feature-guide/agent-creation/new-node-types",
+                                            "zh-hans/documentation/feature-guide/agent-creation/feature-enhancements",
+                                            "zh-hans/documentation/feature-guide/agent-creation/version-switching",
+                                            "zh-hans/documentation/feature-guide/agent-creation/permission-control",
+                                            "zh-hans/documentation/feature-guide/agent-creation/nl-workflow-generation",
+                                            "zh-hans/documentation/feature-guide/agent-creation/first-agent-tutorial"
+                                        ]
+                                    },
+                                    {
+                                        "group": "发现智能体",
+                                        "pages": [
+                                            "zh-hans/documentation/feature-guide/discover-agent/discover-agents",
+                                            "zh-hans/documentation/feature-guide/discover-agent/my-agents-entry",
+                                            "zh-hans/documentation/feature-guide/discover-agent/try-agent"
+                                        ]
+                                    },
+                                    {
+                                        "group": "我的智能体",
+                                        "pages": [
+                                            "zh-hans/documentation/feature-guide/my-agents/overview",
+                                            "zh-hans/documentation/feature-guide/my-agents/management",
+                                            "zh-hans/documentation/feature-guide/my-agents/search-and-view",
+                                            "zh-hans/documentation/feature-guide/my-agents/basic-management",
+                                            "zh-hans/documentation/feature-guide/my-agents/permission-management",
+                                            "zh-hans/documentation/feature-guide/my-agents/usage-records-dashboard",
+                                            "zh-hans/documentation/feature-guide/my-agents/data-field-reference"
+                                        ]
+                                    },
+                                    {
+                                        "group": "我的应用",
+                                        "pages": [
+                                            "zh-hans/documentation/feature-guide/my-apps/overview",
+                                            "zh-hans/documentation/feature-guide/my-apps/management",
+                                            "zh-hans/documentation/feature-guide/my-apps/app-list-management",
+                                            "zh-hans/documentation/feature-guide/my-apps/app-creation-configuration",
+                                            "zh-hans/documentation/feature-guide/my-apps/nl-app-generation",
+                                            "zh-hans/documentation/feature-guide/my-apps/publish-app"
+                                        ]
+                                    },
+                                    {
+                                        "group": "知识库",
+                                        "pages": [
+                                            "zh-hans/documentation/feature-guide/knowledge-base/create-your-first-knowledge-base",
+                                            "zh-hans/documentation/feature-guide/knowledge-base/knowledge-base-pipeline"
+                                        ]
+                                    },
+                                    {
+                                        "group": "数据库",
+                                        "pages": [
+                                            "zh-hans/documentation/feature-guide/database/management",
+                                            "zh-hans/documentation/feature-guide/database/management-page",
+                                            "zh-hans/documentation/feature-guide/database/connection-management",
+                                            "zh-hans/documentation/feature-guide/database/table-schema-management",
+                                            "zh-hans/documentation/feature-guide/database/card-edit-delete",
+                                            "zh-hans/documentation/feature-guide/database/permission-assignment"
+                                        ]
+                                    },
+                                    {
+                                        "group": "工具箱",
+                                        "pages": [
+                                            "zh-hans/documentation/feature-guide/toolbox/overview",
+                                            "zh-hans/documentation/feature-guide/toolbox/official-tools-contract-review",
+                                            "zh-hans/documentation/feature-guide/toolbox/official-tools-web-scraping",
+                                            "zh-hans/documentation/feature-guide/toolbox/custom-tools"
+                                        ]
+                                    },
+                                    {
+                                        "group": "MCP管理",
+                                        "pages": [
+                                            "zh-hans/documentation/feature-guide/mcp-management/overview",
+                                            "zh-hans/documentation/feature-guide/mcp-management/service-creation-configuration",
+                                            "zh-hans/documentation/feature-guide/mcp-management/service-management-monitoring"
+                                        ]
+                                    },
+                                    {
+                                        "group": "技能管理",
+                                        "pages": [
+                                            "zh-hans/documentation/feature-guide/skill-management/overview",
+                                            "zh-hans/documentation/feature-guide/skill-management/skillhub",
+                                            "zh-hans/documentation/feature-guide/skill-management/publish-deployment"
+                                        ]
+                                    },
+                                    {
+                                        "group": "评测",
+                                        "pages": [
+                                            "zh-hans/documentation/feature-guide/evaluation/agent-evaluation",
+                                            "zh-hans/documentation/feature-guide/evaluation/evaluation-datasets",
+                                            "zh-hans/documentation/feature-guide/evaluation/create-dataset",
+                                            "zh-hans/documentation/feature-guide/evaluation/edit-delete-dataset",
+                                            "zh-hans/documentation/feature-guide/evaluation/create-rules",
+                                            "zh-hans/documentation/feature-guide/evaluation/create-evaluation-task",
+                                            "zh-hans/documentation/feature-guide/evaluation/tutorial-classifier",
+                                            "zh-hans/documentation/feature-guide/evaluation/tutorial-roleplay-agent",
+                                            "zh-hans/documentation/feature-guide/evaluation/tutorial-knowledge-base-agent",
+                                            "zh-hans/documentation/feature-guide/evaluation/tutorial-web-scraping-best-practice",
+                                            "zh-hans/documentation/feature-guide/evaluation/tutorial-field-extraction-http",
+                                            "zh-hans/documentation/feature-guide/evaluation/system-variables-functions"
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "group": "系统管理与运行保障",
+                                "pages": [
+                                    "zh-hans/documentation/system-management/capability-overview",
+                                    "zh-hans/documentation/system-management/operation-assurance",
+                                    "zh-hans/documentation/system-management/maintenance-recommendations",
+                                    {
+                                        "group": "数据看板",
+                                        "pages": [
+                                            "zh-hans/documentation/system-management/data-dashboard/dashboard",
+                                            "zh-hans/documentation/system-management/data-dashboard/global-metrics",
+                                            "zh-hans/documentation/system-management/data-dashboard/drill-down-analysis"
+                                        ]
+                                    },
+                                    {
+                                        "group": "数据权限管理",
+                                        "pages": [
+                                            "zh-hans/documentation/system-management/data-permissions/database-permissions",
+                                            "zh-hans/documentation/system-management/data-permissions/agent-permissions",
+                                            "zh-hans/documentation/system-management/data-permissions/knowledge-base-permissions"
+                                        ]
+                                    },
+                                    {
+                                        "group": "系统管理",
+                                        "pages": [
+                                            "zh-hans/documentation/system-management/system-settings/security-logs",
+                                            "zh-hans/documentation/system-management/system-settings/permission-policy-management",
+                                            "zh-hans/documentation/system-management/system-settings/model-configuration",
+                                            "zh-hans/documentation/system-management/system-settings/user-management",
+                                            "zh-hans/documentation/system-management/system-settings/usage-management",
+                                            "zh-hans/documentation/system-management/system-settings/tenant-management",
+                                            "zh-hans/documentation/system-management/system-settings/system-configuration",
+                                            "zh-hans/documentation/system-management/system-settings/organization-management",
+                                            "zh-hans/documentation/system-management/system-settings/role-management",
+                                            "zh-hans/documentation/system-management/system-settings/dictionary-management"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
                         "tab": "更新日志",
                         "pages": [
                             "zh-hans/changelog/product-updates"
@@ -29,6 +229,206 @@
                 "version": "English",
                 "tabs": [
                     {
+                        "tab": "Product Manual",
+                        "groups": [
+                            {
+                                "group": "Introduction & Scope",
+                                "pages": [
+                                    "en/documentation/introduction",
+                                    "en/documentation/scope",
+                                    "en/documentation/environment",
+                                    "en/documentation/platform-overview",
+                                    "en/documentation/user-roles"
+                                ]
+                            },
+                            {
+                                "group": "Feature Guide",
+                                "pages": [
+                                    {
+                                        "group": "Agent Creation",
+                                        "pages": [
+                                            "en/documentation/feature-guide/agent-creation/overview",
+                                            "en/documentation/feature-guide/agent-creation/publish-agent",
+                                            "en/documentation/feature-guide/agent-creation/scheduled-trigger",
+                                            "en/documentation/feature-guide/agent-creation/basic-configuration",
+                                            "en/documentation/feature-guide/agent-creation/multi-agent-collaboration",
+                                            "en/documentation/feature-guide/agent-creation/planning-overview",
+                                            "en/documentation/feature-guide/agent-creation/basic-modules",
+                                            "en/documentation/feature-guide/agent-creation/node-agent",
+                                            "en/documentation/feature-guide/agent-creation/node-excel-export",
+                                            "en/documentation/feature-guide/agent-creation/node-json-to-spreadsheet",
+                                            "en/documentation/feature-guide/agent-creation/node-markdown-to-word",
+                                            "en/documentation/feature-guide/agent-creation/node-nl2sql",
+                                            "en/documentation/feature-guide/agent-creation/node-ppt-generation",
+                                            "en/documentation/feature-guide/agent-creation/node-code",
+                                            "en/documentation/feature-guide/agent-creation/node-code-extractor",
+                                            "en/documentation/feature-guide/agent-creation/node-info-classifier",
+                                            "en/documentation/feature-guide/agent-creation/node-info-processing",
+                                            "en/documentation/feature-guide/agent-creation/node-info-handling",
+                                            "en/documentation/feature-guide/agent-creation/node-info-extraction-module",
+                                            "en/documentation/feature-guide/agent-creation/node-info-extract",
+                                            "en/documentation/feature-guide/agent-creation/node-keyword-recognition",
+                                            "en/documentation/feature-guide/agent-creation/node-content-chunking",
+                                            "en/documentation/feature-guide/agent-creation/node-content-enhancement",
+                                            "en/documentation/feature-guide/agent-creation/node-image-question",
+                                            "en/documentation/feature-guide/agent-creation/node-save-to-knowledge-base",
+                                            "en/documentation/feature-guide/agent-creation/node-loop",
+                                            "en/documentation/feature-guide/agent-creation/node-database-visualization",
+                                            "en/documentation/feature-guide/agent-creation/node-database-query",
+                                            "en/documentation/feature-guide/agent-creation/node-document-review",
+                                            "en/documentation/feature-guide/agent-creation/node-document-question",
+                                            "en/documentation/feature-guide/agent-creation/node-document-output",
+                                            "en/documentation/feature-guide/agent-creation/node-intelligent-dialogue",
+                                            "en/documentation/feature-guide/agent-creation/node-permission-assignment",
+                                            "en/documentation/feature-guide/agent-creation/node-memory-variable",
+                                            "en/documentation/feature-guide/agent-creation/node-user-question",
+                                            "en/documentation/feature-guide/agent-creation/node-knowledge-base-search",
+                                            "en/documentation/feature-guide/agent-creation/node-final-reply",
+                                            "en/documentation/feature-guide/agent-creation/architecture-upgrade",
+                                            "en/documentation/feature-guide/agent-creation/canvas-optimization",
+                                            "en/documentation/feature-guide/agent-creation/new-node-types",
+                                            "en/documentation/feature-guide/agent-creation/feature-enhancements",
+                                            "en/documentation/feature-guide/agent-creation/version-switching",
+                                            "en/documentation/feature-guide/agent-creation/permission-control",
+                                            "en/documentation/feature-guide/agent-creation/nl-workflow-generation",
+                                            "en/documentation/feature-guide/agent-creation/first-agent-tutorial"
+                                        ]
+                                    },
+                                    {
+                                        "group": "Discover Agents",
+                                        "pages": [
+                                            "en/documentation/feature-guide/discover-agent/discover-agents",
+                                            "en/documentation/feature-guide/discover-agent/my-agents-entry",
+                                            "en/documentation/feature-guide/discover-agent/try-agent"
+                                        ]
+                                    },
+                                    {
+                                        "group": "My Agents",
+                                        "pages": [
+                                            "en/documentation/feature-guide/my-agents/overview",
+                                            "en/documentation/feature-guide/my-agents/management",
+                                            "en/documentation/feature-guide/my-agents/search-and-view",
+                                            "en/documentation/feature-guide/my-agents/basic-management",
+                                            "en/documentation/feature-guide/my-agents/permission-management",
+                                            "en/documentation/feature-guide/my-agents/usage-records-dashboard",
+                                            "en/documentation/feature-guide/my-agents/data-field-reference"
+                                        ]
+                                    },
+                                    {
+                                        "group": "My Apps",
+                                        "pages": [
+                                            "en/documentation/feature-guide/my-apps/overview",
+                                            "en/documentation/feature-guide/my-apps/management",
+                                            "en/documentation/feature-guide/my-apps/app-list-management",
+                                            "en/documentation/feature-guide/my-apps/app-creation-configuration",
+                                            "en/documentation/feature-guide/my-apps/nl-app-generation",
+                                            "en/documentation/feature-guide/my-apps/publish-app"
+                                        ]
+                                    },
+                                    {
+                                        "group": "Knowledge Base",
+                                        "pages": [
+                                            "en/documentation/feature-guide/knowledge-base/create-your-first-knowledge-base",
+                                            "en/documentation/feature-guide/knowledge-base/knowledge-base-pipeline"
+                                        ]
+                                    },
+                                    {
+                                        "group": "Database",
+                                        "pages": [
+                                            "en/documentation/feature-guide/database/management",
+                                            "en/documentation/feature-guide/database/management-page",
+                                            "en/documentation/feature-guide/database/connection-management",
+                                            "en/documentation/feature-guide/database/table-schema-management",
+                                            "en/documentation/feature-guide/database/card-edit-delete",
+                                            "en/documentation/feature-guide/database/permission-assignment"
+                                        ]
+                                    },
+                                    {
+                                        "group": "Toolbox",
+                                        "pages": [
+                                            "en/documentation/feature-guide/toolbox/overview",
+                                            "en/documentation/feature-guide/toolbox/official-tools-contract-review",
+                                            "en/documentation/feature-guide/toolbox/official-tools-web-scraping",
+                                            "en/documentation/feature-guide/toolbox/custom-tools"
+                                        ]
+                                    },
+                                    {
+                                        "group": "MCP Management",
+                                        "pages": [
+                                            "en/documentation/feature-guide/mcp-management/overview",
+                                            "en/documentation/feature-guide/mcp-management/service-creation-configuration",
+                                            "en/documentation/feature-guide/mcp-management/service-management-monitoring"
+                                        ]
+                                    },
+                                    {
+                                        "group": "Skill Management",
+                                        "pages": [
+                                            "en/documentation/feature-guide/skill-management/overview",
+                                            "en/documentation/feature-guide/skill-management/skillhub",
+                                            "en/documentation/feature-guide/skill-management/publish-deployment"
+                                        ]
+                                    },
+                                    {
+                                        "group": "Evaluation",
+                                        "pages": [
+                                            "en/documentation/feature-guide/evaluation/agent-evaluation",
+                                            "en/documentation/feature-guide/evaluation/evaluation-datasets",
+                                            "en/documentation/feature-guide/evaluation/create-dataset",
+                                            "en/documentation/feature-guide/evaluation/edit-delete-dataset",
+                                            "en/documentation/feature-guide/evaluation/create-rules",
+                                            "en/documentation/feature-guide/evaluation/create-evaluation-task",
+                                            "en/documentation/feature-guide/evaluation/tutorial-classifier",
+                                            "en/documentation/feature-guide/evaluation/tutorial-roleplay-agent",
+                                            "en/documentation/feature-guide/evaluation/tutorial-knowledge-base-agent",
+                                            "en/documentation/feature-guide/evaluation/tutorial-web-scraping-best-practice",
+                                            "en/documentation/feature-guide/evaluation/tutorial-field-extraction-http",
+                                            "en/documentation/feature-guide/evaluation/system-variables-functions"
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "group": "System Management & Operations",
+                                "pages": [
+                                    "en/documentation/system-management/capability-overview",
+                                    "en/documentation/system-management/operation-assurance",
+                                    "en/documentation/system-management/maintenance-recommendations",
+                                    {
+                                        "group": "Data Dashboard",
+                                        "pages": [
+                                            "en/documentation/system-management/data-dashboard/dashboard",
+                                            "en/documentation/system-management/data-dashboard/global-metrics",
+                                            "en/documentation/system-management/data-dashboard/drill-down-analysis"
+                                        ]
+                                    },
+                                    {
+                                        "group": "Data Permissions",
+                                        "pages": [
+                                            "en/documentation/system-management/data-permissions/database-permissions",
+                                            "en/documentation/system-management/data-permissions/agent-permissions",
+                                            "en/documentation/system-management/data-permissions/knowledge-base-permissions"
+                                        ]
+                                    },
+                                    {
+                                        "group": "System Settings",
+                                        "pages": [
+                                            "en/documentation/system-management/system-settings/security-logs",
+                                            "en/documentation/system-management/system-settings/permission-policy-management",
+                                            "en/documentation/system-management/system-settings/model-configuration",
+                                            "en/documentation/system-management/system-settings/user-management",
+                                            "en/documentation/system-management/system-settings/usage-management",
+                                            "en/documentation/system-management/system-settings/tenant-management",
+                                            "en/documentation/system-management/system-settings/system-configuration",
+                                            "en/documentation/system-management/system-settings/organization-management",
+                                            "en/documentation/system-management/system-settings/role-management",
+                                            "en/documentation/system-management/system-settings/dictionary-management"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
                         "tab": "Changelog",
                         "pages": [
                             "en/changelog/product-updates"
@@ -39,6 +439,206 @@
             {
                 "version": "日本語",
                 "tabs": [
+                    {
+                        "tab": "製品マニュアル",
+                        "groups": [
+                            {
+                                "group": "製品紹介と適用範囲",
+                                "pages": [
+                                    "ja-jp/documentation/introduction",
+                                    "ja-jp/documentation/scope",
+                                    "ja-jp/documentation/environment",
+                                    "ja-jp/documentation/platform-overview",
+                                    "ja-jp/documentation/user-roles"
+                                ]
+                            },
+                            {
+                                "group": "機能操作ガイド",
+                                "pages": [
+                                    {
+                                        "group": "エージェント作成",
+                                        "pages": [
+                                            "ja-jp/documentation/feature-guide/agent-creation/overview",
+                                            "ja-jp/documentation/feature-guide/agent-creation/publish-agent",
+                                            "ja-jp/documentation/feature-guide/agent-creation/scheduled-trigger",
+                                            "ja-jp/documentation/feature-guide/agent-creation/basic-configuration",
+                                            "ja-jp/documentation/feature-guide/agent-creation/multi-agent-collaboration",
+                                            "ja-jp/documentation/feature-guide/agent-creation/planning-overview",
+                                            "ja-jp/documentation/feature-guide/agent-creation/basic-modules",
+                                            "ja-jp/documentation/feature-guide/agent-creation/node-agent",
+                                            "ja-jp/documentation/feature-guide/agent-creation/node-excel-export",
+                                            "ja-jp/documentation/feature-guide/agent-creation/node-json-to-spreadsheet",
+                                            "ja-jp/documentation/feature-guide/agent-creation/node-markdown-to-word",
+                                            "ja-jp/documentation/feature-guide/agent-creation/node-nl2sql",
+                                            "ja-jp/documentation/feature-guide/agent-creation/node-ppt-generation",
+                                            "ja-jp/documentation/feature-guide/agent-creation/node-code",
+                                            "ja-jp/documentation/feature-guide/agent-creation/node-code-extractor",
+                                            "ja-jp/documentation/feature-guide/agent-creation/node-info-classifier",
+                                            "ja-jp/documentation/feature-guide/agent-creation/node-info-processing",
+                                            "ja-jp/documentation/feature-guide/agent-creation/node-info-handling",
+                                            "ja-jp/documentation/feature-guide/agent-creation/node-info-extraction-module",
+                                            "ja-jp/documentation/feature-guide/agent-creation/node-info-extract",
+                                            "ja-jp/documentation/feature-guide/agent-creation/node-keyword-recognition",
+                                            "ja-jp/documentation/feature-guide/agent-creation/node-content-chunking",
+                                            "ja-jp/documentation/feature-guide/agent-creation/node-content-enhancement",
+                                            "ja-jp/documentation/feature-guide/agent-creation/node-image-question",
+                                            "ja-jp/documentation/feature-guide/agent-creation/node-save-to-knowledge-base",
+                                            "ja-jp/documentation/feature-guide/agent-creation/node-loop",
+                                            "ja-jp/documentation/feature-guide/agent-creation/node-database-visualization",
+                                            "ja-jp/documentation/feature-guide/agent-creation/node-database-query",
+                                            "ja-jp/documentation/feature-guide/agent-creation/node-document-review",
+                                            "ja-jp/documentation/feature-guide/agent-creation/node-document-question",
+                                            "ja-jp/documentation/feature-guide/agent-creation/node-document-output",
+                                            "ja-jp/documentation/feature-guide/agent-creation/node-intelligent-dialogue",
+                                            "ja-jp/documentation/feature-guide/agent-creation/node-permission-assignment",
+                                            "ja-jp/documentation/feature-guide/agent-creation/node-memory-variable",
+                                            "ja-jp/documentation/feature-guide/agent-creation/node-user-question",
+                                            "ja-jp/documentation/feature-guide/agent-creation/node-knowledge-base-search",
+                                            "ja-jp/documentation/feature-guide/agent-creation/node-final-reply",
+                                            "ja-jp/documentation/feature-guide/agent-creation/architecture-upgrade",
+                                            "ja-jp/documentation/feature-guide/agent-creation/canvas-optimization",
+                                            "ja-jp/documentation/feature-guide/agent-creation/new-node-types",
+                                            "ja-jp/documentation/feature-guide/agent-creation/feature-enhancements",
+                                            "ja-jp/documentation/feature-guide/agent-creation/version-switching",
+                                            "ja-jp/documentation/feature-guide/agent-creation/permission-control",
+                                            "ja-jp/documentation/feature-guide/agent-creation/nl-workflow-generation",
+                                            "ja-jp/documentation/feature-guide/agent-creation/first-agent-tutorial"
+                                        ]
+                                    },
+                                    {
+                                        "group": "エージェントを探す",
+                                        "pages": [
+                                            "ja-jp/documentation/feature-guide/discover-agent/discover-agents",
+                                            "ja-jp/documentation/feature-guide/discover-agent/my-agents-entry",
+                                            "ja-jp/documentation/feature-guide/discover-agent/try-agent"
+                                        ]
+                                    },
+                                    {
+                                        "group": "マイエージェント",
+                                        "pages": [
+                                            "ja-jp/documentation/feature-guide/my-agents/overview",
+                                            "ja-jp/documentation/feature-guide/my-agents/management",
+                                            "ja-jp/documentation/feature-guide/my-agents/search-and-view",
+                                            "ja-jp/documentation/feature-guide/my-agents/basic-management",
+                                            "ja-jp/documentation/feature-guide/my-agents/permission-management",
+                                            "ja-jp/documentation/feature-guide/my-agents/usage-records-dashboard",
+                                            "ja-jp/documentation/feature-guide/my-agents/data-field-reference"
+                                        ]
+                                    },
+                                    {
+                                        "group": "マイアプリ",
+                                        "pages": [
+                                            "ja-jp/documentation/feature-guide/my-apps/overview",
+                                            "ja-jp/documentation/feature-guide/my-apps/management",
+                                            "ja-jp/documentation/feature-guide/my-apps/app-list-management",
+                                            "ja-jp/documentation/feature-guide/my-apps/app-creation-configuration",
+                                            "ja-jp/documentation/feature-guide/my-apps/nl-app-generation",
+                                            "ja-jp/documentation/feature-guide/my-apps/publish-app"
+                                        ]
+                                    },
+                                    {
+                                        "group": "ナレッジベース",
+                                        "pages": [
+                                            "ja-jp/documentation/feature-guide/knowledge-base/create-your-first-knowledge-base",
+                                            "ja-jp/documentation/feature-guide/knowledge-base/knowledge-base-pipeline"
+                                        ]
+                                    },
+                                    {
+                                        "group": "データベース",
+                                        "pages": [
+                                            "ja-jp/documentation/feature-guide/database/management",
+                                            "ja-jp/documentation/feature-guide/database/management-page",
+                                            "ja-jp/documentation/feature-guide/database/connection-management",
+                                            "ja-jp/documentation/feature-guide/database/table-schema-management",
+                                            "ja-jp/documentation/feature-guide/database/card-edit-delete",
+                                            "ja-jp/documentation/feature-guide/database/permission-assignment"
+                                        ]
+                                    },
+                                    {
+                                        "group": "ツールボックス",
+                                        "pages": [
+                                            "ja-jp/documentation/feature-guide/toolbox/overview",
+                                            "ja-jp/documentation/feature-guide/toolbox/official-tools-contract-review",
+                                            "ja-jp/documentation/feature-guide/toolbox/official-tools-web-scraping",
+                                            "ja-jp/documentation/feature-guide/toolbox/custom-tools"
+                                        ]
+                                    },
+                                    {
+                                        "group": "MCP管理",
+                                        "pages": [
+                                            "ja-jp/documentation/feature-guide/mcp-management/overview",
+                                            "ja-jp/documentation/feature-guide/mcp-management/service-creation-configuration",
+                                            "ja-jp/documentation/feature-guide/mcp-management/service-management-monitoring"
+                                        ]
+                                    },
+                                    {
+                                        "group": "スキル管理",
+                                        "pages": [
+                                            "ja-jp/documentation/feature-guide/skill-management/overview",
+                                            "ja-jp/documentation/feature-guide/skill-management/skillhub",
+                                            "ja-jp/documentation/feature-guide/skill-management/publish-deployment"
+                                        ]
+                                    },
+                                    {
+                                        "group": "評価",
+                                        "pages": [
+                                            "ja-jp/documentation/feature-guide/evaluation/agent-evaluation",
+                                            "ja-jp/documentation/feature-guide/evaluation/evaluation-datasets",
+                                            "ja-jp/documentation/feature-guide/evaluation/create-dataset",
+                                            "ja-jp/documentation/feature-guide/evaluation/edit-delete-dataset",
+                                            "ja-jp/documentation/feature-guide/evaluation/create-rules",
+                                            "ja-jp/documentation/feature-guide/evaluation/create-evaluation-task",
+                                            "ja-jp/documentation/feature-guide/evaluation/tutorial-classifier",
+                                            "ja-jp/documentation/feature-guide/evaluation/tutorial-roleplay-agent",
+                                            "ja-jp/documentation/feature-guide/evaluation/tutorial-knowledge-base-agent",
+                                            "ja-jp/documentation/feature-guide/evaluation/tutorial-web-scraping-best-practice",
+                                            "ja-jp/documentation/feature-guide/evaluation/tutorial-field-extraction-http",
+                                            "ja-jp/documentation/feature-guide/evaluation/system-variables-functions"
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "group": "システム管理と運用保障",
+                                "pages": [
+                                    "ja-jp/documentation/system-management/capability-overview",
+                                    "ja-jp/documentation/system-management/operation-assurance",
+                                    "ja-jp/documentation/system-management/maintenance-recommendations",
+                                    {
+                                        "group": "データダッシュボード",
+                                        "pages": [
+                                            "ja-jp/documentation/system-management/data-dashboard/dashboard",
+                                            "ja-jp/documentation/system-management/data-dashboard/global-metrics",
+                                            "ja-jp/documentation/system-management/data-dashboard/drill-down-analysis"
+                                        ]
+                                    },
+                                    {
+                                        "group": "データ権限管理",
+                                        "pages": [
+                                            "ja-jp/documentation/system-management/data-permissions/database-permissions",
+                                            "ja-jp/documentation/system-management/data-permissions/agent-permissions",
+                                            "ja-jp/documentation/system-management/data-permissions/knowledge-base-permissions"
+                                        ]
+                                    },
+                                    {
+                                        "group": "システム設定",
+                                        "pages": [
+                                            "ja-jp/documentation/system-management/system-settings/security-logs",
+                                            "ja-jp/documentation/system-management/system-settings/permission-policy-management",
+                                            "ja-jp/documentation/system-management/system-settings/model-configuration",
+                                            "ja-jp/documentation/system-management/system-settings/user-management",
+                                            "ja-jp/documentation/system-management/system-settings/usage-management",
+                                            "ja-jp/documentation/system-management/system-settings/tenant-management",
+                                            "ja-jp/documentation/system-management/system-settings/system-configuration",
+                                            "ja-jp/documentation/system-management/system-settings/organization-management",
+                                            "ja-jp/documentation/system-management/system-settings/role-management",
+                                            "ja-jp/documentation/system-management/system-settings/dictionary-management"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    },
                     {
                         "tab": "チェンジログ",
                         "pages": [

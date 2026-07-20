@@ -1,0 +1,201 @@
+---
+title: "Model Configuration"
+---
+
+### Feature Overview
+
+The model configuration capability under the System Management module. Core Value: Provides unified management of large language models connected to the platform, supporting configuration of model type (Chat / Text-to-Image / Text Embedding / Reranking), name, Base URL, and API Key (stored with AES encryption). After a model is created, its context length and whether it is a reasoning model can be set, and usage permissions can be assigned by department / user / role / permission policy. Provides two independent views—"Created by Me" and "Shared with Me"—enabling full lifecycle management of model resources. Use Cases: Used by system administrators when connecting proprietary enterprise models, configuring model parameters, assigning model usage permissions, or centrally managing platform model resources.
+
+Through the model configuration feature, enterprises can connect self-hosted or third-party large language models to the Agents platform in a unified way, flexibly configure model parameters and access permissions, and ensure the secure and orderly use of model resources—while meeting the differentiated needs of various business scenarios for model capabilities.
+
+### Accessing the Feature
+
+Log in to the Agents platform, click the top-level [System Management] menu in the left navigation, then click the [Model Configuration] submenu after the menu list expands, to enter the Model Configuration page.
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.3.2_0366.png" alt="Model Configuration" />
+</Frame>
+
+### Interface Overview
+
+### Main Interface
+
+The main model configuration interface uses a dual-view design: view-switching tabs at the top, function buttons in the top-right corner, the model list as the main content area, and the platform's built-in model provider section at the bottom.
+View-switching tabs: Includes "Created by Me" and "Shared with Me" tabs; click to switch between models within different permission scopes
+Add Custom Model button: Located in the top-right corner of the page; click to open the add custom model dialog
+Model list: Displays model information as cards; hovering over a model card in "Created by Me" reveals action buttons
+Model provider section: Displays all built-in large language model providers and their models, allowing you to quickly add models from a given provider
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.3.4_0367.png" alt="Model Configuration" />
+</Frame>
+
+Comparison of the Two Views
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.3.4_0368.png" alt="Model Configuration" />
+</Frame>
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.3.4_0369.png" alt="Model Configuration" />
+</Frame>
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.3.4_0370.png" alt="Model Configuration" />
+</Frame>
+
+### Add / Edit Custom Model
+
+Click the "Add Custom Model" button, or the "Settings" button on a model card, to open the corresponding dialog. The dialog fields change dynamically based on the selected model type. All API Keys are stored using AES encryption.
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.3.5_0371.png" alt="Model Configuration" />
+</Frame>
+
+Common Fields
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.3.5_0372.png" alt="Model Configuration" />
+</Frame>
+
+Fields Specific to Each Model Type
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.3.5_0373.png" alt="Model Configuration" />
+</Frame>
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.3.5_0374.png" alt="Model Configuration" />
+</Frame>
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.3.5_0375.png" alt="Model Configuration" />
+</Frame>
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.3.5_0376.png" alt="Model Configuration" />
+</Frame>
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.3.5_0377.png" alt="Model Configuration" />
+</Frame>
+
+### Assign Usage Permissions
+
+Click the "Assign Usage Permissions" button on a model card to open the permission assignment dialog. This dialog follows the same logic as other permission management modules on the platform and supports four authorization dimensions.
+Department: Authorize by enterprise organizational structure; once a department is selected, all users in that department gain usage permissions for the model
+User: Authorize individual users; precisely specify which users can use the model
+Role: Authorize by user role; all users under the same role receive the same permissions
+Permission Policy: Apply a predefined permission policy to assign permissions in bulk
+Visible to All: When checked, the model becomes available to all platform users
+For detailed permission control information, see [\*\*Agent Permission Management](https://uxkpl4cba3j.feishu.cn/wiki/KsoowkS6li29rMkdijdc8BjrnRd#share-HUT1dvySPoYtU5x6WDdcFJE8nae) (sections 2.1 - 2.4)
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.3.6_0378.png" alt="Model Configuration" />
+</Frame>
+
+### Operation Steps
+
+### 1. Add a Custom Model
+
+Navigate to the Model Configuration page and confirm you are in the "Created by Me" view
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.3.8_0379.png" alt="Model Configuration" />
+</Frame>
+
+Click the [Add Custom Model] button in the top-right corner of the page
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.3.8_0380.png" alt="Model Configuration" />
+</Frame>
+
+In the dialog, select the model type and fill in the corresponding fields (see section 2.2 of the Interface Overview)
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.3.8_0381.png" alt="Model Configuration" />
+</Frame>
+
+After confirming all information is correct, click [Confirm] to complete model creation
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.3.8_0382.png" alt="Model Configuration" />
+</Frame>
+
+### 2. Edit a Model
+
+In the "Created by Me" model list, find the model you want to edit
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.3.9_0383.png" alt="Model Configuration" />
+</Frame>
+
+Hover over the model card and click the [Settings] button that appears
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.3.9_0384.png" alt="Model Configuration" />
+</Frame>
+
+Modify the editable fields in the edit dialog (the model type cannot be changed)
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.3.9_0385.png" alt="Model Configuration" />
+</Frame>
+
+Click [Confirm] to save the changes
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.3.9_0386.png" alt="Model Configuration" />
+</Frame>
+
+### 3. Assign Model Usage Permissions
+
+In the "Created by Me" model list, find the model for which you want to assign permissions
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.3.10_0387.png" alt="Model Configuration" />
+</Frame>
+
+Hover over the model card and click the [Assign Usage Permissions] button that appears
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.3.10_0388.png" alt="Model Configuration" />
+</Frame>
+
+In the permission dialog, select an authorization dimension and check the departments / users / roles / permission policies to authorize
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.3.10_0389.png" alt="Model Configuration" />
+</Frame>
+
+To grant access to all users, check the [Visible to All] option in the lower-left corner
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.3.10_0390.png" alt="Model Configuration" />
+</Frame>
+
+Click [Confirm] to complete the permission assignment
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.3.10_0391.png" alt="Model Configuration" />
+</Frame>
+
+### 4. Delete a Model
+
+In the "Created by Me" model list, find the model you want to delete
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.3.11_0392.png" alt="Model Configuration" />
+</Frame>
+
+Hover over the model card and click the [Delete] button that appears
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.3.11_0393.png" alt="Model Configuration" />
+</Frame>
+
+Click [Confirm] in the confirmation dialog to complete the model deletion
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.3.11_0394.png" alt="Model Configuration" />
+</Frame>

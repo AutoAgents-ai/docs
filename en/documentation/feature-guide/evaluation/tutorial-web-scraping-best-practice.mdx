@@ -1,0 +1,157 @@
+---
+title: "Best Practices for the Web Scraping Tool"
+---
+
+This article uses the "Xinhua Culture" section of Xinhuanet as an example to show how to use and configure the platform's web scraping tool 😊
+Before we start: how the platform's scraper works
+Users can create and run "Web Scraping" tasks in the platform's "Tools" module. Typically, what a user wants to do is: use the scraping tool to crawl a web page that lists many headlines, and then scrape the specific content on the pages that those headlines link to. Based on this, the platform's scraping tool works as follows: enter the URL of the page containing the headlines ➡️ use a regular expression to filter out the links you want to scrape ➡️ batch-scrape the required content from the pages those links point to.
+
+### Create a New Scraping Task
+
+First, we need to create a new scraping task on the platform. To do this: after logging in to the platform, click "Tools" → "Official Tools" → "Web Scraping" → "New Scraping Task" in the upper-right corner of the page.
+
+<Frame>
+  <img src="/images/documentation/ch6_6.10.10.1_0263.png" alt="Best Practices for the Web Scraping Tool" />
+</Frame>
+
+### Scraper Configuration Instructions
+
+### Scraping Configuration
+
+To start the task, we first need to determine the URL of the page that will serve as our information source. This page should contain multiple news headlines (clicking a headline takes you to that specific news article).
+For this task, the URL of Xinhuanet's "Xinhua Culture" page is: http://www.news.cn/culture/. We can copy this URL and paste it into "Scraping URL." We can also give the new scraping task a simple, memorable name, such as "Xinhuanet - Xinhua Culture," to make it easier to identify later.
+Next, click "Next" to go to the "Scraping Field Configuration" page.
+
+<Frame>
+  <img src="/images/documentation/ch6_6.10.10.3_0264.png" alt="Best Practices for the Web Scraping Tool" />
+</Frame>
+
+### Scraping Field Configuration (Part 1)
+
+First, click the "Add Scraping Field" button. This is the first scraping field, and the logic here is: based on the URL we just entered, filter out the news links on the page that we want to scrape, then visit each link in turn to scrape its content. Since this page may contain a lot of unrelated news links, we need to look at the characteristics of the different links and then use a regular expression to filter out the ones we need.
+
+<Frame>
+  <img src="/images/documentation/ch6_6.10.10.4_0265.png" alt="Best Practices for the Web Scraping Tool" />
+</Frame>
+
+"Field Key": Since this field represents the URL that supplies the news links, we can set the field key to "all" (meaning it extracts all news links after regex filtering). Note that the field key name is tied to how the Agent works later on, so if you're new to the platform, it's best to stick with the preset key names rather than making up your own 🤔
+"Field Description": This explains what the key represents. Since what this site filters out are actually links to individual news articles, we can simply name it "Web Page." This description can be filled in based on your own understanding—feel free to make it personal 👏🏻
+"Field Type": The dropdown offers two options: "string" (extracts the text content on the page) and "Web Page" (extracts a link). Since we're extracting web page links in this task, select "Web Page."
+Field Extraction Rule: This is the extraction rule we need to set based on the page's source code. It corresponds to the news pages we need. Here we need to use a regular expression to filter out the links. Looking at the two screenshots below, you'll notice that all of the links we need contain "/culture/," so we can build our regular expression around that.
+
+<Frame>
+  <img src="/images/documentation/ch6_6.10.10.4_0266.png" alt="Best Practices for the Web Scraping Tool" />
+</Frame>
+
+<Frame>
+  <img src="/images/documentation/ch6_6.10.10.4_0267.png" alt="Best Practices for the Web Scraping Tool" />
+</Frame>
+
+Question: What if I don't know how to inspect a page's source code?
+\[Screen Recording 2024-08-05 16.16.40.mov\]
+Combining everything above, the specific settings for "Scraping Field Configuration" are as follows:
+
+<Frame>
+  <img src="/images/documentation/ch6_6.10.10.4_0268.png" alt="Best Practices for the Web Scraping Tool" />
+</Frame>
+
+Appendix: Scraping field setting details
+Field key: all
+Field description: Web Page
+Field type: Web Page
+Field extraction rule:
+getHtml
+links
+regex=\>./culture/.
+all
+
+### Scraping Field Configuration (Part 2)
+
+Once the above configuration is complete, you'll notice that because "Field Type" is set to "Web Page," you can continue configuring further. Click the blue "Scrape" link next to "Web Page."
+
+<Frame>
+  <img src="/images/documentation/ch6_6.10.10.5_0269.png" alt="Best Practices for the Web Scraping Tool" />
+</Frame>
+
+After clicking, a new "Add Scraping Field" button appears below this field. The logic here is: within the pages linked to by the regex-filtered results, we need to scrape three pieces of content: "News Title," "News Content," and "Publish Date."
+Next, we'll use "News Title" as an example to explain how to configure these three fields.
+Click "Add Scraping Field" under the field key "all."
+Set the key to "title," the field description to "News Title," and the field type to "string." The field extraction rule can be based on the page's source code. For xpath, refer to the platform's tutorial document, the Scraping Command Script Usage Guide.
+(Tip: AI might be able to help with this 👏🏻)
+
+<Frame>
+  <img src="/images/documentation/ch6_6.10.10.5_0270.png" alt="Best Practices for the Web Scraping Tool" />
+</Frame>
+
+The specific settings are shown below:
+
+<Frame>
+  <img src="/images/documentation/ch6_6.10.10.5_0271.png" alt="Best Practices for the Web Scraping Tool" />
+</Frame>
+
+The settings for "Publish Date" and "News Content" follow the same method described above for "News Title." Note: the key name affects how the Agent works—see Part 4 below.
+Once this configuration is complete, click "Next."
+Appendix: Scraping field setting details
+Field key: title
+Field description: News Title
+Field type: string
+Field extraction rule:
+getHtml
+xpath=\>//div\[@class='head-line clearfix'\]/h1/allText()
+get
+Field key: content
+Field description: News Content
+Field type: string
+Field extraction rule:
+getHtml
+xpath=\>//span\[@id='detailContent'\]//allText()
+get
+Field key: date
+Field description: Publish Date
+Field type: string
+Field extraction rule:
+getHtml
+xpath=\>//div\[@class='header-time left'\]/allText()
+get
+Once all of the above configuration is complete, under "Export Configuration" you'll need to select a companion Agent to help process the scraped content and store it in the knowledge base.
+
+<Frame>
+  <img src="/images/documentation/ch6_6.10.10.5_0272.png" alt="Best Practices for the Web Scraping Tool" />
+</Frame>
+
+### Start the Task
+
+Back on the scraping task page, before starting the scraper, we still need to set a "Scheduled Collection" interval for the task. The platform supports scraping intervals at three levels—"minutes," "hours," and "days"—which you can configure as needed. Once this is filled in, click "Start" and the scraping task will begin running immediately.
+After a short wait, you can check the "Number of Links Scraped" to confirm whether the scraper successfully retrieved page content, or check the corresponding knowledge base to see whether the scraped content has been stored in the format you wanted.
+
+<Frame>
+  <img src="/images/documentation/ch6_6.10.10.6_0273.png" alt="Best Practices for the Web Scraping Tool" />
+</Frame>
+
+<Frame>
+  <img src="/images/documentation/ch6_6.10.10.6_0274.png" alt="Best Practices for the Web Scraping Tool" />
+</Frame>
+
+### Supplement: Planning the Agent That Accompanies the Scraping Task
+
+In this section, we'll briefly walk through the design logic behind the Agent that accompanies the scraper.
+As mentioned earlier, for each news page, the main keys we scrape are title, content, and date, corresponding to the news article's headline, content, and publish date, respectively. In practice, the platform stores each of these pieces of content in a variable named after its key. In addition, for the link extracted via regex, the platform automatically stores the link's URL in its own variable as well. When designing the Agent, we need to follow the platform's logic to transform and assemble these variables according to our desired format, and ultimately store them in the knowledge base.
+For this task, we need to save the content of each news page as a single chunk in the knowledge base. Specifically, we save the news content (content) as the body of the knowledge base chunk, and the news title, URL, and publish time as the chunk's title. For the chunk title, we can use the "Fixed Reply" module in the Agent plan to format the news title, URL, and publish time as needed, and then store the result in the knowledge base.
+
+<Frame>
+  <img src="/images/documentation/ch6_6.10.10.7_0275.png" alt="Best Practices for the Web Scraping Tool" />
+</Frame>
+
+The Agent configuration document is shown below. You can copy the content and import it on the Agent planning page. Note: after copying, you'll need to replace the knowledge base under the "Save to Knowledge Base" module with a knowledge base from your own account.
+
+<Frame>
+  <img src="/images/documentation/ch6_6.10.10.7_0276.png" alt="Best Practices for the Web Scraping Tool" />
+</Frame>
+
+### Results
+
+Here's how the information from a scraped news page ends up being stored (only one example is shown here):
+
+<Frame>
+  <img src="/images/documentation/ch6_6.10.10.8_0277.png" alt="Best Practices for the Web Scraping Tool" />
+</Frame>

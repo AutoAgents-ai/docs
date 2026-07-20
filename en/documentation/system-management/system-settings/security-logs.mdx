@@ -1,0 +1,114 @@
+---
+title: "Security Logs"
+---
+
+### Feature Overview
+
+Feature Name: The security log capability under the System Management module. Core Value: Provides a detailed audit trail dashboard that fully records all-dimensional information on every user operation on the platform, supporting conditional queries and data export to meet compliance requirements for classified protection standards. Use Cases: Used by system administrators for security audits, operation traceability, compliance checks, and issue investigation.
+The security log feature automatically records the operational behavior of all users on the platform, including key data such as the operation time, user identity, operation content, execution result, and device/network information. System administrators can use this feature to quickly filter operation records within a specific time range, trace the source of anomalous operations, and export log data as CSV files, providing complete data support for enterprise information security management and classified protection compliance audits.
+
+### Accessing the Feature
+
+Log in to the Agents platform, click the top-level [System Management] menu in the left navigation, then click the [Security Logs] submenu after the menu list expands, to enter the Security Logs page.
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.1.2_0344.png" alt="Security Logs" />
+</Frame>
+
+### Interface Overview
+
+The Security Logs page is divided into three sections: the query area, the log list area, and the export function area, as described below:
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.1.3_0345.png" alt="Security Logs" />
+</Frame>
+
+### Query Area
+
+Query Range: Used to filter security log records within a specified time range. Supports selecting a start date and end date; click the date picker to set the time range.
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.1.4_0346.png" alt="Security Logs" />
+</Frame>
+
+### Log List Area
+
+Displays all security log records matching the query criteria. Each record includes the following 12 fields:
+No.: The sequential number of the log record
+Created At: The exact time the operation occurred (to the second)
+User ID: The unique identifier of the user who performed the operation
+Username: The name of the user who performed the operation
+Operation Type: The category of the operation (e.g., LOGIN, UPDATE, LOGOUT, etc.)
+Operation Content: The specific parameters and content of the operation
+Operation Result: The execution status of the operation—green "Success" indicates the operation completed successfully, red "Failure" indicates an execution error
+Source IP: The IP address of the device that performed the operation
+MAC Address: The physical address of the device that performed the operation
+Device Info: The operating system and browser information of the device that performed the operation
+Request Path: The system API endpoint corresponding to the operation
+Operation Details: The full description of the operation
+The bottom of the log list provides pagination controls for browsing multiple pages of log data via page numbers or navigation buttons, along with the total number of log records.
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.1.5_0347.png" alt="Security Logs" />
+</Frame>
+
+### Export Function Area
+
+Export Data button: Located in the top-right corner of the page; click to export all security log records matching the current query criteria as a CSV file.
+Export Format and Content: Supports exporting to standard CSV format, compatible with mainstream document tools such as Excel and WPS, or text tools like Notepad, for direct viewing, editing, analysis, and archiving.
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.1.6_0348.png" alt="Security Logs" />
+</Frame>
+
+### Operation Steps
+
+### 1. Query Security Logs
+
+Following the steps above, navigate to the Security Logs page
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.1.8_0349.png" alt="Security Logs" />
+</Frame>
+
+In the query area, click the date picker and set the start and end dates for the query (for example, to view records from April 1 to April 3)
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.1.8_0350.png" alt="Security Logs" />
+</Frame>
+
+The system automatically refreshes and displays all security log records within the specified time range
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.1.8_0351.png" alt="Security Logs" />
+</Frame>
+
+To view more logs, click the page numbers or the "\<" / "\>" buttons on the pagination control to navigate between pages
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.1.8_0352.png" alt="Security Logs" />
+</Frame>
+
+### 2. Export Security Logs
+
+Complete the log query and confirm that the displayed data covers the time range you want to export
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.1.9_0353.png" alt="Security Logs" />
+</Frame>
+
+Click the [Export CSV] button in the top-right corner of the page
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.1.9_0354.png" alt="Security Logs" />
+</Frame>
+
+The system automatically generates a CSV log file and downloads it locally. The exported file includes the complete field information for all query results
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.1.9_0355.png" alt="Security Logs" />
+</Frame>
+
+<Frame>
+  <img src="/images/documentation/ch7_7.6.1.9_0356.png" alt="Security Logs" />
+</Frame>

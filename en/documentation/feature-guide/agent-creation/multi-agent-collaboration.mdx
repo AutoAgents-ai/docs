@@ -1,0 +1,66 @@
+---
+title: "Workflow Planning"
+---
+
+### Feature Overview
+
+Multi-Agent collaboration is one of the platform's core advanced features. It allows an already-created Agent to be encapsulated as a reusable "sub-Agent" and invoked within a parent workflow. The core value of this feature lies in:
+Capability reuse and modularity: Encapsulate complex business logic or specific skills as an independent sub-Agent that can be reused across multiple parent workflows, avoiding duplicate development and significantly improving development efficiency.
+Complex task decomposition and coordination: By invoking multiple sub-Agents with different responsibilities, you can automatically decompose complex tasks, process them in parallel, and consolidate the results, meeting the needs of cross-role, long-running business scenarios.
+Flexible human-in-the-loop collaboration: After a sub-Agent finishes running, users can perform manual review and provide feedback ("Satisfied, proceed to next step" or "Not satisfied, re-execute"), efficiently combining autonomous AI execution with human oversight and decision-making.
+This feature is built on the platform's proprietary Multi-Agent architecture, enabling seamless interconnection and collaborative invocation between different Agents, giving Agents stronger execution and decision-making capabilities.
+
+### Entry Point
+
+To use the multi-Agent collaboration feature, you first need to create and publish a sub-Agent within the "Create Agent" module.
+Entry path:
+Log in to the platform (Production environment: https://lingda.agentspro.cn/; UAT environment: https://uat.agentspro.cn/home/agent).
+On the platform homepage, click the "+ Create Agent" button in the left-hand navigation bar.
+In the "Create Agent" popup window, select the "Agent Workflow" type, and choose a creation method ("Create from blank" or "Create from template").
+The entry interface for creating an Agent is shown in (Figure 1).
+The type selection interface for creating an Agent is shown in (Figure 2).
+
+### Interface Description
+
+Multi-Agent collaboration is primarily implemented within the Agent's "Planning" canvas interface. This interface adopts the Workflow 2.0 architecture, featuring a dual-track "data flow + control flow" design, with node configuration expanding as a drawer on the right side — significantly improving development efficiency and canvas readability in complex scenarios.
+Main components of the interface:
+Left module panel: Divided into three categories — "System Modules," "Agent," and "Tools." Under "Agent," already-created and published Agents are listed, available to be dragged in as sub-Agents.
+Central canvas area: The visual design area used for dragging in modules, drawing connections, and building the workflow. A sub-Agent is dragged in here as an independent node.
+Right configuration drawer: After selecting a sub-Agent node on the canvas, the right-side drawer expands to show its configuration interface, where you can set activation conditions, input/output variables, and more.
+The canvas interface after the Workflow 2.0 architecture upgrade is shown in (Figure 3), clearly illustrating the layout of the module panel, canvas area, and right-side configuration drawer.
+An example flowchart of an Agent node is shown in (Figure 4), illustrating how information flows between nodes.
+
+### Operating Procedure
+
+Prerequisite: Create and publish a sub-Agent
+Before invoking a sub-Agent within a parent workflow, you must first create and publish one or more sub-Agents.
+Create the sub-Agent: Follow the steps described in "Entry Point" to create a new Agent workflow. On the configuration page, define its name, description, type, prompt, and other basic information.
+Design the sub-Agent's workflow: Enter the "Planning" canvas, drag in modules and draw connections for the sub-Agent, and design its independent functional logic. Make sure the sub-Agent's workflow is complete, including the necessary input, processing, and output nodes.
+Publish the sub-Agent: Once the sub-Agent's design is complete, it needs to be "published." Only after publishing will the Agent appear under the "Agent" category in the left module panel, ready to be invoked by other workflows. For details on the publish and deployment features, refer to the relevant documentation.
+Invoking a sub-Agent within the parent workflow
+Enter the parent Agent's canvas: Create or open the workflow that will act as the "parent Agent."
+Drag in the sub-Agent node: In the "Agent" category of the left module panel, find and select the published sub-Agent, then drag it to the appropriate position on the central canvas.
+Configure the sub-Agent node:
+Activation condition: Select the sub-Agent node on the canvas, and in the right-side configuration drawer, set its "activate when all conditions met" or "activate when any condition met" setting, which determines under what conditions the sub-Agent begins execution.
+Input/output (variable passing): Sub-Agents support memory variable passing. In the configuration drawer, you can define input variables passed from the parent workflow to the sub-Agent, as well as output variables returned from the sub-Agent to the parent workflow. This is typically implemented via the "Memory Variable" module, which is used to store temporary variables within the workflow, compensating for the context length limits of the intelligent chat module and enabling context continuity across long conversation turns and data passing across Agents.
+Building the connections: Connect the sub-Agent node to upstream modules (which provide input) and downstream modules (which receive output) via connections. Each module has an input interface on the left and an output interface on the right; a connection must link an output interface to an input interface.
+Configure human-in-the-loop interaction (optional): After the sub-Agent finishes running, the parent workflow can include a user interaction node. For example, after the sub-Agent completes execution, a "User Question" or "Confirm Reply" module can present the result to the user and offer "Satisfied" or "Not satisfied" buttons. Based on the user's choice, the parent workflow can decide whether to continue to the next step or re-execute the sub-Agent.
+Example: logic for a parent workflow invoking a sub-Agent
+A typical parent workflow might include the following stages:
+User question: Receives user input.
+Intelligent chat/information processing: Performs initial processing on the user input to extract key information.
+Invoke sub-Agent A: Uses the processed information as input to invoke sub-Agent A, which is responsible for "data analysis."
+Sub-Agent A execution: Independently completes the data analysis task and returns the result.
+Invoke sub-Agent B: Uses sub-Agent A's result as input to invoke sub-Agent B, which is responsible for "report generation."
+User review: After sub-Agent B generates the report, the parent workflow presents the report to the user and asks whether they are satisfied.
+Branching:
+If the user selects "Satisfied": The parent workflow continues execution, for example storing the report in the knowledge base or sending it to relevant personnel.
+If the user selects "Not satisfied": The parent workflow rolls back, re-executing sub-Agent B or adjusting parameters before running it again.
+This pattern fully demonstrates the flexibility and scalability of multi-Agent collaboration, making the construction of complex business processes modular and maintainable.
+
+### Additional Insights and Recommendations
+
+Permissions and sharing: Publishing and invoking sub-Agents involves permission management. Make sure the sub-Agent has been published and that the parent Agent's creator or team has permission to invoke it. The platform supports user-level permission assignment and control at the workflow orchestration level, safeguarding data security and operational compliance in team collaboration.
+Debugging and optimization: When building complex multi-Agent workflows, it's recommended to make full use of the platform's "single-node debugging" feature. This feature allows you to independently debug a single node (including sub-Agent nodes) on the canvas, letting you verify node logic and output without running the entire workflow, significantly improving development and debugging efficiency.
+Performance and cost: Multi-Agent collaboration increases workflow complexity and Token consumption. When designing, tasks should be reasonably decomposed to avoid unnecessary sub-Agent invocations. You can refer to the platform's data dashboard for precise statistics on total Token consumption, helping estimate the cost of using large language models.
+When to use multi-Agent collaboration: Multi-Agent collaboration is especially well-suited for complex cross-system, cross-role, long-running business processes, such as contract review, project management, and in-depth research report generation. For simple Q&A or information retrieval tasks, a single Agent is usually sufficient — there's no need to introduce a multi-Agent architecture, which helps keep the system simple and efficient to run.

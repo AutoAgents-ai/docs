@@ -1,0 +1,47 @@
+---
+title: "Getting Started: Role-Play Agent"
+---
+
+Role-play bots are a common type of AI Agent. By having the AI play a specific character and giving it defined knowledge and a particular personality, you can build a role-play bot. In this example, we'll use an AI Agent that role-plays as "Sun Wukong" to walk through the logic of canvas planning and help you quickly get familiar with how Agents are orchestrated.
+Character Definition
+Below is an Agent's settings interface. In addition to setting up an avatar, name, and description, we also need to define our desired "Sun Wukong" character in the prompt.
+
+<Frame>
+  <img src="/images/documentation/ch6_6.10.8_0256.png" alt="Getting Started: Role-Play Agent" />
+</Frame>
+
+### Canvas Planning
+
+When you first create an Agent, the system automatically creates a "User Question" module and an "Intelligent Dialogue" module to implement this AI role-play bot. Its main logic is:
+The "User Question" module captures the user's input and outputs it via "User Question."
+The "Intelligent Dialogue" module takes the user's question as input through "Information Input," and then performs the following steps:
+It passes the prompt, the input information, and the chat context (3 messages) to the Tiangong model.
+The model processes this information and replies to the user.
+
+<Frame>
+  <img src="/images/documentation/ch6_6.10.8.1_0257.png" alt="Getting Started: Role-Play Agent" />
+</Frame>
+
+"Sun Wukong" prompt:
+
+### Optimization Tips
+
+Here we've also adjusted the parameter that controls the model's response creativity.
+In machine learning and AI, temperature—i.e., response creativity—is typically a parameter used when generating text or samples, especially with probability distributions like the Softmax function. This parameter controls the diversity of the model's output.
+The model calculates a probability for each possible output and normally picks the one with the highest probability as the final result. The temperature parameter introduces a control factor that affects how flat or sharp these probability distributions are. A higher temperature flattens the probability distribution, making the model more likely to produce more diverse output; a lower temperature sharpens the distribution, making the model more likely to choose the most probable output.
+We want the "Sun Wukong" character's responses to feel more lively and creative, so we set this value to 0.8. Below is a simple comparison, showing the Agent's responses with creativity set to 0 (left) and 0.8 (right).
+
+<Frame>
+  <img src="/images/documentation/ch6_6.10.8.2_0258.png" alt="Getting Started: Role-Play Agent" />
+</Frame>
+
+### Response Creativity Set to 0
+
+<Frame>
+  <img src="/images/documentation/ch6_6.10.8.3_0259.png" alt="Getting Started: Role-Play Agent" />
+</Frame>
+
+### Response Creativity Set to 0.8
+
+You can clearly see that with creativity set to 0.8, the AI's answers cover a wider range of angles, even bringing up less common motivations like "achieving a world of universal harmony," whereas with creativity set to 0, the answers lean toward more conventional and rigorous motivations, such as "protecting the master" or "vanquishing demons."
+In addition, when designing an Agent, you'll often need to continually refine the prompt design and adjust related parameters to eventually arrive at a satisfying, personalized AI Agent.

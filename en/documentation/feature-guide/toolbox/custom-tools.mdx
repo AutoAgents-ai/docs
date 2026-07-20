@@ -1,0 +1,122 @@
+---
+title: "Custom Tools"
+---
+
+### Creating and Publishing Custom Tools
+
+### Creating a Custom Tool
+
+Navigate to Custom Tools
+In the left navigation bar, click "Toolbox," then select the "Custom Tools" button.
+
+<Frame>
+  <img src="/images/documentation/ch6_6.7.2.2_0219.png" alt="Custom Tools" />
+</Frame>
+
+### Creation Process
+
+Currently, there are two ways to create a tool: manual entry and quick import. Quick import is recommended whenever possible, especially when an API document or API URL is available, as it lets you create tools faster and more conveniently. Manual entry is more flexible, but is more complex and time-consuming for business users.
+
+<Frame>
+  <img src="/images/documentation/ch6_6.7.2.3_0220.png" alt="Custom Tools" />
+</Frame>
+
+Fill in the tool's basic information
+Example: using an external phone number lookup API: <https://api.oioweb.cn/doc/common/teladress>
+Import tool: supports the following three import methods
+Import file
+Import URL
+Import text
+
+<Frame>
+  <img src="/images/documentation/ch6_6.7.2.3_0221.png" alt="Custom Tools" />
+</Frame>
+
+Import process:
+
+<Frame>
+  <img src="/images/documentation/ch6_6.7.2.3_0222.png" alt="Custom Tools" />
+</Frame>
+
+Import complete:
+Information imported this way may be incomplete; any missing required fields need to be filled in manually.
+
+<Frame>
+  <img src="/images/documentation/ch6_6.7.2.3_0223.png" alt="Custom Tools" />
+</Frame>
+
+Request method description
+Custom tools support five request methods, described as follows:
+GET (retrieve)
+Definition: A GET request asks the server for access to a resource, and is typically used to query or retrieve information. Request parameters are passed via the URL and do not change server state.
+Use cases: querying a list of users, retrieving article details.
+Example: querying a product's price: GET https://api.example.com/products/123, where 123 is the product ID.
+POST (submit)
+Definition: A POST request submits data to the server, typically used to create a new resource or process data. Data is transmitted in the request body.
+Use cases: registering a new user, submitting a form, uploading a file.
+Example: creating a new user account: POST https://api.example.com/users, with the request body containing information such as username and password.
+PUT (replace)
+Definition: A PUT request replaces an existing resource on the server or creates a new one, and requires the complete resource data to be provided.
+Use cases: updating a user profile, replacing file contents.
+Example: updating a user profile: PUT https://api.example.com/users/456, with the request body containing all the user's updated information, where 456 is the user ID.
+DELETE (delete)
+Definition: A DELETE request deletes the specified resource on the server. The operation is idempotent, producing the same result no matter how many times it is repeated.
+Use cases: deleting a file, deleting a user account.
+Example: deleting a blog post: DELETE https://api.example.com/blogs/789, where 789 is the article ID.
+PATCH (partial update)
+Definition: A PATCH request partially updates a resource, requiring only the attributes that need to change, making it more flexible than PUT.
+Use cases: modifying a single field of a document, updating part of a user's information.
+Example: updating only the article title: PATCH https://api.example.com/articles/1010, with the request body containing only the new title, where 1010 is the article ID.
+When choosing a request method, refer to the requirements specified in the API documentation for your actual use case.
+
+<Frame>
+  <img src="/images/documentation/ch6_6.7.2.3_0224.png" alt="Custom Tools" />
+</Frame>
+
+### Authentication Method Description
+
+In network requests, authentication is used to ensure that the requester is authorized to access the resource. Common authentication methods include Basic Auth, Bearer Token, and Custom. They are described as follows:
+Basic Auth authentication
+Definition: A basic authentication method using a username and password.
+Operation: Concatenate the username and password with a colon, Base64-encode the result, and add Authorization: Basic \<encoded-credentials\> to the request header.
+Example:
+Bearer Token authentication
+Definition: The client obtains a token through some method (such as OAuth 2.0 authorization) and adds Authorization: Bearer \<token\> to the request header.
+Example:
+Custom authentication
+Definition: Allows developers to define a custom authentication scheme by authenticating via custom request header keys and values.
+Operation: Add arbitrary key-value pairs to the request header to satisfy special authentication requirements.
+Example:
+When creating a custom tool, choose the authentication method that best fits your actual needs.
+Fill in the corresponding input and output parameters
+Parameter configuration:
+Currently, parameter types support string, boolean, and any. If the input or output type cannot be clearly identified, it defaults to string. The configuration of output parameters must also take into account how the tool connects as an orchestration node, since orchestration nodes currently also support the string, boolean, and any types.
+
+<Frame>
+  <img src="/images/documentation/ch6_6.7.2.4_0225.png" alt="Custom Tools" />
+</Frame>
+
+Description of how parameters are passed in:
+
+### Debugging and Validation
+
+After saving, proceed to the third step, debugging: fill in the corresponding input and call the API. Whether the tool can be published depends on whether debugging succeeds. If the test passes, the tool can be published; if it fails, it can be saved but not published.
+
+<Frame>
+  <img src="/images/documentation/ch6_6.7.2.5_0226.png" alt="Custom Tools" />
+</Frame>
+
+### Publishing the Tool
+
+After saving and debugging, the newly created tool will appear as a corresponding record in the list.
+
+<Frame>
+  <img src="/images/documentation/ch6_6.7.2.6_0227.png" alt="Custom Tools" />
+</Frame>
+
+The list supports editing, deleting, publishing, and unpublishing.
+Notes:
+Only an agent that has passed debugging can be published.
+Once published, the tool can be dragged into use in orchestration.
+
+### If a tool is unpublished, it will no longer appear in the tool sidebar, but existing agents that already use this tool are unaffected
