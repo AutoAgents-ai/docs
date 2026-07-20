@@ -2,6 +2,14 @@
 title: "Product updates"
 description: "New updates and improvements"
 filters:
+  - label: "v2.0.6.0"
+    value: "v2.0.6.0"
+  - label: "v2.0.5.0"
+    value: "v2.0.5.0"
+  - label: "v2.0.4.0"
+    value: "v2.0.4.0"
+  - label: "v2.0.3.0"
+    value: "v2.0.3.0"
   - label: "v2.0.2.0"
     value: "v2.0.2.0"
   - label: "v2.0.1.0"
@@ -55,6 +63,128 @@ filters:
   - label: "v1.8.2.0"
     value: "v1.8.2.0"
 ---
+
+<Update label="v2.0.6.0" tags={["v2.0.6.0"]} rss={{ title: "Agentify v2.0.6.0", description: "Major upgrades across Agent and Skills experiences, covering Text2Agent, code blocks, rendering architecture, and interaction refinements" }}>
+  ## I. Agent-related Updates
+
+  ### 🛠️ Interaction and Visual Optimizations
+  - **Configuration adjustment**: Renamed "Advanced Knowledge Base Configuration" to "*Knowledge Base Prompt*" and moved it below the user prompt field.
+  - **Copy-function fix**: Fixed text copy behavior in the workflow creation assistant.
+  - **Icon and position swap**: Swapped icons and positions of "Document Q&A" and "Document Review".
+  - **Sidebar linkage**:
+    - Left panel now supports auto-hide in preview mode.
+    - Added linked show/hide behavior for sidebars such as conversation list and new conversation (including right panel and context resource panel).
+  - **UI detail fixes**: Fixed unclosed rounded corners and missing lines on preview pages.
+  - **Trial-run interface refinements**: Completed visual and layout fixes for the Agent trial-run interface, resolving overly blue tone, misalignment, floating toolbar, and input box overlap issues.
+
+  ### 🚀 Text2Agent Enhancements
+  - **Debugging and generation**: Added automatic single-node debugging and automatic trial-run insertion into conversation-assisted generation.
+  - **Context compression**: Implemented context compression in the Harness project.
+  - **Model selection strategy**: Added `auto` as the default option when selecting models.
+    - *Default logic*: Put all models into context.
+    - *Specific logic*: If a user selects specific models, only those selected models are included in context.
+
+  ### 🏗️ Component and Architecture Adjustments
+  - **Rendering architecture rectification**: Refactored the overall rendering architecture and improved bundle deployment strategy to address security and deployment issues.
+  - **Template download**: Document-related components now provide template download capability.
+  - **Canvas size optimization**: Optimized default canvas display size by reducing default component dimensions to avoid oversized rendering.
+
+  ### 💻 Code Blocks and Deployment
+  - **Default language**: Set `Python` as the default language for code blocks.
+  - **Private deployment**: Latest package now defaults to the latest version and properly displays Text2Agent and "My Apps".
+  - **Data type descriptions**: Added data-type descriptions for code block nodes, especially for `file`, `image`, and `string` with type-detection compatibility (`plain string`, `JSON Object string`, `JSON Array string`).
+  - **Style adjustments**: Adjusted classic code-block presentation style and strengthened border contrast between old and new code-block sections.
+
+  ## II. Skills-related Updates
+
+  ### 🔄 Creation and Editing Flow
+  - **Auto-navigation**: After creating Skills/MCP, users are now automatically redirected to the edit page.
+  - **Scroll pagination**: Added scroll-based pagination when selecting Agents in Skills.
+  - **Text operations**: Messages in the Skill creation assistant chat page now support selection and copy.
+  - **Trial-run experience**: Improved Skill trial-run experience by switching to streaming conversational output.
+
+  ### 🎨 Component and Display Optimizations
+  - **File preview**: Added syntax highlighting by language (`MD`, `JS`, `HTML`, `Shell`, `Python`, etc.), with direct rendered preview support for `MD` and `HTML`.
+  - **Data synchronization fix**: Fixed an issue where newly created Agents could not be retrieved when adding Agents to a Skill.
+  - **Component conversion**: Skills dragged out from the canvas are now shown as Agent components by default.
+
+  ## III. General Improvements
+
+  - **Style unification**: Unified model dropdown styles across Text2Agent, Skills, AutogentUI, knowledge-base settings, and code-block editors.
+  - **Control and input**: Unified stop-button styles across Text2Agent, Skill, and AutogentUI, and fully enabled voice input support.
+</Update>
+
+<Update label="v2.0.5.0" tags={["v2.0.5.0"]} rss={{ title: "Agentify v2.0.5.0", description: "End-to-end terminal OTA, storage and multimodal integration upgrades, stronger execution and auth capabilities, plus key fixes for knowledge base and workflow" }}>
+  ## New Features
+
+  - **End-to-end terminal OTA**: Completed the full OTA upgrade capability chain for terminal devices.
+  - **Storage configuration upgrade**: Added storage configuration extensions with support for Volcano Engine TOS object storage.
+  - **Sinochem multimodal component and embed integration**: Added a Sinochem-specific multimodal component and support for embedded and customized chat-page integration.
+  - **Terminal background task model**: Introduced a terminal background task model to improve long-running background task handling and status tracking.
+  - **Expanded Skill file capabilities**: With GraalPy image and Node/PDF library enhancements, Skills now support file generation, preview, and download.
+
+  ## Enhancements
+
+  - **Knowledge base interaction optimization**: Added like/dislike feedback for knowledge base chunks.
+  - **Text-to-Agent experience optimization**: Further improved Text-to-Agent logic generation and interaction experience.
+  - **Unified sandbox and Python execution architecture**: Unified virtual sandbox and Python execution paths to improve isolation and reliability.
+  - **Code block IDE debugging upgrade**: Fully revamped the code block IDE editor, with large-screen full-screen editing and real-time debugging; single-node debugging now supports viewing Console Logs.
+  - **Chat-page interaction and security optimization**:
+    - Optimized the "..." loading effect during response generation and the interrupt/pause button interaction logic.
+    - Made previewed chat files compatible with stricter CSP (Content Security Policy).
+  - **Authentication and user management**:
+    - AutoAuth now supports automatic authorized sign-in and organization-based (Dept/Org) access interception.
+    - Added maximum input-length control in user management settings.
+  - **Platform and dependency upgrades**:
+    - Upgraded a Spring AI minor version and fixed the extraBody parameter passing bug.
+    - Completed GraalPy runtime upgrades in the East Asia Bank environment.
+
+  ## Bug Fixes
+
+  - **Knowledge base and knowledge graph**
+    - Fixed privilege-escalation/cross-tenant issues when knowledge-base review is enabled.
+    - Fixed several known issues in knowledge-base chunk editing.
+    - Resolved multiple known issues in the knowledge graph (Graph-RAG) module.
+
+  - **Workflow and debugging**
+    - Fixed page crashes in Workflow 2.0 canvas when editing node/workflow names in large graphs.
+    - Fixed priority override confusion between `inputs` and `variables` in single-node debugging mode.
+</Update>
+
+<Update label="v2.0.4.0" tags={["v2.0.4.0"]} rss={{ title: "Agentify v2.0.4.0", description: "Username length expansion, AutoAuth department filtering, and AutoGen UI security enhancements, plus fixes for JSON2Sheet, HTTP MAN, and AutoGen UI" }}>
+  ## Enhancements
+
+  - **Expanded username length limit**: The maximum username length has been increased from 16 to 50 characters.
+  - **AutoAuth department filtering**: AutoAuth now supports department-based filtering in its authorization mechanism.
+  - **AutoGen UI security enhancements**: Optimized AutoGen UI token retrieval and authentication flow to improve security; also simplified interactions by removing the redundant update button.
+
+  ## Bug Fixes
+
+  - **JSON-to-spreadsheet boundary handling**: Fixed an exception in JSON2Sheet when input JSON is empty; it now returns a standard empty sheet by default.
+  - **HTTP MAN Chinese encoding fix**: Fixed an issue where HTTP MAN could throw errors when Query parameters contained Chinese paths or parameter values.
+  - **AutoGen UI comprehensive fixes**: Fixed several known interaction and display issues in the AutoGen UI module.
+</Update>
+
+<Update label="v2.0.3.0" tags={["v2.0.3.0"]} rss={{ title: "Agentify v2.0.3.0", description: "AI-generated question forms, model usage allocation, and multi-surface voice input, with Text2Agent flow refactoring and bug fixes" }}>
+  ## New Features
+
+  - **AI-generated question forms**: Added AI auto-generation for user question form configuration.
+  - **Model usage allocation**: Added an "Allocation Purpose" configuration in model management to flexibly assign models by scenario.
+  - **Multi-surface voice input**: Text2Agent, Skill, and AutoGen UI now officially support voice input.
+
+  ## Enhancements
+
+  - **Relaxed Skill naming rules**: Removed overly strict naming constraints and relaxed Skill naming requirements.
+  - **Text2Agent parsing flow refactor**: Optimized file handling by changing from upload-time parsing to on-demand parsing via tool calls.
+  - **Dynamic evaluation model list**: Evaluation model options are now fetched and displayed dynamically through API.
+  - **Model usage display optimization**: Improved formatting and styling of model names in usage statistics.
+  - **Python execution isolation and security hardening**: Added a global lock to the Python execution environment and adopted dynamic function names to prevent global method override.
+
+  ## Bug Fixes
+
+  - **Chat-page CSV preview issue**: Fixed broken CSV preview styling on the chat page.
+  - **JSON2Sheet parsing issue**: Fixed a bug where fields containing underscores could cause column parsing disorder in the JSON2Sheet component.
+</Update>
 
 <Update label="v2.0.2.0" tags={["v2.0.2.0"]} rss={{ title: "Agentify v2.0.2.0", description: "User question form, default terminal skills, and app permission controls, with NL2SQL and auth enhancements plus multiple bug fixes" }}>
   ## New Features
