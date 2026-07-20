@@ -67,7 +67,7 @@ filters:
 <Update label="June 26 - July 10" tags={["v2.0.6.0"]} rss={{ title: "Agentify v2.0.6.0", description: "Major upgrades across Agent and Skills experiences, covering Text2Agent, code blocks, rendering architecture, and interaction refinements" }}>
   ## I. Agent-related Updates
 
-  ### 🛠️ Interaction and Visual Optimizations
+  ### Interaction and Visual Optimizations
   - **Configuration adjustment**: Renamed "Advanced Knowledge Base Configuration" to "*Knowledge Base Prompt*" and moved it below the user prompt field.
   - **Copy-function fix**: Fixed text copy behavior in the workflow creation assistant.
   - **Icon and position swap**: Swapped icons and positions of "Document Q&A" and "Document Review".
@@ -77,19 +77,19 @@ filters:
   - **UI detail fixes**: Fixed unclosed rounded corners and missing lines on preview pages.
   - **Trial-run interface refinements**: Completed visual and layout fixes for the Agent trial-run interface, resolving overly blue tone, misalignment, floating toolbar, and input box overlap issues.
 
-  ### 🚀 Text2Agent Enhancements
+  ### Text2Agent Enhancements
   - **Debugging and generation**: Added automatic single-node debugging and automatic trial-run insertion into conversation-assisted generation.
   - **Context compression**: Implemented context compression in the Harness project.
   - **Model selection strategy**: Added `auto` as the default option when selecting models.
     - *Default logic*: Put all models into context.
     - *Specific logic*: If a user selects specific models, only those selected models are included in context.
 
-  ### 🏗️ Component and Architecture Adjustments
+  ### Component and Architecture Adjustments
   - **Rendering architecture rectification**: Refactored the overall rendering architecture and improved bundle deployment strategy to address security and deployment issues.
   - **Template download**: Document-related components now provide template download capability.
   - **Canvas size optimization**: Optimized default canvas display size by reducing default component dimensions to avoid oversized rendering.
 
-  ### 💻 Code Blocks and Deployment
+  ### Code Blocks and Deployment
   - **Default language**: Set `Python` as the default language for code blocks.
   - **Private deployment**: Latest package now defaults to the latest version and properly displays Text2Agent and "My Apps".
   - **Data type descriptions**: Added data-type descriptions for code block nodes, especially for `file`, `image`, and `string` with type-detection compatibility (`plain string`, `JSON Object string`, `JSON Array string`).
@@ -97,13 +97,13 @@ filters:
 
   ## II. Skills-related Updates
 
-  ### 🔄 Creation and Editing Flow
+  ### Creation and Editing Flow
   - **Auto-navigation**: After creating Skills/MCP, users are now automatically redirected to the edit page.
   - **Scroll pagination**: Added scroll-based pagination when selecting Agents in Skills.
   - **Text operations**: Messages in the Skill creation assistant chat page now support selection and copy.
   - **Trial-run experience**: Improved Skill trial-run experience by switching to streaming conversational output.
 
-  ### 🎨 Component and Display Optimizations
+  ### Component and Display Optimizations
   - **File preview**: Added syntax highlighting by language (`MD`, `JS`, `HTML`, `Shell`, `Python`, etc.), with direct rendered preview support for `MD` and `HTML`.
   - **Data synchronization fix**: Fixed an issue where newly created Agents could not be retrieved when adding Agents to a Skill.
   - **Component conversion**: Skills dragged out from the canvas are now shown as Agent components by default.
