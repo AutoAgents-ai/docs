@@ -1,0 +1,46 @@
+---
+title: "Advanced Knowledge Base - Advanced Query Example"
+---
+
+The information input of the "Knowledge Base Search" component supports advanced query settings, including parallel recall across groups, retrieval of specified files, and different weight and similarity settings per group.
+
+## Example
+
+```json
+{
+  "keywords": "2025年3月18日晚峰短信的内容是什么？",
+  "overwrite": "true",
+  // Can be fixed, or dynamically specified via {{$kbIdList}} to get the list of knowledge base IDs selected by the user
+  "kbIdList": [2, 3, 4, 5, 6],
+  "searchGroups": [
+    {
+      "kbIdList": [5],
+      "topK": 22,
+      "fileNameKeywords": ["特高压", "运行规定"]
+    },
+    {
+      "kbIdList": [2, 3, 4, 5, 6],
+      "topK": 6
+    }
+  ]
+}
+```
+
+## Advanced Query Field Reference
+
+| Field | Description |
+| --- | --- |
+| `keywords` | The query keywords |
+| `overwrite` | Whether to override the knowledge base(s) selected in the Knowledge Base Search component; defaults to `true`. If `false`, the knowledge base(s) selected in the component are merged with `kbIdList` |
+| `kbIdList` | Specifies the full set of knowledge base IDs; if `searchGroups` is present, this is intersected with each `searchGroups` entry to form groups. It can be fixed, or dynamically specified via `{{$kbIdList}}` to get the list of knowledge base IDs selected by the user |
+| `searchGroups[]` | An array of groups, used to query knowledge bases in parallel by group |
+| `searchGroups[].kbIdList[]` | An array of knowledge base IDs, specifying the knowledge bases for this group |
+| `searchGroups[].topK` | The number of results to recall |
+| `searchGroups[].fileNameKeywords[]` | Specifies fuzzy keyword matches on file names, where `%` represents the fuzzy-matched portion, e.g.: `%年%月%晚峰短信` |
+| `searchGroups[].fileNameKeywordsTopK` | Specifies the number of chunks to recall from the matched files; defaults to `topK`, representing the number of chunks recalled from files matched by `fileNameKeywords`. If this number is smaller than `topK`, then `(topK - fileNameKeywordsTopK)` represents the number of chunks recalled from other, non-specified files within the same knowledge base |
+| `similar` | Similarity threshold; defaults to the value set on the Knowledge Base Search component |
+| `vectorSimilarWeight` | Vector similarity weight; defaults to the value set on the Knowledge Base Search component |
+| `enableRerank` | Rerank switch, `true`/`false`; defaults to the value set on the Knowledge Base Search component |
+| `rerankModelType` | Rerank model; defaults to the value set on the Knowledge Base Search component |
+| `rerankSimilarLimit` | Rerank threshold; defaults to the value set on the Knowledge Base Search component |
+| `rerankTopK` | Number of results to recall after reranking; defaults to the value set on the Knowledge Base Search component |

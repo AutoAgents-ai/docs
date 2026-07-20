@@ -1,0 +1,81 @@
+---
+title: "システム組み込み変数"
+---
+
+システム組み込み変数は、プロンプト、返信内容、ワークフローノードのパラメータなどの箇所でシステムの実行時情報を参照するために使用します。
+
+## 使用構文
+
+- `{{var}}` は変数を参照することを表します
+- `{{var:defaultValue}}` は変数を参照し、デフォルト値を設定することを表します
+- `{{@var}}` は変数を参照し、変数が存在しない場合はこの式自体をそのまま表示することを表します
+
+## 日時系変数
+
+| 変数 | 説明 |
+| --- | --- |
+| `{{cTime}}` | 現在の日付と時刻、形式 `yyyy-MM-dd HH:mm:ss` |
+| `{{cDate}}` | 現在の日付、形式 `yyyy-MM-dd` |
+| `{{cYear}}` | 現在の年、形式 `yyyy` |
+| `{{cMonth}}` | 現在の月 |
+| `{{cDay}}` | 現在の日 |
+| `{{cHHmmss}}` | 現在の時刻、形式 `HH:mm:ss` |
+| `{{cMills}}` | 現在のタイムスタンプ（ミリ秒） |
+| `{{cWeekdayNum}}` | 曜日（数字） |
+| `{{cWeekdayEn}}` | 曜日（英語） |
+| `{{cWeekdayEn2}}` | 曜日（英語略称） |
+| `{{cWeekdayCn}}` | 曜日（中国語） |
+
+## 入力系変数
+
+| 変数 | 説明 |
+| --- | --- |
+| `{{_input}}` | すべての入力パラメータ情報 |
+| `{{_state}}` | 入力ステータスパラメータ情報 |
+| `{{userChatInput}}` | 入力テキストパラメータ情報 |
+| `{{_images_}}` | 入力画像パラメータ情報 |
+| `{{_files_}}` | 入力ファイルパラメータ情報 |
+
+## リソース系変数
+
+| 変数 | 説明 |
+| --- | --- |
+| `{{$db_type}}` | Agent が接続しているデータベースの種類情報 |
+| `{{$db_schema}}` | Agent が接続しているデータベースのテーブル構造情報 |
+| `{{$kbIdList}}` | ユーザーが選択したナレッジベースの ID リストを取得 |
+| `{{systemContext}}` | 現在のシステム環境とログインユーザー情報を取得（v1.9.0.0+） |
+
+### `{{systemContext}}` の例
+
+```json
+{
+  "su": {
+    "ext": {
+      "lastLoginTime": 1755164481495,
+      "lastLoginSuccess": true,
+      "currentLoginIp": "x.x.x.x",
+      "currentLoginSuccess": true,
+      "currentLoginTime": 1755503761632,
+      "lastLoginIp": "x.x.x.x"
+    },
+    "phoneNumber": "",
+    "avatarUrl": "/assets/avatar/56.png",
+    "nickName": "your_nick_name",
+    "tenantId": 1,
+    "id": 574,
+    "userName": "your_user_name",
+    "email": "",
+    "orgId": 3
+  },
+  "locale": "zh_CN",
+  "token": "<CURRENT_USER_TOKEN>"
+}
+```
+
+- `su`：現在ログインしているユーザーの情報。`ext` は拡張情報（顧客システムのログイン情報と同期されたものなど）です
+- `locale`：言語情報
+- `token`：現在ログインしているユーザーの Token
+
+<Info>
+上記の変数は、プロンプト、返信内容、一部のノードパラメータで直接参照できます。関数レベルの具体的な使い方については、[システム組み込み関数](/ja-jp/advanced-development/system-functions)を参照してください。
+</Info>

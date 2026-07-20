@@ -1,0 +1,63 @@
+---
+title: "Agentフィードバックインターフェース"
+---
+
+複数の Agent がフィードバックを必要とするシーンに使用します。
+
+## リクエストURL
+
+```
+{{host}}/openapi/agents/chat/feedback
+```
+
+または
+
+```
+{{host}}/openapi/v2/chat/feedback
+```
+
+## リクエストメソッド
+
+`GET`
+
+## リクエストヘッダー
+
+[インターフェース仕様](/ja-jp/api-reference/overview)を参照してください。Agent Token ✅、個人シークレットキー ✅ に対応しています。
+
+## リクエストボディパラメータ
+
+| パラメータ | 型 | 必須 | 説明 |
+| --- | --- | --- | --- |
+| `chatId` | number | はい | 対話 ID。チャットインターフェースが返却する `chatId` に対応します |
+| `agentId` | string | はい | Agent の UUID |
+| `feedbackKey` | string | はい | フィードバック識別子。ストリーミングレスポンス内の `feedback` タイプメッセージの `feedbackKey` フィールドに対応します。[Agentチャットストリーミングインターフェース](/ja-jp/api-reference/chat-stream#ストリーミングレスポンスボディ)を参照してください |
+| `feedbackType` | string | はい | フィードバックタイプ。選択可能な値：`over`（満足、本ラウンドの会話を終了）、`restart`（不満足、最初からやり直す）、`loop`（本ラウンドの対話を継続） |
+
+## リクエストボディの例
+
+```json
+{
+  "chatId": 123,
+  "agentId": "addsfaslfjasofasofpoas",
+  "feedbackKey": "@.ksdf9as0f8sd0xxo",
+  "feedbackType": "over" // 選択可能な値：[over, restart, loop]
+}
+```
+
+## レスポンスボディ
+
+| フィールド | 説明 |
+| --- | --- |
+| `code` | レスポンス結果コード。`1` は成功を示し、それ以外は失敗を示します。詳細なエラー情報は `msg` を参照してください |
+| `msg` | エラーメッセージ |
+| `data` | `true` / `false`。フィードバックの処理が成功したかどうかを示します |
+
+## レスポンスボディの例
+
+```json
+{
+  "code": 1,
+  "msg": "success",
+  "data": true
+}
+```

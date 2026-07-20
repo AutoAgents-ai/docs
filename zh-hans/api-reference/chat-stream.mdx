@@ -1,0 +1,219 @@
+---
+title: "Agent 聊天流式接口"
+---
+
+## 请求地址
+
+```
+{{host}}/openapi/agents/chat/stream/v1
+```
+
+或
+
+```
+{{host}}/openapi/v2/chat/stream
+```
+
+## 请求方式
+
+`POST`
+
+## 请求 Header
+
+参考[接口规范](/zh-hans/api-reference/overview)的认证方式章节；支持 ✅ Agent Token、✅ 个人秘钥。
+
+| Header | 说明 |
+| --- | --- |
+| `X-username` | `{Your UserName}`，用户登录名，非必填；传入后系统会以该登录名身份调用接口，访问日志等均记录为该用户名下。不传默认使用 Token 所属人作为调用者身份记录。（v1.9.3+） |
+
+## 请求体参数
+
+| 参数 | 类型 | 必填 | 说明 |
+| --- | --- | --- | --- |
+| `agentId` | string | 是 | Agent UUID |
+| `chatId` | string | 否 | 对话 ID，非必填，第一次会话不填；如果想在后续会话使用上下文，需要在下一次请求时带上上一次会话的流响应体中的 `chatId` |
+| `userChatInput` | string | 是 | 用户输入 |
+| `state` | object | 否 | 传入环境变量参数，key/value 由调用方自主定义；智能体编排通过 `{{_state.yourKey}}` 可以获取到对应参数，例如 `{"yourKey1":"yourValue1","yourKey2":"yourValue2"}` |
+| `buttonKey` | string | 否 | 按钮名或者按钮 ID |
+| `images` | array | 否 | 图片提问参数，支持传入图片 URL，也支持传入 Data URI（智能对话组件和图片提问组件支持，其他组件不支持），例如 `[{"url":"http://imageUrl"}]` |
+| `files` | array | 否 | 文档提问/文档审核，参见下方示例 |
+| `formData` | object | 否 | 表单输入，`formConfig` 表示表单的展示配置，`values` 表示用户 key-value 形式的输入，key 对应展示配置里面 `fields` 里面的 key |
+| `debug` | boolean | 否 | 是否启用调试模式，默认 `false`；启用调试模式后会详细记录每次请求的入参、出参、异常信息，内容会比较多，如果不开启只会记录异常调用的信息。生产环境建议设置为 `false` 或不填 |
+
+`files` 示例：
+
+```json
+[
+  {
+    "fileId": "66979252197ded4838301ac4", // fileId与fileUrl必填其一
+    "fileName": "中标公示.docx", // 如果不填会从下载url时获取
+    "fileUrl": "https://test.agentspro.cn/api/fs/66979252197ded4838301ac4", // fileId与fileUrl必填其一
+    "groupName": "中标公示" // 非必填，文件对比时才设置此值
+  },
+  {
+    "fileId": "66979252197ded4838301ac5",
+    "fileName": "技术合同.docx",
+    "fileUrl": "https://test.agentspro.cn/api/fs/66979252197ded4838301ac5",
+    "groupName": "合同文件"
+  }
+]
+```
+
+`formData` 示例（简化）：
+
+```json
+{
+  "formUuid": "form_0135cf5de6f7",
+  "formCode": "axiba",
+  "formConfig": {
+    "uuid": "form_0135cf5de6f7",
+    "enable": true,
+    "formName": "阿西吧",
+    "formCode": "axiba",
+    "type": "fix",
+    "layout": { "columns": 1 },
+    "llm": {
+      "autofill": true,
+      "model": "qwq-32b",
+      "formPrompt": "",
+      "fillPrompt": "自动填充张三和周二",
+      "historyCount": 4
+    },
+    "fields": [
+      {
+        "id": "f_fb496602c5",
+        "key": "input",
+        "label": "字段标签",
+        "type": "text",
+        "required": true,
+        "placeholder": "字段标签",
+        "defaultValue": "",
+        "settings": { "minLength": 0, "maxLength": 100 }
+      }
+    ]
+  },
+  "values": {
+    "input": "test"
+  },
+  "submitTime": 1781595068325
+}
+```
+
+<Info>
+表单字段类型支持：`text`、`number`、`textarea`、`select`、`multiSelect`、`checkbox`、`radio`、`switch`、`slider`、`datetime`、`file`、`image` 等。
+</Info>
+
+## 请求体示例
+
+```json
+{
+    "agentId":"a2207c2f6d3d44d2b4a5dae5b5593750",
+    "chatId": null,
+    "userChatInput":"互联网是什么",// 文本输入
+    "images":[{"url":"your image url here"}], // 图片输入
+    "files":[],
+    // state里的内容原样返回
+    "state":{
+        "yourKey1":"yourValue1",
+        "yourKey2":"yourValue2"
+    },
+    "buttonKey":"按钮id或者名字",
+    "debug":false,
+    "model": "model-id"
+}
+```
+
+## 流式响应体说明
+
+响应为 SSE 流，每行以 `data:` 开头，携带一个 JSON 对象。
+
+| 字段 | 说明 |
+| --- | --- |
+| `chatId` | 对话 ID |
+| `conversationId` | 当前会话 ID，一次对话包含多次会话 |
+| `messageId` | 消息 ID，标识某个回复消息，可以用于点赞/踩；当 `complete=true&finish=false` 时有值 |
+| `type` | 消息类型，见下表 |
+| `componentName` | 当前组件名 |
+| `content` | 流式内容，格式随 `type` 变化 |
+| `reasoningContent` | 思考推理内容，仅思考模型（如 deepseek-R1）支持返回该字段 |
+| `thinkingElapsedMillSecs` | 思考推理耗时，单位毫秒，仅思考模型支持返回该字段 |
+| `complete` | `true` 代表流式一次会话中某次回复结束（一次会话可能会有多次回复） |
+| `finish` | `true` 代表流式一次会话请求全部结束 |
+| `status` | 消息状态：`1` 正常消息，`0` 失败消息，`-1` 异常消息 |
+| `role` | 当前消息角色，一般是用户信息或 Agent 信息（头像、名称等） |
+| `bill` | 流式一次会话中某次回复结束（`complete=true`）的 Token 消耗情况 |
+| `referenceType` | 引用类型：`web_search` 网页搜索、`kb_search` 知识库搜索、`kb_search_img_list` 知识库搜索图片 |
+| `reference` | 引用内容，格式随 `referenceType` 变化 |
+| `references` | `Map<$referenceType, $reference>`；当某次调用出现多种引用内容时，会将多个引用内容合并输出，key 为引用类型，value 为引用内容。流式接口一般不会合并输出，非流式接口会有合并输出的情况 |
+
+### `type` 取值
+
+| 取值 | 说明 |
+| --- | --- |
+| `text` | 普通文本 |
+| `markdown` | markdown 格式 |
+| `pic` | 图片地址，一般用于文生图 |
+| `buttons` | 编排中的按钮消息，也可能包含表单 |
+| `feedback` | 反馈，一般用于多 Agent 协作时反馈某 Agent 的结果情况，以进行后续流程；反馈接口参考 [Agent 反馈接口](/zh-hans/api-reference/agent-feedback) |
+| `chart` | SQL 查询结果可视化图表信息 |
+| `table` | SQL 查询的结果信息 |
+| `result_file` | 生成的文件 |
+
+`buttons` 示例：
+
+```json
+{"buttonConfigs":[{"label":"退出业务流程","key":"e09b35e8-23f2-412c-8b53-5e45032afe9c"}],"fileContrast":false,"fileReview":false,"inputText":true,"uploadFile":false,"uploadImage":false}
+```
+
+`feedback` 示例：
+
+```json
+{"feedbackKey":"@.w3e20s0f8as08x","contentTitle":"对本次回复是否满意？","restartTitle":"不满意，从头开始","loopTitle":"继续本轮对话","overTitle":"满意，结束本轮会话"}
+```
+
+`bill` 示例：
+
+```json
+{"billType":"chat","completionTokens":211,"model":"SkyChat-MegaVerse","promptTokens":461,"totalTokens":672}
+```
+
+`role` 示例：
+
+```json
+{"id": "afdba586a252468d8b3db2bd2a1320fb","name": "开发测试","avatar":"http://x.x.x.x/api/fs/6606960e2e0bcb3ec15a3024.png"}
+```
+
+`reference`（`kb_search`）示例：
+
+```json
+[{"fileName":"用户指南(附实例).pdf","fileType":"pdf","fileUrl":"http://x.x.x.x/api/fs/6602576e480c49509222f2c","kbAvatar":"Mybatis","kbName":"/assets/avatar/1.png","score":0.7309842270543954}]
+```
+
+`references`（多种引用合并）示例：
+
+```json
+{
+  "kb_search": [{"fileName":"用户指南(附实例).pdf","fileType":"pdf","fileUrl":"http://x.x.x.x/api/fs/6602576e480c49509222f2c","kbAvatar":"Mybatis","kbName":"/assets/avatar/1.png","score":0.7309842270543954}],
+  "kb_search_img_list":[{"fileName":"sdiwoe.png","fileType":"png","fileUrl":"http://x.x.x.x/api/fs/6602576e480c49509222f2c"}]
+}
+```
+
+## 流式响应体示例
+
+```
+data:{"chatId":2088,"complete":false,"finish": false, "content":"互","conversationId":"5923e893a0a24e1b8f0025818249cfea","messageId":"5923e893a0a24e1b8f0025818249cfea","role": {"id": "afdba586a252468d8b3db2bd2a1320fb","name": "开发测试","avatar":"http://x.x.x.x/api/fs/6606960e2e0bcb3ec15a3024.png"},"type":"text"}
+
+data:{"chatId":2088,"complete":false,"finish": false, "content":"联","conversationId":"5923e893a0a24e1b8f0025818249cfea","messageId":"5923e893a0a24e1b8f0025818249cfea","role": {"id": "afdba586a252468d8b3db2bd2a1320fb","name": "开发测试","avatar":"http://x.x.x.x/api/fs/6606960e2e0bcb3ec15a3024.png"},"type":"text"}
+
+......省略
+
+// 某次回复结束（同一次会话可能有多次回复的情况）complete:true
+data:{"chatId":2088,"complete":true,"finish": false, "content":"。","conversationId":"5923e893a0a24e1b8f0025818249cfea","messageId":"5923e893a0a24e1b8f0025818249cfea","role": {"id": "afdba586a252468d8b3db2bd2a1320fb","name": "开发测试","avatar":"http://x.x.x.x/api/fs/6606960e2e0bcb3ec15a3024.png"},"type":"text"}
+
+// 会话结束：finish:true
+data:{"chatId":2088,"complete":true,"finish": true, "content":"","conversationId":"5923e893a0a24e1b8f0025818249cfea","messageId":"5923e893a0a24e1b8f0025818249cfea","role": {"id": "afdba586a252468d8b3db2bd2a1320fb","name": "开发测试","avatar":"http://x.x.x.x/api/fs/6606960e2e0bcb3ec15a3024.png"},"type":"text"}
+```
+
+<Info>
+非流式（同步/异步）版本的请求参数与本接口基本一致，主要差异见 [Agent 聊天非流式接口（同步）](/zh-hans/api-reference/chat-sync) 与 [Agent 聊天非流式接口（异步）](/zh-hans/api-reference/chat-async)。
+</Info>

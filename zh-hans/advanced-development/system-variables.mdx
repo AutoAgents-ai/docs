@@ -1,0 +1,81 @@
+---
+title: "系统内置变量"
+---
+
+系统内置变量用于在提示词、回复内容、工作流节点参数等位置引用系统运行时信息。
+
+## 使用语法
+
+- `{{var}}` 表示引用变量
+- `{{var:defaultValue}}` 表示引用变量并设置默认值
+- `{{@var}}` 表示引用变量，如果变量不存在则仍然显示此表达式本身
+
+## 时间类变量
+
+| 变量 | 说明 |
+| --- | --- |
+| `{{cTime}}` | 当前日期和时间，格式 `yyyy-MM-dd HH:mm:ss` |
+| `{{cDate}}` | 当前日期，格式 `yyyy-MM-dd` |
+| `{{cYear}}` | 当前年，格式 `yyyy` |
+| `{{cMonth}}` | 当前月 |
+| `{{cDay}}` | 当前日 |
+| `{{cHHmmss}}` | 当前时钟时间，格式 `HH:mm:ss` |
+| `{{cMills}}` | 当前时间戳（毫秒） |
+| `{{cWeekdayNum}}` | 周-数字 |
+| `{{cWeekdayEn}}` | 周-英文 |
+| `{{cWeekdayEn2}}` | 周-英文缩写 |
+| `{{cWeekdayCn}}` | 周-中文 |
+
+## 输入类变量
+
+| 变量 | 说明 |
+| --- | --- |
+| `{{_input}}` | 所有输入参数信息 |
+| `{{_state}}` | 输入状态参数信息 |
+| `{{userChatInput}}` | 输入文字参数信息 |
+| `{{_images_}}` | 输入图片参数信息 |
+| `{{_files_}}` | 输入文件参数信息 |
+
+## 资源类变量
+
+| 变量 | 说明 |
+| --- | --- |
+| `{{$db_type}}` | Agent 引入的数据库类型信息 |
+| `{{$db_schema}}` | Agent 引入的数据库表结构信息 |
+| `{{$kbIdList}}` | 获取用户选择的知识库 ID 列表 |
+| `{{systemContext}}` | 获取当前系统环境和登录用户信息（v1.9.0.0+） |
+
+### `{{systemContext}}` 示例
+
+```json
+{
+  "su": {
+    "ext": {
+      "lastLoginTime": 1755164481495,
+      "lastLoginSuccess": true,
+      "currentLoginIp": "x.x.x.x",
+      "currentLoginSuccess": true,
+      "currentLoginTime": 1755503761632,
+      "lastLoginIp": "x.x.x.x"
+    },
+    "phoneNumber": "",
+    "avatarUrl": "/assets/avatar/56.png",
+    "nickName": "your_nick_name",
+    "tenantId": 1,
+    "id": 574,
+    "userName": "your_user_name",
+    "email": "",
+    "orgId": 3
+  },
+  "locale": "zh_CN",
+  "token": "<CURRENT_USER_TOKEN>"
+}
+```
+
+- `su`：当前登录用户信息，`ext` 为扩展信息（如同步自客户系统的登录信息）
+- `locale`：语言信息
+- `token`：当前登录用户的 Token
+
+<Info>
+以上变量可在提示词、回复内容、部分节点参数中直接引用；具体函数级用法参考[系统内置函数](/zh-hans/advanced-development/system-functions)。
+</Info>

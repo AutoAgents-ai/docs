@@ -1,0 +1,57 @@
+---
+title: "メッセージいいね/イマイチインターフェース"
+---
+
+## リクエストURL
+
+```
+{{host}}/openapi/agents/likeViewDislike
+```
+
+または
+
+```
+{{host}}/openapi/v2/agents/likeViewDislike
+```
+
+## リクエストメソッド
+
+`POST`
+
+## リクエストヘッダー
+
+[インターフェース仕様](/ja-jp/api-reference/overview)を参照してください。Agent Token ✅、個人シークレットキー ✅ に対応しています。
+
+## リクエストボディパラメータ
+
+| パラメータ | 型 | 必須 | 説明 |
+| --- | --- | --- | --- |
+| `id` | string | はい | メッセージの一意識別子。チャットインターフェースが返却する `messageId` フィールドに対応します |
+| `lvdStatus` | string | はい | いいね/イマイチの状態。選択可能な値：`thumbUp`（いいね）、`thumbDown`（イマイチ）、`none`（いいね/イマイチの取り消し） |
+| `agentId` | string | はい | Agent の ID。ユーザー認証チェックに使用します |
+
+## リクエストボディの例
+
+```json
+{
+  "id": "673455996951a946c05c401a", // messageId
+  "lvdStatus": "thumbUp",
+  "agentId": "f9df7cafef2d44ce9e6b0316ca6c3b1a"
+}
+```
+
+## レスポンスボディ
+
+| フィールド | 説明 |
+| --- | --- |
+| `code` | レスポンス結果コード。`1` は成功を示し、それ以外は失敗を示します。詳細なエラー情報は `msg` を参照してください |
+
+## レスポンスボディの例
+
+```json
+{
+  "code": 1,
+  "msg": "操作成功",
+  "data": null
+}
+```

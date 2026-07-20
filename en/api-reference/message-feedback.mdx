@@ -1,0 +1,57 @@
+---
+title: "Message Like/Dislike"
+---
+
+## Request URL
+
+```
+{{host}}/openapi/agents/likeViewDislike
+```
+
+or
+
+```
+{{host}}/openapi/v2/agents/likeViewDislike
+```
+
+## Request Method
+
+`POST`
+
+## Request Headers
+
+Refer to the [API Specification](/en/api-reference/overview); supports ✅ Agent Token, ✅ personal API key.
+
+## Request Body Parameters
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| `id` | string | Yes | Unique message identifier, corresponding to the `messageId` field returned by the chat interface |
+| `lvdStatus` | string | Yes | Like/dislike status. Allowed values: `thumbUp` (like), `thumbDown` (dislike), `none` (remove like/dislike) |
+| `agentId` | string | Yes | Agent ID, used for user authentication verification |
+
+## Request Body Example
+
+```json
+{
+  "id": "673455996951a946c05c401a", // messageId
+  "lvdStatus": "thumbUp",
+  "agentId": "f9df7cafef2d44ce9e6b0316ca6c3b1a"
+}
+```
+
+## Response Body
+
+| Field | Description |
+| --- | --- |
+| `code` | Response result code. `1` indicates success; any other value indicates failure, with details in `msg` |
+
+## Response Body Example
+
+```json
+{
+  "code": 1,
+  "msg": "Operation successful",
+  "data": null
+}
+```

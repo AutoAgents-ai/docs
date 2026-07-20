@@ -1,0 +1,67 @@
+---
+title: "Agent 单个基本信息接口"
+---
+
+## 请求地址
+
+```
+{{host}}/openapi/agents/{agentUUID}
+```
+
+或
+
+```
+{{host}}/openapi/v2/agents/{agentUUID}
+```
+
+## 请求方式
+
+`GET`
+
+## 请求Header
+
+参考[接口规范](/zh-hans/api-reference/overview)；支持 ✅ Agent Token、✅ 个人秘钥。
+
+## 请求参数
+
+| 参数 | 类型 | 必填 | 说明 |
+| --- | --- | --- | --- |
+| `agentUUID` | string | 是 | Agent 的 ID，作为路径参数传入 |
+
+**请求示例：**
+
+```
+{{host}}/openapi/agents/ogwerwr34rq3434234sf
+```
+
+## 响应体说明
+
+| 字段 | 说明 |
+| --- | --- |
+| `code` | 响应结果码，`1` 表示成功；其他表示失败，具体错误信息见 `msg` |
+| `data` | Agent 基本信息，字段说明见下 |
+| `data.agentUuid` | Agent UUID |
+| `data.avatar` | Agent 头像 |
+| `data.name` | Agent 名称 |
+| `data.intro` | Agent 介绍 |
+| `data.guides` | Agent 问题建议 |
+| `data.prologue` | 开场白 |
+| `data.chatAvatar` | Agent 聊天背景 |
+
+## 响应体示例
+
+```json
+{
+  "code": 1,
+  "msg": "success",
+  "data": {
+    "agentUuid": "agwerwr34rq3434234sf",
+    "avatar": "https://xxx.png",
+    "name": "Agent名称",
+    "intro": "Agent介绍",
+    "guides": ["问题建议1", "问题建议2"],
+    "prologue": "欢迎来到agent",
+    "chatAvatar": "https://xxx.png"
+  }
+}
+```

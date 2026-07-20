@@ -1,0 +1,132 @@
+---
+title: "Built-in Commands"
+---
+
+Built-in commands are used to send command signals to memory variables, enabling interaction with the platform's internal services.
+
+## Invocation Methods
+
+### Method 1: Send a command signal
+
+1. Assemble the command signal JSON structure:
+
+```json
+{
+  // Command code, required
+  "command": "command code",
+  // Command parameters; each command has its own parameter structure, see "Command List". If there are no parameters, set it to {}
+  "data": {
+    // ....
+  },
+  // Whether to call asynchronously, optional. Defaults to false
+  "async": false
+}
+```
+
+2. Connect the assembled command signal to a memory variable, whose key must start with `$command_xxx`.
+3. To get the result data after the command is invoked, use the following syntax:
+
+```
+{{memoryVariableKey.result}}
+```
+
+Example: `{{$command_mytext2agent.result}}`
+
+### Method 2: Declarative function-style invocation
+
+Declare a command function: `[$[ command data JSON ]$]`
+
+Example:
+
+```
+[$[
+    {
+       "command":"AddMessageMeta",
+       "embedResult": true, // if true, the command result is embedded at the location of the prompt; if false, the command location is replaced with nothing.
+       "data": {
+          "alias":"xxx",
+          "metadata":
+          {"renderType" : "deepResearchDesign", "toolType":"deepResearch"}
+        }
+    }
+]$]
+```
+
+## Command List
+
+### text2agent: Create Agent command
+
+Command parameters:
+
+```json
+{
+  "command": "text2agent",
+  "data": {
+    // Orchestration data
+    "agentJson": []
+  }
+}
+```
+
+Command result:
+
+```json
+{
+  "result": {
+    "avatar": "",
+    "id": "",
+    "intro": "",
+    "name": ""
+  }
+}
+```
+
+### userKbs: Query the user's knowledge base list command
+
+Command parameters:
+
+```json
+{
+  "command": "userKb",
+  "data": {}
+}
+```
+
+Command result:
+
+```json
+{
+  "result": [
+    {
+      "avatar": "",
+      "id": "",
+      "name": ""
+    }
+  ]
+}
+```
+
+### AddMessageMeta: Attach metadata to a message
+
+Command parameters:
+
+```json
+{
+  "command": "AddMessageMeta",
+  "data": {
+    "whenComplete": false,
+    "metadata": {"metaKey1": "metaValue1", "metaKey2": "metaValue2"},
+    "beforeMetadata": {"metaKey1": "metaValue1", "metaKey2": "metaValue2"},
+    "afterMetadata": {"metaKey1": "metaValue1", "metaKey2": "metaValue2"}
+  }
+}
+```
+
+Parameter description: A `metaMessage` field is added to the streamed output to carry metadata, including some system built-in properties and user-defined metadata:
+
+- `whenComplete`: Carries metadata only when a component's reply finishes; defaults to `false`
+- `beforeMetadata`: Pre-metadata, carried only when a component sends its first reply token; optional; its properties and values are defined by the user
+- `metadata`: Metadata carried throughout the entire streaming reply process; if `whenComplete=true` is set, it is only carried when a component's reply is `complete`; optional; its properties and values are defined by the user
+- `afterMetadata`: Post-metadata, carried only when a component's reply is `complete`; optional; its properties and values are defined by the user
+
+Command result: none

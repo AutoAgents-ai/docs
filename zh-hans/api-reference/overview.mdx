@@ -1,0 +1,101 @@
+---
+title: "接口规范"
+---
+
+Agents 平台 Open API 提供聊天对话、Agent 管理、知识库与数据集管理、文件处理等能力，供业务系统集成调用。本页说明鉴权方式、环境地址与版本规则，具体接口请参考左侧目录。
+
+## 获取 Token
+
+平台提供两种级别的调用凭证，请根据实际需要选择：
+
+### 获取 Agent Token
+
+进入 Agent 编辑页，点击右上角相关按钮即可获取该 Agent 专属的 Token。
+
+<Warning>
+仅可以调用 Open API 中某个 Agent 的聊天相关接口，且权限只能操作该用户所属的数据。
+</Warning>
+
+<Frame>
+  <img src="/images/api-reference/api_001.png" alt="获取Agent Token入口" />
+</Frame>
+
+<Frame>
+  <img src="/images/api-reference/api_002.png" alt="获取Agent Token" />
+</Frame>
+
+### 获取个人秘钥
+
+在个人中心可以获取个人秘钥（authKey / authSecret）。
+
+<Warning>
+可以调用 Open API 所有的接口，但权限只能操作该用户所属的数据，包括用户名下所有 Agent 的聊天接口。
+</Warning>
+
+<Frame>
+  <img src="/images/api-reference/api_003.png" alt="获取个人秘钥入口" />
+</Frame>
+
+<Frame>
+  <img src="/images/api-reference/api_004.png" alt="获取个人秘钥" />
+</Frame>
+
+## 接口认证方式
+
+认证方式有 MD5、Bearer Token、Token 三种；Token 的值可以是 Agent Token，也可以是个人秘钥。
+
+### MD5 方式（推荐）
+
+在 Header 中传入如下参数：
+
+```http
+authKey: 你的authKey
+timestamp: 毫秒时间戳，此时间戳距离当前不能超过300秒
+sign: MD5({authKey}{authSecret}{timestamp})  // md5加密结果用32位小写
+```
+
+**MD5 计算示例：**
+
+假设：`authKey=123`，`authSecret=456`，`timestamp=789`
+
+那么：`sign=md5(123456789)`
+
+### Bearer Token 方式
+
+在 Header 中传入如下参数：
+
+```http
+Authorization: Bearer {authKey}.{authSecret}
+```
+
+<Info>注意 `Bearer` 后有一个空格。</Info>
+
+### Token 方式
+
+在 Header 中传入如下参数：
+
+```http
+token: {authKey}.{authSecret}
+```
+
+或者通过 URL query params 传参数：
+
+```http
+{{host}}/api/openapi/agent/chat/stream/v1?token={authKey}.{authSecret}
+```
+
+## 环境地址
+
+| 环境 | 地址 |
+| --- | --- |
+| 公网 - TEST 环境 | `https://test.agentspro.cn` |
+| 公网 - UAT 环境 | `https://uat.agentspro.cn` |
+| 公网 - PROD 环境 | `https://lingda.agentspro.cn` |
+| 私有化环境 | `http://{Your Base Url}/` |
+
+## 接口版本说明
+
+| 版本 | 版本说明 | 平台版本 |
+| --- | --- | --- |
+| v1 | 无 | ✅ 所有版本 |
+| v2 | 接口命名规范统一；聊天接口的 `chatId` 由数字类型变为了字符串类型 | ✅ v1.8.0.0+ |

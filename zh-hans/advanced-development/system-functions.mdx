@@ -1,0 +1,280 @@
+---
+title: "系统内置函数"
+---
+
+系统内置函数用于在提示词、回复内容、工作流节点参数等位置对数据进行加工处理。
+
+## 使用语法
+
+`[@["functionName", "args1", "args2", ....]@]` 表示函数调用
+
+## 日期与时间
+
+### 日期格式化（毫秒）
+
+```
+[@["DateFormatFromMills","your mills", "your formats"]@]
+```
+
+<Frame>
+  <img src="/images/advanced-development/adv_001.png" alt="日期格式化示例" />
+</Frame>
+
+### 日期格式化（秒）
+
+```
+[@["DateFormatFromSeconds","your seconds", "your formats"]@]
+```
+
+### 日期转换为毫秒
+
+```
+[@["DateStrToMills","your date", "your date format"]@]
+```
+
+### 日期转换为秒
+
+```
+[@["DateStrToSeconds","your date", "your date format"]@]
+```
+
+### 日期加减
+
+```
+[@["GetDateFromNow","your add/subtract days"]@]
+```
+
+### 日期格式转换
+
+```
+[@["DateStrReFormat","your date", "your target format", "your source format, optional"]@]
+```
+
+### 自然语言转日期
+
+```
+[@["JionlpParseTime","your text1"]@]
+```
+
+示例：`[@["JionlpParseTime","今天"]@]`
+
+<Info>
+参考 [时间语义解析说明文档](https://github.com/dongrixinyu/JioNLP) 了解自然语言时间解析的支持范围。
+</Info>
+
+## 字符串处理
+
+### 提取包围的子字符串
+
+```
+[@["ExtractAroundStr","your text", "your start str", "your end str", "containsBorder true|false"]@]
+```
+
+### 提取第一个符合正则的字符串
+
+```
+[@["ExtractStrByRegex","your text", "your regex"]@]
+```
+
+<Info>
+正则语法参考：[菜鸟教程正则表达式](https://www.runoob.com/regexp/regexp-tutorial.html)
+</Info>
+
+### 提取所有符合正则的字符串
+
+```
+[@["ExtractArrByRegex","your text", "your regex"]@]
+```
+
+### 字符串替换
+
+```
+[@["Replace","your text", "your old str", "your new str"]@]
+```
+
+### 字符串正则替换
+
+```
+[@["ReplaceRegex","your text", "your regex str", "your new str"]@]
+```
+
+### 字符串转义
+
+```
+[@["EscapeStr","your text"]@]
+```
+
+示例：
+
+```json
+// text = {"dataList":[{"aiSkipType":"3","play_id":"1613810","guest_name":"广岛蜻蜓","play_msg":"今天 日联季后 冲绳金帝皇VS广岛蜻蜓 赛事预测"}]}
+[@["EscapeStr","{{text}}"]@]
+// 结果：{\"dataList\":[{\"aiSkipType\":\"3\",\"play_id\":\"1613810\",\"guest_name\":\"广岛蜻蜓\",\"play_msg\":\"今天 日联季后 冲绳金帝皇VS广岛蜻蜓 赛事预测\"}]}
+```
+
+### 字符串拼接
+
+```
+[@["Concat","your text1","your text2","your text3",...]@]
+```
+
+### 数组拼接
+
+```
+[@["ConcatArray","your array1","your arr2","your arr3",...]@]
+```
+
+### 数据对象合并
+
+```
+[@["MergeObject","your obj1","your obj2","your obj3",...]@]
+```
+
+### RSA 加密
+
+```
+[@["RSAEncode","your text", "your public key"]@]
+```
+
+### Md5 摘要
+
+```
+[@["Md5Digest","your text"]@]
+```
+
+## JSON 处理
+
+### 提取 json 对象
+
+```
+[@["ExtractJsonObj","your text", "your jsonpath"]@]
+```
+
+<Info>
+JSON Path 语法参考：[fastjson JSONPath Wiki](https://github.com/alibaba/fastjson/wiki/JSONPath) 或 [jsonpath.com](https://jsonpath.com/)
+</Info>
+
+### 提取 json 数组
+
+```
+[@["ExtractJsonArr","your text", "your jsonpath"]@]
+```
+
+### 正则提取 json
+
+```
+[@["ExtractJsonByRegex","your text", "your json key1", "your json key1 regex", "your json key2", "your json key2 regex"]@]
+```
+
+## 条件与比较
+
+### 根据条件赋值
+
+```
+[@["CaseWhenThen","your case value", "when value1", "then value1", "when value2", "then value2"..., "default value"]@]
+```
+
+### 根据条件赋值（区分大小写）
+
+```
+[@["CaseWhenThenIgnoreCase","your case value", "when value1", "then value1", "when value2, optional", "then value2, optional"..., "default value, optional"]@]
+```
+
+### 是否与任意给定的候选值相等
+
+```
+[@["EqualsAny","your value", "your other value1", "your other value2, optional"...]@]
+```
+
+### 是否与任意给定的候选值相等（区分大小写）
+
+```
+[@["EqualsAnyIgnoreCase","your value", "your other value1", "your other value2, optional"...]@]
+```
+
+## 编码与语言
+
+### URL 编码
+
+```
+[@["UrlEncode","your text", "your charset, default is UTF-8"]@]
+```
+
+### URL 解码
+
+```
+[@["UrlDecode","your text", "your charset, default is UTF-8"]@]
+```
+
+### 自动检测指定用什么语言回复
+
+```
+[@["AutoSpecifyResponseLanguage","your text", "your default lang, The optional values are EN,CN, default value is CN"]@]
+```
+
+## 文件与网页
+
+### 通过 Tika 解析文件
+
+```
+[@["ParseDocByTika","FileInput[]"]@]
+```
+
+示例输入：
+
+```json
+FileInput: [ { "fileName": "西部.docx", "fileType": "docx", "fileId": "66ac4bde0564ee6d4213148d" } ]
+```
+
+函数解析文件成功后以 JSON 数组的形式返回文件内容：
+
+```json
+[{"content":"NBA西部全明星首发：詹姆斯、杜兰特、约基奇、东契奇、亚历山大\nNBA西部全明星替补：莱昂纳德、安东尼-戴维斯、布克、爱德华兹、库里、乔治、唐斯\n","fileId":"66ac4bde0564ee6d4213148d","fileName":"西部.docx","fileType":"docx","success":true}]
+```
+
+### 抓取网页内容
+
+```
+[@["FetchUrl","UrlFetchReq[]"]@]
+```
+
+输入：
+
+```json
+[{
+  // 标准字段
+  "url": "xxx",
+  "timeout": 6666, // 默认值
+  "xpath": [{
+    "key": "key1",
+    "path": ""
+  }], // 非必填
+  // 其他字段原样返回给用户
+  "x1": "",
+  "x2": ""
+}]
+```
+
+输出：
+
+```json
+[{
+  // 标准字段，timeout、xpath 这些字段会被移除
+  "url": "xxx",
+  "content": {
+    // 用户没有定义 xpath 时，默认返回 body
+    "body": "doc.text()",
+    // 用户定义了 xpath 时，不返回 body
+    "key1": "value1",
+    "key2": "value2"
+  },
+  "success": true, // 内容是否抓取成功
+  // 其他字段原样返回给用户
+  "x1": "",
+  "x2": ""
+}]
+```
+
+<Info>
+更简洁的系统变量参考见 [系统内置变量](/zh-hans/advanced-development/system-variables)。
+</Info>

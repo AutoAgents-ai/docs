@@ -1,0 +1,66 @@
+---
+title: "File Upload"
+---
+
+## Request URL
+
+```
+{{host}}/openapi/fs/upload
+```
+
+## Request Method
+
+`POST`
+
+## Request Headers
+
+Refer to the [API Specification](/en/api-reference/overview); does not support ❌ Agent Token, only supports ✅ personal API key.
+
+<Warning>
+This endpoint only supports authentication with a personal API key (`authKey` / `authSecret`) and does not support calls using an Agent Token.
+</Warning>
+
+The request header must specify:
+
+```http
+Content-Type: multipart/form-data
+```
+
+## Request Parameters
+
+This endpoint is submitted as a `multipart/form-data` form, with the following parameters:
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| `file` | file | Yes | The file to upload (file stream) |
+| `returnType` | string | No | Return type: `id` returns the file ID, `url` returns the file URL. Default value: `id` |
+| `metadata` | string (JSON) | No | File metadata, as a JSON-formatted string |
+
+## Request Example
+
+```
+file: file stream
+returnType: id
+```
+
+## Response Body
+
+| Field | Description |
+| --- | --- |
+| `code` | Response result code. `1` indicates success, any other value indicates failure |
+| `msg` | Error message |
+| `data` | Upload result: returns the file ID when `returnType=id`; returns the file URL when `returnType=url` |
+
+## Response Body Example
+
+```json
+{
+    "code": 1,
+    "msg": "Operation successful",
+    "data": "67dccd3ae1138d0f6d12ca6a"
+}
+```
+
+<Info>
+The file ID returned on successful upload can be used in the `fileId` field of the `files` parameter in the [Agent Chat Streaming API](/en/api-reference/chat-stream) request body, and can also be used as the `fileId` parameter in the [Create Dataset and Start Task](/en/api-reference/dataset-create) and [Update Dataset and Start Task](/en/api-reference/dataset-update) endpoints.
+</Info>

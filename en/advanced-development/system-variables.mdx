@@ -1,0 +1,81 @@
+---
+title: "System Built-in Variables"
+---
+
+System built-in variables are used to reference system runtime information in prompts, reply content, workflow node parameters, and other locations.
+
+## Usage Syntax
+
+- `{{var}}` references a variable
+- `{{var:defaultValue}}` references a variable and sets a default value
+- `{{@var}}` references a variable; if the variable does not exist, this expression itself is still displayed
+
+## Date and Time Variables
+
+| Variable | Description |
+| --- | --- |
+| `{{cTime}}` | Current date and time, format `yyyy-MM-dd HH:mm:ss` |
+| `{{cDate}}` | Current date, format `yyyy-MM-dd` |
+| `{{cYear}}` | Current year, format `yyyy` |
+| `{{cMonth}}` | Current month |
+| `{{cDay}}` | Current day |
+| `{{cHHmmss}}` | Current clock time, format `HH:mm:ss` |
+| `{{cMills}}` | Current timestamp (milliseconds) |
+| `{{cWeekdayNum}}` | Day of week - numeric |
+| `{{cWeekdayEn}}` | Day of week - English |
+| `{{cWeekdayEn2}}` | Day of week - English abbreviation |
+| `{{cWeekdayCn}}` | Day of week - Chinese |
+
+## Input Variables
+
+| Variable | Description |
+| --- | --- |
+| `{{_input}}` | Information for all input parameters |
+| `{{_state}}` | Input state parameter information |
+| `{{userChatInput}}` | Input text parameter information |
+| `{{_images_}}` | Input image parameter information |
+| `{{_files_}}` | Input file parameter information |
+
+## Resource Variables
+
+| Variable | Description |
+| --- | --- |
+| `{{$db_type}}` | Database type information imported into the Agent |
+| `{{$db_schema}}` | Database table schema information imported into the Agent |
+| `{{$kbIdList}}` | Gets the list of knowledge base IDs selected by the user |
+| `{{systemContext}}` | Gets the current system environment and logged-in user information (v1.9.0.0+) |
+
+### `{{systemContext}}` Example
+
+```json
+{
+  "su": {
+    "ext": {
+      "lastLoginTime": 1755164481495,
+      "lastLoginSuccess": true,
+      "currentLoginIp": "x.x.x.x",
+      "currentLoginSuccess": true,
+      "currentLoginTime": 1755503761632,
+      "lastLoginIp": "x.x.x.x"
+    },
+    "phoneNumber": "",
+    "avatarUrl": "/assets/avatar/56.png",
+    "nickName": "your_nick_name",
+    "tenantId": 1,
+    "id": 574,
+    "userName": "your_user_name",
+    "email": "",
+    "orgId": 3
+  },
+  "locale": "zh_CN",
+  "token": "<CURRENT_USER_TOKEN>"
+}
+```
+
+- `su`: Information about the currently logged-in user; `ext` is extended information (such as login information synced from a client system)
+- `locale`: Language information
+- `token`: The Token of the currently logged-in user
+
+<Info>
+The variables above can be referenced directly in prompts, reply content, and some node parameters; for function-level usage, see [System Built-in Functions](/en/advanced-development/system-functions).
+</Info>

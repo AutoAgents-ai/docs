@@ -1,0 +1,134 @@
+---
+title: "Agent 使用记录"
+---
+
+## 请求地址
+
+```
+{{host}}/openapi/v2/chatHistory
+```
+
+## 请求方式
+
+`POST`
+
+## 请求 Header
+
+参考[接口规范](/zh-hans/api-reference/overview)；支持 ❌ Agent Token、✅ 个人秘钥。
+
+## 请求体参数
+
+| 参数 | 类型 | 必填 | 说明 |
+| --- | --- | --- | --- |
+| `page` | number | 否 | 页码 |
+| `pageSize` | number | 否 | 每页数据条数 |
+| `startTime` | string | 否 | 时间筛选器开始时间，不筛选时间可传空字符串 |
+| `endTime` | string | 否 | 时间筛选器结束时间，不筛选时间可传空字符串 |
+| `userIdList` | array | 否 | 用户筛选器（用户 ID 数组），不筛选用户可传空数组 |
+| `orgIdList` | array | 否 | 组织筛选器（组织 ID 数组），不筛选组织可传空数组 |
+| `agentId` | number | 是 | 要查询使用记录的 Agent ID |
+
+## 请求体示例
+
+```json
+{
+    "page": 1,
+    "pageSize": 10,
+    "startTime": "",
+    "endTime": "",
+    "userIdList": [],
+    "orgIdList": [],
+    "agentId": 2378
+}
+```
+
+## 响应体说明
+
+| 字段 | 说明 |
+| --- | --- |
+| `code` | 响应结果码，`1` 表示成功，其他表示失败 |
+| `msg` | 错误消息 |
+| `data.pageNum` | 当前页码 |
+| `data.pageSize` | 每页数据条数 |
+| `data.count` | 是否统计总数 |
+| `data.list` | 使用记录列表，见下表 |
+| `data.total` | 记录总数 |
+| `data.attributes` | 扩展属性 |
+| `data.lastPage` | 是否为最后一页 |
+| `data.totalPage` | 总页数 |
+| `data.firstPage` | 是否为第一页 |
+
+`data.list` 中每条记录的字段：
+
+| 字段 | 说明 |
+| --- | --- |
+| `userName` | 用户登录名 |
+| `timestamp` | 会话时间戳（毫秒） |
+| `time` | 会话时间（格式化字符串） |
+| `question` | 用户提问内容 |
+| `success` | 是否执行成功 |
+| `errorLog` | 错误日志，失败时有值 |
+| `executePluginLog` | 插件执行日志 |
+| `answer` | 回复内容数组 |
+| `conversationId` | 会话 ID |
+| `nickName` | 用户昵称 |
+| `thumbsUpCount` | 点赞次数 |
+| `thumbsDownCount` | 点踩次数 |
+| `orgName` | 所属组织名称 |
+
+## 响应体示例
+
+```json
+{
+    "code": 1,
+    "msg": "操作成功",
+    "data": {
+        "pageNum": 1,
+        "pageSize": 10,
+        "count": true,
+        "list": [
+            {
+                "userName": "cuipusan",
+                "timestamp": 1764231910916,
+                "time": "2025-11-27 16:25:10",
+                "question": "",
+                "success": true,
+                "errorLog": null,
+                "executePluginLog": null,
+                "answer": [
+                    "",
+                    ""
+                ],
+                "conversationId": "f1412e36ef274d1785d7c041060ffc85fltegqlo",
+                "nickName": "崔普三",
+                "thumbsUpCount": 0,
+                "thumbsDownCount": 0,
+                "orgName": "测试3"
+            },
+            {
+                "userName": "cuipusan",
+                "timestamp": 1764231893673,
+                "time": "2025-11-27 16:24:53",
+                "question": "",
+                "success": true,
+                "errorLog": null,
+                "executePluginLog": null,
+                "answer": [
+                    "",
+                    ""
+                ],
+                "conversationId": "bf6a2498c57143508caff5c8be90026aobmvnilu",
+                "nickName": "崔普三",
+                "thumbsUpCount": 0,
+                "thumbsDownCount": 0,
+                "orgName": "测试3"
+            }
+        ],
+        "total": 177,
+        "attributes": {},
+        "lastPage": false,
+        "totalPage": 18,
+        "firstPage": false
+    }
+}
+```

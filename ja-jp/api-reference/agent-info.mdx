@@ -1,0 +1,67 @@
+---
+title: "Agent単一基本情報インターフェース"
+---
+
+## リクエストURL
+
+```
+{{host}}/openapi/agents/{agentUUID}
+```
+
+または
+
+```
+{{host}}/openapi/v2/agents/{agentUUID}
+```
+
+## リクエストメソッド
+
+`GET`
+
+## リクエストヘッダー
+
+[インターフェース仕様](/ja-jp/api-reference/overview)を参照してください。Agent Token ✅、個人シークレットキー ✅ に対応しています。
+
+## リクエストパラメータ
+
+| パラメータ | 型 | 必須 | 説明 |
+| --- | --- | --- | --- |
+| `agentUUID` | string | はい | Agent の ID。パスパラメータとして渡します |
+
+**リクエスト例：**
+
+```
+{{host}}/openapi/agents/ogwerwr34rq3434234sf
+```
+
+## レスポンスボディ
+
+| フィールド | 説明 |
+| --- | --- |
+| `code` | レスポンス結果コード。`1` は成功を示し、それ以外は失敗を示します。詳細なエラー情報は `msg` を参照してください |
+| `data` | Agent 基本情報。フィールド説明は以下を参照してください |
+| `data.agentUuid` | Agent の UUID |
+| `data.avatar` | Agent のアバター |
+| `data.name` | Agent の名前 |
+| `data.intro` | Agent の紹介 |
+| `data.guides` | Agent の質問提案 |
+| `data.prologue` | 冒頭の挨拶文 |
+| `data.chatAvatar` | Agent のチャット背景 |
+
+## レスポンスボディの例
+
+```json
+{
+  "code": 1,
+  "msg": "success",
+  "data": {
+    "agentUuid": "agwerwr34rq3434234sf",
+    "avatar": "https://xxx.png",
+    "name": "Agent名称",
+    "intro": "Agent介绍",
+    "guides": ["问题建议1", "问题建议2"],
+    "prologue": "欢迎来到agent",
+    "chatAvatar": "https://xxx.png"
+  }
+}
+```

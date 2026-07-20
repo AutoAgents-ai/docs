@@ -1,0 +1,107 @@
+---
+title: "LLM 聊天补全"
+---
+
+<Info>
+本接口为 OpenAI Chat Completions 兼容接口，请求体与响应体均遵循 OpenAI 标准格式，可直接复用现有的 OpenAI SDK / 客户端调用。
+</Info>
+
+## 请求地址
+
+```
+{{host}}/openapi/ai-models/v1/chat/completions
+```
+
+## 请求方式
+
+`POST`
+
+## 请求 Header
+
+参考[接口规范](/zh-hans/api-reference/overview)；支持 ❌ Agent Token、✅ 个人秘钥。
+
+## 请求体参数
+
+| 参数 | 类型 | 必填 | 说明 |
+| --- | --- | --- | --- |
+| `model` | string | 是 | 平台内 `modelId`（不是上游厂商 model code），可通过[获取可用模型列表](/zh-hans/api-reference/models-list)接口获取 |
+| `messages` | array | 是 | OpenAI Chat Completions 风格消息数组；需能解析为有效对话，否则会报「messages required」类错误 |
+| `stream` | boolean | 否 | `true` 为 SSE 流式；不填或非 `true` 为非流式 JSON |
+| `max_tokens` | number | 否 | 最大生成 Token 数等，服务端有默认值与校验 |
+| `temperature` | number | 否 | 采样温度，须为 JSON 数字才会参与配置 |
+| `enable_thinking` | boolean | 否 | 是否启用思考链等（依模型与配置），不填时使用模型配置的默认配置 |
+| `tools` | array | 否 | 工具定义列表，接口支持工具调用；工具定义仅传给模型，不会在服务端执行 |
+
+## 请求体示例
+
+```json
+{
+  "model": "gpt-5-mini-uuid-bZZbPyuuV@azure",
+  "messages": [
+    { "role": "user", "content": "你好" }
+  ],
+  "stream": false,
+  "max_tokens": 1024,
+  "temperature": 0.7,
+  "tools": [
+    {
+      "type": "function",
+      "function": {
+        "name": "get_weather",
+        "description": "获取指定城市的实时天气信息",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "city": {
+              "type": "string",
+              "description": "城市名称，例如：北京"
+            }
+          },
+          "required": ["city"],
+          "additionalProperties": false
+        }
+      }
+    }
+  ]
+}
+```
+
+## 响应体说明
+
+响应格式符合 OpenAI 标准响应格式。`stream` 为 `true` 时返回 SSE 流式响应；不填或为 `false` 时返回如下完整 JSON：
+
+| 字段 | 说明 |
+| --- | --- |
+| `id` | 本次补全的响应 ID |
+| `object` | 响应对象类型，固定为 `chat.completion` |
+| `model` | 实际调用的模型 ID |
+| `choices` | 回复选项数组 |
+| `choices[].index` | 选项序号 |
+| `choices[].message` | 回复消息，包含 `role` 和 `content` |
+| `choices[].finish_reason` | 结束原因，例如 `stop` |
+| `usage` | Token 用量统计 |
+| `usage.prompt_tokens` | 输入消耗的 Token 数 |
+| `usage.completion_tokens` | 输出消耗的 Token 数 |
+| `usage.total_tokens` | 总消耗 Token 数 |
+
+## 响应体示例
+
+```json
+{
+  "id": "chatcmpl-xxxx",
+  "object": "chat.completion",
+  "model": "gpt-5-mini-uuid-bZZbPyuuV@azure",
+  "choices": [
+    {
+      "index": 0,
+      "message": { "role": "assistant", "content": "……" },
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 10,
+    "completion_tokens": 20,
+    "total_tokens": 30
+  }
+}
+```

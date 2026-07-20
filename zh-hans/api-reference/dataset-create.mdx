@@ -1,0 +1,83 @@
+---
+title: "创建数据集并开始任务"
+---
+
+## 请求地址
+
+```
+{{host}}/openapi/kb/createDsAndTask
+```
+
+## 请求方式
+
+`POST`
+
+## 请求 Header
+
+参考[接口规范](/zh-hans/api-reference/overview)；不支持 ❌ Agent Token，仅支持 ✅ 个人秘钥。
+
+<Warning>
+本接口仅支持使用个人秘钥（`authKey` / `authSecret`）鉴权调用，不支持使用 Agent Token 调用。
+</Warning>
+
+## 请求体参数
+
+| 参数 | 类型 | 必填 | 说明 |
+| --- | --- | --- | --- |
+| `kbId` | number | 是 | 所属知识库 ID（通过[创建知识库](/zh-hans/api-reference/knowledge-base-create)接口获取） |
+| `fileId` | string | 是 | 上传文件的 ID（通过[文件上传接口](/zh-hans/api-reference/file-upload)获取） |
+| `name` | string | 是 | 数据集名称 |
+| `parserType` | string | 否 | 切片解析方法扩展字段，默认 `general`；取值及支持的文档类型见下表 |
+| `skipIfExists` | boolean | 否 | 是否跳过已存在的数据集，默认 `true` |
+| `autoStartChunkTask` | boolean | 否 | 是否自动开始切片任务，默认 `true` |
+| `alwaysCreateNew` | boolean | 否 | 是否每次都创建新数据集，默认 `false` |
+
+`parserType` 取值：
+
+| 取值 | 说明 | 支持文档类型 |
+| --- | --- | --- |
+| `general` | 通用 | pdf、docx、txt、htm、html、doc、xlsx、md、py、js、java、c、cpp、h、php、go、ts、sh、cs、kt |
+| `custom` | 自定义 | pdf、doc、docx、txt |
+| `presentation` | 演示文稿 | ppt、pdf、pptx |
+| `laws` | 法律 | pdf、docx、txt、htm、html、doc |
+| `manual` | 手册 | pdf |
+| `paper` | 论文 | pdf |
+| `book` | 图书 | pdf、docx、txt、htm、html、doc |
+| `qa` | 问答 | xlsx、txt、csv |
+| `table` | 表格 | xlsx、csv、txt |
+| `picture` | 图片 | jpg、jpeg、png、tif、gif、pcx、tga、exif、fpx、svg、psd、cdr、pcd、dxf、ufo、eps、ai、raw、wmf、webp、avif、apng、icon、ico、mpg、mpeg、rm、asf、dat、asx、wvx、mpe、mpa |
+| `one` | 整块 | pdf、docx、txt、htm、html、doc、xlsx |
+| `voice` | 音/视频 | mp3、wav、mp4、mkv、avi、mov、aac、ogg、m4a、wma、webm、3gp、flac |
+
+## 请求体示例
+
+```json
+{
+    "kbId": 123,
+    "fileId": "67dccd3ae1138d0f6d12ca6a",
+    "name": "数据集名称",
+    "parserType": "custom"
+}
+```
+
+## 响应体说明
+
+| 字段 | 说明 |
+| --- | --- |
+| `code` | 响应结果码，`1` 表示成功，其他表示失败 |
+| `msg` | 错误消息 |
+| `data` | 新创建数据集的 ID（`dsId`） |
+
+## 响应体示例
+
+```json
+{
+    "code": 1,
+    "msg": "操作成功",
+    "data": 31212
+}
+```
+
+<Info>
+如需修改已创建的数据集并重新开始任务，请使用[变更数据集并开始任务](/zh-hans/api-reference/dataset-update)接口；如需删除数据集，请使用[删除数据集](/zh-hans/api-reference/dataset-delete)接口。
+</Info>

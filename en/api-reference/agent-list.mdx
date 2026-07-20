@@ -1,0 +1,65 @@
+---
+title: "Agent Basic Info List"
+---
+
+<Warning>
+This endpoint requires applying for a higher-level Token, and only supports calls made with a personal API key.
+</Warning>
+
+## Request URL
+
+```
+{{host}}/openapi/agents
+```
+
+or
+
+```
+{{host}}/openapi/v2/agents
+```
+
+## Request Method
+
+`GET`
+
+## Request Headers
+
+Refer to the [API Specification](/en/api-reference/overview); supports ❌ Agent Token, ✅ personal API key.
+
+## Request Parameters
+
+None.
+
+## Response Body
+
+| Field | Description |
+| --- | --- |
+| `code` | Response result code. `1` indicates success; any other value indicates failure, with details in `msg` |
+| `data` | Array of Agent basic info; see below for the fields of each item |
+| `data[].agentUuid` | Agent UUID |
+| `data[].avatar` | Agent avatar |
+| `data[].name` | Agent name |
+| `data[].intro` | Agent introduction |
+| `data[].guides` | Agent suggested questions |
+| `data[].prologue` | Opening message |
+| `data[].chatAvatar` | Agent chat background |
+
+## Response Body Example
+
+```json
+{
+  "code": 1,
+  "msg": "success",
+  "data": [
+    {
+      "agentUuid": "agwerwr34rq3434234sf",
+      "avatar": "https://xxx.png",
+      "name": "Agent Name",
+      "intro": "Agent introduction",
+      "guides": ["Suggested question 1", "Suggested question 2"],
+      "prologue": "Welcome to the agent",
+      "chatAvatar": "https://xxx.png"
+    }
+  ]
+}
+```

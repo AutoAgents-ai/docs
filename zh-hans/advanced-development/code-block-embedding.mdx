@@ -1,0 +1,63 @@
+---
+title: "代码块嵌入"
+---
+
+代码块嵌入语法支持在提示词或回复内容中直接嵌入一段 Python 或 JS 代码并取得其返回值，常用于对少量数据进行即时加工。
+
+- 获取内置参数：`params['yourVarNameToGet']` 可以取到当前记忆变量的值
+- 需要有返回值：`return yourVarNameToReturn`，有返回值会嵌入到它所在位置
+
+<Info>
+更完整的实战示例参考 [使用技巧 / Agent 示例](/zh-hans/advanced-development/usage-tips/agent-examples) 中的代码块嵌入案例。
+</Info>
+
+## 嵌入 Python 代码
+
+语法：`[python[ ...你的Python代码... ]python]`，也可简写为 `[py[ ... ]py]`
+
+示例：
+
+```
+我是:
+[python[
+name="邹鹏飞"
+return name
+]python]
+
+他是:[py[
+name="张三"
+return name
+]py]
+
+都来自国家：
+[py[
+import json
+data=json.loads(params['data'])
+return data['cou']
+]py]
+```
+
+## 嵌入 JS 代码
+
+语法：`[js[ ...你的JS代码... ]js]`
+
+示例：
+
+```
+我是:
+[js[
+name="邹鹏飞"
+return name
+]js]
+
+他是:[js[
+name="张三"
+return name
+]js]
+
+都来自国家：
+[js[
+data=JSON.parse(params['data'])
+return data['cou']
+]js]
+```

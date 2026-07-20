@@ -1,0 +1,157 @@
+---
+title: "Agentチャット非ストリーミングインターフェース（同期）"
+---
+
+リクエストパラメータは [Agentチャットストリーミングインターフェース](/ja-jp/api-reference/chat-stream) とほぼ同一ですが、本インターフェースは完全なレスポンス結果を一度に返却する点が異なります（SSE ストリームではありません）。
+
+## リクエストURL
+
+```
+{{host}}/openapi/agents/chat/completions/v1
+```
+
+または
+
+```
+{{host}}/openapi/v2/chat/completions
+```
+
+## リクエストメソッド
+
+`POST`
+
+## リクエストヘッダー
+
+[Agentチャットストリーミングインターフェース](/ja-jp/api-reference/chat-stream#リクエストヘッダー)と同一です。Agent Token ✅、個人シークレットキー ✅ に対応しており、`X-username` は任意です。
+
+## リクエストボディパラメータ
+
+パラメータは[ストリーミングインターフェースのリクエストボディパラメータ](/ja-jp/api-reference/chat-stream#リクエストボディパラメータ)と完全に同一です（`agentId`、`chatId`、`userChatInput`、`state`、`buttonKey`、`images`、`files`、`formData`、`debug`）。
+
+## リクエストボディの例
+
+```json
+{
+    "agentId":"a2207c2f6d3d44d2b4a5dae5b5593750",
+    "chatId": null,
+    "userChatInput":"Mybatis",
+    "images":[{"url":"your image url here"}],
+    "files":[],
+    "state":{
+        "yourKey1":"yourValue1",
+        "yourKey2":"yourValue2"
+    },
+    "buttonKey":"按钮id或者名字",
+    "debug":false
+}
+```
+
+## レスポンスボディ
+
+| フィールド | 説明 |
+| --- | --- |
+| `chatId` | 対話 ID |
+| `conversationId` | 現在の会話 ID。1 回の対話には複数回の会話が含まれます |
+| `state` | 渡された環境変数パラメータ。key/value はそのままの値で返却されます |
+| `memory` | Agent の実行過程で生成された変数情報（key/value）。例：`{"memoryKey1":"memoryValue1"}` |
+| `choices` | 返信内容の配列。複数の返信内容が含まれる場合があり、各要素の構造は[ストリーミングレスポンスボディ](/ja-jp/api-reference/chat-stream#ストリーミングレスポンスボディ)内の単一メッセージと同一です（`messageId`、`type`、`componentName`、`content`、`complete`、`finish`、`status`、`role`、`bill`、`referenceType`、`reference` などのフィールドの意味も同一です） |
+
+<Info>
+`choices` 内では、最後の `finish:true` を示す終了メッセージを除き、各メッセージが1回の独立した返信を表します（1回の会話に複数回の返信が含まれる場合があります）。
+</Info>
+
+## レスポンスボディの例
+
+```json
+{
+     "chatId":2088,
+     "conversationId":"5923e893a0a24e1b8f0025818249cfea",
+     "state":{
+        "yourKey1":"yourValue1",
+        "yourKey2":"yourValue2"
+     },
+     "memory":{
+        "memoryKey1": "memoryValue1",
+        "memoryKey2": "memoryValue2"
+     },
+     "choices":[
+         {"bill":{"billType":"chat","completionTokens":211,"model":"SkyChat-MegaVerse","promptTokens":461,"totalTokens":672},"chatId":7753,"complete":true,"content":"一","conversationId":"481c9ad4d076497cb1d977c57dafcdb2","messageId":"481c9ad4d076497cb1d977c57dafcdb2","finish":false,"role":{"avatar":"http://x.x.x.x/api/fs/6606960e2e0bcb3ec15a3024.png","id":"afdba586a252468d8b3db2bd2a1320fb","name":"开发测试"},"type":"text"},
+         {"bill":{"billType":"chat","completionTokens":211,"model":"SkyChat-MegaVerse","promptTokens":461,"totalTokens":672},"chatId":7753,"complete":true,"content":"款","conversationId":"481c9ad4d076497cb1d977c57dafcdb2","messageId":"481c9ad4d076497cb1d977c57dafcdb2","finish":false,"role":{"avatar":"http://x.x.x.x/api/fs/6606960e2e0bcb3ec15a3024.png","id":"afdba586a252468d8b3db2bd2a1320fb","name":"开发测试"},"type":"text"},
+         { "complete":true,"finish": true, "content":"","role":{"avatar":"http://x.x.x.x/api/fs/6606960e2e0bcb3ec15a3024.png","id":"afdba586a252468d8b3db2bd2a1320fb","name":"开发测试"},"type":"text"}
+     ]
+}
+```
+
+## 呼び出し例
+
+```http
+リクエスト：
+POST /api/openapi/agent/chat/completions/v1 HTTP/1.1
+Host: x.x.x.x
+Content-Type: application/json
+Authorization: Bearer {authKey}.{authSecret}
+Content-Length: 147
+
+{"agentId":"afdba586a252468d8b3db2bd2a1320fb",
+"chatId":null,
+"userChatInput":"mybatis",
+"state":{
+    "roomId":123,
+    "roomName":"testRoom"
+ }
+}
+```
+
+```json
+返却結果：
+{
+    "chatId": 7767,
+    "conversationId": "a8381932cd7f4092a20fad86054fa40c",
+    "choices": [
+        {
+            "chatId": 7767,
+            "conversationId": "a8381932cd7f4092a20fad86054fa40c",
+            "messageId": "a8381932cd7f4092a20fad86054fa40c",
+            "role": {
+                "id": "afdba586a252468d8b3db2bd2a1320fb",
+                "name": "开发测试",
+                "avatar": "http://x.x.x.x/api/fs/6606960e2e0bcb3ec15a3024.png"
+            },
+            "content": "MyBatis是一款一流的支持自定义SQL、存储过程和高级映射的持久化框架...",
+            "referenceType": "kb_search",
+            "reference": "[{\"fileName\":\"MyBatis3_用户指南(附JavaDB实例).pdf\",\"fileType\":\"pdf\",\"fileUrl\":\"http://x.x.x.x/api/fs/6602576e480c49509222f2c0\",\"kbAvatar\":\"Mybatis\",\"kbName\":\"/assets/avatar/1.png\",\"score\":0.7309842270543954}]",
+            "type": "text",
+            "complete": true,
+            "finish": false,
+            "bill": {
+                "model": "SkyChat-MegaVerse",
+                "billType": "chat",
+                "completionTokens": 150,
+                "promptTokens": 461,
+                "totalTokens": 611
+            }
+        },
+        {
+            "chatId": 7767,
+            "conversationId": "a8381932cd7f4092a20fad86054fa40c",
+            "messageId": "a8381932cd7f4092a20fad86054fa40c",
+            "role": {
+                "id": "afdba586a252468d8b3db2bd2a1320fb",
+                "name": "开发测试",
+                "avatar": "http://x.x.x.x/api/fs/6606960e2e0bcb3ec15a3024.png"
+            },
+            "content": null,
+            "referenceType": null,
+            "reference": null,
+            "type": "text",
+            "complete": true,
+            "finish": true,
+            "bill": null
+        }
+    ],
+    "state": {
+        "roomId": 123,
+        "roomName": "testRoom"
+    }
+}
+```

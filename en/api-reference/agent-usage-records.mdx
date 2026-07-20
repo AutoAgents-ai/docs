@@ -1,0 +1,134 @@
+---
+title: "Agent Usage Records"
+---
+
+## Request URL
+
+```
+{{host}}/openapi/v2/chatHistory
+```
+
+## Request Method
+
+`POST`
+
+## Request Headers
+
+Refer to the [API Specification](/en/api-reference/overview); supports ❌ Agent Token, ✅ personal API key.
+
+## Request Body Parameters
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| `page` | number | No | Page number |
+| `pageSize` | number | No | Number of records per page |
+| `startTime` | string | No | Start time for the time filter; pass an empty string to skip time filtering |
+| `endTime` | string | No | End time for the time filter; pass an empty string to skip time filtering |
+| `userIdList` | array | No | User filter (array of user IDs); pass an empty array to skip user filtering |
+| `orgIdList` | array | No | Organization filter (array of organization IDs); pass an empty array to skip organization filtering |
+| `agentId` | number | Yes | ID of the Agent whose usage records to query |
+
+## Request Body Example
+
+```json
+{
+    "page": 1,
+    "pageSize": 10,
+    "startTime": "",
+    "endTime": "",
+    "userIdList": [],
+    "orgIdList": [],
+    "agentId": 2378
+}
+```
+
+## Response Body
+
+| Field | Description |
+| --- | --- |
+| `code` | Response result code; `1` indicates success, any other value indicates failure |
+| `msg` | Error message |
+| `data.pageNum` | Current page number |
+| `data.pageSize` | Number of records per page |
+| `data.count` | Whether to count the total number of records |
+| `data.list` | List of usage records; see the table below |
+| `data.total` | Total number of records |
+| `data.attributes` | Extension attributes |
+| `data.lastPage` | Whether this is the last page |
+| `data.totalPage` | Total number of pages |
+| `data.firstPage` | Whether this is the first page |
+
+Fields of each record in `data.list`:
+
+| Field | Description |
+| --- | --- |
+| `userName` | User's login name |
+| `timestamp` | Conversation timestamp (milliseconds) |
+| `time` | Conversation time (formatted string) |
+| `question` | Content of the user's question |
+| `success` | Whether execution succeeded |
+| `errorLog` | Error log, populated on failure |
+| `executePluginLog` | Plugin execution log |
+| `answer` | Array of reply content |
+| `conversationId` | Conversation ID |
+| `nickName` | User's nickname |
+| `thumbsUpCount` | Number of thumbs-up |
+| `thumbsDownCount` | Number of thumbs-down |
+| `orgName` | Name of the organization the user belongs to |
+
+## Response Body Example
+
+```json
+{
+    "code": 1,
+    "msg": "Operation succeeded",
+    "data": {
+        "pageNum": 1,
+        "pageSize": 10,
+        "count": true,
+        "list": [
+            {
+                "userName": "cuipusan",
+                "timestamp": 1764231910916,
+                "time": "2025-11-27 16:25:10",
+                "question": "",
+                "success": true,
+                "errorLog": null,
+                "executePluginLog": null,
+                "answer": [
+                    "",
+                    ""
+                ],
+                "conversationId": "f1412e36ef274d1785d7c041060ffc85fltegqlo",
+                "nickName": "Cui Pusan",
+                "thumbsUpCount": 0,
+                "thumbsDownCount": 0,
+                "orgName": "Test 3"
+            },
+            {
+                "userName": "cuipusan",
+                "timestamp": 1764231893673,
+                "time": "2025-11-27 16:24:53",
+                "question": "",
+                "success": true,
+                "errorLog": null,
+                "executePluginLog": null,
+                "answer": [
+                    "",
+                    ""
+                ],
+                "conversationId": "bf6a2498c57143508caff5c8be90026aobmvnilu",
+                "nickName": "Cui Pusan",
+                "thumbsUpCount": 0,
+                "thumbsDownCount": 0,
+                "orgName": "Test 3"
+            }
+        ],
+        "total": 177,
+        "attributes": {},
+        "lastPage": false,
+        "totalPage": 18,
+        "firstPage": false
+    }
+}
+```

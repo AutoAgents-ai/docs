@@ -1,0 +1,107 @@
+---
+title: "LLM チャット補完"
+---
+
+<Info>
+このインターフェースは OpenAI Chat Completions 互換インターフェースです。リクエストボディとレスポンスボディはいずれも OpenAI 標準フォーマットに従っており、既存の OpenAI SDK / クライアントをそのまま利用して呼び出すことができます。
+</Info>
+
+## リクエストURL
+
+```
+{{host}}/openapi/ai-models/v1/chat/completions
+```
+
+## リクエストメソッド
+
+`POST`
+
+## リクエストヘッダー
+
+[インターフェース仕様](/ja-jp/api-reference/overview)を参照してください。Agent Token ❌、個人シークレットキー ✅ に対応しています。
+
+## リクエストボディパラメータ
+
+| パラメータ | 型 | 必須 | 説明 |
+| --- | --- | --- | --- |
+| `model` | string | はい | プラットフォーム内の `modelId`（上流ベンダーの model code ではありません）。[利用可能なモデル一覧の取得](/ja-jp/api-reference/models-list)インターフェースで取得できます |
+| `messages` | array | はい | OpenAI Chat Completions 形式のメッセージ配列。有効な対話として解析できる必要があり、解析できない場合は「messages required」といったエラーが返されます |
+| `stream` | boolean | いいえ | `true` の場合は SSE ストリーミング形式。未指定または `true` 以外の場合は非ストリーミングの JSON 形式 |
+| `max_tokens` | number | いいえ | 生成する最大 Token 数など。サーバー側にデフォルト値とバリデーションがあります |
+| `temperature` | number | いいえ | サンプリング温度。JSON の数値型でなければ設定に反映されません |
+| `enable_thinking` | boolean | いいえ | 思考チェーンなどを有効にするかどうか（モデルや設定に依存）。未指定の場合はモデルに設定されたデフォルト値が使用されます |
+| `tools` | array | いいえ | ツール定義のリスト。本インターフェースはツール呼び出しに対応しています。ツール定義はモデルに渡されるだけで、サーバー側では実行されません |
+
+## リクエストボディの例
+
+```json
+{
+  "model": "gpt-5-mini-uuid-bZZbPyuuV@azure",
+  "messages": [
+    { "role": "user", "content": "こんにちは" }
+  ],
+  "stream": false,
+  "max_tokens": 1024,
+  "temperature": 0.7,
+  "tools": [
+    {
+      "type": "function",
+      "function": {
+        "name": "get_weather",
+        "description": "指定した都市のリアルタイム天気情報を取得する",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "city": {
+              "type": "string",
+              "description": "都市名。例：北京"
+            }
+          },
+          "required": ["city"],
+          "additionalProperties": false
+        }
+      }
+    }
+  ]
+}
+```
+
+## レスポンスボディ
+
+レスポンス形式は OpenAI 標準レスポンス形式に準拠しています。`stream` が `true` の場合は SSE ストリーミングレスポンスが返され、未指定または `false` の場合は以下のような完全な JSON が返されます：
+
+| フィールド | 説明 |
+| --- | --- |
+| `id` | 今回の補完のレスポンスID |
+| `object` | レスポンスオブジェクトの種別。固定で `chat.completion` |
+| `model` | 実際に呼び出されたモデルID |
+| `choices` | 回答候補の配列 |
+| `choices[].index` | 候補の番号 |
+| `choices[].message` | 回答メッセージ。`role` と `content` を含みます |
+| `choices[].finish_reason` | 終了理由。例：`stop` |
+| `usage` | Token 使用量の統計 |
+| `usage.prompt_tokens` | 入力で消費した Token 数 |
+| `usage.completion_tokens` | 出力で消費した Token 数 |
+| `usage.total_tokens` | 消費した Token 数の合計 |
+
+## レスポンスボディの例
+
+```json
+{
+  "id": "chatcmpl-xxxx",
+  "object": "chat.completion",
+  "model": "gpt-5-mini-uuid-bZZbPyuuV@azure",
+  "choices": [
+    {
+      "index": 0,
+      "message": { "role": "assistant", "content": "……" },
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 10,
+    "completion_tokens": 20,
+    "total_tokens": 30
+  }
+}
+```

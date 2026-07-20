@@ -1,0 +1,57 @@
+---
+title: "Delete Dataset"
+---
+
+## Request URL
+
+```
+{{host}}/openapi/kb/deleteDs
+```
+
+## Request Method
+
+`POST`
+
+## Request Headers
+
+Refer to the [API Specification](/en/api-reference/overview); Agent Token is not supported ❌, only personal API keys are supported ✅.
+
+<Warning>
+This endpoint only supports authentication using personal API keys (`authKey` / `authSecret`), and does not support calls made with an Agent Token.
+</Warning>
+
+## Request Body Parameters
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| `dsIdList` | array\<number\> | Yes | List of dataset IDs to delete |
+
+## Request Body Example
+
+```json
+{
+    "dsIdList": [2343, 2233]
+}
+```
+
+## Response Body
+
+| Field | Description |
+| --- | --- |
+| `code` | Response result code; `1` indicates success, any other value indicates failure |
+| `msg` | Error message |
+| `data` | Whether the deletion succeeded (`boolean`) |
+
+## Response Body Example
+
+```json
+{
+    "code": 1,
+    "msg": "Operation succeeded",
+    "data": true
+}
+```
+
+<Info>
+For creating and updating datasets, see the [Create Dataset and Start Task](/en/api-reference/dataset-create) and [Update Dataset and Start Task](/en/api-reference/dataset-update) endpoints.
+</Info>

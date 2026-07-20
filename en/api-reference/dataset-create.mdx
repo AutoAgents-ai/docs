@@ -1,0 +1,83 @@
+---
+title: "Create Dataset and Start Task"
+---
+
+## Request URL
+
+```
+{{host}}/openapi/kb/createDsAndTask
+```
+
+## Request Method
+
+`POST`
+
+## Request Headers
+
+Refer to the [API Specification](/en/api-reference/overview); Agent Token is not supported ❌, only personal API keys are supported ✅.
+
+<Warning>
+This endpoint only supports authentication using personal API keys (`authKey` / `authSecret`), and does not support calls made with an Agent Token.
+</Warning>
+
+## Request Body Parameters
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| `kbId` | number | Yes | ID of the knowledge base this dataset belongs to (obtained via the [Create Knowledge Base](/en/api-reference/knowledge-base-create) endpoint) |
+| `fileId` | string | Yes | ID of the uploaded file (obtained via the [File Upload](/en/api-reference/file-upload) endpoint) |
+| `name` | string | Yes | Dataset name |
+| `parserType` | string | No | Extension field for the chunk parsing method; defaults to `general`. See the table below for available values and supported document types |
+| `skipIfExists` | boolean | No | Whether to skip the dataset if it already exists; defaults to `true` |
+| `autoStartChunkTask` | boolean | No | Whether to automatically start the chunking task; defaults to `true` |
+| `alwaysCreateNew` | boolean | No | Whether to always create a new dataset; defaults to `false` |
+
+`parserType` values:
+
+| Value | Description | Supported Document Types |
+| --- | --- | --- |
+| `general` | General | pdf, docx, txt, htm, html, doc, xlsx, md, py, js, java, c, cpp, h, php, go, ts, sh, cs, kt |
+| `custom` | Custom | pdf, doc, docx, txt |
+| `presentation` | Presentation | ppt, pdf, pptx |
+| `laws` | Legal | pdf, docx, txt, htm, html, doc |
+| `manual` | Manual | pdf |
+| `paper` | Paper | pdf |
+| `book` | Book | pdf, docx, txt, htm, html, doc |
+| `qa` | Q&A | xlsx, txt, csv |
+| `table` | Table | xlsx, csv, txt |
+| `picture` | Image | jpg, jpeg, png, tif, gif, pcx, tga, exif, fpx, svg, psd, cdr, pcd, dxf, ufo, eps, ai, raw, wmf, webp, avif, apng, icon, ico, mpg, mpeg, rm, asf, dat, asx, wvx, mpe, mpa |
+| `one` | Single block | pdf, docx, txt, htm, html, doc, xlsx |
+| `voice` | Audio/Video | mp3, wav, mp4, mkv, avi, mov, aac, ogg, m4a, wma, webm, 3gp, flac |
+
+## Request Body Example
+
+```json
+{
+    "kbId": 123,
+    "fileId": "67dccd3ae1138d0f6d12ca6a",
+    "name": "Dataset name",
+    "parserType": "custom"
+}
+```
+
+## Response Body
+
+| Field | Description |
+| --- | --- |
+| `code` | Response result code; `1` indicates success, any other value indicates failure |
+| `msg` | Error message |
+| `data` | ID of the newly created dataset (`dsId`) |
+
+## Response Body Example
+
+```json
+{
+    "code": 1,
+    "msg": "Operation succeeded",
+    "data": 31212
+}
+```
+
+<Info>
+To modify an already created dataset and restart the task, use the [Update Dataset and Start Task](/en/api-reference/dataset-update) endpoint. To delete a dataset, use the [Delete Dataset](/en/api-reference/dataset-delete) endpoint.
+</Info>

@@ -1,0 +1,46 @@
+---
+title: "知识库进阶 - 高级查询示例"
+---
+
+「知识库搜索」组件的信息输入支持高级查询设置，支持分组并行召回、指定文件召回、不同分组不同权重和相似度设置等。
+
+## 示例
+
+```json
+{
+  "keywords": "2025年3月18日晚峰短信的内容是什么？",
+  "overwrite": "true",
+  // 可以固定指定，也可以通过{{$kbIdList}}获取用户选择的知识库ID列表动态指定
+  "kbIdList": [2, 3, 4, 5, 6],
+  "searchGroups": [
+    {
+      "kbIdList": [5],
+      "topK": 22,
+      "fileNameKeywords": ["特高压", "运行规定"]
+    },
+    {
+      "kbIdList": [2, 3, 4, 5, 6],
+      "topK": 6
+    }
+  ]
+}
+```
+
+## 高阶查询字段说明
+
+| 字段 | 说明 |
+| --- | --- |
+| `keywords` | 查询关键词 |
+| `overwrite` | 是否覆盖知识库搜索组件选定的知识库，默认 `true`；如果为 `false`，则会将知识库搜索组件选定的知识库与 `kbIdList` 合并 |
+| `kbIdList` | 指定知识库 ID 全集，如果有 `searchGroups` 则会跟每个 `searchGroups` 取交集进行分组；可以固定指定，也可以通过 `{{$kbIdList}}` 获取用户选择的知识库 ID 列表动态指定 |
+| `searchGroups[]` | 分组数组，对知识库进行分组并行查询 |
+| `searchGroups[].kbIdList[]` | 知识库 ID 数组，指定该分组的知识库 ID |
+| `searchGroups[].topK` | 召回数 |
+| `searchGroups[].fileNameKeywords[]` | 指定文件名关键词模糊搜索，`%` 代表模糊匹配的部分，示例：`%年%月%晚峰短信` |
+| `searchGroups[].fileNameKeywordsTopK` | 指定文件相关切片召回数，默认等于 `topK`，代表从 `fileNameKeywords` 指定的文件召回切片的数量；如果这个数量小于 `topK`，则 `(topK - fileNameKeywordsTopK)` 代表同一个库下非指定文件召回切片的数量 |
+| `similar` | 相似度阈值，默认与知识库搜索组件的值一致 |
+| `vectorSimilarWeight` | 向量相似度权重，默认与知识库搜索组件的值一致 |
+| `enableRerank` | 重排序开关，`true`/`false`，默认与知识库搜索组件的值一致 |
+| `rerankModelType` | 重排序模型，默认与知识库搜索组件的值一致 |
+| `rerankSimilarLimit` | 重排序阈值，默认与知识库搜索组件的值一致 |
+| `rerankTopK` | 重排序召回数，默认与知识库搜索组件的值一致 |

@@ -1,0 +1,26 @@
+---
+title: "数据类型转换"
+---
+
+某些场景下需要将普通文本/URL 转换为平台内部的「图片」「文件」类型，可通过「信息处理」组件完成转换。
+
+<Frame>
+  <img src="/images/advanced-development/adv_004.png" alt="通过信息处理组件转换数据类型" />
+</Frame>
+
+## 图片 URL 地址转换为图片信息类型
+
+```json
+[{"url": "http://你的图片URL地址"}]
+```
+
+## 文件 URL 地址转换为文件信息类型
+
+```json
+[
+  {
+    "fileName": "你的文件名.docx",
+    "fileUrl": "https://你的文件URL地址"
+  }
+]
+```

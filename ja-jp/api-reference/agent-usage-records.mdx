@@ -1,0 +1,134 @@
+---
+title: "Agent 利用履歴"
+---
+
+## リクエストURL
+
+```
+{{host}}/openapi/v2/chatHistory
+```
+
+## リクエストメソッド
+
+`POST`
+
+## リクエストヘッダー
+
+[インターフェース仕様](/ja-jp/api-reference/overview)を参照してください。Agent Token ❌、個人シークレットキー ✅ に対応しています。
+
+## リクエストボディパラメータ
+
+| パラメータ | 型 | 必須 | 説明 |
+| --- | --- | --- | --- |
+| `page` | number | いいえ | ページ番号 |
+| `pageSize` | number | いいえ | ページあたりの件数 |
+| `startTime` | string | いいえ | 時間フィルターの開始時刻。時間で絞り込まない場合は空文字列を指定できます |
+| `endTime` | string | いいえ | 時間フィルターの終了時刻。時間で絞り込まない場合は空文字列を指定できます |
+| `userIdList` | array | いいえ | ユーザーフィルター（ユーザーIDの配列）。ユーザーで絞り込まない場合は空配列を指定できます |
+| `orgIdList` | array | いいえ | 組織フィルター（組織IDの配列）。組織で絞り込まない場合は空配列を指定できます |
+| `agentId` | number | はい | 利用履歴を取得したい Agent の ID |
+
+## リクエストボディの例
+
+```json
+{
+    "page": 1,
+    "pageSize": 10,
+    "startTime": "",
+    "endTime": "",
+    "userIdList": [],
+    "orgIdList": [],
+    "agentId": 2378
+}
+```
+
+## レスポンスボディ
+
+| フィールド | 説明 |
+| --- | --- |
+| `code` | レスポンス結果コード。`1` は成功、それ以外は失敗を示します |
+| `msg` | エラーメッセージ |
+| `data.pageNum` | 現在のページ番号 |
+| `data.pageSize` | ページあたりの件数 |
+| `data.count` | 総件数を集計するかどうか |
+| `data.list` | 利用履歴リスト。フィールド説明は下表を参照 |
+| `data.total` | 総レコード数 |
+| `data.attributes` | 拡張属性 |
+| `data.lastPage` | 最後のページかどうか |
+| `data.totalPage` | 総ページ数 |
+| `data.firstPage` | 最初のページかどうか |
+
+`data.list` 内の各レコードのフィールド：
+
+| フィールド | 説明 |
+| --- | --- |
+| `userName` | ユーザーのログイン名 |
+| `timestamp` | 対話のタイムスタンプ（ミリ秒） |
+| `time` | 対話時刻（フォーマット済み文字列） |
+| `question` | ユーザーの質問内容 |
+| `success` | 実行に成功したかどうか |
+| `errorLog` | エラーログ。失敗時に値が設定されます |
+| `executePluginLog` | プラグイン実行ログ |
+| `answer` | 回答内容の配列 |
+| `conversationId` | 会話ID |
+| `nickName` | ユーザーのニックネーム |
+| `thumbsUpCount` | 「いいね」の回数 |
+| `thumbsDownCount` | 「いまいち」の回数 |
+| `orgName` | 所属組織名 |
+
+## レスポンスボディの例
+
+```json
+{
+    "code": 1,
+    "msg": "操作に成功しました",
+    "data": {
+        "pageNum": 1,
+        "pageSize": 10,
+        "count": true,
+        "list": [
+            {
+                "userName": "cuipusan",
+                "timestamp": 1764231910916,
+                "time": "2025-11-27 16:25:10",
+                "question": "",
+                "success": true,
+                "errorLog": null,
+                "executePluginLog": null,
+                "answer": [
+                    "",
+                    ""
+                ],
+                "conversationId": "f1412e36ef274d1785d7c041060ffc85fltegqlo",
+                "nickName": "崔普三",
+                "thumbsUpCount": 0,
+                "thumbsDownCount": 0,
+                "orgName": "測試3"
+            },
+            {
+                "userName": "cuipusan",
+                "timestamp": 1764231893673,
+                "time": "2025-11-27 16:24:53",
+                "question": "",
+                "success": true,
+                "errorLog": null,
+                "executePluginLog": null,
+                "answer": [
+                    "",
+                    ""
+                ],
+                "conversationId": "bf6a2498c57143508caff5c8be90026aobmvnilu",
+                "nickName": "崔普三",
+                "thumbsUpCount": 0,
+                "thumbsDownCount": 0,
+                "orgName": "測試3"
+            }
+        ],
+        "total": 177,
+        "attributes": {},
+        "lastPage": false,
+        "totalPage": 18,
+        "firstPage": false
+    }
+}
+```

@@ -218,6 +218,85 @@
                         ]
                     },
                     {
+                        "tab": "进阶开发指南",
+                        "groups": [
+                            {
+                                "group": "系统内置能力",
+                                "pages": [
+                                    "zh-hans/advanced-development/system-variables",
+                                    "zh-hans/advanced-development/system-functions",
+                                    "zh-hans/advanced-development/built-in-commands",
+                                    "zh-hans/advanced-development/code-block-embedding"
+                                ]
+                            },
+                            {
+                                "group": "使用技巧",
+                                "pages": [
+                                    "zh-hans/advanced-development/usage-tips/prompt-examples",
+                                    "zh-hans/advanced-development/usage-tips/agent-examples",
+                                    "zh-hans/advanced-development/usage-tips/knowledge-base-advanced-query",
+                                    "zh-hans/advanced-development/usage-tips/data-type-conversion",
+                                    "zh-hans/advanced-development/usage-tips/data-processing-protocol",
+                                    "zh-hans/advanced-development/usage-tips/excel-export-template",
+                                    "zh-hans/advanced-development/usage-tips/word-generation-syntax",
+                                    "zh-hans/advanced-development/usage-tips/user-question-input-form"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "tab": "API 文档",
+                        "groups": [
+                            {
+                                "group": "接口规范",
+                                "pages": [
+                                    "zh-hans/api-reference/overview"
+                                ]
+                            },
+                            {
+                                "group": "Agent 聊天接口",
+                                "pages": [
+                                    "zh-hans/api-reference/chat-stream",
+                                    "zh-hans/api-reference/chat-sync",
+                                    "zh-hans/api-reference/chat-async",
+                                    "zh-hans/api-reference/chat-async-poll",
+                                    "zh-hans/api-reference/agent-feedback"
+                                ]
+                            },
+                            {
+                                "group": "Agent 管理接口",
+                                "pages": [
+                                    "zh-hans/api-reference/agent-list",
+                                    "zh-hans/api-reference/agent-info",
+                                    "zh-hans/api-reference/message-feedback",
+                                    "zh-hans/api-reference/stop-reply-stream",
+                                    "zh-hans/api-reference/agent-usage-records"
+                                ]
+                            },
+                            {
+                                "group": "知识库与数据集接口",
+                                "pages": [
+                                    "zh-hans/api-reference/knowledge-base-create",
+                                    "zh-hans/api-reference/knowledge-base-retrieval",
+                                    "zh-hans/api-reference/dataset-create",
+                                    "zh-hans/api-reference/dataset-update",
+                                    "zh-hans/api-reference/dataset-delete",
+                                    "zh-hans/api-reference/dataset-list"
+                                ]
+                            },
+                            {
+                                "group": "文件与其他接口",
+                                "pages": [
+                                    "zh-hans/api-reference/file-upload",
+                                    "zh-hans/api-reference/file-conversion",
+                                    "zh-hans/api-reference/speech-recognition",
+                                    "zh-hans/api-reference/llm-chat-completion",
+                                    "zh-hans/api-reference/models-list"
+                                ]
+                            }
+                        ]
+                    },
+                    {
                         "tab": "更新日志",
                         "pages": [
                             "zh-hans/changelog/product-updates"
@@ -429,6 +508,85 @@
                         ]
                     },
                     {
+                        "tab": "Advanced Development Guide",
+                        "groups": [
+                            {
+                                "group": "System Built-in Capabilities",
+                                "pages": [
+                                    "en/advanced-development/system-variables",
+                                    "en/advanced-development/system-functions",
+                                    "en/advanced-development/built-in-commands",
+                                    "en/advanced-development/code-block-embedding"
+                                ]
+                            },
+                            {
+                                "group": "Usage Tips",
+                                "pages": [
+                                    "en/advanced-development/usage-tips/prompt-examples",
+                                    "en/advanced-development/usage-tips/agent-examples",
+                                    "en/advanced-development/usage-tips/knowledge-base-advanced-query",
+                                    "en/advanced-development/usage-tips/data-type-conversion",
+                                    "en/advanced-development/usage-tips/data-processing-protocol",
+                                    "en/advanced-development/usage-tips/excel-export-template",
+                                    "en/advanced-development/usage-tips/word-generation-syntax",
+                                    "en/advanced-development/usage-tips/user-question-input-form"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "tab": "API Reference",
+                        "groups": [
+                            {
+                                "group": "API Specification",
+                                "pages": [
+                                    "en/api-reference/overview"
+                                ]
+                            },
+                            {
+                                "group": "Agent Chat APIs",
+                                "pages": [
+                                    "en/api-reference/chat-stream",
+                                    "en/api-reference/chat-sync",
+                                    "en/api-reference/chat-async",
+                                    "en/api-reference/chat-async-poll",
+                                    "en/api-reference/agent-feedback"
+                                ]
+                            },
+                            {
+                                "group": "Agent Management APIs",
+                                "pages": [
+                                    "en/api-reference/agent-list",
+                                    "en/api-reference/agent-info",
+                                    "en/api-reference/message-feedback",
+                                    "en/api-reference/stop-reply-stream",
+                                    "en/api-reference/agent-usage-records"
+                                ]
+                            },
+                            {
+                                "group": "Knowledge Base & Dataset APIs",
+                                "pages": [
+                                    "en/api-reference/knowledge-base-create",
+                                    "en/api-reference/knowledge-base-retrieval",
+                                    "en/api-reference/dataset-create",
+                                    "en/api-reference/dataset-update",
+                                    "en/api-reference/dataset-delete",
+                                    "en/api-reference/dataset-list"
+                                ]
+                            },
+                            {
+                                "group": "Files & Other APIs",
+                                "pages": [
+                                    "en/api-reference/file-upload",
+                                    "en/api-reference/file-conversion",
+                                    "en/api-reference/speech-recognition",
+                                    "en/api-reference/llm-chat-completion",
+                                    "en/api-reference/models-list"
+                                ]
+                            }
+                        ]
+                    },
+                    {
                         "tab": "Changelog",
                         "pages": [
                             "en/changelog/product-updates"
@@ -635,6 +793,85 @@
                                             "ja-jp/documentation/system-management/system-settings/dictionary-management"
                                         ]
                                     }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "tab": "高度な開発ガイド",
+                        "groups": [
+                            {
+                                "group": "システム内蔵機能",
+                                "pages": [
+                                    "ja-jp/advanced-development/system-variables",
+                                    "ja-jp/advanced-development/system-functions",
+                                    "ja-jp/advanced-development/built-in-commands",
+                                    "ja-jp/advanced-development/code-block-embedding"
+                                ]
+                            },
+                            {
+                                "group": "使用テクニック",
+                                "pages": [
+                                    "ja-jp/advanced-development/usage-tips/prompt-examples",
+                                    "ja-jp/advanced-development/usage-tips/agent-examples",
+                                    "ja-jp/advanced-development/usage-tips/knowledge-base-advanced-query",
+                                    "ja-jp/advanced-development/usage-tips/data-type-conversion",
+                                    "ja-jp/advanced-development/usage-tips/data-processing-protocol",
+                                    "ja-jp/advanced-development/usage-tips/excel-export-template",
+                                    "ja-jp/advanced-development/usage-tips/word-generation-syntax",
+                                    "ja-jp/advanced-development/usage-tips/user-question-input-form"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "tab": "API リファレンス",
+                        "groups": [
+                            {
+                                "group": "API 仕様",
+                                "pages": [
+                                    "ja-jp/api-reference/overview"
+                                ]
+                            },
+                            {
+                                "group": "Agent チャット API",
+                                "pages": [
+                                    "ja-jp/api-reference/chat-stream",
+                                    "ja-jp/api-reference/chat-sync",
+                                    "ja-jp/api-reference/chat-async",
+                                    "ja-jp/api-reference/chat-async-poll",
+                                    "ja-jp/api-reference/agent-feedback"
+                                ]
+                            },
+                            {
+                                "group": "Agent 管理 API",
+                                "pages": [
+                                    "ja-jp/api-reference/agent-list",
+                                    "ja-jp/api-reference/agent-info",
+                                    "ja-jp/api-reference/message-feedback",
+                                    "ja-jp/api-reference/stop-reply-stream",
+                                    "ja-jp/api-reference/agent-usage-records"
+                                ]
+                            },
+                            {
+                                "group": "ナレッジベース・データセット API",
+                                "pages": [
+                                    "ja-jp/api-reference/knowledge-base-create",
+                                    "ja-jp/api-reference/knowledge-base-retrieval",
+                                    "ja-jp/api-reference/dataset-create",
+                                    "ja-jp/api-reference/dataset-update",
+                                    "ja-jp/api-reference/dataset-delete",
+                                    "ja-jp/api-reference/dataset-list"
+                                ]
+                            },
+                            {
+                                "group": "ファイル・その他 API",
+                                "pages": [
+                                    "ja-jp/api-reference/file-upload",
+                                    "ja-jp/api-reference/file-conversion",
+                                    "ja-jp/api-reference/speech-recognition",
+                                    "ja-jp/api-reference/llm-chat-completion",
+                                    "ja-jp/api-reference/models-list"
                                 ]
                             }
                         ]

@@ -1,0 +1,107 @@
+---
+title: "LLM Chat Completion"
+---
+
+<Info>
+This endpoint is compatible with the OpenAI Chat Completions API. Both the request and response bodies follow the standard OpenAI format, so you can call it directly using your existing OpenAI SDK or client.
+</Info>
+
+## Request URL
+
+```
+{{host}}/openapi/ai-models/v1/chat/completions
+```
+
+## Request Method
+
+`POST`
+
+## Request Headers
+
+Refer to the [API Specification](/en/api-reference/overview); supports ❌ Agent Token, ✅ personal API key.
+
+## Request Body Parameters
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| `model` | string | Yes | The `modelId` within the platform (not the upstream vendor's model code); can be obtained via the [Get List of Available Models](/en/api-reference/models-list) endpoint |
+| `messages` | array | Yes | An array of messages in OpenAI Chat Completions style; must resolve to a valid conversation, otherwise a "messages required" type error is returned |
+| `stream` | boolean | No | `true` for SSE streaming; if omitted or not `true`, a non-streaming JSON response is returned |
+| `max_tokens` | number | No | Maximum number of tokens to generate, among other limits; the server has default values and validation |
+| `temperature` | number | No | Sampling temperature; must be a JSON number to be applied to the configuration |
+| `enable_thinking` | boolean | No | Whether to enable the chain-of-thought, etc. (depends on the model and configuration); if omitted, the model's default configuration is used |
+| `tools` | array | No | List of tool definitions; the endpoint supports tool calling, but tool definitions are only passed to the model and are not executed on the server |
+
+## Request Body Example
+
+```json
+{
+  "model": "gpt-5-mini-uuid-bZZbPyuuV@azure",
+  "messages": [
+    { "role": "user", "content": "Hello" }
+  ],
+  "stream": false,
+  "max_tokens": 1024,
+  "temperature": 0.7,
+  "tools": [
+    {
+      "type": "function",
+      "function": {
+        "name": "get_weather",
+        "description": "Get real-time weather information for a specified city",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "city": {
+              "type": "string",
+              "description": "City name, for example: Beijing"
+            }
+          },
+          "required": ["city"],
+          "additionalProperties": false
+        }
+      }
+    }
+  ]
+}
+```
+
+## Response Body
+
+The response format follows the standard OpenAI response format. When `stream` is `true`, an SSE streaming response is returned; when omitted or `false`, the following full JSON is returned:
+
+| Field | Description |
+| --- | --- |
+| `id` | Response ID of this completion |
+| `object` | Response object type, fixed as `chat.completion` |
+| `model` | ID of the model actually invoked |
+| `choices` | Array of reply options |
+| `choices[].index` | Index of the option |
+| `choices[].message` | Reply message, including `role` and `content` |
+| `choices[].finish_reason` | Reason the generation finished, for example `stop` |
+| `usage` | Token usage statistics |
+| `usage.prompt_tokens` | Number of tokens consumed by the input |
+| `usage.completion_tokens` | Number of tokens consumed by the output |
+| `usage.total_tokens` | Total number of tokens consumed |
+
+## Response Body Example
+
+```json
+{
+  "id": "chatcmpl-xxxx",
+  "object": "chat.completion",
+  "model": "gpt-5-mini-uuid-bZZbPyuuV@azure",
+  "choices": [
+    {
+      "index": 0,
+      "message": { "role": "assistant", "content": "……" },
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 10,
+    "completion_tokens": 20,
+    "total_tokens": 30
+  }
+}
+```

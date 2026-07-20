@@ -1,0 +1,280 @@
+---
+title: "知识库检索"
+---
+
+## 请求地址
+
+```
+{{host}}/openapi/kb/search
+```
+
+## 请求方式
+
+`POST`
+
+## 请求 Header
+
+参考[接口规范](/zh-hans/api-reference/overview)；支持 ❌ Agent Token、✅ 个人秘钥。
+
+## 请求体参数
+
+| 参数 | 类型 | 必填 | 说明 |
+| --- | --- | --- | --- |
+| `kbId` | number | 是 | 知识库 ID（示例值：`123`） |
+| `keywords` | string | 否 | 关键词（示例值：`"智能搜索"`） |
+| `vectorSimilarLimit` | number | 否 | 向量相似度阈值/混合相似度（默认值：`0.15`，示例值：`0.2`） |
+| `vectorSimilarWeight` | number | 否 | 向量相似度权重（默认值：`0.72`，示例值：`0.8`） |
+| `topK` | number | 否 | 召回数（默认值：`20`，示例值：`30`） |
+| `enableRerank` | boolean | 否 | 重排序开关，`true`/`false`，默认值：`false` |
+| `expandChunks` | boolean | 否 | 扩展上下文分段，开启后将命中分段上下各 1 个分段内容同时召回，提高内容完整度，默认值：`false` |
+| `expandNum` | number | 否 | 扩展上下文分段数（默认值：`1`，示例值：`2`） |
+| `rerankModelType` | string | 否 | 重排序模型类型（示例值：`"bge-reranker-large"`） |
+| `rerankSimilarLimit` | number | 否 | 重排序阈值（默认值：`0`，示例值：`0.5`） |
+| `rerankTopK` | number | 否 | 重排序召回数（默认值：`10`，示例值：`5`） |
+
+<Info>
+`vectorSimilarWeight`、`enableRerank`、`rerankModelType`、`rerankSimilarLimit`、`rerankTopK` 等重排序/相似度相关字段，含义与[知识库进阶-高级查询示例](/zh-hans/advanced-development/usage-tips/knowledge-base-advanced-query)中的对应字段一致。
+</Info>
+
+## 请求体示例
+
+```json
+{
+    "vectorSimilarLimit": 0.15,
+    "vectorSimilarWeight": 0.72,
+    "topK": 20,
+    "enableRerank": false,
+    "expandChunks": false,
+    "expandNum": 1,
+    "rerankModelType": "oneapi-xinference:Qwen3-Reranker-0.6B",
+    "rerankSimilarLimit": 0,
+    "rerankTopK": 10,
+    "keywords": "测试",
+    "kbId": "1827"
+}
+```
+
+## 响应体说明
+
+| 字段 | 说明 |
+| --- | --- |
+| `code` | 响应结果码，`1` 表示成功；其他表示失败 |
+| `msg` | 错误消息 |
+| `data[]` | 知识库检索结果数组，字段说明见下表 |
+
+### `data[]` 字段说明
+
+| 字段 | 说明 |
+| --- | --- |
+| `q` | 切片内容 |
+| `a` | 切片对应答案（问答型切片才有值） |
+| `position` | 切片在原文中的位置信息 |
+| `keywords` | 切片关键词 |
+| `imgFileKey` | 切片关联的图片文件 Key |
+| `layoutType` | 布局类型，例如 `figure` 图片 |
+| `userUploadImgFiles` | 用户上传的图片文件 |
+| `id` | 切片 ID |
+| `kbId` | 所属知识库 ID |
+| `dsId` | 所属数据集 ID |
+| `dataId` | 数据 ID |
+| `fileId` | 文件 ID |
+| `score` | 综合得分 |
+| `dataKey` | 数据 Key |
+| `refNum` | 引用次数 |
+| `dataNum` | 数据编号 |
+| `disabled` | 是否禁用 |
+| `dsInfo` | 所属数据集信息，字段说明见下表 |
+| `kbInfo` | 所属知识库信息，字段说明见下表 |
+| `approvalState` | 审核状态 |
+| `approvalId` | 审核记录 ID |
+| `operateCode` | 操作类型码 |
+| `operateComment` | 操作备注 |
+| `approvalComment` | 审核意见 |
+| `approvalParams` | 审核参数 |
+| `fusionScore` | 融合得分（向量得分与关键词得分的综合得分） |
+| `vectorScore` | 向量相似度得分 |
+| `keywordScore` | 关键词匹配得分 |
+
+### `dsInfo` 字段说明
+
+| 字段 | 说明 |
+| --- | --- |
+| `id` | 数据集 ID |
+| `state` | 状态 |
+| `trainingState` | 训练状态 |
+| `kbId` | 所属知识库 ID |
+| `parentId` | 父级 ID |
+| `fileId` | 文件 ID |
+| `name` | 数据集名称 |
+| `extJson` | 扩展信息（JSON 字符串），包含语言、解析器类型等解析配置 |
+| `createAt` | 创建时间 |
+| `type` | 类型：`file` 文件，`folder` 文件夹 |
+| `dataAmount` | 数据量 |
+| `parserType` | 解析器类型 |
+| `taskStatus` | 任务状态 |
+| `progress` | 任务进度 |
+| `taskId` | 任务 ID |
+| `allowDownload` | 是否允许下载：`1` 允许，`0` 不允许 |
+| `downloadUrl` | 下载地址 |
+| `allowPreview` | 是否允许预览 |
+| `previewUrl` | 预览地址 |
+| `uuid` | 唯一标识 |
+| `approvalId` | 审核记录 ID |
+| `approvalState` | 审核状态 |
+| `approvalCode` | 审核状态码 |
+| `operateCode` | 操作类型码 |
+| `operatorUserName` | 操作人姓名 |
+| `auditorUserNames` | 审核人姓名列表 |
+| `creatorUserName` | 创建人姓名 |
+| `operateComment` | 操作备注 |
+| `approvalComment` | 审核意见 |
+| `referenceCount` | 引用次数 |
+
+### `kbInfo` 字段说明
+
+| 字段 | 说明 |
+| --- | --- |
+| `id` | 知识库 ID |
+| `parentId` | 父级 ID |
+| `state` | 状态 |
+| `dataAmount` | 数据量 |
+| `name` | 知识库名称 |
+| `description` | 知识库描述 |
+| `avatarUrl` | 知识库头像地址 |
+| `vectorModel` | 向量模型 |
+| `type` | 类型，例如 `kb` |
+| `tags` | 标签 |
+| `ext` | 知识库扩展配置，字段说明见下表 |
+| `virtualDsId` | 虚拟数据集 ID |
+| `dsNum` | 数据集数量 |
+| `authorName` | 创建者姓名 |
+| `kbType` | 知识库类型 |
+| `kbBtnPermission` | 按钮权限 |
+| `approvalMode` | 审核模式 |
+| `approvalState` | 审核状态 |
+
+### `kbInfo.ext` 字段说明
+
+| 字段 | 说明 |
+| --- | --- |
+| `configWay` | 配置方式，例如 `auto` 自动配置 |
+| `chunkSize` | 切片大小 |
+| `coverageRate` | 覆盖率 |
+| `similarity` | 相似度阈值 |
+| `limit` | 召回数限制 |
+| `agentId` | 关联的 Agent ID |
+| `language` | 语言，例如 `Chinese` |
+| `parserType` | 解析器类型 |
+| `contentEnhances` | 内容增强选项，例如 `filename_enhance` 文件名增强、`image_enhance` 图片增强 |
+| `search` | 检索配置 |
+| `parserModel` | 解析模型 |
+| `imageDescriptionModel` | 图片描述模型 |
+| `allowDownloadForNewFile` | 新文件是否允许下载 |
+
+## 响应体示例
+
+```json
+{
+    "code": 1,
+    "msg": "操作成功",
+    "data": [
+        {
+            "q": "测试通用文档解析\n1\n2\n3\n4\nbbb\nppp\naaa\nCCCC\nvwv\nXXX\nnnn\nmmm\nHTTP调用\n确定回复\n联动激活①\n联动激活①\n任一激活①\n任一激活①\n请求地址①\n回复对用户可见①\npost（可选get.post.delete.put,patch）\n请求方法+空格+请求地址\nhttps://xxx\n数据类型\ndata-typejson(可选json.form.querx)\ntoken xxx\n请求头（key+空格+value）\nheader2Key header2Value\n回复内容①\n全部请求参数\nbody参数\na:Xx,\n十添加入参\nb:xx,\n十添加出参\n①请求成功\n回复内容\n请求异常\n①模块运行结束\n请求结果\n①模块运行结束\n<img src=\"/api/fs/68b7fff9a1e0ab27c3be326d\" />",
+            "a": null,
+            "position": null,
+            "keywords": null,
+            "imgFileKey": "68b7ffb5a1e0ab27c3be3268",
+            "layoutType": "figure",
+            "userUploadImgFiles": null,
+            "id": "342504",
+            "kbId": 1827,
+            "dsId": 11406,
+            "dataId": "68b80004a1e0ab27c3be3271",
+            "fileId": "68b7f8c8a1e0ab27c3be31fb",
+            "score": 0.4908423976893971,
+            "dataKey": null,
+            "refNum": null,
+            "dataNum": null,
+            "disabled": null,
+            "dsInfo": {
+                "id": 11406,
+                "state": 1,
+                "trainingState": 2,
+                "kbId": 1827,
+                "parentId": 0,
+                "fileId": "6855050156c8f3068affe6dd",
+                "name": "测试通用文档解析.docx",
+                "extJson": "{\"locale\": \"zh_CN\", \"parserType\": \"general\", \"parserTypeExt\": {\"pages\": [[1, 1024]], \"delimiter\": \"\\\\n!?。；！？\", \"taskPageSize\": 10, \"chunkTokenNum\": 512, \"enableDocToPdf\": true, \"transferFileId\": \"68b7f8c8a1e0ab27c3be31fb\", \"layoutRecognize\": true}}",
+                "createAt": "2025-09-03 16:13:43",
+                "type": "file",
+                "dataAmount": 1,
+                "parserType": null,
+                "taskStatus": null,
+                "progress": null,
+                "taskId": null,
+                "allowDownload": 1,
+                "downloadUrl": null,
+                "allowPreview": null,
+                "previewUrl": null,
+                "uuid": "fa38860c2e644aaa99745bbaa005babf6sn6agsp",
+                "approvalId": null,
+                "approvalState": null,
+                "approvalCode": null,
+                "operateCode": null,
+                "operatorUserName": null,
+                "auditorUserNames": null,
+                "creatorUserName": null,
+                "operateComment": null,
+                "approvalComment": null,
+                "referenceCount": 7
+            },
+            "kbInfo": {
+                "id": 1827,
+                "parentId": 0,
+                "state": 1,
+                "dataAmount": 1,
+                "name": "测试知识库切片2",
+                "description": "1111",
+                "avatarUrl": "/assets/avatar/63.png",
+                "vectorModel": "oneapi-xinference:bce-embedding",
+                "type": "kb",
+                "tags": null,
+                "ext": {
+                    "configWay": "auto",
+                    "chunkSize": 512,
+                    "coverageRate": 0.15,
+                    "similarity": 0.5,
+                    "limit": 1,
+                    "agentId": null,
+                    "language": "Chinese",
+                    "parserType": "custom",
+                    "contentEnhances": [
+                        "filename_enhance",
+                        "image_enhance"
+                    ],
+                    "search": null,
+                    "parserModel": "marker_pdf2md",
+                    "imageDescriptionModel": "glm-4v",
+                    "allowDownloadForNewFile": true
+                },
+                "virtualDsId": null,
+                "dsNum": null,
+                "authorName": null,
+                "kbType": 1,
+                "kbBtnPermission": null,
+                "approvalMode": null,
+                "approvalState": null
+            },
+            "approvalState": null,
+            "approvalId": null,
+            "operateCode": null,
+            "operateComment": null,
+            "approvalComment": null,
+            "approvalParams": null,
+            "fusionScore": 0.4908423976893971,
+            "vectorScore": 0.39342580516030723,
+            "keywordScore": 0.7413422070499137
+        }
+    ]
+}
+```

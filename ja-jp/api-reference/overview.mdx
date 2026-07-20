@@ -1,0 +1,101 @@
+---
+title: "インターフェース仕様"
+---
+
+Agents プラットフォームの Open API は、チャット対話、Agent 管理、ナレッジベースとデータセット管理、ファイル処理などの機能を提供し、業務システムからの統合呼び出しに対応しています。本ページでは認証方式、環境アドレス、バージョンルールについて説明します。具体的なインターフェースについては左側の目次を参照してください。
+
+## Token の取得
+
+プラットフォームは 2 種類のレベルの呼び出し認証情報を提供しています。実際の必要に応じて選択してください。
+
+### Agent Token の取得
+
+Agent の編集ページに入り、右上の関連ボタンをクリックすると、その Agent 専用の Token を取得できます。
+
+<Warning>
+Open API 内の特定の Agent のチャット関連インターフェースのみを呼び出すことができ、権限はそのユーザーに属するデータのみを操作できます。
+</Warning>
+
+<Frame>
+  <img src="/images/api-reference/api_001.png" alt="Agent Token 取得の入口" />
+</Frame>
+
+<Frame>
+  <img src="/images/api-reference/api_002.png" alt="Agent Token の取得" />
+</Frame>
+
+### 個人シークレットキーの取得
+
+個人センターで個人シークレットキー（authKey / authSecret）を取得できます。
+
+<Warning>
+Open API のすべてのインターフェースを呼び出すことができますが、権限はそのユーザーに属するデータのみを操作でき、ユーザー名下のすべての Agent のチャットインターフェースを含みます。
+</Warning>
+
+<Frame>
+  <img src="/images/api-reference/api_003.png" alt="個人シークレットキー取得の入口" />
+</Frame>
+
+<Frame>
+  <img src="/images/api-reference/api_004.png" alt="個人シークレットキーの取得" />
+</Frame>
+
+## インターフェース認証方式
+
+認証方式には MD5、Bearer Token、Token の 3 種類があります。Token の値は Agent Token でも個人シークレットキーでも構いません。
+
+### MD5 方式（推奨）
+
+Header に以下のパラメータを渡します：
+
+```http
+authKey: あなたの authKey
+timestamp: ミリ秒単位のタイムスタンプ（現在時刻との差が300秒を超えないこと）
+sign: MD5({authKey}{authSecret}{timestamp})  // MD5暗号化結果は32桁の小文字を使用
+```
+
+**MD5 計算例：**
+
+仮に `authKey=123`、`authSecret=456`、`timestamp=789` とします。
+
+その場合：`sign=md5(123456789)`
+
+### Bearer Token 方式
+
+Header に以下のパラメータを渡します：
+
+```http
+Authorization: Bearer {authKey}.{authSecret}
+```
+
+<Info>`Bearer` の後に半角スペースが 1 つあることに注意してください。</Info>
+
+### Token 方式
+
+Header に以下のパラメータを渡します：
+
+```http
+token: {authKey}.{authSecret}
+```
+
+または URL のクエリパラメータで渡すこともできます：
+
+```http
+{{host}}/api/openapi/agent/chat/stream/v1?token={authKey}.{authSecret}
+```
+
+## 環境アドレス
+
+| 環境 | アドレス |
+| --- | --- |
+| パブリック - TEST 環境 | `https://test.agentspro.cn` |
+| パブリック - UAT 環境 | `https://uat.agentspro.cn` |
+| パブリック - PROD 環境 | `https://lingda.agentspro.cn` |
+| プライベート環境 | `http://{Your Base Url}/` |
+
+## インターフェースバージョンの説明
+
+| バージョン | バージョンの説明 | プラットフォームバージョン |
+| --- | --- | --- |
+| v1 | なし | ✅ 全バージョン |
+| v2 | インターフェース命名規則を統一。チャットインターフェースの `chatId` が数値型から文字列型に変更 | ✅ v1.8.0.0+ |

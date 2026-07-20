@@ -1,0 +1,280 @@
+---
+title: "ナレッジベース検索"
+---
+
+## リクエストURL
+
+```
+{{host}}/openapi/kb/search
+```
+
+## リクエストメソッド
+
+`POST`
+
+## リクエストヘッダー
+
+[インターフェース仕様](/ja-jp/api-reference/overview)を参照してください。Agent Token ❌、個人シークレットキー ✅ に対応しています。
+
+## リクエストボディパラメータ
+
+| パラメータ | 型 | 必須 | 説明 |
+| --- | --- | --- | --- |
+| `kbId` | number | はい | ナレッジベースID（例：`123`） |
+| `keywords` | string | いいえ | キーワード（例：`"智能搜索"`） |
+| `vectorSimilarLimit` | number | いいえ | ベクトル類似度のしきい値／ハイブリッド類似度（デフォルト値：`0.15`、例：`0.2`） |
+| `vectorSimilarWeight` | number | いいえ | ベクトル類似度の重み（デフォルト値：`0.72`、例：`0.8`） |
+| `topK` | number | いいえ | 取得件数（デフォルト値：`20`、例：`30`） |
+| `enableRerank` | boolean | いいえ | 再ランキングのオン/オフ、`true`/`false`、デフォルト値：`false` |
+| `expandChunks` | boolean | いいえ | コンテキストのチャンク拡張。有効にすると、ヒットしたチャンクの前後各1チャンクを同時に取得し、コンテンツの完全性を高めます。デフォルト値：`false` |
+| `expandNum` | number | いいえ | コンテキスト拡張チャンク数（デフォルト値：`1`、例：`2`） |
+| `rerankModelType` | string | いいえ | 再ランキングモデルの種類（例：`"bge-reranker-large"`） |
+| `rerankSimilarLimit` | number | いいえ | 再ランキングのしきい値（デフォルト値：`0`、例：`0.5`） |
+| `rerankTopK` | number | いいえ | 再ランキング後の取得件数（デフォルト値：`10`、例：`5`） |
+
+<Info>
+`vectorSimilarWeight`、`enableRerank`、`rerankModelType`、`rerankSimilarLimit`、`rerankTopK` など再ランキング／類似度に関連するフィールドの意味は、[ナレッジベース応用 - 高度なクエリ例](/ja-jp/advanced-development/usage-tips/knowledge-base-advanced-query)内の対応するフィールドと同じです。
+</Info>
+
+## リクエストボディの例
+
+```json
+{
+    "vectorSimilarLimit": 0.15,
+    "vectorSimilarWeight": 0.72,
+    "topK": 20,
+    "enableRerank": false,
+    "expandChunks": false,
+    "expandNum": 1,
+    "rerankModelType": "oneapi-xinference:Qwen3-Reranker-0.6B",
+    "rerankSimilarLimit": 0,
+    "rerankTopK": 10,
+    "keywords": "测试",
+    "kbId": "1827"
+}
+```
+
+## レスポンスボディ
+
+| フィールド | 説明 |
+| --- | --- |
+| `code` | レスポンス結果コード。`1` は成功、それ以外は失敗を示します |
+| `msg` | エラーメッセージ |
+| `data[]` | ナレッジベース検索結果の配列。フィールド説明は下表を参照 |
+
+### `data[]` フィールド説明
+
+| フィールド | 説明 |
+| --- | --- |
+| `q` | チャンクの内容 |
+| `a` | チャンクに対応する回答（Q&A型のチャンクにのみ値がある） |
+| `position` | 原文中でのチャンクの位置情報 |
+| `keywords` | チャンクのキーワード |
+| `imgFileKey` | チャンクに関連する画像ファイルのKey |
+| `layoutType` | レイアウトタイプ。例：`figure`（画像） |
+| `userUploadImgFiles` | ユーザーがアップロードした画像ファイル |
+| `id` | チャンクID |
+| `kbId` | 所属するナレッジベースID |
+| `dsId` | 所属するデータセットID |
+| `dataId` | データID |
+| `fileId` | ファイルID |
+| `score` | 総合スコア |
+| `dataKey` | データKey |
+| `refNum` | 参照回数 |
+| `dataNum` | データ番号 |
+| `disabled` | 無効化されているかどうか |
+| `dsInfo` | 所属するデータセット情報。フィールド説明は下表を参照 |
+| `kbInfo` | 所属するナレッジベース情報。フィールド説明は下表を参照 |
+| `approvalState` | 審査状態 |
+| `approvalId` | 審査レコードID |
+| `operateCode` | 操作種別コード |
+| `operateComment` | 操作コメント |
+| `approvalComment` | 審査コメント |
+| `approvalParams` | 審査パラメータ |
+| `fusionScore` | 融合スコア（ベクトルスコアとキーワードスコアの総合スコア） |
+| `vectorScore` | ベクトル類似度スコア |
+| `keywordScore` | キーワードマッチスコア |
+
+### `dsInfo` フィールド説明
+
+| フィールド | 説明 |
+| --- | --- |
+| `id` | データセットID |
+| `state` | 状態 |
+| `trainingState` | トレーニング状態 |
+| `kbId` | 所属するナレッジベースID |
+| `parentId` | 親ID |
+| `fileId` | ファイルID |
+| `name` | データセット名 |
+| `extJson` | 拡張情報（JSON文字列）。言語、パーサー種別などの解析設定を含む |
+| `createAt` | 作成日時 |
+| `type` | 種別：`file` ファイル、`folder` フォルダ |
+| `dataAmount` | データ量 |
+| `parserType` | パーサー種別 |
+| `taskStatus` | タスク状態 |
+| `progress` | タスク進捗 |
+| `taskId` | タスクID |
+| `allowDownload` | ダウンロードを許可するかどうか：`1` 許可、`0` 不許可 |
+| `downloadUrl` | ダウンロードURL |
+| `allowPreview` | プレビューを許可するかどうか |
+| `previewUrl` | プレビューURL |
+| `uuid` | 一意識別子 |
+| `approvalId` | 審査レコードID |
+| `approvalState` | 審査状態 |
+| `approvalCode` | 審査状態コード |
+| `operateCode` | 操作種別コード |
+| `operatorUserName` | 操作者名 |
+| `auditorUserNames` | 審査者名リスト |
+| `creatorUserName` | 作成者名 |
+| `operateComment` | 操作コメント |
+| `approvalComment` | 審査コメント |
+| `referenceCount` | 参照回数 |
+
+### `kbInfo` フィールド説明
+
+| フィールド | 説明 |
+| --- | --- |
+| `id` | ナレッジベースID |
+| `parentId` | 親ID |
+| `state` | 状態 |
+| `dataAmount` | データ量 |
+| `name` | ナレッジベース名 |
+| `description` | ナレッジベースの説明 |
+| `avatarUrl` | ナレッジベースのアイコンURL |
+| `vectorModel` | ベクトルモデル |
+| `type` | 種別。例：`kb` |
+| `tags` | タグ |
+| `ext` | ナレッジベースの拡張設定。フィールド説明は下表を参照 |
+| `virtualDsId` | 仮想データセットID |
+| `dsNum` | データセット数 |
+| `authorName` | 作成者名 |
+| `kbType` | ナレッジベース種別 |
+| `kbBtnPermission` | ボタン権限 |
+| `approvalMode` | 審査モード |
+| `approvalState` | 審査状態 |
+
+### `kbInfo.ext` フィールド説明
+
+| フィールド | 説明 |
+| --- | --- |
+| `configWay` | 設定方式。例：`auto`（自動設定） |
+| `chunkSize` | チャンクサイズ |
+| `coverageRate` | カバレッジ率 |
+| `similarity` | 類似度のしきい値 |
+| `limit` | 取得件数の上限 |
+| `agentId` | 関連するAgent ID |
+| `language` | 言語。例：`Chinese` |
+| `parserType` | パーサー種別 |
+| `contentEnhances` | コンテンツ強化オプション。例：`filename_enhance`（ファイル名強化）、`image_enhance`（画像強化） |
+| `search` | 検索設定 |
+| `parserModel` | 解析モデル |
+| `imageDescriptionModel` | 画像説明モデル |
+| `allowDownloadForNewFile` | 新規ファイルのダウンロードを許可するかどうか |
+
+## レスポンスボディの例
+
+```json
+{
+    "code": 1,
+    "msg": "操作に成功しました",
+    "data": [
+        {
+            "q": "测试通用文档解析\n1\n2\n3\n4\nbbb\nppp\naaa\nCCCC\nvwv\nXXX\nnnn\nmmm\nHTTP调用\n确定回复\n联动激活①\n联动激活①\n任一激活①\n任一激活①\n请求地址①\n回复对用户可见①\npost（可选get.post.delete.put,patch）\n请求方法+空格+请求地址\nhttps://xxx\n数据类型\ndata-typejson(可选json.form.querx)\ntoken xxx\n请求头（key+空格+value）\nheader2Key header2Value\n回复内容①\n全部请求参数\nbody参数\na:Xx,\n十添加入参\nb:xx,\n十添加出参\n①请求成功\n回复内容\n请求异常\n①模块运行结束\n请求结果\n①模块运行结束\n<img src=\"/api/fs/68b7fff9a1e0ab27c3be326d\" />",
+            "a": null,
+            "position": null,
+            "keywords": null,
+            "imgFileKey": "68b7ffb5a1e0ab27c3be3268",
+            "layoutType": "figure",
+            "userUploadImgFiles": null,
+            "id": "342504",
+            "kbId": 1827,
+            "dsId": 11406,
+            "dataId": "68b80004a1e0ab27c3be3271",
+            "fileId": "68b7f8c8a1e0ab27c3be31fb",
+            "score": 0.4908423976893971,
+            "dataKey": null,
+            "refNum": null,
+            "dataNum": null,
+            "disabled": null,
+            "dsInfo": {
+                "id": 11406,
+                "state": 1,
+                "trainingState": 2,
+                "kbId": 1827,
+                "parentId": 0,
+                "fileId": "6855050156c8f3068affe6dd",
+                "name": "测试通用文档解析.docx",
+                "extJson": "{\"locale\": \"zh_CN\", \"parserType\": \"general\", \"parserTypeExt\": {\"pages\": [[1, 1024]], \"delimiter\": \"\\\\n!?。；！？\", \"taskPageSize\": 10, \"chunkTokenNum\": 512, \"enableDocToPdf\": true, \"transferFileId\": \"68b7f8c8a1e0ab27c3be31fb\", \"layoutRecognize\": true}}",
+                "createAt": "2025-09-03 16:13:43",
+                "type": "file",
+                "dataAmount": 1,
+                "parserType": null,
+                "taskStatus": null,
+                "progress": null,
+                "taskId": null,
+                "allowDownload": 1,
+                "downloadUrl": null,
+                "allowPreview": null,
+                "previewUrl": null,
+                "uuid": "fa38860c2e644aaa99745bbaa005babf6sn6agsp",
+                "approvalId": null,
+                "approvalState": null,
+                "approvalCode": null,
+                "operateCode": null,
+                "operatorUserName": null,
+                "auditorUserNames": null,
+                "creatorUserName": null,
+                "operateComment": null,
+                "approvalComment": null,
+                "referenceCount": 7
+            },
+            "kbInfo": {
+                "id": 1827,
+                "parentId": 0,
+                "state": 1,
+                "dataAmount": 1,
+                "name": "测试知识库切片2",
+                "description": "1111",
+                "avatarUrl": "/assets/avatar/63.png",
+                "vectorModel": "oneapi-xinference:bce-embedding",
+                "type": "kb",
+                "tags": null,
+                "ext": {
+                    "configWay": "auto",
+                    "chunkSize": 512,
+                    "coverageRate": 0.15,
+                    "similarity": 0.5,
+                    "limit": 1,
+                    "agentId": null,
+                    "language": "Chinese",
+                    "parserType": "custom",
+                    "contentEnhances": [
+                        "filename_enhance",
+                        "image_enhance"
+                    ],
+                    "search": null,
+                    "parserModel": "marker_pdf2md",
+                    "imageDescriptionModel": "glm-4v",
+                    "allowDownloadForNewFile": true
+                },
+                "virtualDsId": null,
+                "dsNum": null,
+                "authorName": null,
+                "kbType": 1,
+                "kbBtnPermission": null,
+                "approvalMode": null,
+                "approvalState": null
+            },
+            "approvalState": null,
+            "approvalId": null,
+            "operateCode": null,
+            "operateComment": null,
+            "approvalComment": null,
+            "approvalParams": null,
+            "fusionScore": 0.4908423976893971,
+            "vectorScore": 0.39342580516030723,
+            "keywordScore": 0.7413422070499137
+        }
+    ]
+}
+```

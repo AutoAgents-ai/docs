@@ -1,0 +1,223 @@
+---
+title: "データセット一覧の取得"
+---
+
+## リクエストURL
+
+```
+{{host}}/openapi/kb/ds/query
+```
+
+## リクエストメソッド
+
+`POST`
+
+## リクエストヘッダー
+
+[インターフェース仕様](/ja-jp/api-reference/overview)を参照してください。Agent Token ❌、個人シークレットキー ✅ に対応しています。
+
+## リクエストボディパラメータ
+
+| パラメータ | 型 | 必須 | 説明 |
+| --- | --- | --- | --- |
+| `kbId` | number | はい | ナレッジベースID（例：`123`） |
+| `pageNum` | number | いいえ | ページ番号 |
+| `pageSize` | number | いいえ | ページあたりの件数 |
+| `parentId` | number | いいえ | 親ID。指定フォルダ配下のデータセットを検索する際に使用 |
+| `keywords` | string | いいえ | データセット名 |
+| `fileIds` | array | いいえ | ファイルIDリスト（例：`["file_001", "file_002", "file_003"]`） |
+| `dsIds` | array | いいえ | データセットIDリスト（例：`[1001, 1002, 1003, 1004]`） |
+| `taskStatus` | number | いいえ | タスク状態：`0` 未実行、`1` 実行中、`2` 実行成功、`3` 実行失敗、`4` キャンセル済み |
+| `approvalState` | number | いいえ | 審査状態：`1` 審査中、`2` 承認済み、`3` 拒否済み、`4` キャンセル済み |
+| `notSelf` | boolean | いいえ | 自分が作成したデータセットを除外するかどうか（例：`false`） |
+
+## リクエストボディの例
+
+```json
+{
+  "pageNum": 1,
+  "pageSize": 20,
+  "keywords": "機械学習データセット",
+  "kbId": 123,
+  "parentId": 456,
+  "fileIds": [
+    "file_001",
+    "file_002",
+    "file_003"
+  ],
+  "dsIds": [
+    1001,
+    1002,
+    1003,
+    1004
+  ],
+  "taskStatus": 1,
+  "approvalState": 2,
+  "notSelf": false
+}
+```
+
+## レスポンスボディ
+
+| フィールド | 説明 |
+| --- | --- |
+| `code` | レスポンス結果コード。`1` は成功、それ以外は失敗を示します |
+| `msg` | エラーメッセージ |
+| `data.pageNum` | 現在のページ番号 |
+| `data.pageSize` | ページあたりの件数 |
+| `data.count` | 総件数を集計するかどうか |
+| `data.total` | 総レコード数 |
+| `data.isFirstPage` | 最初のページかどうか |
+| `data.isLastPage` | 最後のページかどうか |
+| `data.list[]` | データセットリスト。フィールド説明は下表を参照 |
+
+### `data.list[]` フィールド説明
+
+| フィールド | 説明 |
+| --- | --- |
+| `id` | データセットID |
+| `state` | 状態 |
+| `trainingState` | トレーニング状態 |
+| `kbId` | 所属するナレッジベースID |
+| `parentId` | 親ID |
+| `fileId` | ファイルID |
+| `name` | データセット名 |
+| `extJson` | 拡張情報（JSON文字列）。説明やタグなど |
+| `createAt` | 作成日時 |
+| `type` | 種別：`file` ファイル、`folder` フォルダ |
+| `dataAmount` | データ量 |
+| `parserType` | パーサー種別 |
+| `taskStatus` | タスク状態。値の意味は前述のリクエストボディパラメータを参照 |
+| `progress` | タスク進捗 |
+| `taskId` | タスクID |
+| `allowDownload` | ダウンロードを許可するかどうか：`1` 許可、`0` 不許可 |
+| `downloadUrl` | ダウンロードURL |
+| `allowPreview` | プレビューを許可するかどうか：`1` 許可、`0` 不許可 |
+| `previewUrl` | プレビューURL |
+| `uuid` | 一意識別子 |
+| `approvalId` | 審査レコードID |
+| `approvalState` | 審査状態。値の意味は前述のリクエストボディパラメータを参照 |
+| `approvalCode` | 審査状態コード |
+| `operateCode` | 操作種別コード |
+| `operatorUserName` | 操作者名 |
+| `auditorUserNames` | 審査者名リスト |
+| `creatorUserName` | 作成者名 |
+| `operateComment` | 操作コメント |
+| `approvalComment` | 審査コメント |
+| `referenceCount` | 参照回数 |
+
+## レスポンスボディの例
+
+```json
+{
+  "code": 1,
+  "msg": "操作に成功しました",
+  "data": {
+    "pageNum": 1,
+    "pageSize": 20,
+    "count": true,
+    "list": [
+      {
+        "id": 1001,
+        "state": 1,
+        "trainingState": 2,
+        "kbId": 123,
+        "parentId": 456,
+        "fileId": "file_001",
+        "name": "機械学習データセット",
+        "extJson": "{\"description\":\"包含各种机器学习算法的训练数据\",\"tags\":[\"AI\",\"机器学习\"]}",
+        "createAt": "2024-01-15T10:30:00",
+        "type": "file",
+        "dataAmount": 1500,
+        "parserType": "pdf_parser",
+        "taskStatus": 2,
+        "progress": "100%",
+        "taskId": 2001,
+        "allowDownload": 1,
+        "downloadUrl": "https://example.com/download/file_001.pdf",
+        "allowPreview": 1,
+        "previewUrl": "https://example.com/preview/file_001",
+        "uuid": "550e8400-e29b-41d4-a716-446655440001",
+        "approvalId": 3001,
+        "approvalState": 2,
+        "approvalCode": "APPROVED",
+        "operateCode": "CREATE",
+        "operatorUserName": "張三",
+        "auditorUserNames": ["李四", "王五"],
+        "creatorUserName": "張三",
+        "operateComment": "新しい機械学習データセットを作成",
+        "approvalComment": "データセットの品質が良好で、審査を通過しました",
+        "referenceCount": 15
+      },
+      {
+        "id": 1002,
+        "state": 1,
+        "trainingState": 1,
+        "kbId": 123,
+        "parentId": 456,
+        "fileId": "file_002",
+        "name": "自然言語処理コーパス",
+        "extJson": "{\"description\":\"中文自然语言处理训练语料\",\"tags\":[\"NLP\",\"中文\"]}",
+        "createAt": "2024-01-16T14:20:00",
+        "type": "file",
+        "dataAmount": 2500,
+        "parserType": "text_parser",
+        "taskStatus": 1,
+        "progress": "65%",
+        "taskId": 2002,
+        "allowDownload": 1,
+        "downloadUrl": "https://example.com/download/file_002.txt",
+        "allowPreview": 1,
+        "previewUrl": "https://example.com/preview/file_002",
+        "uuid": "550e8400-e29b-41d4-a716-446655440002",
+        "approvalId": 3002,
+        "approvalState": 1,
+        "approvalCode": "PENDING",
+        "operateCode": "CREATE",
+        "operatorUserName": "趙六",
+        "auditorUserNames": ["李四"],
+        "creatorUserName": "趙六",
+        "operateComment": "NLPコーパスファイルをアップロード",
+        "approvalComment": null,
+        "referenceCount": 8
+      },
+      {
+        "id": 1003,
+        "state": 1,
+        "trainingState": 2,
+        "kbId": 123,
+        "parentId": 456,
+        "fileId": null,
+        "name": "データセットフォルダ",
+        "extJson": "{\"description\":\"包含多个相关数据集的文件夹\"}",
+        "createAt": "2024-01-14T09:15:00",
+        "type": "folder",
+        "dataAmount": 0,
+        "parserType": null,
+        "taskStatus": null,
+        "progress": null,
+        "taskId": null,
+        "allowDownload": 0,
+        "downloadUrl": null,
+        "allowPreview": 0,
+        "previewUrl": null,
+        "uuid": "550e8400-e29b-41d4-a716-446655440003",
+        "approvalId": null,
+        "approvalState": null,
+        "approvalCode": null,
+        "operateCode": null,
+        "operatorUserName": null,
+        "auditorUserNames": null,
+        "creatorUserName": "張三",
+        "operateComment": null,
+        "approvalComment": null,
+        "referenceCount": 0
+      }
+    ],
+    "total": 3,
+    "attributes": {},
+    "isFirstPage": true,
+    "isLastPage": true
+  }
+}
+```

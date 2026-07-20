@@ -1,0 +1,280 @@
+---
+title: "Knowledge Base Retrieval"
+---
+
+## Request URL
+
+```
+{{host}}/openapi/kb/search
+```
+
+## Request Method
+
+`POST`
+
+## Request Headers
+
+Refer to the [API Specification](/en/api-reference/overview); supports ❌ Agent Token, ✅ personal API key.
+
+## Request Body Parameters
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| `kbId` | number | Yes | Knowledge base ID (example value: `123`) |
+| `keywords` | string | No | Keywords (example value: `"smart search"`) |
+| `vectorSimilarLimit` | number | No | Vector similarity threshold / hybrid similarity (default: `0.15`, example value: `0.2`) |
+| `vectorSimilarWeight` | number | No | Vector similarity weight (default: `0.72`, example value: `0.8`) |
+| `topK` | number | No | Number of results to retrieve (default: `20`, example value: `30`) |
+| `enableRerank` | boolean | No | Reranking switch, `true`/`false`, default: `false` |
+| `expandChunks` | boolean | No | Expand context chunks; when enabled, the chunk immediately before and after the matched chunk is also retrieved to improve content completeness, default: `false` |
+| `expandNum` | number | No | Number of expanded context chunks (default: `1`, example value: `2`) |
+| `rerankModelType` | string | No | Reranking model type (example value: `"bge-reranker-large"`) |
+| `rerankSimilarLimit` | number | No | Reranking threshold (default: `0`, example value: `0.5`) |
+| `rerankTopK` | number | No | Number of results to retrieve after reranking (default: `10`, example value: `5`) |
+
+<Info>
+Fields such as `vectorSimilarWeight`, `enableRerank`, `rerankModelType`, `rerankSimilarLimit`, and `rerankTopK`, which relate to reranking/similarity, have the same meaning as the corresponding fields in [Knowledge Base Advanced Topics - Advanced Query Example](/en/advanced-development/usage-tips/knowledge-base-advanced-query).
+</Info>
+
+## Request Body Example
+
+```json
+{
+    "vectorSimilarLimit": 0.15,
+    "vectorSimilarWeight": 0.72,
+    "topK": 20,
+    "enableRerank": false,
+    "expandChunks": false,
+    "expandNum": 1,
+    "rerankModelType": "oneapi-xinference:Qwen3-Reranker-0.6B",
+    "rerankSimilarLimit": 0,
+    "rerankTopK": 10,
+    "keywords": "test",
+    "kbId": "1827"
+}
+```
+
+## Response Body
+
+| Field | Description |
+| --- | --- |
+| `code` | Response result code; `1` indicates success, any other value indicates failure |
+| `msg` | Error message |
+| `data[]` | Array of knowledge base retrieval results; see the table below for field descriptions |
+
+### `data[]` Field Description
+
+| Field | Description |
+| --- | --- |
+| `q` | Chunk content |
+| `a` | Answer corresponding to the chunk (only populated for Q&A-type chunks) |
+| `position` | Positional information of the chunk within the original document |
+| `keywords` | Keywords of the chunk |
+| `imgFileKey` | Key of the image file associated with the chunk |
+| `layoutType` | Layout type, for example `figure` for an image |
+| `userUploadImgFiles` | Image files uploaded by the user |
+| `id` | Chunk ID |
+| `kbId` | ID of the knowledge base this chunk belongs to |
+| `dsId` | ID of the dataset this chunk belongs to |
+| `dataId` | Data ID |
+| `fileId` | File ID |
+| `score` | Overall score |
+| `dataKey` | Data key |
+| `refNum` | Number of references |
+| `dataNum` | Data number |
+| `disabled` | Whether disabled |
+| `dsInfo` | Information about the dataset this chunk belongs to; see the table below for field descriptions |
+| `kbInfo` | Information about the knowledge base this chunk belongs to; see the table below for field descriptions |
+| `approvalState` | Approval status |
+| `approvalId` | Approval record ID |
+| `operateCode` | Operation type code |
+| `operateComment` | Operation remarks |
+| `approvalComment` | Review comments |
+| `approvalParams` | Approval parameters |
+| `fusionScore` | Fusion score (an overall score combining the vector score and keyword score) |
+| `vectorScore` | Vector similarity score |
+| `keywordScore` | Keyword match score |
+
+### `dsInfo` Field Description
+
+| Field | Description |
+| --- | --- |
+| `id` | Dataset ID |
+| `state` | Status |
+| `trainingState` | Training status |
+| `kbId` | ID of the knowledge base this dataset belongs to |
+| `parentId` | Parent ID |
+| `fileId` | File ID |
+| `name` | Dataset name |
+| `extJson` | Extension information (JSON string), including parsing configuration such as language and parser type |
+| `createAt` | Creation time |
+| `type` | Type: `file` for a file, `folder` for a folder |
+| `dataAmount` | Amount of data |
+| `parserType` | Parser type |
+| `taskStatus` | Task status |
+| `progress` | Task progress |
+| `taskId` | Task ID |
+| `allowDownload` | Whether download is allowed: `1` allowed, `0` not allowed |
+| `downloadUrl` | Download URL |
+| `allowPreview` | Whether preview is allowed |
+| `previewUrl` | Preview URL |
+| `uuid` | Unique identifier |
+| `approvalId` | Approval record ID |
+| `approvalState` | Approval status |
+| `approvalCode` | Approval status code |
+| `operateCode` | Operation type code |
+| `operatorUserName` | Name of the operator |
+| `auditorUserNames` | List of reviewer names |
+| `creatorUserName` | Name of the creator |
+| `operateComment` | Operation remarks |
+| `approvalComment` | Review comments |
+| `referenceCount` | Number of references |
+
+### `kbInfo` Field Description
+
+| Field | Description |
+| --- | --- |
+| `id` | Knowledge base ID |
+| `parentId` | Parent ID |
+| `state` | Status |
+| `dataAmount` | Amount of data |
+| `name` | Knowledge base name |
+| `description` | Knowledge base description |
+| `avatarUrl` | Knowledge base avatar URL |
+| `vectorModel` | Vector model |
+| `type` | Type, for example `kb` |
+| `tags` | Tags |
+| `ext` | Knowledge base extension configuration; see the table below for field descriptions |
+| `virtualDsId` | Virtual dataset ID |
+| `dsNum` | Number of datasets |
+| `authorName` | Name of the creator |
+| `kbType` | Knowledge base type |
+| `kbBtnPermission` | Button permissions |
+| `approvalMode` | Approval mode |
+| `approvalState` | Approval status |
+
+### `kbInfo.ext` Field Description
+
+| Field | Description |
+| --- | --- |
+| `configWay` | Configuration method, for example `auto` for automatic configuration |
+| `chunkSize` | Chunk size |
+| `coverageRate` | Coverage rate |
+| `similarity` | Similarity threshold |
+| `limit` | Limit on the number of results retrieved |
+| `agentId` | ID of the associated Agent |
+| `language` | Language, for example `Chinese` |
+| `parserType` | Parser type |
+| `contentEnhances` | Content enhancement options, for example `filename_enhance` for filename enhancement, `image_enhance` for image enhancement |
+| `search` | Retrieval configuration |
+| `parserModel` | Parsing model |
+| `imageDescriptionModel` | Image description model |
+| `allowDownloadForNewFile` | Whether new files are allowed to be downloaded |
+
+## Response Body Example
+
+```json
+{
+    "code": 1,
+    "msg": "Operation succeeded",
+    "data": [
+        {
+            "q": "测试通用文档解析\n1\n2\n3\n4\nbbb\nppp\naaa\nCCCC\nvwv\nXXX\nnnn\nmmm\nHTTP调用\n确定回复\n联动激活①\n联动激活①\n任一激活①\n任一激活①\n请求地址①\n回复对用户可见①\npost（可选get.post.delete.put,patch）\n请求方法+空格+请求地址\nhttps://xxx\n数据类型\ndata-typejson(可选json.form.querx)\ntoken xxx\n请求头（key+空格+value）\nheader2Key header2Value\n回复内容①\n全部请求参数\nbody参数\na:Xx,\n十添加入参\nb:xx,\n十添加出参\n①请求成功\n回复内容\n请求异常\n①模块运行结束\n请求结果\n①模块运行结束\n<img src=\"/api/fs/68b7fff9a1e0ab27c3be326d\" />",
+            "a": null,
+            "position": null,
+            "keywords": null,
+            "imgFileKey": "68b7ffb5a1e0ab27c3be3268",
+            "layoutType": "figure",
+            "userUploadImgFiles": null,
+            "id": "342504",
+            "kbId": 1827,
+            "dsId": 11406,
+            "dataId": "68b80004a1e0ab27c3be3271",
+            "fileId": "68b7f8c8a1e0ab27c3be31fb",
+            "score": 0.4908423976893971,
+            "dataKey": null,
+            "refNum": null,
+            "dataNum": null,
+            "disabled": null,
+            "dsInfo": {
+                "id": 11406,
+                "state": 1,
+                "trainingState": 2,
+                "kbId": 1827,
+                "parentId": 0,
+                "fileId": "6855050156c8f3068affe6dd",
+                "name": "测试通用文档解析.docx",
+                "extJson": "{\"locale\": \"zh_CN\", \"parserType\": \"general\", \"parserTypeExt\": {\"pages\": [[1, 1024]], \"delimiter\": \"\\\\n!?。；！？\", \"taskPageSize\": 10, \"chunkTokenNum\": 512, \"enableDocToPdf\": true, \"transferFileId\": \"68b7f8c8a1e0ab27c3be31fb\", \"layoutRecognize\": true}}",
+                "createAt": "2025-09-03 16:13:43",
+                "type": "file",
+                "dataAmount": 1,
+                "parserType": null,
+                "taskStatus": null,
+                "progress": null,
+                "taskId": null,
+                "allowDownload": 1,
+                "downloadUrl": null,
+                "allowPreview": null,
+                "previewUrl": null,
+                "uuid": "fa38860c2e644aaa99745bbaa005babf6sn6agsp",
+                "approvalId": null,
+                "approvalState": null,
+                "approvalCode": null,
+                "operateCode": null,
+                "operatorUserName": null,
+                "auditorUserNames": null,
+                "creatorUserName": null,
+                "operateComment": null,
+                "approvalComment": null,
+                "referenceCount": 7
+            },
+            "kbInfo": {
+                "id": 1827,
+                "parentId": 0,
+                "state": 1,
+                "dataAmount": 1,
+                "name": "测试知识库切片2",
+                "description": "1111",
+                "avatarUrl": "/assets/avatar/63.png",
+                "vectorModel": "oneapi-xinference:bce-embedding",
+                "type": "kb",
+                "tags": null,
+                "ext": {
+                    "configWay": "auto",
+                    "chunkSize": 512,
+                    "coverageRate": 0.15,
+                    "similarity": 0.5,
+                    "limit": 1,
+                    "agentId": null,
+                    "language": "Chinese",
+                    "parserType": "custom",
+                    "contentEnhances": [
+                        "filename_enhance",
+                        "image_enhance"
+                    ],
+                    "search": null,
+                    "parserModel": "marker_pdf2md",
+                    "imageDescriptionModel": "glm-4v",
+                    "allowDownloadForNewFile": true
+                },
+                "virtualDsId": null,
+                "dsNum": null,
+                "authorName": null,
+                "kbType": 1,
+                "kbBtnPermission": null,
+                "approvalMode": null,
+                "approvalState": null
+            },
+            "approvalState": null,
+            "approvalId": null,
+            "operateCode": null,
+            "operateComment": null,
+            "approvalComment": null,
+            "approvalParams": null,
+            "fusionScore": 0.4908423976893971,
+            "vectorScore": 0.39342580516030723,
+            "keywordScore": 0.7413422070499137
+        }
+    ]
+}
+```

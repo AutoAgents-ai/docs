@@ -1,0 +1,57 @@
+---
+title: "消息赞/踩接口"
+---
+
+## 请求地址
+
+```
+{{host}}/openapi/agents/likeViewDislike
+```
+
+或
+
+```
+{{host}}/openapi/v2/agents/likeViewDislike
+```
+
+## 请求方式
+
+`POST`
+
+## 请求Header
+
+参考[接口规范](/zh-hans/api-reference/overview)；支持 ✅ Agent Token、✅ 个人秘钥。
+
+## 请求体参数
+
+| 参数 | 类型 | 必填 | 说明 |
+| --- | --- | --- | --- |
+| `id` | string | 是 | 消息唯一标识，对应对话接口返回的 `messageId` 字段 |
+| `lvdStatus` | string | 是 | 赞踩状态，可选值：`thumbUp`（赞）、`thumbDown`（踩）、`none`（取消赞踩） |
+| `agentId` | string | 是 | Agent ID，用于用户认证校验 |
+
+## 请求体示例
+
+```json
+{
+  "id": "673455996951a946c05c401a", // messageId
+  "lvdStatus": "thumbUp",
+  "agentId": "f9df7cafef2d44ce9e6b0316ca6c3b1a"
+}
+```
+
+## 响应体说明
+
+| 字段 | 说明 |
+| --- | --- |
+| `code` | 响应结果码，`1` 表示成功；其他表示失败，具体错误信息见 `msg` |
+
+## 响应体示例
+
+```json
+{
+  "code": 1,
+  "msg": "操作成功",
+  "data": null
+}
+```

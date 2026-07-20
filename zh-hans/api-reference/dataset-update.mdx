@@ -1,0 +1,63 @@
+---
+title: "变更数据集并开始任务"
+---
+
+## 请求地址
+
+```
+{{host}}/openapi/kb/modifyDsAndTask
+```
+
+## 请求方式
+
+`POST`
+
+## 请求 Header
+
+参考[接口规范](/zh-hans/api-reference/overview)；不支持 ❌ Agent Token，仅支持 ✅ 个人秘钥。
+
+<Warning>
+本接口仅支持使用个人秘钥（`authKey` / `authSecret`）鉴权调用，不支持使用 Agent Token 调用。
+</Warning>
+
+## 请求体参数
+
+| 参数 | 类型 | 必填 | 说明 |
+| --- | --- | --- | --- |
+| `id` | number | 是 | 待变更的数据集 ID（[创建数据集并开始任务](/zh-hans/api-reference/dataset-create)接口返回的 `dsId`） |
+| `fileId` | string | 是 | 上传文件的 ID（通过[文件上传接口](/zh-hans/api-reference/file-upload)获取） |
+| `name` | string | 是 | 数据集名称 |
+| `extJson` | string (JSON) | 否 | 扩展字段，JSON 字符串格式，用于设置切片解析方法等（可参考[创建数据集并开始任务](/zh-hans/api-reference/dataset-create#请求体参数)中的解析配置） |
+
+## 请求体示例
+
+```json
+{
+    "id": 123,
+    "fileId": "67dccd3ae1138d0f6d12ca6a",
+    "name": "数据集名称",
+    "extJson": "{}"
+}
+```
+
+## 响应体说明
+
+| 字段 | 说明 |
+| --- | --- |
+| `code` | 响应结果码，`1` 表示成功，其他表示失败 |
+| `msg` | 错误消息 |
+| `data` | 变更后的数据集 ID |
+
+## 响应体示例
+
+```json
+{
+    "code": 1,
+    "msg": "操作成功",
+    "data": 123
+}
+```
+
+<Info>
+如需删除数据集，请使用[删除数据集](/zh-hans/api-reference/dataset-delete)接口。
+</Info>

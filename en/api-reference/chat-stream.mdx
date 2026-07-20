@@ -1,0 +1,219 @@
+---
+title: "Agent Chat Streaming API"
+---
+
+## Request URL
+
+```
+{{host}}/openapi/agents/chat/stream/v1
+```
+
+or
+
+```
+{{host}}/openapi/v2/chat/stream
+```
+
+## Request Method
+
+`POST`
+
+## Request Headers
+
+Refer to the authentication section of the [API Specification](/en/api-reference/overview); supports ✅ Agent Token, ✅ personal credentials.
+
+| Header | Description |
+| --- | --- |
+| `X-username` | `{Your UserName}`, the user's login name, optional. When passed, the system will call the API on behalf of this login name, and access logs, etc. will be recorded under this username. If not passed, the Token owner is used by default as the recorded caller identity. (v1.9.3+) |
+
+## Request Body Parameters
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| `agentId` | string | Yes | Agent UUID |
+| `chatId` | string | No | Conversation ID, optional; leave empty for the first session. To retain context in subsequent sessions, include the `chatId` from the previous session's streaming response body in the next request |
+| `userChatInput` | string | Yes | User input |
+| `state` | object | No | Environment variable parameters passed in; keys/values are defined by the caller. Agent orchestration can access the corresponding parameter via `{{_state.yourKey}}`, e.g. `{"yourKey1":"yourValue1","yourKey2":"yourValue2"}` |
+| `buttonKey` | string | No | Button name or button ID |
+| `images` | array | No | Image question parameters; supports passing an image URL or a Data URI (supported by the AI chat component and image question component; not supported by other components), e.g. `[{"url":"http://imageUrl"}]` |
+| `files` | array | No | Document Q&A / document review; see example below |
+| `formData` | object | No | Form input; `formConfig` represents the form's display configuration, and `values` represents the user's key-value input, where each key corresponds to a key in `fields` within the display configuration |
+| `debug` | boolean | No | Whether to enable debug mode, default `false`. When enabled, detailed request parameters, response parameters, and exception information are logged for every request, which can generate a large amount of data; if disabled, only information for failed calls is logged. It is recommended to set this to `false` or leave it unset in production environments |
+
+`files` example:
+
+```json
+[
+  {
+    "fileId": "66979252197ded4838301ac4", // either fileId or fileUrl is required
+    "fileName": "Bid Announcement.docx", // if omitted, it will be derived from the download URL
+    "fileUrl": "https://test.agentspro.cn/api/fs/66979252197ded4838301ac4", // either fileId or fileUrl is required
+    "groupName": "Bid Announcement" // optional; only set for file comparison
+  },
+  {
+    "fileId": "66979252197ded4838301ac5",
+    "fileName": "Technical Contract.docx",
+    "fileUrl": "https://test.agentspro.cn/api/fs/66979252197ded4838301ac5",
+    "groupName": "Contract Files"
+  }
+]
+```
+
+`formData` example (simplified):
+
+```json
+{
+  "formUuid": "form_0135cf5de6f7",
+  "formCode": "axiba",
+  "formConfig": {
+    "uuid": "form_0135cf5de6f7",
+    "enable": true,
+    "formName": "Test Form",
+    "formCode": "axiba",
+    "type": "fix",
+    "layout": { "columns": 1 },
+    "llm": {
+      "autofill": true,
+      "model": "qwq-32b",
+      "formPrompt": "",
+      "fillPrompt": "Automatically fill in Zhang San and Tuesday",
+      "historyCount": 4
+    },
+    "fields": [
+      {
+        "id": "f_fb496602c5",
+        "key": "input",
+        "label": "Field label",
+        "type": "text",
+        "required": true,
+        "placeholder": "Field label",
+        "defaultValue": "",
+        "settings": { "minLength": 0, "maxLength": 100 }
+      }
+    ]
+  },
+  "values": {
+    "input": "test"
+  },
+  "submitTime": 1781595068325
+}
+```
+
+<Info>
+Supported form field types: `text`, `number`, `textarea`, `select`, `multiSelect`, `checkbox`, `radio`, `switch`, `slider`, `datetime`, `file`, `image`, etc.
+</Info>
+
+## Request Body Example
+
+```json
+{
+    "agentId":"a2207c2f6d3d44d2b4a5dae5b5593750",
+    "chatId": null,
+    "userChatInput":"What is the internet",// text input
+    "images":[{"url":"your image url here"}], // image input
+    "files":[],
+    // content in state is returned unchanged
+    "state":{
+        "yourKey1":"yourValue1",
+        "yourKey2":"yourValue2"
+    },
+    "buttonKey":"button id or name",
+    "debug":false,
+    "model": "model-id"
+}
+```
+
+## Streaming Response Body
+
+The response is an SSE stream; each line starts with `data:` and carries a JSON object.
+
+| Field | Description |
+| --- | --- |
+| `chatId` | Conversation ID |
+| `conversationId` | Current session ID; one conversation may contain multiple sessions |
+| `messageId` | Message ID identifying a reply message, which can be used for like/dislike feedback; has a value when `complete=true&finish=false` |
+| `type` | Message type, see table below |
+| `componentName` | Name of the current component |
+| `content` | Streamed content; the format varies with `type` |
+| `reasoningContent` | Reasoning/thinking content; only returned by reasoning models (e.g. deepseek-R1) |
+| `thinkingElapsedMillSecs` | Time spent reasoning, in milliseconds; only returned by reasoning models |
+| `complete` | `true` indicates that a particular reply within a streaming session has ended (a single session may contain multiple replies) |
+| `finish` | `true` indicates that the entire streaming session request has ended |
+| `status` | Message status: `1` normal message, `0` failed message, `-1` exception message |
+| `role` | The role of the current message, generally user info or Agent info (avatar, name, etc.) |
+| `bill` | Token consumption for a reply within the streaming session that has ended (`complete=true`) |
+| `referenceType` | Reference type: `web_search` web search, `kb_search` knowledge base search, `kb_search_img_list` knowledge base image search |
+| `reference` | Reference content; the format varies with `referenceType` |
+| `references` | `Map<$referenceType, $reference>`; when a single call produces multiple types of reference content, they are merged into this combined output, with the key being the reference type and the value being the reference content. Streaming APIs generally do not merge output this way, while non-streaming APIs may |
+
+### `type` Values
+
+| Value | Description |
+| --- | --- |
+| `text` | Plain text |
+| `markdown` | Markdown format |
+| `pic` | Image address, typically used for text-to-image |
+| `buttons` | Button message from orchestration, which may also include a form |
+| `feedback` | Feedback, typically used in multi-Agent collaboration to report an Agent's result status for subsequent processing; see the [Agent Feedback API](/en/api-reference/agent-feedback) |
+| `chart` | Visualization chart information for SQL query results |
+| `table` | Result information from an SQL query |
+| `result_file` | Generated file |
+
+`buttons` example:
+
+```json
+{"buttonConfigs":[{"label":"退出业务流程","key":"e09b35e8-23f2-412c-8b53-5e45032afe9c"}],"fileContrast":false,"fileReview":false,"inputText":true,"uploadFile":false,"uploadImage":false}
+```
+
+`feedback` example:
+
+```json
+{"feedbackKey":"@.w3e20s0f8as08x","contentTitle":"对本次回复是否满意？","restartTitle":"不满意，从头开始","loopTitle":"继续本轮对话","overTitle":"满意，结束本轮会话"}
+```
+
+`bill` example:
+
+```json
+{"billType":"chat","completionTokens":211,"model":"SkyChat-MegaVerse","promptTokens":461,"totalTokens":672}
+```
+
+`role` example:
+
+```json
+{"id": "afdba586a252468d8b3db2bd2a1320fb","name": "开发测试","avatar":"http://x.x.x.x/api/fs/6606960e2e0bcb3ec15a3024.png"}
+```
+
+`reference` (`kb_search`) example:
+
+```json
+[{"fileName":"用户指南(附实例).pdf","fileType":"pdf","fileUrl":"http://x.x.x.x/api/fs/6602576e480c49509222f2c","kbAvatar":"Mybatis","kbName":"/assets/avatar/1.png","score":0.7309842270543954}]
+```
+
+`references` (merged multiple references) example:
+
+```json
+{
+  "kb_search": [{"fileName":"用户指南(附实例).pdf","fileType":"pdf","fileUrl":"http://x.x.x.x/api/fs/6602576e480c49509222f2c","kbAvatar":"Mybatis","kbName":"/assets/avatar/1.png","score":0.7309842270543954}],
+  "kb_search_img_list":[{"fileName":"sdiwoe.png","fileType":"png","fileUrl":"http://x.x.x.x/api/fs/6602576e480c49509222f2c"}]
+}
+```
+
+## Streaming Response Body Example
+
+```
+data:{"chatId":2088,"complete":false,"finish": false, "content":"互","conversationId":"5923e893a0a24e1b8f0025818249cfea","messageId":"5923e893a0a24e1b8f0025818249cfea","role": {"id": "afdba586a252468d8b3db2bd2a1320fb","name": "开发测试","avatar":"http://x.x.x.x/api/fs/6606960e2e0bcb3ec15a3024.png"},"type":"text"}
+
+data:{"chatId":2088,"complete":false,"finish": false, "content":"联","conversationId":"5923e893a0a24e1b8f0025818249cfea","messageId":"5923e893a0a24e1b8f0025818249cfea","role": {"id": "afdba586a252468d8b3db2bd2a1320fb","name": "开发测试","avatar":"http://x.x.x.x/api/fs/6606960e2e0bcb3ec15a3024.png"},"type":"text"}
+
+......omitted
+
+// a particular reply has ended (the same session may have multiple replies) complete:true
+data:{"chatId":2088,"complete":true,"finish": false, "content":"。","conversationId":"5923e893a0a24e1b8f0025818249cfea","messageId":"5923e893a0a24e1b8f0025818249cfea","role": {"id": "afdba586a252468d8b3db2bd2a1320fb","name": "开发测试","avatar":"http://x.x.x.x/api/fs/6606960e2e0bcb3ec15a3024.png"},"type":"text"}
+
+// session ended: finish:true
+data:{"chatId":2088,"complete":true,"finish": true, "content":"","conversationId":"5923e893a0a24e1b8f0025818249cfea","messageId":"5923e893a0a24e1b8f0025818249cfea","role": {"id": "afdba586a252468d8b3db2bd2a1320fb","name": "开发测试","avatar":"http://x.x.x.x/api/fs/6606960e2e0bcb3ec15a3024.png"},"type":"text"}
+```
+
+<Info>
+The request parameters for the non-streaming (sync/async) versions are largely the same as this API. For the main differences, see the [Agent Chat Non-Streaming API (Sync)](/en/api-reference/chat-sync) and [Agent Chat Non-Streaming API (Async)](/en/api-reference/chat-async).
+</Info>

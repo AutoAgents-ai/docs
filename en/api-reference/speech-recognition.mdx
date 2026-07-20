@@ -1,0 +1,45 @@
+---
+title: "Speech Recognition"
+---
+
+## Request URL
+
+```
+{{host}}/openapi/voice/recognize
+```
+
+## Request Method
+
+`POST`
+
+## Request Headers
+
+Refer to the [API Specification](/en/api-reference/overview); supports ❌ Agent Token, ✅ personal API key.
+
+<Info>
+This endpoint requires the `Content-Type: multipart/form-data` header.
+</Info>
+
+## Request Parameters
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| `file` | file | Yes | The uploaded audio file, in `wav` format, 16kHz, mono channel |
+
+## Response Body
+
+| Field | Description |
+| --- | --- |
+| `code` | Response result code; `1` indicates success, any other value indicates failure |
+| `msg` | Error message |
+| `data` | Speech recognition result text |
+
+## Response Body Example
+
+```json
+{
+    "code": 1,
+    "msg": "Operation succeeded",
+    "data": "Beijing's weather"
+}
+```

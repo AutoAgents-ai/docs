@@ -1,0 +1,63 @@
+---
+title: "Code Block Embedding"
+---
+
+The code block embedding syntax lets you embed a snippet of Python or JS code directly in a prompt or reply content and obtain its return value, commonly used for on-the-fly processing of small amounts of data.
+
+- Get a built-in parameter: `params['yourVarNameToGet']` retrieves the value of the current memory variable
+- A return value is required: `return yourVarNameToReturn`; the return value will be embedded at its location
+
+<Info>
+For a more complete hands-on example, see the code block embedding example in [Usage Tips / Agent Examples](/en/advanced-development/usage-tips/agent-examples).
+</Info>
+
+## Embedding Python Code
+
+Syntax: `[python[ ...your Python code... ]python]`, can also be abbreviated as `[py[ ... ]py]`
+
+Example:
+
+```
+I am:
+[python[
+name="邹鹏飞"
+return name
+]python]
+
+He is:[py[
+name="张三"
+return name
+]py]
+
+We both come from the country:
+[py[
+import json
+data=json.loads(params['data'])
+return data['cou']
+]py]
+```
+
+## Embedding JS Code
+
+Syntax: `[js[ ...your JS code... ]js]`
+
+Example:
+
+```
+I am:
+[js[
+name="邹鹏飞"
+return name
+]js]
+
+He is:[js[
+name="张三"
+return name
+]js]
+
+We both come from the country:
+[js[
+data=JSON.parse(params['data'])
+return data['cou']
+]js]
+```

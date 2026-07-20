@@ -1,0 +1,223 @@
+---
+title: "Query Dataset List"
+---
+
+## Request URL
+
+```
+{{host}}/openapi/kb/ds/query
+```
+
+## Request Method
+
+`POST`
+
+## Request Headers
+
+Refer to the [API Specification](/en/api-reference/overview); supports ❌ Agent Token, ✅ personal API key.
+
+## Request Body Parameters
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| `kbId` | number | Yes | Knowledge base ID (example value: `123`) |
+| `pageNum` | number | No | Page number |
+| `pageSize` | number | No | Number of records per page |
+| `parentId` | number | No | Parent ID, used to query datasets under a specific folder |
+| `keywords` | string | No | Dataset name |
+| `fileIds` | array | No | List of file IDs (example value: `["file_001", "file_002", "file_003"]`) |
+| `dsIds` | array | No | List of dataset IDs (example value: `[1001, 1002, 1003, 1004]`) |
+| `taskStatus` | number | No | Task status: `0` pending, `1` in progress, `2` succeeded, `3` failed, `4` canceled |
+| `approvalState` | number | No | Approval status: `1` under review, `2` approved, `3` rejected, `4` canceled |
+| `notSelf` | boolean | No | Whether to exclude datasets created by the caller (example value: `false`) |
+
+## Request Body Example
+
+```json
+{
+  "pageNum": 1,
+  "pageSize": 20,
+  "keywords": "Machine learning dataset",
+  "kbId": 123,
+  "parentId": 456,
+  "fileIds": [
+    "file_001",
+    "file_002",
+    "file_003"
+  ],
+  "dsIds": [
+    1001,
+    1002,
+    1003,
+    1004
+  ],
+  "taskStatus": 1,
+  "approvalState": 2,
+  "notSelf": false
+}
+```
+
+## Response Body
+
+| Field | Description |
+| --- | --- |
+| `code` | Response result code; `1` indicates success, any other value indicates failure |
+| `msg` | Error message |
+| `data.pageNum` | Current page number |
+| `data.pageSize` | Number of records per page |
+| `data.count` | Whether to count the total number of records |
+| `data.total` | Total number of records |
+| `data.isFirstPage` | Whether this is the first page |
+| `data.isLastPage` | Whether this is the last page |
+| `data.list[]` | List of datasets; see the table below for field descriptions |
+
+### `data.list[]` Field Description
+
+| Field | Description |
+| --- | --- |
+| `id` | Dataset ID |
+| `state` | Status |
+| `trainingState` | Training status |
+| `kbId` | ID of the knowledge base this dataset belongs to |
+| `parentId` | Parent ID |
+| `fileId` | File ID |
+| `name` | Dataset name |
+| `extJson` | Extension information (JSON string), such as description, tags, etc. |
+| `createAt` | Creation time |
+| `type` | Type: `file` for a file, `folder` for a folder |
+| `dataAmount` | Amount of data |
+| `parserType` | Parser type |
+| `taskStatus` | Task status; see the request body parameters above for the meaning of each value |
+| `progress` | Task progress |
+| `taskId` | Task ID |
+| `allowDownload` | Whether download is allowed: `1` allowed, `0` not allowed |
+| `downloadUrl` | Download URL |
+| `allowPreview` | Whether preview is allowed: `1` allowed, `0` not allowed |
+| `previewUrl` | Preview URL |
+| `uuid` | Unique identifier |
+| `approvalId` | Approval record ID |
+| `approvalState` | Approval status; see the request body parameters above for the meaning of each value |
+| `approvalCode` | Approval status code |
+| `operateCode` | Operation type code |
+| `operatorUserName` | Name of the operator |
+| `auditorUserNames` | List of reviewer names |
+| `creatorUserName` | Name of the creator |
+| `operateComment` | Operation remarks |
+| `approvalComment` | Review comments |
+| `referenceCount` | Number of references |
+
+## Response Body Example
+
+```json
+{
+  "code": 1,
+  "msg": "Operation succeeded",
+  "data": {
+    "pageNum": 1,
+    "pageSize": 20,
+    "count": true,
+    "list": [
+      {
+        "id": 1001,
+        "state": 1,
+        "trainingState": 2,
+        "kbId": 123,
+        "parentId": 456,
+        "fileId": "file_001",
+        "name": "Machine learning dataset",
+        "extJson": "{\"description\":\"Training data covering various machine learning algorithms\",\"tags\":[\"AI\",\"Machine Learning\"]}",
+        "createAt": "2024-01-15T10:30:00",
+        "type": "file",
+        "dataAmount": 1500,
+        "parserType": "pdf_parser",
+        "taskStatus": 2,
+        "progress": "100%",
+        "taskId": 2001,
+        "allowDownload": 1,
+        "downloadUrl": "https://example.com/download/file_001.pdf",
+        "allowPreview": 1,
+        "previewUrl": "https://example.com/preview/file_001",
+        "uuid": "550e8400-e29b-41d4-a716-446655440001",
+        "approvalId": 3001,
+        "approvalState": 2,
+        "approvalCode": "APPROVED",
+        "operateCode": "CREATE",
+        "operatorUserName": "Zhang San",
+        "auditorUserNames": ["Li Si", "Wang Wu"],
+        "creatorUserName": "Zhang San",
+        "operateComment": "Created a new machine learning dataset",
+        "approvalComment": "Good dataset quality, approved",
+        "referenceCount": 15
+      },
+      {
+        "id": 1002,
+        "state": 1,
+        "trainingState": 1,
+        "kbId": 123,
+        "parentId": 456,
+        "fileId": "file_002",
+        "name": "Natural language processing corpus",
+        "extJson": "{\"description\":\"Chinese NLP training corpus\",\"tags\":[\"NLP\",\"Chinese\"]}",
+        "createAt": "2024-01-16T14:20:00",
+        "type": "file",
+        "dataAmount": 2500,
+        "parserType": "text_parser",
+        "taskStatus": 1,
+        "progress": "65%",
+        "taskId": 2002,
+        "allowDownload": 1,
+        "downloadUrl": "https://example.com/download/file_002.txt",
+        "allowPreview": 1,
+        "previewUrl": "https://example.com/preview/file_002",
+        "uuid": "550e8400-e29b-41d4-a716-446655440002",
+        "approvalId": 3002,
+        "approvalState": 1,
+        "approvalCode": "PENDING",
+        "operateCode": "CREATE",
+        "operatorUserName": "Zhao Liu",
+        "auditorUserNames": ["Li Si"],
+        "creatorUserName": "Zhao Liu",
+        "operateComment": "Uploaded an NLP corpus file",
+        "approvalComment": null,
+        "referenceCount": 8
+      },
+      {
+        "id": 1003,
+        "state": 1,
+        "trainingState": 2,
+        "kbId": 123,
+        "parentId": 456,
+        "fileId": null,
+        "name": "Dataset folder",
+        "extJson": "{\"description\":\"A folder containing several related datasets\"}",
+        "createAt": "2024-01-14T09:15:00",
+        "type": "folder",
+        "dataAmount": 0,
+        "parserType": null,
+        "taskStatus": null,
+        "progress": null,
+        "taskId": null,
+        "allowDownload": 0,
+        "downloadUrl": null,
+        "allowPreview": 0,
+        "previewUrl": null,
+        "uuid": "550e8400-e29b-41d4-a716-446655440003",
+        "approvalId": null,
+        "approvalState": null,
+        "approvalCode": null,
+        "operateCode": null,
+        "operatorUserName": null,
+        "auditorUserNames": null,
+        "creatorUserName": "Zhang San",
+        "operateComment": null,
+        "approvalComment": null,
+        "referenceCount": 0
+      }
+    ],
+    "total": 3,
+    "attributes": {},
+    "isFirstPage": true,
+    "isLastPage": true
+  }
+}
+```

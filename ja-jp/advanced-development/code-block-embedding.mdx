@@ -1,0 +1,63 @@
+---
+title: "コードブロック埋め込み"
+---
+
+コードブロック埋め込み構文を使用すると、プロンプトや返信内容の中に直接 Python または JS のコードを埋め込み、その戻り値を取得できます。少量のデータをその場で加工する際によく使用されます。
+
+- 組み込みパラメータの取得：`params['yourVarNameToGet']` で現在のメモリ変数の値を取得できます
+- 戻り値が必要：`return yourVarNameToReturn`。戻り値があれば、それが記述されている位置に埋め込まれます
+
+<Info>
+より完全な実践例については、[使用のヒント / Agent の例](/ja-jp/advanced-development/usage-tips/agent-examples) 内のコードブロック埋め込みの事例を参照してください。
+</Info>
+
+## Python コードの埋め込み
+
+構文：`[python[ ...あなたのPythonコード... ]python]`。`[py[ ... ]py]` と省略することもできます
+
+例：
+
+```
+我是:
+[python[
+name="邹鹏飞"
+return name
+]python]
+
+他是:[py[
+name="张三"
+return name
+]py]
+
+都来自国家：
+[py[
+import json
+data=json.loads(params['data'])
+return data['cou']
+]py]
+```
+
+## JS コードの埋め込み
+
+構文：`[js[ ...あなたのJSコード... ]js]`
+
+例：
+
+```
+我是:
+[js[
+name="邹鹏飞"
+return name
+]js]
+
+他是:[js[
+name="张三"
+return name
+]js]
+
+都来自国家：
+[js[
+data=JSON.parse(params['data'])
+return data['cou']
+]js]
+```

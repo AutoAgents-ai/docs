@@ -1,0 +1,63 @@
+---
+title: "Agent 反馈接口"
+---
+
+应用于多智能体需要反馈的场景。
+
+## 请求地址
+
+```
+{{host}}/openapi/agents/chat/feedback
+```
+
+或
+
+```
+{{host}}/openapi/v2/chat/feedback
+```
+
+## 请求方式
+
+`GET`
+
+## 请求Header
+
+参考[接口规范](/zh-hans/api-reference/overview)；支持 ✅ Agent Token、✅ 个人秘钥。
+
+## 请求体参数
+
+| 参数 | 类型 | 必填 | 说明 |
+| --- | --- | --- | --- |
+| `chatId` | number | 是 | 对话 ID，对应对话接口返回的 `chatId` |
+| `agentId` | string | 是 | Agent UUID |
+| `feedbackKey` | string | 是 | 反馈标识，对应流式响应中 `feedback` 类型消息的 `feedbackKey` 字段，参见 [Agent 聊天流式接口](/zh-hans/api-reference/chat-stream#流式响应体说明) |
+| `feedbackType` | string | 是 | 反馈类型，可选值：`over`（满意，结束本轮会话）、`restart`（不满意，从头开始）、`loop`（继续本轮对话） |
+
+## 请求体示例
+
+```json
+{
+  "chatId": 123,
+  "agentId": "addsfaslfjasofasofpoas",
+  "feedbackKey": "@.ksdf9as0f8sd0xxo",
+  "feedbackType": "over" // 可选值：[over, restart, loop]
+}
+```
+
+## 响应体说明
+
+| 字段 | 说明 |
+| --- | --- |
+| `code` | 响应结果码，`1` 表示成功；其他表示失败，具体错误信息见 `msg` |
+| `msg` | 错误消息 |
+| `data` | `true` / `false`，表示反馈是否处理成功 |
+
+## 响应体示例
+
+```json
+{
+  "code": 1,
+  "msg": "success",
+  "data": true
+}
+```

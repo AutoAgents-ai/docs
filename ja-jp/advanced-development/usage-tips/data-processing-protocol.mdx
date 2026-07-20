@@ -1,0 +1,155 @@
+---
+title: "データ処理プロトコル"
+---
+
+<Info>v1.9.0.0+</Info>
+
+データ処理プロトコルは、あらかじめ定められたデータ構造であり、「返信の確定」「コードブロック」「カスタムコンポーネント」などのモジュールの出力フィールドが、テキスト、ファイル、画像、Web 検索結果など複数種類のコンテンツを標準化された形式で保持できるようにするためのものです。
+
+## 対応コンポーネント
+
+返信の確定、コードブロック、カスタムコンポーネントの出力フィールド。
+
+## 実装方法
+
+フィールドの値を特定プロトコルのデータ構造として組み立てます：
+
+| フィールド | 説明 |
+| --- | --- |
+| `schema` | 固定値 `schema-v1`。システムがこのデータ処理プロトコルを識別するために使用し、異なる機能用途に拡張実装するためのものです |
+| `type` | データタイプ：`text`（テキスト、markdown）、`file`（ファイル）、`image`（画像）、`websearch`（Web 検索） |
+| `needSendMessage` | メッセージを送信する必要があるかどうか、`true`/`false`。システムはデータタイプに応じて対応するメッセージ形式をエンドユーザーに応答として送信します |
+| `needEncryptFileUrl` | 暗号化されたファイルストリームのダウンロードアドレスを返すかどうか。暗号化サービスを有効にしている場合のみ有効です。顧客側にファイルストリーム暗号化サービスがない場合、暗号化サービスはカスタム開発が必要です |
+| `needFullFileUrl` | ファイルダウンロードアドレスの絶対パスを返すかどうか。デフォルトは `false`（ダウンロードアドレスの相対パス） |
+| `value` | データの値。テキストタイプは文字列を直接代入すればよく、ファイルと画像タイプは JSON 構造 `{"fileName": "your_file_name", "fileUrl": "your_file_url"}` を代入する必要があります |
+
+`fileUrl` はローカルファイル、Base64、HTTP の 3 種類のプロトコルのデータに対応しています：
+
+- ローカル一時ファイルプロトコル（保存後に削除）：`tmpfile:/mindSynth/xxxx.docx`
+- ローカル永続ファイルプロトコル：`psfile:/mindSynth/xxxx.docx`
+- Base64 データストリーム：`data:xxxxx`
+- ネットワークファイルストリームプロトコル：`http://xxxx`、`https://xxxx`
+
+## text：通常テキスト / markdown 類
+
+```json
+{
+    "schema": "schema-v1",
+    "type": "text",
+    "needSendMessage": true,
+    "needEncryptFileUrl": false,
+    "value": "message"
+}
+```
+
+## file：ファイル類
+
+JavaScript バージョン：
+
+```javascript
+{
+    "schema": "schema-v1",
+    "type": "file",
+    "needSendMessage": false,
+    "needEncryptFileUrl": false,
+    "needFullFileUrl": false,
+    "value": {
+                "fileName": your_file_name,
+                "fileUrl": "tempfile" + your_file_url
+            }
+}
+```
+
+Python バージョン：
+
+```python
+{
+    "schema": "schema-v1",
+    "type": "file",
+    "needSendMessage": True, # 返回文件卡片消息
+    "needEncryptFileUrl": False,
+    "needFullFileUrl": True,  # 返回完整文件URL
+    "value": {
+            "fileName": your_file_name,
+            "fileUrl": "tempfile" + your_file_url
+    }
+}
+```
+
+## image：画像類
+
+```json
+{
+    "schema": "schema-v1",
+    "type": "image",
+    "needSendMessage": true,
+    "needEncryptFileUrl": false,
+    "needFullFileUrl": true,
+    "value": {
+                "fileName": your_imagefile_name,
+                "fileUrl": your_imagefile_url
+            }
+}
+```
+
+## websearch：Web 検索
+
+```json
+{
+    "schema": "schema-v1",
+    "type": "websearch",
+    "needSendMessage": true,
+    "value": [
+        {"title":"网页标题1",
+         "url":"网页链接1",
+         "snippet":"网页摘要1",
+         "siteIcon":"网站icon1"
+        },{"title":"网页标题2",
+         "url":"网页链接2",
+         "snippet":"网页摘要2",
+         "siteIcon":"网站icon2"
+        }
+    ]
+}
+```
+
+## 例：コードブロックでランダムなファイルを生成してファイルメッセージを送信
+
+```python
+import json
+import os
+import uuid
+
+def userFunction(params):
+    result = {}
+    try:
+        # 生成随机文本
+        random_text = str(uuid.uuid4())
+
+        # 生成随机文件名
+        random_filename = str(uuid.uuid4()) + '.txt'
+
+        # 获取当前目录并拼接文件路径
+        current_dir = os.getcwd()
+        file_path = os.path.join(current_dir, random_filename)
+
+        # 写入文件
+        with open(file_path, 'w') as f:
+            f.write(random_text)
+
+        # 返回绝对路径
+        result['file_info'] = {
+            "schema": "schema-v1",
+            "type": "file",
+            "needSendMessage": True,
+            "needEncryptFileUrl": False,
+            "needFullFileUrl": True,
+            "value": {
+                "fileName": random_filename,
+                "fileUrl": 'tmpfile:' + os.path.abspath(file_path)
+             }
+        }
+    except Exception as e:
+        result['error'] = f'生成文件失败: {str(e)}'
+    return result
+```

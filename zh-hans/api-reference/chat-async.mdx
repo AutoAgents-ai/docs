@@ -1,0 +1,162 @@
+---
+title: "Agent 聊天非流式接口（异步）"
+---
+
+请求参数和 [Agent 聊天非流式接口（同步）](/zh-hans/api-reference/chat-sync) 基本一致，异步执行 Agent 流程，接口调用返回后台日志记录的 `requestId` 和 `state`。增加 `callbackUrl` 和 `callbackHeaders` 作为可选参数：传入 `callbackUrl` 时，Agent 流程异步执行成功后，会以 POST 方式回传执行结果到 `callbackUrl`，请求体内容就是[同步接口](/zh-hans/api-reference/chat-sync)中的返回值。
+
+## 请求地址
+
+```
+{{host}}/openapi/agents/chat/completions/async/v1
+```
+
+或
+
+```
+{{host}}/openapi/v2/chat/completions/async
+```
+
+## 请求方式
+
+`POST`
+
+## 请求 Header
+
+与 [Agent 聊天流式接口](/zh-hans/api-reference/chat-stream#请求-header) 相同：支持 ✅ Agent Token、✅ 个人秘钥，可选 `X-username`。
+
+## 请求体参数
+
+基础参数与[同步接口](/zh-hans/api-reference/chat-sync#请求体参数)一致（`agentId`、`chatId`、`userChatInput`、`state`、`buttonKey`、`images`、`files`、`formData`、`debug`），此外新增：
+
+| 参数 | 必填 | 说明 |
+| --- | --- | --- |
+| `callbackUrl` | 否 | 参数不为空时，Agent 执行成功之后会用 POST 方法推送最终消息数据到这个地址 |
+| `callbackUrlPerComponent` | 否 | 参数不为空时，Agent 每执行一个有回复信息的组件就会用 POST 方法推送消息数据到这个地址 |
+| `callbackHeaders` | 否 | 如果 `callbackUrl` 不为空，调用 `callbackUrl` 时会带上该请求头；如果回调需要鉴权，可以通过这个参数传递鉴权 Header |
+
+## 请求体示例
+
+```json
+{
+    "agentId":"a2207c2f6d3d44d2b4a5dae5b5593750",
+    "chatId": null,
+    "userChatInput":"Mybatis",
+    "images":[{"url":"your image url here"}],
+    "files":[],
+    "state":{
+        "yourKey1":"yourValue1",
+        "yourKey2":"yourValue2"
+    },
+    "buttonKey":"按钮id或者名字",
+    "debug":false,
+    "callbackUrl":"http://example.com/callback",
+    "callbackHeaders": {
+        "token": "token-xxxx"
+    }
+}
+```
+
+## 响应体说明
+
+回调请求体和[同步接口](/zh-hans/api-reference/chat-sync)的返回值一致；本接口调用本身的响应体如下：
+
+| 字段 | 说明 |
+| --- | --- |
+| `code` | 响应结果码，`1` 表示成功，其他表示失败 |
+| `msg` | 错误消息 |
+| `data.requestId` | 后台日志中的请求 ID；需要排查问题时可使用此 ID 在日志中查找相关日志，也可以配合[结果轮询查询接口](/zh-hans/api-reference/chat-async-poll)获取异步执行结果 |
+| `data.state` | 传入的环境变量参数，key/value 由调用方自主定义 |
+
+## 响应体示例
+
+```json
+{
+    "code": 1,
+    "msg": "success",
+    "data":
+    {
+        "requestId": "5f364d5f79f34c2aa1267cf14ef2de5d",
+        "state":
+        {
+            "yourKey1": "yourValue1",
+            "yourKey2": "yourValue2"
+        }
+    }
+}
+```
+
+## 调用示例
+
+```http
+请求：
+POST /api/openapi/agent/chat/completions/v1 HTTP/1.1
+Host: x.x.x.x
+Content-Type: application/json
+Authorization: Bearer {authKey}.{authSecret}
+Content-Length: 147
+
+{"agentId":"afdba586a252468d8b3db2bd2a1320fb",
+"chatId":null,
+"userChatInput":"mybatis",
+"state":{
+    "roomId":123,
+    "roomName":"testRoom"
+ }
+}
+```
+
+回调 / 返回结果示例：
+
+```json
+{
+    "chatId": 7767,
+    "conversationId": "a8381932cd7f4092a20fad86054fa40c",
+    "choices": [
+        {
+            "chatId": 7767,
+            "conversationId": "a8381932cd7f4092a20fad86054fa40c",
+            "messageId": "a8381932cd7f4092a20fad86054fa40c",
+            "role": {
+                "id": "afdba586a252468d8b3db2bd2a1320fb",
+                "name": "开发测试",
+                "avatar": "http://x.x.x.x/api/fs/6606960e2e0bcb3ec15a3024.png"
+            },
+            "componentName": "AI智能对话",
+            "content": "MyBatis是一款一流的支持自定义SQL、存储过程和高级映射的持久化框架...",
+            "referenceType": "kb_search",
+            "reference": "[{\"fileName\":\"MyBatis3_用户指南(附JavaDB实例).pdf\",\"fileType\":\"pdf\",\"fileUrl\":\"http://x.x.x.x/api/fs/6602576e480c49509222f2c0\",\"kbAvatar\":\"Mybatis\",\"kbName\":\"/assets/avatar/1.png\",\"score\":0.7309842270543954}]",
+            "type": "text",
+            "complete": true,
+            "finish": false,
+            "bill": {
+                "model": "SkyChat-MegaVerse",
+                "billType": "chat",
+                "completionTokens": 150,
+                "promptTokens": 461,
+                "totalTokens": 611
+            }
+        },
+        {
+            "chatId": 7767,
+            "conversationId": "a8381932cd7f4092a20fad86054fa40c",
+            "messageId": "a8381932cd7f4092a20fad86054fa40c",
+            "role": {
+                "id": "afdba586a252468d8b3db2bd2a1320fb",
+                "name": "开发测试",
+                "avatar": "http://x.x.x.x/api/fs/6606960e2e0bcb3ec15a3024.png"
+            },
+            "content": null,
+            "referenceType": null,
+            "reference": null,
+            "type": "text",
+            "complete": true,
+            "finish": true,
+            "bill": null
+        }
+    ],
+    "state": {
+        "roomId": 123,
+        "roomName": "testRoom"
+    }
+}
+```

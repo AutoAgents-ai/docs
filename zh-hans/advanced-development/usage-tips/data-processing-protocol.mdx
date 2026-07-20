@@ -1,0 +1,155 @@
+---
+title: "数据处理协议"
+---
+
+<Info>v1.9.0.0+</Info>
+
+数据处理协议是一种约定的数据结构，用于让「确定回复」「代码块」「自定义组件」等模块的输出字段以标准化格式承载文本、文件、图片、Web 搜索结果等多种类型的内容。
+
+## 支持的组件
+
+确定回复、代码块、自定义组件的输出字段。
+
+## 实现方法
+
+将字段值组装为特定协议的数据结构：
+
+| 字段 | 说明 |
+| --- | --- |
+| `schema` | 固定值 `schema-v1`，系统用于识别该数据处理协议，以扩展实现不同的功能用途 |
+| `type` | 数据类型：`text`（文本、markdown）、`file`（文件）、`image`（图片）、`websearch`（Web 搜索） |
+| `needSendMessage` | 是否需要发送消息，`true`/`false`；系统会根据数据类型发送对应的消息格式响应给终端用户 |
+| `needEncryptFileUrl` | 是否返回加密了文件流的下载地址，开启了加密服务的才生效；如果客户没有文件流加密服务，则加密服务需要定制开发 |
+| `needFullFileUrl` | 是否返回文件下载地址的绝对路径，默认 `false`（下载地址的相对路径） |
+| `value` | 数据的值。文本类型直接赋值字符串即可；文件和图片类需要赋值 JSON 结构 `{"fileName": "your_file_name", "fileUrl": "your_file_url"}` |
+
+`fileUrl` 支持本地文件、Base64、HTTP 三种协议的数据：
+
+- 本地临时文件协议（存储后删除）：`tmpfile:/mindSynth/xxxx.docx`
+- 本地持久文件协议：`psfile:/mindSynth/xxxx.docx`
+- Base64 数据流：`data:xxxxx`
+- 网络文件流协议：`http://xxxx`、`https://xxxx`
+
+## text：普通文本 / markdown 类
+
+```json
+{
+    "schema": "schema-v1",
+    "type": "text",
+    "needSendMessage": true,
+    "needEncryptFileUrl": false,
+    "value": "message"
+}
+```
+
+## file：文件类
+
+JavaScript 版本：
+
+```javascript
+{
+    "schema": "schema-v1",
+    "type": "file",
+    "needSendMessage": false,
+    "needEncryptFileUrl": false,
+    "needFullFileUrl": false,
+    "value": {
+                "fileName": your_file_name,
+                "fileUrl": "tempfile" + your_file_url
+            }
+}
+```
+
+Python 版本：
+
+```python
+{
+    "schema": "schema-v1",
+    "type": "file",
+    "needSendMessage": True, # 返回文件卡片消息
+    "needEncryptFileUrl": False,
+    "needFullFileUrl": True,  # 返回完整文件URL
+    "value": {
+            "fileName": your_file_name,
+            "fileUrl": "tempfile" + your_file_url
+    }
+}
+```
+
+## image：图片类
+
+```json
+{
+    "schema": "schema-v1",
+    "type": "image",
+    "needSendMessage": true,
+    "needEncryptFileUrl": false,
+    "needFullFileUrl": true,
+    "value": {
+                "fileName": your_imagefile_name,
+                "fileUrl": your_imagefile_url
+            }
+}
+```
+
+## websearch：Web 搜索
+
+```json
+{
+    "schema": "schema-v1",
+    "type": "websearch",
+    "needSendMessage": true,
+    "value": [
+        {"title":"网页标题1",
+         "url":"网页链接1",
+         "snippet":"网页摘要1",
+         "siteIcon":"网站icon1"
+        },{"title":"网页标题2",
+         "url":"网页链接2",
+         "snippet":"网页摘要2",
+         "siteIcon":"网站icon2"
+        }
+    ]
+}
+```
+
+## 示例：代码块生成随机文件并发送文件消息
+
+```python
+import json
+import os
+import uuid
+
+def userFunction(params):
+    result = {}
+    try:
+        # 生成随机文本
+        random_text = str(uuid.uuid4())
+
+        # 生成随机文件名
+        random_filename = str(uuid.uuid4()) + '.txt'
+
+        # 获取当前目录并拼接文件路径
+        current_dir = os.getcwd()
+        file_path = os.path.join(current_dir, random_filename)
+
+        # 写入文件
+        with open(file_path, 'w') as f:
+            f.write(random_text)
+
+        # 返回绝对路径
+        result['file_info'] = {
+            "schema": "schema-v1",
+            "type": "file",
+            "needSendMessage": True,
+            "needEncryptFileUrl": False,
+            "needFullFileUrl": True,
+            "value": {
+                "fileName": random_filename,
+                "fileUrl": 'tmpfile:' + os.path.abspath(file_path)
+             }
+        }
+    except Exception as e:
+        result['error'] = f'生成文件失败: {str(e)}'
+    return result
+```

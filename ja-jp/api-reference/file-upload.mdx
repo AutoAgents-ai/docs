@@ -1,0 +1,66 @@
+---
+title: "ファイルアップロードインターフェース"
+---
+
+## リクエストURL
+
+```
+{{host}}/openapi/fs/upload
+```
+
+## リクエストメソッド
+
+`POST`
+
+## リクエストヘッダー
+
+[インターフェース仕様](/ja-jp/api-reference/overview)を参照してください。Agent Token ❌ 非対応、個人シークレットキー ✅ のみ対応です。
+
+<Warning>
+本インターフェースは個人シークレットキー（`authKey` / `authSecret`）による認証呼び出しのみサポートしており、Agent Token による呼び出しはサポートしていません。
+</Warning>
+
+リクエストヘッダーには以下を指定する必要があります：
+
+```http
+Content-Type: multipart/form-data
+```
+
+## リクエストパラメータ
+
+本インターフェースは `multipart/form-data` 形式のフォームで送信します。パラメータは以下の通りです：
+
+| パラメータ | 型 | 必須 | 説明 |
+| --- | --- | --- | --- |
+| `file` | file | はい | アップロードするファイル（ファイルストリーム） |
+| `returnType` | string | いいえ | 返却タイプ：`id` はファイル ID を返却、`url` はファイル URL を返却します。デフォルトは `id` |
+| `metadata` | string (JSON) | いいえ | ファイルのメタデータ。JSON 形式の文字列 |
+
+## リクエスト例
+
+```
+file: ファイルストリーム
+returnType: id
+```
+
+## レスポンスボディ
+
+| フィールド | 説明 |
+| --- | --- |
+| `code` | レスポンス結果コード。`1` は成功、それ以外は失敗を示します |
+| `msg` | エラーメッセージ |
+| `data` | アップロード結果：`returnType=id` の場合はファイル ID を返却、`returnType=url` の場合はファイル URL を返却します |
+
+## レスポンスボディの例
+
+```json
+{
+    "code": 1,
+    "msg": "操作成功",
+    "data": "67dccd3ae1138d0f6d12ca6a"
+}
+```
+
+<Info>
+アップロード成功後に返却されるファイル ID は、[Agentチャットストリーミングインターフェース](/ja-jp/api-reference/chat-stream) のリクエストボディの `files` パラメータ内の `fileId` フィールドに使用できます。また、[データセットの作成とタスクの開始](/ja-jp/api-reference/dataset-create)、[データセットの変更とタスクの再開](/ja-jp/api-reference/dataset-update)インターフェースの `fileId` パラメータにも使用できます。
+</Info>

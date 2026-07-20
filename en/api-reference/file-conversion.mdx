@@ -1,0 +1,53 @@
+---
+title: "File Type Conversion"
+---
+
+## Request URL
+
+```
+{{host}}/openapi/deepdoc/fileTransfer
+```
+
+## Request Method
+
+`POST`
+
+## Request Headers
+
+Refer to the [API Specification](/en/api-reference/overview); supports ❌ Agent Token, ✅ personal API key.
+
+## Request Body Parameters
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| `fileName` | string | Yes | Name of the input file |
+| `fileUrl` | string | Yes | URL of the input file |
+| `format` | string | Yes | Target file type; supports common document formats (for example `doc`, `docx`, `xls`, `xlsx`) as well as converting common document formats to `pdf` |
+
+## Request Body Example
+
+```json
+{
+  "fileName": "test file 111.xls",
+  "fileUrl": "https://uat.agentspro.cn/api/fs/xxxxx",
+  "format": "xlsx"
+}
+```
+
+## Response Body
+
+| Field | Description |
+| --- | --- |
+| `code` | Response result code; `1` indicates success, any other value indicates failure |
+| `msg` | Error message |
+| `data` | URL of the converted file |
+
+## Response Body Example
+
+```json
+{
+    "code": 1,
+    "msg": "Operation succeeded",
+    "data": "https://uat.agentspro.cn/api/fs/xxxxx"
+}
+```

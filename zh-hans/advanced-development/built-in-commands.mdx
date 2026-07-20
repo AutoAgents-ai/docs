@@ -1,0 +1,132 @@
+---
+title: "内置命令 Command"
+---
+
+内置命令用于通过往记忆变量发送命令信号，实现与平台内部服务的交互。
+
+## 调用方式
+
+### 调用方式1：发送命令信号
+
+1. 组装命令信号 JSON 结构体：
+
+```json
+{
+  // 命令编码，必填
+  "command": "command code",
+  // 命令参数，每个命令有它的参数结构，参考「命令列表」。如果没有参数就设置为 {}
+  "data": {
+    // ....
+  },
+  // 是否异步调用，可不填。默认 false
+  "async": false
+}
+```
+
+2. 组装好的命令信号连接到记忆变量，记忆变量的 key 必须是 `$command_xxx` 开头。
+3. 如果需要获取命令调用后的结果数据，则使用以下方式获取：
+
+```
+{{记忆变量的key.result}}
+```
+
+示例：`{{$command_mytext2agent.result}}`
+
+### 调用方式2：声明函数式调用
+
+声明命令函数：`[$[ 命令数据JSON ]$]`
+
+示例：
+
+```
+[$[
+    {
+       "command":"AddMessageMeta",
+       "embedResult": true, // true 会把命令结果嵌入到prompt所在位置；false则命令所在处替换为空。
+       "data": {
+          "alias":"xxx",
+          "metadata":
+          {"renderType" : "deepResearchDesign", "toolType":"deepResearch"}
+        }
+    }
+]$]
+```
+
+## 命令列表
+
+### text2agent：创建 Agent 命令
+
+命令参数：
+
+```json
+{
+  "command": "text2agent",
+  "data": {
+    // 编排数据
+    "agentJson": []
+  }
+}
+```
+
+命令结果：
+
+```json
+{
+  "result": {
+    "avatar": "",
+    "id": "",
+    "intro": "",
+    "name": ""
+  }
+}
+```
+
+### userKbs：查询用户知识库列表命令
+
+命令参数：
+
+```json
+{
+  "command": "userKb",
+  "data": {}
+}
+```
+
+命令结果：
+
+```json
+{
+  "result": [
+    {
+      "avatar": "",
+      "id": "",
+      "name": ""
+    }
+  ]
+}
+```
+
+### AddMessageMeta：消息携带元信息
+
+命令参数：
+
+```json
+{
+  "command": "AddMessageMeta",
+  "data": {
+    "whenComplete": false,
+    "metadata": {"metaKey1": "metaValue1", "metaKey2": "metaValue2"},
+    "beforeMetadata": {"metaKey1": "metaValue1", "metaKey2": "metaValue2"},
+    "afterMetadata": {"metaKey1": "metaValue1", "metaKey2": "metaValue2"}
+  }
+}
+```
+
+参数说明：流式输出增加字段 `metaMessage`，用于携带元信息，包含一些系统内置属性和用户自定义 metadata：
+
+- `whenComplete`：仅当某组件回复结束时携带元信息，默认 `false`
+- `beforeMetadata`：前置元数据，仅当某组件回复第一个 token 时携带的元信息，非必填；由用户自定义其内的属性和值
+- `metadata`：元数据，所有流式回复过程都携带的元信息；如果设置了 `whenComplete=true`，则仅在某组件回复 `complete` 时携带，非必填；由用户自定义其内的属性和值
+- `afterMetadata`：后置元数据，仅当某组件回复 `complete` 时携带的元信息，非必填；由用户自定义其内的属性和值
+
+命令结果：无

@@ -1,0 +1,219 @@
+---
+title: "Agentチャットストリーミングインターフェース"
+---
+
+## リクエストURL
+
+```
+{{host}}/openapi/agents/chat/stream/v1
+```
+
+または
+
+```
+{{host}}/openapi/v2/chat/stream
+```
+
+## リクエストメソッド
+
+`POST`
+
+## リクエストヘッダー
+
+[インターフェース仕様](/ja-jp/api-reference/overview)の認証方式の章を参照してください。Agent Token ✅、個人シークレットキー ✅ に対応しています。
+
+| ヘッダー | 説明 |
+| --- | --- |
+| `X-username` | `{Your UserName}`。ユーザーのログイン名で、必須ではありません。指定した場合、システムはこのログイン名の身元でインターフェースを呼び出し、アクセスログなどはすべてこのユーザー名で記録されます。指定しない場合は、デフォルトで Token の所有者を呼び出し元の身元として記録します。（v1.9.3+） |
+
+## リクエストボディパラメータ
+
+| パラメータ | 型 | 必須 | 説明 |
+| --- | --- | --- | --- |
+| `agentId` | string | はい | Agent の UUID |
+| `chatId` | string | いいえ | 対話 ID。必須ではなく、最初の会話では指定不要です。後続の会話でコンテキストを利用したい場合は、次回のリクエストで前回のストリームレスポンスボディに含まれる `chatId` を指定する必要があります |
+| `userChatInput` | string | はい | ユーザー入力 |
+| `state` | object | いいえ | 環境変数パラメータを渡します。key/value は呼び出し側が自由に定義できます。Agent オーケストレーションでは `{{_state.yourKey}}` によって対応するパラメータを取得できます。例：`{"yourKey1":"yourValue1","yourKey2":"yourValue2"}` |
+| `buttonKey` | string | いいえ | ボタン名またはボタン ID |
+| `images` | array | いいえ | 画像による質問パラメータ。画像 URL の指定に対応し、Data URI の指定にも対応しています（AIチャットコンポーネントと画像質問コンポーネントで対応、他のコンポーネントは非対応）。例：`[{"url":"your image url here"}]` |
+| `files` | array | いいえ | ドキュメント質問/ドキュメント審査用。下記の例を参照してください |
+| `formData` | object | いいえ | フォーム入力。`formConfig` はフォームの表示設定を表し、`values` はユーザーの key-value 形式の入力を表します。key は表示設定内の `fields` の key に対応します |
+| `debug` | boolean | いいえ | デバッグモードを有効にするかどうか。デフォルトは `false`。デバッグモードを有効にすると、各リクエストの入力パラメータ、出力パラメータ、例外情報を詳細に記録するため、内容が多くなります。有効にしない場合は、異常な呼び出しの情報のみ記録されます。本番環境では `false` に設定するか、指定しないことを推奨します |
+
+`files` の例：
+
+```json
+[
+  {
+    "fileId": "66979252197ded4838301ac4", // fileIdとfileUrlはいずれか一方が必須
+    "fileName": "入札公示.docx", // 指定しない場合はダウンロードURLから取得
+    "fileUrl": "https://test.agentspro.cn/api/fs/66979252197ded4838301ac4", // fileIdとfileUrlはいずれか一方が必須
+    "groupName": "入札公示" // 必須ではなく、ファイル比較時にのみ設定
+  },
+  {
+    "fileId": "66979252197ded4838301ac5",
+    "fileName": "技術契約書.docx",
+    "fileUrl": "https://test.agentspro.cn/api/fs/66979252197ded4838301ac5",
+    "groupName": "契約書ファイル"
+  }
+]
+```
+
+`formData` の例（簡略版）：
+
+```json
+{
+  "formUuid": "form_0135cf5de6f7",
+  "formCode": "axiba",
+  "formConfig": {
+    "uuid": "form_0135cf5de6f7",
+    "enable": true,
+    "formName": "阿西吧",
+    "formCode": "axiba",
+    "type": "fix",
+    "layout": { "columns": 1 },
+    "llm": {
+      "autofill": true,
+      "model": "qwq-32b",
+      "formPrompt": "",
+      "fillPrompt": "自动填充张三和周二",
+      "historyCount": 4
+    },
+    "fields": [
+      {
+        "id": "f_fb496602c5",
+        "key": "input",
+        "label": "フィールドラベル",
+        "type": "text",
+        "required": true,
+        "placeholder": "フィールドラベル",
+        "defaultValue": "",
+        "settings": { "minLength": 0, "maxLength": 100 }
+      }
+    ]
+  },
+  "values": {
+    "input": "test"
+  },
+  "submitTime": 1781595068325
+}
+```
+
+<Info>
+フォームフィールドタイプは `text`、`number`、`textarea`、`select`、`multiSelect`、`checkbox`、`radio`、`switch`、`slider`、`datetime`、`file`、`image` などに対応しています。
+</Info>
+
+## リクエストボディの例
+
+```json
+{
+    "agentId":"a2207c2f6d3d44d2b4a5dae5b5593750",
+    "chatId": null,
+    "userChatInput":"互联网是什么",// テキスト入力
+    "images":[{"url":"your image url here"}], // 画像入力
+    "files":[],
+    // stateの内容はそのまま返却されます
+    "state":{
+        "yourKey1":"yourValue1",
+        "yourKey2":"yourValue2"
+    },
+    "buttonKey":"按钮id或者名字",
+    "debug":false,
+    "model": "model-id"
+}
+```
+
+## ストリーミングレスポンスボディ
+
+レスポンスは SSE ストリームであり、各行は `data:` で始まり、1 つの JSON オブジェクトを伴います。
+
+| フィールド | 説明 |
+| --- | --- |
+| `chatId` | 対話 ID |
+| `conversationId` | 現在の会話 ID。1 回の対話には複数回の会話が含まれます |
+| `messageId` | メッセージ ID。特定の返信メッセージを識別し、いいね/イマイチに使用できます。`complete=true&finish=false` のときに値が入ります |
+| `type` | メッセージタイプ。下表を参照してください |
+| `componentName` | 現在のコンポーネント名 |
+| `content` | ストリーミングコンテンツ。形式は `type` によって変化します |
+| `reasoningContent` | 思考・推論内容。思考モデル（deepseek-R1 など）のみがこのフィールドを返却対応しています |
+| `thinkingElapsedMillSecs` | 思考・推論の所要時間（ミリ秒単位）。思考モデルのみがこのフィールドを返却対応しています |
+| `complete` | `true` の場合、ストリーミングの1回の会話内における、ある返信の終了を表します（1回の会話に複数回の返信が発生する場合があります） |
+| `finish` | `true` の場合、ストリーミングの1回の会話リクエストがすべて終了したことを表します |
+| `status` | メッセージの状態：`1` は正常メッセージ、`0` は失敗メッセージ、`-1` は異常メッセージ |
+| `role` | 現在のメッセージの役割。一般的にはユーザー情報または Agent 情報（アバター、名前など） |
+| `bill` | ストリーミングの1回の会話内における、ある返信の終了時（`complete=true`）の Token 消費状況 |
+| `referenceType` | 引用タイプ：`web_search`（Web検索）、`kb_search`（ナレッジベース検索）、`kb_search_img_list`（ナレッジベース画像検索） |
+| `reference` | 引用内容。形式は `referenceType` によって変化します |
+| `references` | `Map<$referenceType, $reference>`。1回の呼び出しで複数種類の引用内容が発生した場合、複数の引用内容をまとめて出力します。key は引用タイプ、value は引用内容です。ストリーミングインターフェースでは通常まとめて出力されませんが、非ストリーミングインターフェースではまとめて出力される場合があります |
+
+### `type` の値
+
+| 値 | 説明 |
+| --- | --- |
+| `text` | 通常のテキスト |
+| `markdown` | markdown 形式 |
+| `pic` | 画像のアドレス。主にテキストから画像生成する場合に使用 |
+| `buttons` | オーケストレーション内のボタンメッセージ。フォームを含む場合もあります |
+| `feedback` | フィードバック。複数 Agent が連携する際に、あるAgentの結果状況をフィードバックし、後続のフローを進めるために使用します。フィードバックインターフェースは[Agentフィードバックインターフェース](/ja-jp/api-reference/agent-feedback)を参照してください |
+| `chart` | SQL クエリ結果を可視化したチャート情報 |
+| `table` | SQL クエリの結果情報 |
+| `result_file` | 生成されたファイル |
+
+`buttons` の例：
+
+```json
+{"buttonConfigs":[{"label":"退出业务流程","key":"e09b35e8-23f2-412c-8b53-5e45032afe9c"}],"fileContrast":false,"fileReview":false,"inputText":true,"uploadFile":false,"uploadImage":false}
+```
+
+`feedback` の例：
+
+```json
+{"feedbackKey":"@.w3e20s0f8as08x","contentTitle":"对本次回复是否满意？","restartTitle":"不满意，从头开始","loopTitle":"继续本轮对话","overTitle":"满意，结束本轮会话"}
+```
+
+`bill` の例：
+
+```json
+{"billType":"chat","completionTokens":211,"model":"SkyChat-MegaVerse","promptTokens":461,"totalTokens":672}
+```
+
+`role` の例：
+
+```json
+{"id": "afdba586a252468d8b3db2bd2a1320fb","name": "开发测试","avatar":"http://x.x.x.x/api/fs/6606960e2e0bcb3ec15a3024.png"}
+```
+
+`reference`（`kb_search`）の例：
+
+```json
+[{"fileName":"用户指南(附实例).pdf","fileType":"pdf","fileUrl":"http://x.x.x.x/api/fs/6602576e480c49509222f2c","kbAvatar":"Mybatis","kbName":"/assets/avatar/1.png","score":0.7309842270543954}]
+```
+
+`references`（複数の引用のまとめ）の例：
+
+```json
+{
+  "kb_search": [{"fileName":"用户指南(附实例).pdf","fileType":"pdf","fileUrl":"http://x.x.x.x/api/fs/6602576e480c49509222f2c","kbAvatar":"Mybatis","kbName":"/assets/avatar/1.png","score":0.7309842270543954}],
+  "kb_search_img_list":[{"fileName":"sdiwoe.png","fileType":"png","fileUrl":"http://x.x.x.x/api/fs/6602576e480c49509222f2c"}]
+}
+```
+
+## ストリーミングレスポンスボディの例
+
+```
+data:{"chatId":2088,"complete":false,"finish": false, "content":"互","conversationId":"5923e893a0a24e1b8f0025818249cfea","messageId":"5923e893a0a24e1b8f0025818249cfea","role": {"id": "afdba586a252468d8b3db2bd2a1320fb","name": "开发测试","avatar":"http://x.x.x.x/api/fs/6606960e2e0bcb3ec15a3024.png"},"type":"text"}
+
+data:{"chatId":2088,"complete":false,"finish": false, "content":"联","conversationId":"5923e893a0a24e1b8f0025818249cfea","messageId":"5923e893a0a24e1b8f0025818249cfea","role": {"id": "afdba586a252468d8b3db2bd2a1320fb","name": "开发测试","avatar":"http://x.x.x.x/api/fs/6606960e2e0bcb3ec15a3024.png"},"type":"text"}
+
+......省略
+
+// あるリプライの終了(同一の会話内で複数回のリプライが発生する場合があります) complete:true
+data:{"chatId":2088,"complete":true,"finish": false, "content":"。","conversationId":"5923e893a0a24e1b8f0025818249cfea","messageId":"5923e893a0a24e1b8f0025818249cfea","role": {"id": "afdba586a252468d8b3db2bd2a1320fb","name": "开发测试","avatar":"http://x.x.x.x/api/fs/6606960e2e0bcb3ec15a3024.png"},"type":"text"}
+
+// 会話の終了：finish:true
+data:{"chatId":2088,"complete":true,"finish": true, "content":"","conversationId":"5923e893a0a24e1b8f0025818249cfea","messageId":"5923e893a0a24e1b8f0025818249cfea","role": {"id": "afdba586a252468d8b3db2bd2a1320fb","name": "开发测试","avatar":"http://x.x.x.x/api/fs/6606960e2e0bcb3ec15a3024.png"},"type":"text"}
+```
+
+<Info>
+非ストリーミング（同期/非同期）版のリクエストパラメータは本インターフェースとほぼ同一です。主な差異は [Agentチャット非ストリーミングインターフェース（同期）](/ja-jp/api-reference/chat-sync) および [Agentチャット非ストリーミングインターフェース（非同期）](/ja-jp/api-reference/chat-async) を参照してください。
+</Info>

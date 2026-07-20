@@ -1,0 +1,83 @@
+---
+title: "データセットの作成とタスクの開始"
+---
+
+## リクエストURL
+
+```
+{{host}}/openapi/kb/createDsAndTask
+```
+
+## リクエストメソッド
+
+`POST`
+
+## リクエストヘッダー
+
+[インターフェース仕様](/ja-jp/api-reference/overview)を参照してください。Agent Token は ❌ 非対応、個人シークレットキーのみ ✅ 対応です。
+
+<Warning>
+本インターフェースは個人シークレットキー（`authKey` / `authSecret`）による認証呼び出しのみサポートしており、Agent Token による呼び出しはサポートしていません。
+</Warning>
+
+## リクエストボディパラメータ
+
+| パラメータ | 型 | 必須 | 説明 |
+| --- | --- | --- | --- |
+| `kbId` | number | はい | 所属するナレッジベースのID（[ナレッジベースの作成](/ja-jp/api-reference/knowledge-base-create)インターフェースで取得） |
+| `fileId` | string | はい | アップロードしたファイルのID（[ファイルアップロード](/ja-jp/api-reference/file-upload)インターフェースで取得） |
+| `name` | string | はい | データセット名 |
+| `parserType` | string | いいえ | チャンク分割・解析方式の拡張フィールド。デフォルトは `general`。値と対応するドキュメント種別は下表を参照 |
+| `skipIfExists` | boolean | いいえ | 既存のデータセットをスキップするかどうか。デフォルトは `true` |
+| `autoStartChunkTask` | boolean | いいえ | チャンク分割タスクを自動的に開始するかどうか。デフォルトは `true` |
+| `alwaysCreateNew` | boolean | いいえ | 常に新規データセットを作成するかどうか。デフォルトは `false` |
+
+`parserType` の値：
+
+| 値 | 説明 | 対応するドキュメント種別 |
+| --- | --- | --- |
+| `general` | 汎用 | pdf、docx、txt、htm、html、doc、xlsx、md、py、js、java、c、cpp、h、php、go、ts、sh、cs、kt |
+| `custom` | カスタム | pdf、doc、docx、txt |
+| `presentation` | プレゼンテーション | ppt、pdf、pptx |
+| `laws` | 法律 | pdf、docx、txt、htm、html、doc |
+| `manual` | マニュアル | pdf |
+| `paper` | 論文 | pdf |
+| `book` | 書籍 | pdf、docx、txt、htm、html、doc |
+| `qa` | Q&A | xlsx、txt、csv |
+| `table` | 表 | xlsx、csv、txt |
+| `picture` | 画像 | jpg、jpeg、png、tif、gif、pcx、tga、exif、fpx、svg、psd、cdr、pcd、dxf、ufo、eps、ai、raw、wmf、webp、avif、apng、icon、ico、mpg、mpeg、rm、asf、dat、asx、wvx、mpe、mpa |
+| `one` | 一括 | pdf、docx、txt、htm、html、doc、xlsx |
+| `voice` | 音声/動画 | mp3、wav、mp4、mkv、avi、mov、aac、ogg、m4a、wma、webm、3gp、flac |
+
+## リクエストボディの例
+
+```json
+{
+    "kbId": 123,
+    "fileId": "67dccd3ae1138d0f6d12ca6a",
+    "name": "データセット名",
+    "parserType": "custom"
+}
+```
+
+## レスポンスボディ
+
+| フィールド | 説明 |
+| --- | --- |
+| `code` | レスポンス結果コード。`1` は成功、それ以外は失敗を示します |
+| `msg` | エラーメッセージ |
+| `data` | 新規作成されたデータセットのID（`dsId`） |
+
+## レスポンスボディの例
+
+```json
+{
+    "code": 1,
+    "msg": "操作に成功しました",
+    "data": 31212
+}
+```
+
+<Info>
+作成済みのデータセットを変更してタスクを再開する場合は[データセットの変更とタスクの再開](/ja-jp/api-reference/dataset-update)インターフェースを、データセットを削除する場合は[データセットの削除](/ja-jp/api-reference/dataset-delete)インターフェースを使用してください。
+</Info>

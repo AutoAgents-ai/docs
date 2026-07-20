@@ -1,0 +1,53 @@
+---
+title: "ファイル形式変換"
+---
+
+## リクエストURL
+
+```
+{{host}}/openapi/deepdoc/fileTransfer
+```
+
+## リクエストメソッド
+
+`POST`
+
+## リクエストヘッダー
+
+[インターフェース仕様](/ja-jp/api-reference/overview)を参照してください。Agent Token ❌、個人シークレットキー ✅ に対応しています。
+
+## リクエストボディパラメータ
+
+| パラメータ | 型 | 必須 | 説明 |
+| --- | --- | --- | --- |
+| `fileName` | string | はい | 入力ファイル名 |
+| `fileUrl` | string | はい | 入力ファイルのURL |
+| `format` | string | はい | 変換先のファイル形式。一般的なドキュメント形式（例：`doc`、`docx`、`xls`、`xlsx`）に対応し、一般的なドキュメント形式から `pdf` 形式への変換にも対応 |
+
+## リクエストボディの例
+
+```json
+{
+  "fileName": "テストファイル111.xls",
+  "fileUrl": "https://uat.agentspro.cn/api/fs/xxxxx",
+  "format": "xlsx"
+}
+```
+
+## レスポンスボディ
+
+| フィールド | 説明 |
+| --- | --- |
+| `code` | レスポンス結果コード。`1` は成功、それ以外は失敗を示します |
+| `msg` | エラーメッセージ |
+| `data` | 変換後のファイルURL |
+
+## レスポンスボディの例
+
+```json
+{
+    "code": 1,
+    "msg": "操作に成功しました",
+    "data": "https://uat.agentspro.cn/api/fs/xxxxx"
+}
+```

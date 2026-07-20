@@ -1,0 +1,67 @@
+---
+title: "Agent Basic Info"
+---
+
+## Request URL
+
+```
+{{host}}/openapi/agents/{agentUUID}
+```
+
+or
+
+```
+{{host}}/openapi/v2/agents/{agentUUID}
+```
+
+## Request Method
+
+`GET`
+
+## Request Headers
+
+Refer to the [API Specification](/en/api-reference/overview); supports ✅ Agent Token, ✅ personal API key.
+
+## Request Parameters
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| `agentUUID` | string | Yes | The Agent's ID, passed as a path parameter |
+
+**Request example:**
+
+```
+{{host}}/openapi/agents/ogwerwr34rq3434234sf
+```
+
+## Response Body
+
+| Field | Description |
+| --- | --- |
+| `code` | Response result code. `1` indicates success; any other value indicates failure, with details in `msg` |
+| `data` | Agent basic info; see below for field descriptions |
+| `data.agentUuid` | Agent UUID |
+| `data.avatar` | Agent avatar |
+| `data.name` | Agent name |
+| `data.intro` | Agent introduction |
+| `data.guides` | Agent suggested questions |
+| `data.prologue` | Opening message |
+| `data.chatAvatar` | Agent chat background |
+
+## Response Body Example
+
+```json
+{
+  "code": 1,
+  "msg": "success",
+  "data": {
+    "agentUuid": "agwerwr34rq3434234sf",
+    "avatar": "https://xxx.png",
+    "name": "Agent Name",
+    "intro": "Agent introduction",
+    "guides": ["Suggested question 1", "Suggested question 2"],
+    "prologue": "Welcome to the agent",
+    "chatAvatar": "https://xxx.png"
+  }
+}
+```

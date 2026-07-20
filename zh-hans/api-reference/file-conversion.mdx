@@ -1,0 +1,53 @@
+---
+title: "文件类型转换"
+---
+
+## 请求地址
+
+```
+{{host}}/openapi/deepdoc/fileTransfer
+```
+
+## 请求方式
+
+`POST`
+
+## 请求 Header
+
+参考[接口规范](/zh-hans/api-reference/overview)；支持 ❌ Agent Token、✅ 个人秘钥。
+
+## 请求体参数
+
+| 参数 | 类型 | 必填 | 说明 |
+| --- | --- | --- | --- |
+| `fileName` | string | 是 | 输入文件名 |
+| `fileUrl` | string | 是 | 输入文件 URL |
+| `format` | string | 是 | 目标文件类型，支持常见文档格式（例如 `doc`、`docx`、`xls`、`xlsx`），支持常见文档格式转 `pdf` 格式 |
+
+## 请求体示例
+
+```json
+{
+  "fileName": "测试文件111.xls",
+  "fileUrl": "https://uat.agentspro.cn/api/fs/xxxxx",
+  "format": "xlsx"
+}
+```
+
+## 响应体说明
+
+| 字段 | 说明 |
+| --- | --- |
+| `code` | 响应结果码，`1` 表示成功；其他表示失败 |
+| `msg` | 错误消息 |
+| `data` | 转换之后的文件 URL |
+
+## 响应体示例
+
+```json
+{
+    "code": 1,
+    "msg": "操作成功",
+    "data": "https://uat.agentspro.cn/api/fs/xxxxx"
+}
+```

@@ -1,0 +1,119 @@
+---
+title: "Agentチャット非ストリーミング（非同期）結果ポーリング取得インターフェース"
+---
+
+[Agentチャット非ストリーミングインターフェース（非同期）](/ja-jp/api-reference/chat-async)と組み合わせて使用し、`requestId` によって非同期実行結果をポーリングで取得します。
+
+## リクエストURL
+
+```
+{{host}}/openapi/agents/chat/completions/async/polling/v1?agentId={}&requestId={}
+```
+
+または
+
+```
+{{host}}/openapi/v2/chat/completions/async/polling?agentId={}&requestId={}
+```
+
+## リクエストメソッド
+
+`GET`
+
+## リクエストヘッダー
+
+[インターフェース仕様](/ja-jp/api-reference/overview)を参照してください。Agent Token ✅、個人シークレットキー ✅ に対応しています。
+
+## リクエストパラメータ
+
+| パラメータ | 必須 | 説明 |
+| --- | --- | --- |
+| `agentId` | はい | Agent の ID |
+| `requestId` | はい | リクエスト ID（[非同期インターフェース](/ja-jp/api-reference/chat-async)が返却する `data.requestId`） |
+
+リクエスト例：
+
+```
+agentId=4328bb87fdd145e2a25ec53bsada27c95
+requestId=2498bb87fdd145e2a25ec53b50b27c95
+```
+
+## レスポンスボディ
+
+| フィールド | 説明 |
+| --- | --- |
+| `code` | レスポンス結果コード。`1` は成功、それ以外は失敗を示します |
+| `msg` | エラーメッセージ |
+| `data.requestId` | バックエンドログのリクエスト ID。問題調査時にこの ID を使ってログを検索できます |
+| `data.output` | [Agentチャット非ストリーミングインターフェース（同期）](/ja-jp/api-reference/chat-sync)の返却ボディの構造と同一で、状態が `DONE` のときのみ値が入ります |
+| `data.state` | 非同期タスクの実行状態：`0`、`1`、`2`、`3` |
+
+```sql
+NOT_EXIST(0, "存在しません"),
+RUNNING(1, "実行中"),
+DONE(2, "実行終了"),
+EXCEPTION(3, "実行異常")
+```
+
+## レスポンスボディの例
+
+```json
+{
+    "code": 1,
+    "msg": "操作成功",
+    "data": {
+        "requestId": "29527e2089e84f5888cc3769618f39cd",
+        "output": {
+            "chatId": "29301",
+            "conversationId": "ed11b0ce99064e4180bf01aec722d6f6f1gyobzs",
+            "memory": {
+                "userChatInput": "你好"
+            },
+            "choices": [
+                {
+                    "id": "67ea65e9aef53333a8b38ba9",
+                    "chatId": "29301",
+                    "conversationId": "ed11b0ce99064e4180bf01aec722d6f6f1gyobzs",
+                    "role": {
+                        "id": "27cd83532ab2432d868d8a89bb1e79c0",
+                        "name": "测试台铃",
+                        "avatar": "/assets/agent/avatar.png"
+                    },
+                    "alias": null,
+                    "componentName": "AI智能对话",
+                    "content": "`你\n好`",
+                    "reasoningContent": "",
+                    "thinkingElapsedMillSecs": null,
+                    "renderType": "md",
+                    "referenceType": null,
+                    "reference": null,
+                    "references": {},
+                    "metaMessage": null,
+                    "memory": null,
+                    "type": "text",
+                    "complete": true,
+                    "finish": false,
+                    "status": 1,
+                    "bill": {
+                        "model": "gpt-4o",
+                        "billType": "chat",
+                        "completionTokens": 6,
+                        "promptTokens": 27,
+                        "totalTokens": 33,
+                        "completionTokensDetails": {
+                            "reasoningTokens": 0
+                        },
+                        "promptTokensDetails": {
+                            "cachedTokens": 0
+                        },
+                        "costDetail": {}
+                    },
+                    "messageId": "67ea65e9aef53333a8b38ba9"
+                }
+            ],
+            "state": null
+        },
+        "state": 2
+    }
+}
+```

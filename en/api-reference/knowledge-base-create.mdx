@@ -1,0 +1,67 @@
+---
+title: "Create Knowledge Base"
+---
+
+## Request URL
+
+```
+{{host}}/openapi/kb/createKb
+```
+
+## Request Method
+
+`POST`
+
+## Request Headers
+
+Refer to the [API Specification](/en/api-reference/overview); Agent Token is not supported ❌, only personal API keys are supported ✅.
+
+<Warning>
+This endpoint only supports authentication using personal API keys (`authKey` / `authSecret`), and does not support calls made with an Agent Token.
+</Warning>
+
+## Request Body Parameters
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| `name` | string | Yes | Knowledge base name |
+| `description` | string | No | Description |
+| `avatarUrl` | string | No | Avatar URL |
+| `vectorModel` | string | Yes | Vector model (embedding model) |
+
+## Request Body Example
+
+```json
+{
+    "name": "test",
+    "description": "description",
+    "vectorModel": "oneapi-xinference:bce-embedding",
+    "avatarUrl": "/assets/avatar/63.png"
+}
+```
+
+<Info>
+Replace `vectorModel` with the identifier of a vector model (embedding model) that is actually available in your current environment.
+</Info>
+
+## Response Body
+
+| Field | Description |
+| --- | --- |
+| `code` | Response result code; `1` indicates success, any other value indicates failure |
+| `msg` | Error message |
+| `data` | ID of the newly created knowledge base (`kbId`) |
+
+## Response Body Example
+
+```json
+{
+    "code": 1,
+    "msg": "Operation succeeded",
+    "data": 121
+}
+```
+
+<Info>
+The `kbId` returned after creating a knowledge base can be used as the `kbId` parameter of the [Create Dataset and Start Task](/en/api-reference/dataset-create) endpoint to add datasets to this knowledge base.
+</Info>

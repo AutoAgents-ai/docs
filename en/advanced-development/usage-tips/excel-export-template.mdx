@@ -1,0 +1,74 @@
+---
+title: "Excel Export Template Usage Guide"
+---
+
+The "Excel Generation" component can populate an XLSX template with JSON data; the syntax and a sample template are described below.
+
+## 1. Placeholder Replacement
+
+Format: `{{expression}}`; use placeholders directly in Excel cells to replace data.
+
+Supported data access methods:
+
+- Simple variable: `{{var1}}`
+- Nested object: `{{other.var3}}`
+- Array element: `{{list1.[0].var1}}`
+- Deep nesting: `{{data.user.profile.name}}`
+
+## 2. Vertical Loop (Region Loop)
+
+Format: `<for item in list>...</for>`, used to generate multiple rows of data vertically:
+
+```
+<for item in list1>
+{{item.var1}}  {{item.var2}}  {{item.detail.var3}}
+</for>
+```
+
+Features:
+
+- Automatically generates the corresponding number of rows based on the length of the data array
+- Supports multi-row templates (define multiple rows within the loop region)
+- Supports nested objects and arrays inside the loop
+
+## 3. Horizontal Loop
+
+Format: `<hfor item in list>...</hfor>`, used to generate multiple columns of data horizontally:
+
+```
+<hfor item in demo.list2>
+{{item.var1}}  {{item.detail.var2}}
+</hfor>
+```
+
+Features:
+
+- Data expands rightward into multiple columns
+- Suitable for headers or horizontal data display
+- The loop variable `item` represents the currently iterated data item
+
+## 4. Image Insertion
+
+Format: `{{@expression}}`, use an image placeholder in an Excel shape:
+
+```
+{{@imgurl1}}                // static image
+{{@item.aaImage}}           // dynamic image within a loop
+{{@data.other.imgurl2}}     // image within a nested object
+```
+
+Supported image formats:
+
+- Image URL: `https://example.com/image.jpg`
+- Base64 format: `data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA...`
+
+Image processing features:
+
+- Automatically detects the image format (PNG, JPEG)
+- Images automatically fit the cell size
+- Supports dynamically inserting images within a loop
+- Preserves the original shape's position and size information
+
+## 5. Template Example and Sample Input Parameters
+
+Please contact your platform administrator to obtain the sample template file (`新模版.xlsx`) and the corresponding sample rendering data (`渲染数据.json`).

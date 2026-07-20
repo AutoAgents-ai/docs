@@ -1,0 +1,280 @@
+---
+title: "System Built-in Functions"
+---
+
+System built-in functions are used to process data in prompts, reply content, workflow node parameters, and other locations.
+
+## Usage Syntax
+
+`[@["functionName", "args1", "args2", ....]@]` indicates a function call
+
+## Date and Time
+
+### Format date (milliseconds)
+
+```
+[@["DateFormatFromMills","your mills", "your formats"]@]
+```
+
+<Frame>
+  <img src="/images/advanced-development/adv_001.png" alt="Date formatting example" />
+</Frame>
+
+### Format date (seconds)
+
+```
+[@["DateFormatFromSeconds","your seconds", "your formats"]@]
+```
+
+### Convert date to milliseconds
+
+```
+[@["DateStrToMills","your date", "your date format"]@]
+```
+
+### Convert date to seconds
+
+```
+[@["DateStrToSeconds","your date", "your date format"]@]
+```
+
+### Add/subtract from a date
+
+```
+[@["GetDateFromNow","your add/subtract days"]@]
+```
+
+### Convert date format
+
+```
+[@["DateStrReFormat","your date", "your target format", "your source format, optional"]@]
+```
+
+### Parse natural language into a date
+
+```
+[@["JionlpParseTime","your text1"]@]
+```
+
+Example: `[@["JionlpParseTime","today"]@]`
+
+<Info>
+Refer to the [time semantic parsing documentation](https://github.com/dongrixinyu/JioNLP) to understand the supported scope of natural language time parsing.
+</Info>
+
+## String Processing
+
+### Extract a substring between delimiters
+
+```
+[@["ExtractAroundStr","your text", "your start str", "your end str", "containsBorder true|false"]@]
+```
+
+### Extract the first string matching a regex
+
+```
+[@["ExtractStrByRegex","your text", "your regex"]@]
+```
+
+<Info>
+Regex syntax reference: [Runoob Regular Expression Tutorial](https://www.runoob.com/regexp/regexp-tutorial.html)
+</Info>
+
+### Extract all strings matching a regex
+
+```
+[@["ExtractArrByRegex","your text", "your regex"]@]
+```
+
+### String replace
+
+```
+[@["Replace","your text", "your old str", "your new str"]@]
+```
+
+### String regex replace
+
+```
+[@["ReplaceRegex","your text", "your regex str", "your new str"]@]
+```
+
+### String escape
+
+```
+[@["EscapeStr","your text"]@]
+```
+
+Example:
+
+```json
+// text = {"dataList":[{"aiSkipType":"3","play_id":"1613810","guest_name":"广岛蜻蜓","play_msg":"今天 日联季后 冲绳金帝皇VS广岛蜻蜓 赛事预测"}]}
+[@["EscapeStr","{{text}}"]@]
+// Result: {\"dataList\":[{\"aiSkipType\":\"3\",\"play_id\":\"1613810\",\"guest_name\":\"广岛蜻蜓\",\"play_msg\":\"今天 日联季后 冲绳金帝皇VS广岛蜻蜓 赛事预测\"}]}
+```
+
+### String concatenation
+
+```
+[@["Concat","your text1","your text2","your text3",...]@]
+```
+
+### Array concatenation
+
+```
+[@["ConcatArray","your array1","your arr2","your arr3",...]@]
+```
+
+### Merge data objects
+
+```
+[@["MergeObject","your obj1","your obj2","your obj3",...]@]
+```
+
+### RSA encryption
+
+```
+[@["RSAEncode","your text", "your public key"]@]
+```
+
+### Md5 digest
+
+```
+[@["Md5Digest","your text"]@]
+```
+
+## JSON Processing
+
+### Extract a JSON object
+
+```
+[@["ExtractJsonObj","your text", "your jsonpath"]@]
+```
+
+<Info>
+JSON Path syntax reference: [fastjson JSONPath Wiki](https://github.com/alibaba/fastjson/wiki/JSONPath) or [jsonpath.com](https://jsonpath.com/)
+</Info>
+
+### Extract a JSON array
+
+```
+[@["ExtractJsonArr","your text", "your jsonpath"]@]
+```
+
+### Extract JSON by regex
+
+```
+[@["ExtractJsonByRegex","your text", "your json key1", "your json key1 regex", "your json key2", "your json key2 regex"]@]
+```
+
+## Conditions and Comparison
+
+### Assign a value based on conditions
+
+```
+[@["CaseWhenThen","your case value", "when value1", "then value1", "when value2", "then value2"..., "default value"]@]
+```
+
+### Assign a value based on conditions (case-sensitive)
+
+```
+[@["CaseWhenThenIgnoreCase","your case value", "when value1", "then value1", "when value2, optional", "then value2, optional"..., "default value, optional"]@]
+```
+
+### Check equality against any given candidate value
+
+```
+[@["EqualsAny","your value", "your other value1", "your other value2, optional"...]@]
+```
+
+### Check equality against any given candidate value (case-sensitive)
+
+```
+[@["EqualsAnyIgnoreCase","your value", "your other value1", "your other value2, optional"...]@]
+```
+
+## Encoding and Language
+
+### URL encode
+
+```
+[@["UrlEncode","your text", "your charset, default is UTF-8"]@]
+```
+
+### URL decode
+
+```
+[@["UrlDecode","your text", "your charset, default is UTF-8"]@]
+```
+
+### Automatically detect which language to reply in
+
+```
+[@["AutoSpecifyResponseLanguage","your text", "your default lang, The optional values are EN,CN, default value is CN"]@]
+```
+
+## Files and Web Pages
+
+### Parse a file via Tika
+
+```
+[@["ParseDocByTika","FileInput[]"]@]
+```
+
+Example input:
+
+```json
+FileInput: [ { "fileName": "西部.docx", "fileType": "docx", "fileId": "66ac4bde0564ee6d4213148d" } ]
+```
+
+After the function successfully parses the file, it returns the file content as a JSON array:
+
+```json
+[{"content":"NBA西部全明星首发：詹姆斯、杜兰特、约基奇、东契奇、亚历山大\nNBA西部全明星替补：莱昂纳德、安东尼-戴维斯、布克、爱德华兹、库里、乔治、唐斯\n","fileId":"66ac4bde0564ee6d4213148d","fileName":"西部.docx","fileType":"docx","success":true}]
+```
+
+### Fetch web page content
+
+```
+[@["FetchUrl","UrlFetchReq[]"]@]
+```
+
+Input:
+
+```json
+[{
+  // standard fields
+  "url": "xxx",
+  "timeout": 6666, // default value
+  "xpath": [{
+    "key": "key1",
+    "path": ""
+  }], // optional
+  // other fields are returned to the user as-is
+  "x1": "",
+  "x2": ""
+}]
+```
+
+Output:
+
+```json
+[{
+  // standard fields; timeout and xpath fields are removed
+  "url": "xxx",
+  "content": {
+    // when the user has not defined xpath, body is returned by default
+    "body": "doc.text()",
+    // when the user has defined xpath, body is not returned
+    "key1": "value1",
+    "key2": "value2"
+  },
+  "success": true, // whether the content was fetched successfully
+  // other fields are returned to the user as-is
+  "x1": "",
+  "x2": ""
+}]
+```
+
+<Info>
+For a more concise system variable reference, see [System Built-in Variables](/en/advanced-development/system-variables).
+</Info>

@@ -1,0 +1,26 @@
+---
+title: "Data Type Conversion"
+---
+
+In some scenarios you need to convert plain text/URLs into the platform's internal "image" or "file" types; this can be done using the "Information Processing" component.
+
+<Frame>
+  <img src="/images/advanced-development/adv_004.png" alt="Converting data types via the Information Processing component" />
+</Frame>
+
+## Convert an Image URL Address into Image Information Type
+
+```json
+[{"url": "http://your image URL address"}]
+```
+
+## Convert a File URL Address into File Information Type
+
+```json
+[
+  {
+    "fileName": "your_file_name.docx",
+    "fileUrl": "https://your file URL address"
+  }
+]
+```

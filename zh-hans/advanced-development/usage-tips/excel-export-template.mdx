@@ -1,0 +1,74 @@
+---
+title: "Excel 导出模板使用说明"
+---
+
+使用「Excel 生成」组件可以使用 JSON 数据填充 XLSX 模板，具体语法和样例模板如下。
+
+## 1. 占位符替换
+
+格式：`{{expression}}`，在 Excel 单元格中直接使用占位符来替换数据。
+
+支持的数据访问方式：
+
+- 简单变量：`{{var1}}`
+- 嵌套对象：`{{other.var3}}`
+- 数组元素：`{{list1.[0].var1}}`
+- 深层嵌套：`{{data.user.profile.name}}`
+
+## 2. 纵向循环（区域循环）
+
+格式：`<for item in list>...</for>`，用于在垂直方向生成多行数据：
+
+```
+<for item in list1>
+{{item.var1}}  {{item.var2}}  {{item.detail.var3}}
+</for>
+```
+
+特点：
+
+- 自动根据数据数组长度生成对应行数
+- 支持多行模板（在循环区域内定义多行）
+- 支持在循环内使用嵌套对象和数组
+
+## 3. 横向循环
+
+格式：`<hfor item in list>...</hfor>`，用于在水平方向生成多列数据：
+
+```
+<hfor item in demo.list2>
+{{item.var1}}  {{item.detail.var2}}
+</hfor>
+```
+
+特点：
+
+- 数据向右展开成多列
+- 适用于表头或横向数据展示
+- 循环变量 `item` 代表当前遍历的数据项
+
+## 4. 图片插入
+
+格式：`{{@expression}}`，在 Excel 形状中使用图片占位符：
+
+```
+{{@imgurl1}}                // 静态图片
+{{@item.aaImage}}           // 循环中的动态图片
+{{@data.other.imgurl2}}     // 嵌套对象中的图片
+```
+
+支持的图片格式：
+
+- URL 图片：`https://example.com/image.jpg`
+- Base64 格式：`data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA...`
+
+图片处理特性：
+
+- 自动识别图片格式（PNG、JPEG）
+- 图片自动适应单元格大小
+- 支持在循环中动态插入图片
+- 保持原始形状的位置和尺寸信息
+
+## 5. 模板示例和输入参数示例
+
+请联系平台管理员获取示例模板文件（`新模版.xlsx`）与对应的渲染数据示例（`渲染数据.json`）。

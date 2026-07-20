@@ -1,0 +1,77 @@
+---
+title: "Get List of Available Models"
+---
+
+## Request URL
+
+```
+{{host}}/openapi/ai-models/v1/models
+```
+
+## Request Method
+
+`GET`
+
+## Request Headers
+
+Refer to the [API Specification](/en/api-reference/overview); supports ❌ Agent Token, ✅ personal API key.
+
+## Request Parameters
+
+No input parameters, no query parameters, and no request body.
+
+## Response Body
+
+| Field | Description |
+| --- | --- |
+| `code` | Response result code; `1` indicates success, any other value indicates failure |
+| `msg` | Error message |
+| `data` | List of available models, an array; see the table below for the fields of each item |
+
+Fields of each model object in `data`:
+
+| Field | Description |
+| --- | --- |
+| `name` | Display name of the model |
+| `model` | Model ID, used for the `model` parameter of the [LLM Chat Completion](/en/api-reference/llm-chat-completion) endpoint |
+| `icon` | URL of the model icon |
+| `modelVersion` | Model version number |
+| `price` | Billing price of the model |
+| `quoteMaxToken` | Maximum number of tokens for quoted content |
+| `maxTemperature` | Maximum supported sampling temperature |
+| `contextMaxToken` | Maximum number of tokens in the context window |
+| `completionMaxToken` | Maximum number of tokens generated in a single reply |
+| `maxPictureNumber` | Maximum number of images supported (multimodal input) |
+| `maxVideoNumber` | Maximum number of videos supported (multimodal input) |
+| `supportChat` | Whether chat is supported |
+| `supportVision` | Whether vision (image understanding) is supported |
+| `supportReasoning` | Whether reasoning/chain-of-thought is supported |
+| `extraBody` | Additional request body parameters (varies by model; may be empty) |
+
+## Response Body Example
+
+```json
+{
+  "code": 1,
+  "msg": "Operation succeeded",
+  "data": [
+    {
+      "name": "Example model",
+      "model": "gpt-5-mini-uuid-bZZbPyuuV@azure",
+      "icon": "",
+      "modelVersion": null,
+      "price": 0,
+      "quoteMaxToken": null,
+      "maxTemperature": 2.0,
+      "contextMaxToken": 128000,
+      "completionMaxToken": 4096,
+      "maxPictureNumber": null,
+      "maxVideoNumber": null,
+      "supportChat": true,
+      "supportVision": false,
+      "supportReasoning": false,
+      "extraBody": null
+    }
+  ]
+}
+```

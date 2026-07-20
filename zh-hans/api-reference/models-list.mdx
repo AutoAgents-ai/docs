@@ -1,0 +1,77 @@
+---
+title: "获取可用模型列表"
+---
+
+## 请求地址
+
+```
+{{host}}/openapi/ai-models/v1/models
+```
+
+## 请求方式
+
+`GET`
+
+## 请求 Header
+
+参考[接口规范](/zh-hans/api-reference/overview)；支持 ❌ Agent Token、✅ 个人秘钥。
+
+## 请求参数
+
+无入参，无 Query 参数、无请求体。
+
+## 响应体说明
+
+| 字段 | 说明 |
+| --- | --- |
+| `code` | 响应结果码，`1` 表示成功，其他表示失败 |
+| `msg` | 错误消息 |
+| `data` | 可用模型列表，数组，每项字段见下表 |
+
+`data` 中每个模型对象的字段：
+
+| 字段 | 说明 |
+| --- | --- |
+| `name` | 模型展示名称 |
+| `model` | 模型 ID，用于[LLM 聊天补全](/zh-hans/api-reference/llm-chat-completion)接口的 `model` 参数 |
+| `icon` | 模型图标地址 |
+| `modelVersion` | 模型版本号 |
+| `price` | 模型计费价格 |
+| `quoteMaxToken` | 引用内容最大 Token 数 |
+| `maxTemperature` | 支持的最大采样温度 |
+| `contextMaxToken` | 上下文窗口最大 Token 数 |
+| `completionMaxToken` | 单次回复最大生成 Token 数 |
+| `maxPictureNumber` | 支持的最大图片数量（多模态输入） |
+| `maxVideoNumber` | 支持的最大视频数量（多模态输入） |
+| `supportChat` | 是否支持对话 |
+| `supportVision` | 是否支持视觉（图片理解） |
+| `supportReasoning` | 是否支持推理/思考链 |
+| `extraBody` | 额外请求体参数（因模型而异，可能为空） |
+
+## 响应体示例
+
+```json
+{
+  "code": 1,
+  "msg": "操作成功",
+  "data": [
+    {
+      "name": "示例模型",
+      "model": "gpt-5-mini-uuid-bZZbPyuuV@azure",
+      "icon": "",
+      "modelVersion": null,
+      "price": 0,
+      "quoteMaxToken": null,
+      "maxTemperature": 2.0,
+      "contextMaxToken": 128000,
+      "completionMaxToken": 4096,
+      "maxPictureNumber": null,
+      "maxVideoNumber": null,
+      "supportChat": true,
+      "supportVision": false,
+      "supportReasoning": false,
+      "extraBody": null
+    }
+  ]
+}
+```

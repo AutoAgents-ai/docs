@@ -1,0 +1,53 @@
+---
+title: "结束回复流接口"
+---
+
+## 请求地址
+
+```
+{{host}}/openapi/agents/chat/close?agentId={}&conversationId={}
+```
+
+或
+
+```
+{{host}}/openapi/v2/agents/chat/close?agentId={}&conversationId={}
+```
+
+## 请求方式
+
+`GET`
+
+## 请求Header
+
+参考[接口规范](/zh-hans/api-reference/overview)；支持 ✅ Agent Token、✅ 个人秘钥。
+
+## 请求参数
+
+| 参数 | 类型 | 必填 | 说明 |
+| --- | --- | --- | --- |
+| `agentId` | string | 是 | Agent ID |
+| `conversationId` | string | 是 | 会话 ID，对应聊天接口响应中的 `conversationId` 字段 |
+
+**请求示例：**
+
+```
+agentId：4328bb87fdd145e2a25ec53bsada27c95
+conversationId：2498bb87fdd145e2a25ec53b50b27c95
+```
+
+## 响应体说明
+
+| 字段 | 说明 |
+| --- | --- |
+| `code` | 响应结果码，`1` 表示成功；其他表示失败，具体错误信息见 `msg` |
+
+## 响应体示例
+
+```json
+{
+  "code": 1,
+  "msg": "操作成功",
+  "data": null
+}
+```

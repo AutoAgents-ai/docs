@@ -1,0 +1,101 @@
+---
+title: "API Specification"
+---
+
+The Agents Platform Open API provides capabilities for chat conversations, Agent management, knowledge base and dataset management, file processing, and more, for integration by business systems. This page explains authentication methods, environment addresses, and versioning rules. For specific endpoints, see the directory on the left.
+
+## Obtaining a Token
+
+The platform provides two levels of call credentials. Choose based on your actual needs:
+
+### Obtaining an Agent Token
+
+Go to the Agent editing page and click the relevant button in the top-right corner to obtain a Token dedicated to that Agent.
+
+<Warning>
+This Token can only be used to call the chat-related endpoints of Open API for a specific Agent, and its permissions are limited to operating on data belonging to that user.
+</Warning>
+
+<Frame>
+  <img src="/images/api-reference/api_001.png" alt="Entry point for obtaining an Agent Token" />
+</Frame>
+
+<Frame>
+  <img src="/images/api-reference/api_002.png" alt="Obtaining an Agent Token" />
+</Frame>
+
+### Obtaining Personal Credentials
+
+You can obtain personal credentials (authKey / authSecret) from the personal center.
+
+<Warning>
+This credential can be used to call all Open API endpoints, but its permissions are limited to operating on data belonging to that user, including the chat endpoints for all Agents under that user's account.
+</Warning>
+
+<Frame>
+  <img src="/images/api-reference/api_003.png" alt="Entry point for obtaining personal credentials" />
+</Frame>
+
+<Frame>
+  <img src="/images/api-reference/api_004.png" alt="Obtaining personal credentials" />
+</Frame>
+
+## Authentication Methods
+
+There are three authentication methods: MD5, Bearer Token, and Token. The Token value can be either an Agent Token or personal credentials.
+
+### MD5 Method (Recommended)
+
+Pass the following parameters in the Header:
+
+```http
+authKey: your authKey
+timestamp: millisecond timestamp; must not be more than 300 seconds from the current time
+sign: MD5({authKey}{authSecret}{timestamp})  // the MD5 hash result, using 32-character lowercase
+```
+
+**MD5 calculation example:**
+
+Assuming: `authKey=123`, `authSecret=456`, `timestamp=789`
+
+Then: `sign=md5(123456789)`
+
+### Bearer Token Method
+
+Pass the following parameters in the Header:
+
+```http
+Authorization: Bearer {authKey}.{authSecret}
+```
+
+<Info>Note that there is a space after `Bearer`.</Info>
+
+### Token Method
+
+Pass the following parameters in the Header:
+
+```http
+token: {authKey}.{authSecret}
+```
+
+Or pass the parameter via URL query params:
+
+```http
+{{host}}/api/openapi/agent/chat/stream/v1?token={authKey}.{authSecret}
+```
+
+## Environment Addresses
+
+| Environment | Address |
+| --- | --- |
+| Public network - TEST environment | `https://test.agentspro.cn` |
+| Public network - UAT environment | `https://uat.agentspro.cn` |
+| Public network - PROD environment | `https://lingda.agentspro.cn` |
+| Private deployment | `http://{Your Base Url}/` |
+
+## API Versioning
+
+| Version | Notes | Platform Version |
+| --- | --- | --- |
+| v1 | None | ✅ All versions |
+| v2 | Unified API naming conventions; the `chatId` in chat endpoints changed from numeric type to string type | ✅ v1.8.0.0+ |

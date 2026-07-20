@@ -1,0 +1,162 @@
+---
+title: "Agentチャット非ストリーミングインターフェース（非同期）"
+---
+
+リクエストパラメータは[Agentチャット非ストリーミングインターフェース（同期）](/ja-jp/api-reference/chat-sync)とほぼ同一で、Agent のフローを非同期で実行し、インターフェース呼び出しはバックエンドログに記録された `requestId` と `state` を返却します。オプションパラメータとして `callbackUrl` と `callbackHeaders` が追加されています。`callbackUrl` を渡した場合、Agent フローの非同期実行が成功すると、POST 方式で実行結果を `callbackUrl` に返送します。リクエストボディの内容は[同期インターフェース](/ja-jp/api-reference/chat-sync)の返却値と同じです。
+
+## リクエストURL
+
+```
+{{host}}/openapi/agents/chat/completions/async/v1
+```
+
+または
+
+```
+{{host}}/openapi/v2/chat/completions/async
+```
+
+## リクエストメソッド
+
+`POST`
+
+## リクエストヘッダー
+
+[Agentチャットストリーミングインターフェース](/ja-jp/api-reference/chat-stream#リクエストヘッダー)と同一です。Agent Token ✅、個人シークレットキー ✅ に対応しており、`X-username` は任意です。
+
+## リクエストボディパラメータ
+
+基本パラメータは[同期インターフェース](/ja-jp/api-reference/chat-sync#リクエストボディパラメータ)と同一です（`agentId`、`chatId`、`userChatInput`、`state`、`buttonKey`、`images`、`files`、`formData`、`debug`）。さらに以下が追加されています：
+
+| パラメータ | 必須 | 説明 |
+| --- | --- | --- |
+| `callbackUrl` | いいえ | パラメータが空でない場合、Agent の実行成功後に POST メソッドで最終的なメッセージデータをこのアドレスにプッシュします |
+| `callbackUrlPerComponent` | いいえ | パラメータが空でない場合、Agent は返信情報を持つコンポーネントを実行するごとに POST メソッドでメッセージデータをこのアドレスにプッシュします |
+| `callbackHeaders` | いいえ | `callbackUrl` が空でない場合、`callbackUrl` を呼び出す際にこのリクエストヘッダーが付与されます。コールバックに認証が必要な場合、このパラメータを使って認証用ヘッダーを渡すことができます |
+
+## リクエストボディの例
+
+```json
+{
+    "agentId":"a2207c2f6d3d44d2b4a5dae5b5593750",
+    "chatId": null,
+    "userChatInput":"Mybatis",
+    "images":[{"url":"your image url here"}],
+    "files":[],
+    "state":{
+        "yourKey1":"yourValue1",
+        "yourKey2":"yourValue2"
+    },
+    "buttonKey":"按钮id或者名字",
+    "debug":false,
+    "callbackUrl":"http://example.com/callback",
+    "callbackHeaders": {
+        "token": "token-xxxx"
+    }
+}
+```
+
+## レスポンスボディ
+
+コールバックのリクエストボディは[同期インターフェース](/ja-jp/api-reference/chat-sync)の返却値と同一です。本インターフェース自体の呼び出しに対するレスポンスボディは以下の通りです：
+
+| フィールド | 説明 |
+| --- | --- |
+| `code` | レスポンス結果コード。`1` は成功、それ以外は失敗を示します |
+| `msg` | エラーメッセージ |
+| `data.requestId` | バックエンドログのリクエスト ID。問題調査時にこの ID を使ってログを検索でき、[結果ポーリング取得インターフェース](/ja-jp/api-reference/chat-async-poll)と組み合わせて非同期実行結果を取得することもできます |
+| `data.state` | 渡された環境変数パラメータ。key/value は呼び出し側が自由に定義できます |
+
+## レスポンスボディの例
+
+```json
+{
+    "code": 1,
+    "msg": "success",
+    "data":
+    {
+        "requestId": "5f364d5f79f34c2aa1267cf14ef2de5d",
+        "state":
+        {
+            "yourKey1": "yourValue1",
+            "yourKey2": "yourValue2"
+        }
+    }
+}
+```
+
+## 呼び出し例
+
+```http
+リクエスト：
+POST /api/openapi/agent/chat/completions/v1 HTTP/1.1
+Host: x.x.x.x
+Content-Type: application/json
+Authorization: Bearer {authKey}.{authSecret}
+Content-Length: 147
+
+{"agentId":"afdba586a252468d8b3db2bd2a1320fb",
+"chatId":null,
+"userChatInput":"mybatis",
+"state":{
+    "roomId":123,
+    "roomName":"testRoom"
+ }
+}
+```
+
+コールバック／返却結果の例：
+
+```json
+{
+    "chatId": 7767,
+    "conversationId": "a8381932cd7f4092a20fad86054fa40c",
+    "choices": [
+        {
+            "chatId": 7767,
+            "conversationId": "a8381932cd7f4092a20fad86054fa40c",
+            "messageId": "a8381932cd7f4092a20fad86054fa40c",
+            "role": {
+                "id": "afdba586a252468d8b3db2bd2a1320fb",
+                "name": "开发测试",
+                "avatar": "http://x.x.x.x/api/fs/6606960e2e0bcb3ec15a3024.png"
+            },
+            "componentName": "AI智能对话",
+            "content": "MyBatis是一款一流的支持自定义SQL、存储过程和高级映射的持久化框架...",
+            "referenceType": "kb_search",
+            "reference": "[{\"fileName\":\"MyBatis3_用户指南(附JavaDB实例).pdf\",\"fileType\":\"pdf\",\"fileUrl\":\"http://x.x.x.x/api/fs/6602576e480c49509222f2c0\",\"kbAvatar\":\"Mybatis\",\"kbName\":\"/assets/avatar/1.png\",\"score\":0.7309842270543954}]",
+            "type": "text",
+            "complete": true,
+            "finish": false,
+            "bill": {
+                "model": "SkyChat-MegaVerse",
+                "billType": "chat",
+                "completionTokens": 150,
+                "promptTokens": 461,
+                "totalTokens": 611
+            }
+        },
+        {
+            "chatId": 7767,
+            "conversationId": "a8381932cd7f4092a20fad86054fa40c",
+            "messageId": "a8381932cd7f4092a20fad86054fa40c",
+            "role": {
+                "id": "afdba586a252468d8b3db2bd2a1320fb",
+                "name": "开发测试",
+                "avatar": "http://x.x.x.x/api/fs/6606960e2e0bcb3ec15a3024.png"
+            },
+            "content": null,
+            "referenceType": null,
+            "reference": null,
+            "type": "text",
+            "complete": true,
+            "finish": true,
+            "bill": null
+        }
+    ],
+    "state": {
+        "roomId": 123,
+        "roomName": "testRoom"
+    }
+}
+```

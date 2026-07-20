@@ -1,0 +1,45 @@
+---
+title: "语音识别接口"
+---
+
+## 请求地址
+
+```
+{{host}}/openapi/voice/recognize
+```
+
+## 请求方式
+
+`POST`
+
+## 请求 Header
+
+参考[接口规范](/zh-hans/api-reference/overview)；支持 ❌ Agent Token、✅ 个人秘钥。
+
+<Info>
+本接口要求 Header 中 `Content-Type: multipart/form-data`。
+</Info>
+
+## 请求参数
+
+| 参数 | 类型 | 必填 | 说明 |
+| --- | --- | --- | --- |
+| `file` | file | 是 | 上传的文件，语音文件，`wav` 格式，16kHz，单声道 |
+
+## 响应体说明
+
+| 字段 | 说明 |
+| --- | --- |
+| `code` | 响应结果码，`1` 表示成功；其他表示失败 |
+| `msg` | 错误消息 |
+| `data` | 语音识别结果文本 |
+
+## 响应体示例
+
+```json
+{
+    "code": 1,
+    "msg": "操作成功",
+    "data": "北京的天气"
+}
+```

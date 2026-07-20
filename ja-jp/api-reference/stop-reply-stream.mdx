@@ -1,0 +1,53 @@
+---
+title: "リプライストリーム終了インターフェース"
+---
+
+## リクエストURL
+
+```
+{{host}}/openapi/agents/chat/close?agentId={}&conversationId={}
+```
+
+または
+
+```
+{{host}}/openapi/v2/agents/chat/close?agentId={}&conversationId={}
+```
+
+## リクエストメソッド
+
+`GET`
+
+## リクエストヘッダー
+
+[インターフェース仕様](/ja-jp/api-reference/overview)を参照してください。Agent Token ✅、個人シークレットキー ✅ に対応しています。
+
+## リクエストパラメータ
+
+| パラメータ | 型 | 必須 | 説明 |
+| --- | --- | --- | --- |
+| `agentId` | string | はい | Agent の ID |
+| `conversationId` | string | はい | 会話 ID。チャットインターフェースのレスポンス内の `conversationId` フィールドに対応します |
+
+**リクエスト例：**
+
+```
+agentId：4328bb87fdd145e2a25ec53bsada27c95
+conversationId：2498bb87fdd145e2a25ec53b50b27c95
+```
+
+## レスポンスボディ
+
+| フィールド | 説明 |
+| --- | --- |
+| `code` | レスポンス結果コード。`1` は成功を示し、それ以外は失敗を示します。詳細なエラー情報は `msg` を参照してください |
+
+## レスポンスボディの例
+
+```json
+{
+  "code": 1,
+  "msg": "操作成功",
+  "data": null
+}
+```

@@ -1,0 +1,63 @@
+---
+title: "Update Dataset and Start Task"
+---
+
+## Request URL
+
+```
+{{host}}/openapi/kb/modifyDsAndTask
+```
+
+## Request Method
+
+`POST`
+
+## Request Headers
+
+Refer to the [API Specification](/en/api-reference/overview); Agent Token is not supported ❌, only personal API keys are supported ✅.
+
+<Warning>
+This endpoint only supports authentication using personal API keys (`authKey` / `authSecret`), and does not support calls made with an Agent Token.
+</Warning>
+
+## Request Body Parameters
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| `id` | number | Yes | ID of the dataset to update (the `dsId` returned by the [Create Dataset and Start Task](/en/api-reference/dataset-create) endpoint) |
+| `fileId` | string | Yes | ID of the uploaded file (obtained via the [File Upload](/en/api-reference/file-upload) endpoint) |
+| `name` | string | Yes | Dataset name |
+| `extJson` | string (JSON) | No | Extension field, formatted as a JSON string, used to set the chunk parsing method and other options (see the parsing configuration in [Create Dataset and Start Task](/en/api-reference/dataset-create#request-body-parameters) for reference) |
+
+## Request Body Example
+
+```json
+{
+    "id": 123,
+    "fileId": "67dccd3ae1138d0f6d12ca6a",
+    "name": "Dataset name",
+    "extJson": "{}"
+}
+```
+
+## Response Body
+
+| Field | Description |
+| --- | --- |
+| `code` | Response result code; `1` indicates success, any other value indicates failure |
+| `msg` | Error message |
+| `data` | ID of the updated dataset |
+
+## Response Body Example
+
+```json
+{
+    "code": 1,
+    "msg": "Operation succeeded",
+    "data": 123
+}
+```
+
+<Info>
+To delete a dataset, use the [Delete Dataset](/en/api-reference/dataset-delete) endpoint.
+</Info>

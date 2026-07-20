@@ -1,0 +1,66 @@
+---
+title: "文件上传接口"
+---
+
+## 请求地址
+
+```
+{{host}}/openapi/fs/upload
+```
+
+## 请求方式
+
+`POST`
+
+## 请求 Header
+
+参考[接口规范](/zh-hans/api-reference/overview)；不支持 ❌ Agent Token，仅支持 ✅ 个人秘钥。
+
+<Warning>
+本接口仅支持使用个人秘钥（`authKey` / `authSecret`）鉴权调用，不支持使用 Agent Token 调用。
+</Warning>
+
+请求 Header 中需指定：
+
+```http
+Content-Type: multipart/form-data
+```
+
+## 请求参数
+
+本接口以 `multipart/form-data` 表单形式提交，参数如下：
+
+| 参数 | 类型 | 必填 | 说明 |
+| --- | --- | --- | --- |
+| `file` | file | 是 | 上传的文件（文件流） |
+| `returnType` | string | 否 | 返回类型：`id` 表示返回文件 ID，`url` 表示返回文件 URL，默认值 `id` |
+| `metadata` | string (JSON) | 否 | 文件元数据，JSON 格式字符串 |
+
+## 请求示例
+
+```
+file: 文件流
+returnType: id
+```
+
+## 响应体说明
+
+| 字段 | 说明 |
+| --- | --- |
+| `code` | 响应结果码，`1` 表示成功，其他表示失败 |
+| `msg` | 错误消息 |
+| `data` | 上传结果：`returnType=id` 时返回文件 ID；`returnType=url` 时返回文件 URL |
+
+## 响应体示例
+
+```json
+{
+    "code": 1,
+    "msg": "操作成功",
+    "data": "67dccd3ae1138d0f6d12ca6a"
+}
+```
+
+<Info>
+上传成功返回的文件 ID 可用于 [Agent 聊天流式接口](/zh-hans/api-reference/chat-stream) 请求体 `files` 参数中的 `fileId` 字段，也可用于[创建数据集并开始任务](/zh-hans/api-reference/dataset-create)、[变更数据集并开始任务](/zh-hans/api-reference/dataset-update)接口的 `fileId` 参数。
+</Info>

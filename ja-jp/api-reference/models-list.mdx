@@ -1,0 +1,77 @@
+---
+title: "利用可能なモデル一覧の取得"
+---
+
+## リクエストURL
+
+```
+{{host}}/openapi/ai-models/v1/models
+```
+
+## リクエストメソッド
+
+`GET`
+
+## リクエストヘッダー
+
+[インターフェース仕様](/ja-jp/api-reference/overview)を参照してください。Agent Token ❌、個人シークレットキー ✅ に対応しています。
+
+## リクエストパラメータ
+
+入力パラメータはありません。Query パラメータおよびリクエストボディも不要です。
+
+## レスポンスボディ
+
+| フィールド | 説明 |
+| --- | --- |
+| `code` | レスポンス結果コード。`1` は成功、それ以外は失敗を示します |
+| `msg` | エラーメッセージ |
+| `data` | 利用可能なモデル一覧（配列）。各項目のフィールドは下表を参照 |
+
+`data` 内の各モデルオブジェクトのフィールド：
+
+| フィールド | 説明 |
+| --- | --- |
+| `name` | モデルの表示名 |
+| `model` | モデルID。[LLM チャット補完](/ja-jp/api-reference/llm-chat-completion)インターフェースの `model` パラメータに使用します |
+| `icon` | モデルアイコンのURL |
+| `modelVersion` | モデルのバージョン番号 |
+| `price` | モデルの課金価格 |
+| `quoteMaxToken` | 引用コンテンツの最大 Token 数 |
+| `maxTemperature` | 対応する最大サンプリング温度 |
+| `contextMaxToken` | コンテキストウィンドウの最大 Token 数 |
+| `completionMaxToken` | 1 回の応答で生成できる最大 Token 数 |
+| `maxPictureNumber` | 対応する画像の最大枚数（マルチモーダル入力） |
+| `maxVideoNumber` | 対応する動画の最大本数（マルチモーダル入力） |
+| `supportChat` | 対話に対応しているかどうか |
+| `supportVision` | 視覚機能（画像認識）に対応しているかどうか |
+| `supportReasoning` | 推論／思考チェーンに対応しているかどうか |
+| `extraBody` | 追加のリクエストボディパラメータ（モデルによって異なり、空の場合もあります） |
+
+## レスポンスボディの例
+
+```json
+{
+  "code": 1,
+  "msg": "操作に成功しました",
+  "data": [
+    {
+      "name": "サンプルモデル",
+      "model": "gpt-5-mini-uuid-bZZbPyuuV@azure",
+      "icon": "",
+      "modelVersion": null,
+      "price": 0,
+      "quoteMaxToken": null,
+      "maxTemperature": 2.0,
+      "contextMaxToken": 128000,
+      "completionMaxToken": 4096,
+      "maxPictureNumber": null,
+      "maxVideoNumber": null,
+      "supportChat": true,
+      "supportVision": false,
+      "supportReasoning": false,
+      "extraBody": null
+    }
+  ]
+}
+```

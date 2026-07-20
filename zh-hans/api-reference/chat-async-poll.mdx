@@ -1,0 +1,119 @@
+---
+title: "Agent 聊天非流式（异步）结果轮询查询接口"
+---
+
+配合 [Agent 聊天非流式接口（异步）](/zh-hans/api-reference/chat-async) 使用，通过 `requestId` 轮询查询异步执行结果。
+
+## 请求地址
+
+```
+{{host}}/openapi/agents/chat/completions/async/polling/v1?agentId={}&requestId={}
+```
+
+或
+
+```
+{{host}}/openapi/v2/chat/completions/async/polling?agentId={}&requestId={}
+```
+
+## 请求方式
+
+`GET`
+
+## 请求 Header
+
+参考[接口规范](/zh-hans/api-reference/overview)；支持 ✅ Agent Token、✅ 个人秘钥。
+
+## 请求参数
+
+| 参数 | 必填 | 说明 |
+| --- | --- | --- |
+| `agentId` | 是 | 智能体 ID |
+| `requestId` | 是 | 请求 ID（[异步接口](/zh-hans/api-reference/chat-async)返回的 `data.requestId`） |
+
+请求示例：
+
+```
+agentId=4328bb87fdd145e2a25ec53bsada27c95
+requestId=2498bb87fdd145e2a25ec53b50b27c95
+```
+
+## 响应体说明
+
+| 字段 | 说明 |
+| --- | --- |
+| `code` | 响应结果码，`1` 表示成功，其他表示失败 |
+| `msg` | 错误消息 |
+| `data.requestId` | 后台日志中的请求 ID，需要排查问题时可使用此 ID 在日志中查找相关日志 |
+| `data.output` | 和 [Agent 聊天非流式接口（同步）](/zh-hans/api-reference/chat-sync)返回体结构一致，状态为 `DONE` 时才有值 |
+| `data.state` | 异步任务执行状态：`0` `1` `2` `3` |
+
+```sql
+NOT_EXIST(0, "不存在"),
+RUNNING(1, "运行中"),
+DONE(2, "运行结束"),
+EXCEPTION(3, "运行异常")
+```
+
+## 响应体示例
+
+```json
+{
+    "code": 1,
+    "msg": "操作成功",
+    "data": {
+        "requestId": "29527e2089e84f5888cc3769618f39cd",
+        "output": {
+            "chatId": "29301",
+            "conversationId": "ed11b0ce99064e4180bf01aec722d6f6f1gyobzs",
+            "memory": {
+                "userChatInput": "你好"
+            },
+            "choices": [
+                {
+                    "id": "67ea65e9aef53333a8b38ba9",
+                    "chatId": "29301",
+                    "conversationId": "ed11b0ce99064e4180bf01aec722d6f6f1gyobzs",
+                    "role": {
+                        "id": "27cd83532ab2432d868d8a89bb1e79c0",
+                        "name": "测试台铃",
+                        "avatar": "/assets/agent/avatar.png"
+                    },
+                    "alias": null,
+                    "componentName": "AI智能对话",
+                    "content": "`你\n好`",
+                    "reasoningContent": "",
+                    "thinkingElapsedMillSecs": null,
+                    "renderType": "md",
+                    "referenceType": null,
+                    "reference": null,
+                    "references": {},
+                    "metaMessage": null,
+                    "memory": null,
+                    "type": "text",
+                    "complete": true,
+                    "finish": false,
+                    "status": 1,
+                    "bill": {
+                        "model": "gpt-4o",
+                        "billType": "chat",
+                        "completionTokens": 6,
+                        "promptTokens": 27,
+                        "totalTokens": 33,
+                        "completionTokensDetails": {
+                            "reasoningTokens": 0
+                        },
+                        "promptTokensDetails": {
+                            "cachedTokens": 0
+                        },
+                        "costDetail": {}
+                    },
+                    "messageId": "67ea65e9aef53333a8b38ba9"
+                }
+            ],
+            "state": null
+        },
+        "state": 2
+    }
+}
+```

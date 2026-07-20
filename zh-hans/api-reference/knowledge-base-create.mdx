@@ -1,0 +1,67 @@
+---
+title: "创建知识库"
+---
+
+## 请求地址
+
+```
+{{host}}/openapi/kb/createKb
+```
+
+## 请求方式
+
+`POST`
+
+## 请求 Header
+
+参考[接口规范](/zh-hans/api-reference/overview)；不支持 ❌ Agent Token，仅支持 ✅ 个人秘钥。
+
+<Warning>
+本接口仅支持使用个人秘钥（`authKey` / `authSecret`）鉴权调用，不支持使用 Agent Token 调用。
+</Warning>
+
+## 请求体参数
+
+| 参数 | 类型 | 必填 | 说明 |
+| --- | --- | --- | --- |
+| `name` | string | 是 | 知识库名称 |
+| `description` | string | 否 | 描述 |
+| `avatarUrl` | string | 否 | 头像地址 |
+| `vectorModel` | string | 是 | 向量模型（Embedding 模型） |
+
+## 请求体示例
+
+```json
+{
+    "name": "test",
+    "description": "描述",
+    "vectorModel": "oneapi-xinference:bce-embedding",
+    "avatarUrl": "/assets/avatar/63.png"
+}
+```
+
+<Info>
+`vectorModel` 请替换为当前环境实际可用的向量模型（Embedding 模型）标识。
+</Info>
+
+## 响应体说明
+
+| 字段 | 说明 |
+| --- | --- |
+| `code` | 响应结果码，`1` 表示成功，其他表示失败 |
+| `msg` | 错误消息 |
+| `data` | 新创建知识库的 ID（`kbId`） |
+
+## 响应体示例
+
+```json
+{
+    "code": 1,
+    "msg": "操作成功",
+    "data": 121
+}
+```
+
+<Info>
+创建知识库后返回的 `kbId` 可用于[创建数据集并开始任务](/zh-hans/api-reference/dataset-create)接口的 `kbId` 参数，向该知识库下添加数据集。
+</Info>

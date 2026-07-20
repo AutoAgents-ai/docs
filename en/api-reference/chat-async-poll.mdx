@@ -1,0 +1,119 @@
+---
+title: "Agent Chat Non-Streaming (Async) Result Polling API"
+---
+
+Used together with the [Agent Chat Non-Streaming API (Async)](/en/api-reference/chat-async) to poll for the asynchronous execution result using `requestId`.
+
+## Request URL
+
+```
+{{host}}/openapi/agents/chat/completions/async/polling/v1?agentId={}&requestId={}
+```
+
+or
+
+```
+{{host}}/openapi/v2/chat/completions/async/polling?agentId={}&requestId={}
+```
+
+## Request Method
+
+`GET`
+
+## Request Headers
+
+Refer to the [API Specification](/en/api-reference/overview); supports ✅ Agent Token, ✅ personal credentials.
+
+## Request Parameters
+
+| Parameter | Required | Description |
+| --- | --- | --- |
+| `agentId` | Yes | Agent ID |
+| `requestId` | Yes | Request ID (the `data.requestId` returned by the [async API](/en/api-reference/chat-async)) |
+
+Request example:
+
+```
+agentId=4328bb87fdd145e2a25ec53bsada27c95
+requestId=2498bb87fdd145e2a25ec53b50b27c95
+```
+
+## Response Body
+
+| Field | Description |
+| --- | --- |
+| `code` | Response result code; `1` indicates success, other values indicate failure |
+| `msg` | Error message |
+| `data.requestId` | Request ID in the background logs; use this ID to locate related logs when troubleshooting |
+| `data.output` | Has the same structure as the response body of the [Agent Chat Non-Streaming API (Sync)](/en/api-reference/chat-sync); only has a value when the status is `DONE` |
+| `data.state` | Asynchronous task execution status: `0` `1` `2` `3` |
+
+```sql
+NOT_EXIST(0, "Does not exist"),
+RUNNING(1, "Running"),
+DONE(2, "Finished"),
+EXCEPTION(3, "Exception occurred")
+```
+
+## Response Body Example
+
+```json
+{
+    "code": 1,
+    "msg": "操作成功",
+    "data": {
+        "requestId": "29527e2089e84f5888cc3769618f39cd",
+        "output": {
+            "chatId": "29301",
+            "conversationId": "ed11b0ce99064e4180bf01aec722d6f6f1gyobzs",
+            "memory": {
+                "userChatInput": "你好"
+            },
+            "choices": [
+                {
+                    "id": "67ea65e9aef53333a8b38ba9",
+                    "chatId": "29301",
+                    "conversationId": "ed11b0ce99064e4180bf01aec722d6f6f1gyobzs",
+                    "role": {
+                        "id": "27cd83532ab2432d868d8a89bb1e79c0",
+                        "name": "测试台铃",
+                        "avatar": "/assets/agent/avatar.png"
+                    },
+                    "alias": null,
+                    "componentName": "AI智能对话",
+                    "content": "`你\n好`",
+                    "reasoningContent": "",
+                    "thinkingElapsedMillSecs": null,
+                    "renderType": "md",
+                    "referenceType": null,
+                    "reference": null,
+                    "references": {},
+                    "metaMessage": null,
+                    "memory": null,
+                    "type": "text",
+                    "complete": true,
+                    "finish": false,
+                    "status": 1,
+                    "bill": {
+                        "model": "gpt-4o",
+                        "billType": "chat",
+                        "completionTokens": 6,
+                        "promptTokens": 27,
+                        "totalTokens": 33,
+                        "completionTokensDetails": {
+                            "reasoningTokens": 0
+                        },
+                        "promptTokensDetails": {
+                            "cachedTokens": 0
+                        },
+                        "costDetail": {}
+                    },
+                    "messageId": "67ea65e9aef53333a8b38ba9"
+                }
+            ],
+            "state": null
+        },
+        "state": 2
+    }
+}
+```

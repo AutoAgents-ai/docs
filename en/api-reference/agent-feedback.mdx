@@ -1,0 +1,63 @@
+---
+title: "Agent Feedback"
+---
+
+Used for multi-agent scenarios that require feedback.
+
+## Request URL
+
+```
+{{host}}/openapi/agents/chat/feedback
+```
+
+or
+
+```
+{{host}}/openapi/v2/chat/feedback
+```
+
+## Request Method
+
+`GET`
+
+## Request Headers
+
+Refer to the [API Specification](/en/api-reference/overview); supports ✅ Agent Token, ✅ personal API key.
+
+## Request Body Parameters
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| `chatId` | number | Yes | Chat ID, corresponding to the `chatId` returned by the chat interface |
+| `agentId` | string | Yes | Agent UUID |
+| `feedbackKey` | string | Yes | Feedback identifier, corresponding to the `feedbackKey` field of the `feedback`-type message in the streaming response. See [Agent Chat Streaming API](/en/api-reference/chat-stream#streaming-response-body) |
+| `feedbackType` | string | Yes | Feedback type. Allowed values: `over` (satisfied, end this conversation round), `restart` (unsatisfied, start over), `loop` (continue this conversation round) |
+
+## Request Body Example
+
+```json
+{
+  "chatId": 123,
+  "agentId": "addsfaslfjasofasofpoas",
+  "feedbackKey": "@.ksdf9as0f8sd0xxo",
+  "feedbackType": "over" // Allowed values: [over, restart, loop]
+}
+```
+
+## Response Body
+
+| Field | Description |
+| --- | --- |
+| `code` | Response result code. `1` indicates success; any other value indicates failure, with details in `msg` |
+| `msg` | Error message |
+| `data` | `true` / `false`, indicating whether the feedback was processed successfully |
+
+## Response Body Example
+
+```json
+{
+  "code": 1,
+  "msg": "success",
+  "data": true
+}
+```

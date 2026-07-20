@@ -1,0 +1,280 @@
+---
+title: "システム組み込み関数"
+---
+
+システム組み込み関数は、プロンプト、返信内容、ワークフローノードのパラメータなどの箇所でデータを加工処理するために使用します。
+
+## 使用構文
+
+`[@["functionName", "args1", "args2", ....]@]` は関数呼び出しを表します
+
+## 日付と時刻
+
+### 日付フォーマット（ミリ秒）
+
+```
+[@["DateFormatFromMills","your mills", "your formats"]@]
+```
+
+<Frame>
+  <img src="/images/advanced-development/adv_001.png" alt="日付フォーマットの例" />
+</Frame>
+
+### 日付フォーマット（秒）
+
+```
+[@["DateFormatFromSeconds","your seconds", "your formats"]@]
+```
+
+### 日付をミリ秒に変換
+
+```
+[@["DateStrToMills","your date", "your date format"]@]
+```
+
+### 日付を秒に変換
+
+```
+[@["DateStrToSeconds","your date", "your date format"]@]
+```
+
+### 日付の加減算
+
+```
+[@["GetDateFromNow","your add/subtract days"]@]
+```
+
+### 日付フォーマットの変換
+
+```
+[@["DateStrReFormat","your date", "your target format", "your source format, optional"]@]
+```
+
+### 自然言語を日付に変換
+
+```
+[@["JionlpParseTime","your text1"]@]
+```
+
+例：`[@["JionlpParseTime","今天"]@]`
+
+<Info>
+自然言語の時間解析に対応する範囲については、[時間セマンティック解析の説明ドキュメント](https://github.com/dongrixinyu/JioNLP)を参照してください。
+</Info>
+
+## 文字列処理
+
+### 囲まれた部分文字列を抽出
+
+```
+[@["ExtractAroundStr","your text", "your start str", "your end str", "containsBorder true|false"]@]
+```
+
+### 正規表現に一致する最初の文字列を抽出
+
+```
+[@["ExtractStrByRegex","your text", "your regex"]@]
+```
+
+<Info>
+正規表現の構文については、[菜鸟教程 正規表現](https://www.runoob.com/regexp/regexp-tutorial.html)を参照してください。
+</Info>
+
+### 正規表現に一致するすべての文字列を抽出
+
+```
+[@["ExtractArrByRegex","your text", "your regex"]@]
+```
+
+### 文字列の置換
+
+```
+[@["Replace","your text", "your old str", "your new str"]@]
+```
+
+### 文字列の正規表現置換
+
+```
+[@["ReplaceRegex","your text", "your regex str", "your new str"]@]
+```
+
+### 文字列のエスケープ
+
+```
+[@["EscapeStr","your text"]@]
+```
+
+例：
+
+```json
+// text = {"dataList":[{"aiSkipType":"3","play_id":"1613810","guest_name":"广岛蜻蜓","play_msg":"今天 日联季后 冲绳金帝皇VS广岛蜻蜓 赛事预测"}]}
+[@["EscapeStr","{{text}}"]@]
+// 结果：{\"dataList\":[{\"aiSkipType\":\"3\",\"play_id\":\"1613810\",\"guest_name\":\"广岛蜻蜓\",\"play_msg\":\"今天 日联季后 冲绳金帝皇VS广岛蜻蜓 赛事预测\"}]}
+```
+
+### 文字列の連結
+
+```
+[@["Concat","your text1","your text2","your text3",...]@]
+```
+
+### 配列の連結
+
+```
+[@["ConcatArray","your array1","your arr2","your arr3",...]@]
+```
+
+### データオブジェクトのマージ
+
+```
+[@["MergeObject","your obj1","your obj2","your obj3",...]@]
+```
+
+### RSA 暗号化
+
+```
+[@["RSAEncode","your text", "your public key"]@]
+```
+
+### Md5 ダイジェスト
+
+```
+[@["Md5Digest","your text"]@]
+```
+
+## JSON 処理
+
+### json オブジェクトを抽出
+
+```
+[@["ExtractJsonObj","your text", "your jsonpath"]@]
+```
+
+<Info>
+JSON Path の構文については、[fastjson JSONPath Wiki](https://github.com/alibaba/fastjson/wiki/JSONPath) または [jsonpath.com](https://jsonpath.com/) を参照してください。
+</Info>
+
+### json 配列を抽出
+
+```
+[@["ExtractJsonArr","your text", "your jsonpath"]@]
+```
+
+### 正規表現で json を抽出
+
+```
+[@["ExtractJsonByRegex","your text", "your json key1", "your json key1 regex", "your json key2", "your json key2 regex"]@]
+```
+
+## 条件と比較
+
+### 条件に応じて値を代入
+
+```
+[@["CaseWhenThen","your case value", "when value1", "then value1", "when value2", "then value2"..., "default value"]@]
+```
+
+### 条件に応じて値を代入（大文字小文字を区別）
+
+```
+[@["CaseWhenThenIgnoreCase","your case value", "when value1", "then value1", "when value2, optional", "then value2, optional"..., "default value, optional"]@]
+```
+
+### 任意の候補値と一致するかどうか
+
+```
+[@["EqualsAny","your value", "your other value1", "your other value2, optional"...]@]
+```
+
+### 任意の候補値と一致するかどうか（大文字小文字を区別）
+
+```
+[@["EqualsAnyIgnoreCase","your value", "your other value1", "your other value2, optional"...]@]
+```
+
+## エンコーディングと言語
+
+### URL エンコード
+
+```
+[@["UrlEncode","your text", "your charset, default is UTF-8"]@]
+```
+
+### URL デコード
+
+```
+[@["UrlDecode","your text", "your charset, default is UTF-8"]@]
+```
+
+### 返信に使用する言語を自動検出して指定
+
+```
+[@["AutoSpecifyResponseLanguage","your text", "your default lang, The optional values are EN,CN, default value is CN"]@]
+```
+
+## ファイルとウェブページ
+
+### Tika によるファイル解析
+
+```
+[@["ParseDocByTika","FileInput[]"]@]
+```
+
+入力例：
+
+```json
+FileInput: [ { "fileName": "西部.docx", "fileType": "docx", "fileId": "66ac4bde0564ee6d4213148d" } ]
+```
+
+関数はファイルの解析に成功すると、ファイル内容を JSON 配列の形式で返します：
+
+```json
+[{"content":"NBA西部全明星首发：詹姆斯、杜兰特、约基奇、东契奇、亚历山大\nNBA西部全明星替补：莱昂纳德、安东尼-戴维斯、布克、爱德华兹、库里、乔治、唐斯\n","fileId":"66ac4bde0564ee6d4213148d","fileName":"西部.docx","fileType":"docx","success":true}]
+```
+
+### ウェブページの内容を取得
+
+```
+[@["FetchUrl","UrlFetchReq[]"]@]
+```
+
+入力：
+
+```json
+[{
+  // 标准字段
+  "url": "xxx",
+  "timeout": 6666, // 默认值
+  "xpath": [{
+    "key": "key1",
+    "path": ""
+  }], // 非必填
+  // 其他字段原样返回给用户
+  "x1": "",
+  "x2": ""
+}]
+```
+
+出力：
+
+```json
+[{
+  // 标准字段，timeout、xpath 这些字段会被移除
+  "url": "xxx",
+  "content": {
+    // 用户没有定义 xpath 时，默认返回 body
+    "body": "doc.text()",
+    // 用户定义了 xpath 时，不返回 body
+    "key1": "value1",
+    "key2": "value2"
+  },
+  "success": true, // 内容是否抓取成功
+  // 其他字段原样返回给用户
+  "x1": "",
+  "x2": ""
+}]
+```
+
+<Info>
+より簡潔なシステム変数については、[システム組み込み変数](/ja-jp/advanced-development/system-variables)を参照してください。
+</Info>

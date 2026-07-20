@@ -1,0 +1,155 @@
+---
+title: "Data Processing Protocol"
+---
+
+<Info>v1.9.0.0+</Info>
+
+The data processing protocol is a standardized data structure that lets output fields from modules such as "Confirm Reply", "Code Block", and "Custom Component" carry text, files, images, web search results, and other content types in a standardized format.
+
+## Supported Components
+
+Output fields of Confirm Reply, Code Block, and Custom Component.
+
+## Implementation
+
+Assemble the field value into the specific protocol's data structure:
+
+| Field | Description |
+| --- | --- |
+| `schema` | Fixed value `schema-v1`, used by the system to identify this data processing protocol, allowing for extension to different functional purposes |
+| `type` | Data type: `text` (text, markdown), `file` (file), `image` (image), `websearch` (web search) |
+| `needSendMessage` | Whether a message needs to be sent, `true`/`false`; the system sends the corresponding message format to the end user based on the data type |
+| `needEncryptFileUrl` | Whether to return a download address with an encrypted file stream; this only takes effect if the encryption service is enabled. If the customer does not have a file stream encryption service, the encryption service requires custom development |
+| `needFullFileUrl` | Whether to return the absolute path of the file download address; defaults to `false` (a relative path for the download address) |
+| `value` | The value of the data. For text types, assign a string directly; for file and image types, assign the JSON structure `{"fileName": "your_file_name", "fileUrl": "your_file_url"}` |
+
+`fileUrl` supports data using three protocols: local file, Base64, and HTTP:
+
+- Local temporary file protocol (deleted after storage): `tmpfile:/mindSynth/xxxx.docx`
+- Local persistent file protocol: `psfile:/mindSynth/xxxx.docx`
+- Base64 data stream: `data:xxxxx`
+- Network file stream protocol: `http://xxxx`, `https://xxxx`
+
+## text: Plain Text / Markdown Type
+
+```json
+{
+    "schema": "schema-v1",
+    "type": "text",
+    "needSendMessage": true,
+    "needEncryptFileUrl": false,
+    "value": "message"
+}
+```
+
+## file: File Type
+
+JavaScript version:
+
+```javascript
+{
+    "schema": "schema-v1",
+    "type": "file",
+    "needSendMessage": false,
+    "needEncryptFileUrl": false,
+    "needFullFileUrl": false,
+    "value": {
+                "fileName": your_file_name,
+                "fileUrl": "tempfile" + your_file_url
+            }
+}
+```
+
+Python version:
+
+```python
+{
+    "schema": "schema-v1",
+    "type": "file",
+    "needSendMessage": True, # returns a file card message
+    "needEncryptFileUrl": False,
+    "needFullFileUrl": True,  # returns the full file URL
+    "value": {
+            "fileName": your_file_name,
+            "fileUrl": "tempfile" + your_file_url
+    }
+}
+```
+
+## image: Image Type
+
+```json
+{
+    "schema": "schema-v1",
+    "type": "image",
+    "needSendMessage": true,
+    "needEncryptFileUrl": false,
+    "needFullFileUrl": true,
+    "value": {
+                "fileName": your_imagefile_name,
+                "fileUrl": your_imagefile_url
+            }
+}
+```
+
+## websearch: Web Search
+
+```json
+{
+    "schema": "schema-v1",
+    "type": "websearch",
+    "needSendMessage": true,
+    "value": [
+        {"title":"网页标题1",
+         "url":"网页链接1",
+         "snippet":"网页摘要1",
+         "siteIcon":"网站icon1"
+        },{"title":"网页标题2",
+         "url":"网页链接2",
+         "snippet":"网页摘要2",
+         "siteIcon":"网站icon2"
+        }
+    ]
+}
+```
+
+## Example: Generate a Random File in a Code Block and Send a File Message
+
+```python
+import json
+import os
+import uuid
+
+def userFunction(params):
+    result = {}
+    try:
+        # 生成随机文本
+        random_text = str(uuid.uuid4())
+
+        # 生成随机文件名
+        random_filename = str(uuid.uuid4()) + '.txt'
+
+        # 获取当前目录并拼接文件路径
+        current_dir = os.getcwd()
+        file_path = os.path.join(current_dir, random_filename)
+
+        # 写入文件
+        with open(file_path, 'w') as f:
+            f.write(random_text)
+
+        # 返回绝对路径
+        result['file_info'] = {
+            "schema": "schema-v1",
+            "type": "file",
+            "needSendMessage": True,
+            "needEncryptFileUrl": False,
+            "needFullFileUrl": True,
+            "value": {
+                "fileName": random_filename,
+                "fileUrl": 'tmpfile:' + os.path.abspath(file_path)
+             }
+        }
+    except Exception as e:
+        result['error'] = f'生成文件失败: {str(e)}'
+    return result
+```

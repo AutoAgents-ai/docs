@@ -1,0 +1,57 @@
+---
+title: "删除数据集"
+---
+
+## 请求地址
+
+```
+{{host}}/openapi/kb/deleteDs
+```
+
+## 请求方式
+
+`POST`
+
+## 请求 Header
+
+参考[接口规范](/zh-hans/api-reference/overview)；不支持 ❌ Agent Token，仅支持 ✅ 个人秘钥。
+
+<Warning>
+本接口仅支持使用个人秘钥（`authKey` / `authSecret`）鉴权调用，不支持使用 Agent Token 调用。
+</Warning>
+
+## 请求体参数
+
+| 参数 | 类型 | 必填 | 说明 |
+| --- | --- | --- | --- |
+| `dsIdList` | array\<number\> | 是 | 待删除的数据集 ID 列表 |
+
+## 请求体示例
+
+```json
+{
+    "dsIdList": [2343, 2233]
+}
+```
+
+## 响应体说明
+
+| 字段 | 说明 |
+| --- | --- |
+| `code` | 响应结果码，`1` 表示成功，其他表示失败 |
+| `msg` | 错误消息 |
+| `data` | 是否删除成功（`boolean`） |
+
+## 响应体示例
+
+```json
+{
+    "code": 1,
+    "msg": "操作成功",
+    "data": true
+}
+```
+
+<Info>
+数据集的创建与变更请参考[创建数据集并开始任务](/zh-hans/api-reference/dataset-create)、[变更数据集并开始任务](/zh-hans/api-reference/dataset-update)接口。
+</Info>

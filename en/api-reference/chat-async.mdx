@@ -1,0 +1,162 @@
+---
+title: "Agent Chat Non-Streaming API (Async)"
+---
+
+The request parameters are largely the same as the [Agent Chat Non-Streaming API (Sync)](/en/api-reference/chat-sync). This executes the Agent flow asynchronously; the API call returns the background log `requestId` and `state`. Two additional optional parameters are added: `callbackUrl` and `callbackHeaders`. When `callbackUrl` is provided, once the Agent flow finishes executing asynchronously, the execution result is delivered via a POST request to `callbackUrl`, and the request body content is the same as the return value of the [sync API](/en/api-reference/chat-sync).
+
+## Request URL
+
+```
+{{host}}/openapi/agents/chat/completions/async/v1
+```
+
+or
+
+```
+{{host}}/openapi/v2/chat/completions/async
+```
+
+## Request Method
+
+`POST`
+
+## Request Headers
+
+Same as the [Agent Chat Streaming API](/en/api-reference/chat-stream#request-headers): supports ✅ Agent Token, ✅ personal credentials, optional `X-username`.
+
+## Request Body Parameters
+
+The base parameters are the same as the [sync API](/en/api-reference/chat-sync#request-body-parameters) (`agentId`, `chatId`, `userChatInput`, `state`, `buttonKey`, `images`, `files`, `formData`, `debug`), plus the following additions:
+
+| Parameter | Required | Description |
+| --- | --- | --- |
+| `callbackUrl` | No | If not empty, once the Agent finishes executing successfully, the final message data is pushed to this address via POST |
+| `callbackUrlPerComponent` | No | If not empty, each time the Agent executes a component that produces a reply, the message data is pushed to this address via POST |
+| `callbackHeaders` | No | If `callbackUrl` is not empty, these headers are included when calling `callbackUrl`; if the callback requires authentication, you can pass the authentication headers via this parameter |
+
+## Request Body Example
+
+```json
+{
+    "agentId":"a2207c2f6d3d44d2b4a5dae5b5593750",
+    "chatId": null,
+    "userChatInput":"Mybatis",
+    "images":[{"url":"your image url here"}],
+    "files":[],
+    "state":{
+        "yourKey1":"yourValue1",
+        "yourKey2":"yourValue2"
+    },
+    "buttonKey":"button id or name",
+    "debug":false,
+    "callbackUrl":"http://example.com/callback",
+    "callbackHeaders": {
+        "token": "token-xxxx"
+    }
+}
+```
+
+## Response Body
+
+The callback request body is the same as the return value of the [sync API](/en/api-reference/chat-sync). The response body of this API call itself is as follows:
+
+| Field | Description |
+| --- | --- |
+| `code` | Response result code; `1` indicates success, other values indicate failure |
+| `msg` | Error message |
+| `data.requestId` | Request ID in the background logs; use this ID to locate related logs when troubleshooting, or use it with the [result polling API](/en/api-reference/chat-async-poll) to retrieve the asynchronous execution result |
+| `data.state` | Environment variable parameters passed in; keys/values are defined by the caller |
+
+## Response Body Example
+
+```json
+{
+    "code": 1,
+    "msg": "success",
+    "data":
+    {
+        "requestId": "5f364d5f79f34c2aa1267cf14ef2de5d",
+        "state":
+        {
+            "yourKey1": "yourValue1",
+            "yourKey2": "yourValue2"
+        }
+    }
+}
+```
+
+## Example Call
+
+```http
+Request:
+POST /api/openapi/agent/chat/completions/v1 HTTP/1.1
+Host: x.x.x.x
+Content-Type: application/json
+Authorization: Bearer {authKey}.{authSecret}
+Content-Length: 147
+
+{"agentId":"afdba586a252468d8b3db2bd2a1320fb",
+"chatId":null,
+"userChatInput":"mybatis",
+"state":{
+    "roomId":123,
+    "roomName":"testRoom"
+ }
+}
+```
+
+Callback / response result example:
+
+```json
+{
+    "chatId": 7767,
+    "conversationId": "a8381932cd7f4092a20fad86054fa40c",
+    "choices": [
+        {
+            "chatId": 7767,
+            "conversationId": "a8381932cd7f4092a20fad86054fa40c",
+            "messageId": "a8381932cd7f4092a20fad86054fa40c",
+            "role": {
+                "id": "afdba586a252468d8b3db2bd2a1320fb",
+                "name": "开发测试",
+                "avatar": "http://x.x.x.x/api/fs/6606960e2e0bcb3ec15a3024.png"
+            },
+            "componentName": "AI智能对话",
+            "content": "MyBatis是一款一流的支持自定义SQL、存储过程和高级映射的持久化框架...",
+            "referenceType": "kb_search",
+            "reference": "[{\"fileName\":\"MyBatis3_用户指南(附JavaDB实例).pdf\",\"fileType\":\"pdf\",\"fileUrl\":\"http://x.x.x.x/api/fs/6602576e480c49509222f2c0\",\"kbAvatar\":\"Mybatis\",\"kbName\":\"/assets/avatar/1.png\",\"score\":0.7309842270543954}]",
+            "type": "text",
+            "complete": true,
+            "finish": false,
+            "bill": {
+                "model": "SkyChat-MegaVerse",
+                "billType": "chat",
+                "completionTokens": 150,
+                "promptTokens": 461,
+                "totalTokens": 611
+            }
+        },
+        {
+            "chatId": 7767,
+            "conversationId": "a8381932cd7f4092a20fad86054fa40c",
+            "messageId": "a8381932cd7f4092a20fad86054fa40c",
+            "role": {
+                "id": "afdba586a252468d8b3db2bd2a1320fb",
+                "name": "开发测试",
+                "avatar": "http://x.x.x.x/api/fs/6606960e2e0bcb3ec15a3024.png"
+            },
+            "content": null,
+            "referenceType": null,
+            "reference": null,
+            "type": "text",
+            "complete": true,
+            "finish": true,
+            "bill": null
+        }
+    ],
+    "state": {
+        "roomId": 123,
+        "roomName": "testRoom"
+    }
+}
+```

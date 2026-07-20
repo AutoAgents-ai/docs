@@ -1,0 +1,223 @@
+---
+title: "查询数据集列表"
+---
+
+## 请求地址
+
+```
+{{host}}/openapi/kb/ds/query
+```
+
+## 请求方式
+
+`POST`
+
+## 请求 Header
+
+参考[接口规范](/zh-hans/api-reference/overview)；支持 ❌ Agent Token、✅ 个人秘钥。
+
+## 请求体参数
+
+| 参数 | 类型 | 必填 | 说明 |
+| --- | --- | --- | --- |
+| `kbId` | number | 是 | 知识库 ID（示例值：`123`） |
+| `pageNum` | number | 否 | 页码 |
+| `pageSize` | number | 否 | 每页数量 |
+| `parentId` | number | 否 | 父级 ID，用于查询指定文件夹下的数据集 |
+| `keywords` | string | 否 | 数据集名称 |
+| `fileIds` | array | 否 | 文件 ID 列表（示例值：`["file_001", "file_002", "file_003"]`） |
+| `dsIds` | array | 否 | 数据集 ID 列表（示例值：`[1001, 1002, 1003, 1004]`） |
+| `taskStatus` | number | 否 | 任务状态：`0` 待执行，`1` 执行中，`2` 执行成功，`3` 执行失败，`4` 已取消 |
+| `approvalState` | number | 否 | 审核状态：`1` 审核中，`2` 审核通过，`3` 已拒绝，`4` 已取消 |
+| `notSelf` | boolean | 否 | 是否排除自己创建的数据集（示例值：`false`） |
+
+## 请求体示例
+
+```json
+{
+  "pageNum": 1,
+  "pageSize": 20,
+  "keywords": "机器学习数据集",
+  "kbId": 123,
+  "parentId": 456,
+  "fileIds": [
+    "file_001",
+    "file_002",
+    "file_003"
+  ],
+  "dsIds": [
+    1001,
+    1002,
+    1003,
+    1004
+  ],
+  "taskStatus": 1,
+  "approvalState": 2,
+  "notSelf": false
+}
+```
+
+## 响应体说明
+
+| 字段 | 说明 |
+| --- | --- |
+| `code` | 响应结果码，`1` 表示成功；其他表示失败 |
+| `msg` | 错误消息 |
+| `data.pageNum` | 当前页码 |
+| `data.pageSize` | 每页数量 |
+| `data.count` | 是否统计总数 |
+| `data.total` | 总记录数 |
+| `data.isFirstPage` | 是否为第一页 |
+| `data.isLastPage` | 是否为最后一页 |
+| `data.list[]` | 数据集列表，字段说明见下表 |
+
+### `data.list[]` 字段说明
+
+| 字段 | 说明 |
+| --- | --- |
+| `id` | 数据集 ID |
+| `state` | 状态 |
+| `trainingState` | 训练状态 |
+| `kbId` | 所属知识库 ID |
+| `parentId` | 父级 ID |
+| `fileId` | 文件 ID |
+| `name` | 数据集名称 |
+| `extJson` | 扩展信息（JSON 字符串），例如描述、标签等 |
+| `createAt` | 创建时间 |
+| `type` | 类型：`file` 文件，`folder` 文件夹 |
+| `dataAmount` | 数据量 |
+| `parserType` | 解析器类型 |
+| `taskStatus` | 任务状态，取值含义见上文请求体参数 |
+| `progress` | 任务进度 |
+| `taskId` | 任务 ID |
+| `allowDownload` | 是否允许下载：`1` 允许，`0` 不允许 |
+| `downloadUrl` | 下载地址 |
+| `allowPreview` | 是否允许预览：`1` 允许，`0` 不允许 |
+| `previewUrl` | 预览地址 |
+| `uuid` | 唯一标识 |
+| `approvalId` | 审核记录 ID |
+| `approvalState` | 审核状态，取值含义见上文请求体参数 |
+| `approvalCode` | 审核状态码 |
+| `operateCode` | 操作类型码 |
+| `operatorUserName` | 操作人姓名 |
+| `auditorUserNames` | 审核人姓名列表 |
+| `creatorUserName` | 创建人姓名 |
+| `operateComment` | 操作备注 |
+| `approvalComment` | 审核意见 |
+| `referenceCount` | 引用次数 |
+
+## 响应体示例
+
+```json
+{
+  "code": 1,
+  "msg": "操作成功",
+  "data": {
+    "pageNum": 1,
+    "pageSize": 20,
+    "count": true,
+    "list": [
+      {
+        "id": 1001,
+        "state": 1,
+        "trainingState": 2,
+        "kbId": 123,
+        "parentId": 456,
+        "fileId": "file_001",
+        "name": "机器学习数据集",
+        "extJson": "{\"description\":\"包含各种机器学习算法的训练数据\",\"tags\":[\"AI\",\"机器学习\"]}",
+        "createAt": "2024-01-15T10:30:00",
+        "type": "file",
+        "dataAmount": 1500,
+        "parserType": "pdf_parser",
+        "taskStatus": 2,
+        "progress": "100%",
+        "taskId": 2001,
+        "allowDownload": 1,
+        "downloadUrl": "https://example.com/download/file_001.pdf",
+        "allowPreview": 1,
+        "previewUrl": "https://example.com/preview/file_001",
+        "uuid": "550e8400-e29b-41d4-a716-446655440001",
+        "approvalId": 3001,
+        "approvalState": 2,
+        "approvalCode": "APPROVED",
+        "operateCode": "CREATE",
+        "operatorUserName": "张三",
+        "auditorUserNames": ["李四", "王五"],
+        "creatorUserName": "张三",
+        "operateComment": "创建新的机器学习数据集",
+        "approvalComment": "数据集质量良好，已通过审核",
+        "referenceCount": 15
+      },
+      {
+        "id": 1002,
+        "state": 1,
+        "trainingState": 1,
+        "kbId": 123,
+        "parentId": 456,
+        "fileId": "file_002",
+        "name": "自然语言处理语料库",
+        "extJson": "{\"description\":\"中文自然语言处理训练语料\",\"tags\":[\"NLP\",\"中文\"]}",
+        "createAt": "2024-01-16T14:20:00",
+        "type": "file",
+        "dataAmount": 2500,
+        "parserType": "text_parser",
+        "taskStatus": 1,
+        "progress": "65%",
+        "taskId": 2002,
+        "allowDownload": 1,
+        "downloadUrl": "https://example.com/download/file_002.txt",
+        "allowPreview": 1,
+        "previewUrl": "https://example.com/preview/file_002",
+        "uuid": "550e8400-e29b-41d4-a716-446655440002",
+        "approvalId": 3002,
+        "approvalState": 1,
+        "approvalCode": "PENDING",
+        "operateCode": "CREATE",
+        "operatorUserName": "赵六",
+        "auditorUserNames": ["李四"],
+        "creatorUserName": "赵六",
+        "operateComment": "上传NLP语料库文件",
+        "approvalComment": null,
+        "referenceCount": 8
+      },
+      {
+        "id": 1003,
+        "state": 1,
+        "trainingState": 2,
+        "kbId": 123,
+        "parentId": 456,
+        "fileId": null,
+        "name": "数据集文件夹",
+        "extJson": "{\"description\":\"包含多个相关数据集的文件夹\"}",
+        "createAt": "2024-01-14T09:15:00",
+        "type": "folder",
+        "dataAmount": 0,
+        "parserType": null,
+        "taskStatus": null,
+        "progress": null,
+        "taskId": null,
+        "allowDownload": 0,
+        "downloadUrl": null,
+        "allowPreview": 0,
+        "previewUrl": null,
+        "uuid": "550e8400-e29b-41d4-a716-446655440003",
+        "approvalId": null,
+        "approvalState": null,
+        "approvalCode": null,
+        "operateCode": null,
+        "operatorUserName": null,
+        "auditorUserNames": null,
+        "creatorUserName": "张三",
+        "operateComment": null,
+        "approvalComment": null,
+        "referenceCount": 0
+      }
+    ],
+    "total": 3,
+    "attributes": {},
+    "isFirstPage": true,
+    "isLastPage": true
+  }
+}
+```

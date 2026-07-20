@@ -1,0 +1,132 @@
+---
+title: "組み込みコマンド Command"
+---
+
+組み込みコマンドは、メモリ変数にコマンド信号を送信することで、プラットフォーム内部サービスとのインタラクションを実現するために使用します。
+
+## 呼び出し方法
+
+### 呼び出し方法1：コマンド信号を送信
+
+1. コマンド信号の JSON 構造体を組み立てます：
+
+```json
+{
+  // 命令编码，必填
+  "command": "command code",
+  // 命令参数，每个命令有它的参数结构，参考「命令列表」。如果没有参数就设置为 {}
+  "data": {
+    // ....
+  },
+  // 是否异步调用，可不填。默认 false
+  "async": false
+}
+```
+
+2. 組み立てたコマンド信号をメモリ変数に接続します。メモリ変数のキーは `$command_xxx` で始まる必要があります。
+3. コマンド呼び出し後の結果データを取得する必要がある場合は、次の方法で取得します：
+
+```
+{{记忆变量的key.result}}
+```
+
+例：`{{$command_mytext2agent.result}}`
+
+### 呼び出し方法2：関数形式での宣言呼び出し
+
+コマンド関数の宣言：`[$[ コマンドデータJSON ]$]`
+
+例：
+
+```
+[$[
+    {
+       "command":"AddMessageMeta",
+       "embedResult": true, // true 会把命令结果嵌入到prompt所在位置；false则命令所在处替换为空。
+       "data": {
+          "alias":"xxx",
+          "metadata":
+          {"renderType" : "deepResearchDesign", "toolType":"deepResearch"}
+        }
+    }
+]$]
+```
+
+## コマンド一覧
+
+### text2agent：Agent 作成コマンド
+
+コマンドパラメータ：
+
+```json
+{
+  "command": "text2agent",
+  "data": {
+    // 编排数据
+    "agentJson": []
+  }
+}
+```
+
+コマンド結果：
+
+```json
+{
+  "result": {
+    "avatar": "",
+    "id": "",
+    "intro": "",
+    "name": ""
+  }
+}
+```
+
+### userKbs：ユーザーのナレッジベース一覧を取得するコマンド
+
+コマンドパラメータ：
+
+```json
+{
+  "command": "userKb",
+  "data": {}
+}
+```
+
+コマンド結果：
+
+```json
+{
+  "result": [
+    {
+      "avatar": "",
+      "id": "",
+      "name": ""
+    }
+  ]
+}
+```
+
+### AddMessageMeta：メッセージにメタ情報を付与
+
+コマンドパラメータ：
+
+```json
+{
+  "command": "AddMessageMeta",
+  "data": {
+    "whenComplete": false,
+    "metadata": {"metaKey1": "metaValue1", "metaKey2": "metaValue2"},
+    "beforeMetadata": {"metaKey1": "metaValue1", "metaKey2": "metaValue2"},
+    "afterMetadata": {"metaKey1": "metaValue1", "metaKey2": "metaValue2"}
+  }
+}
+```
+
+パラメータ説明：ストリーミング出力に `metaMessage` フィールドが追加され、いくつかのシステム組み込み属性とユーザー定義の metadata を含むメタ情報を伝えるために使用します：
+
+- `whenComplete`：あるコンポーネントの返信が終了した時のみメタ情報を付与します。デフォルトは `false`
+- `beforeMetadata`：前置メタデータ。あるコンポーネントが最初の token を返信した時のみ付与されるメタ情報で、必須ではありません。内部の属性と値はユーザーが自由に定義できます
+- `metadata`：メタデータ。すべてのストリーミング返信過程で付与されるメタ情報です。`whenComplete=true` を設定した場合は、あるコンポーネントの返信が `complete` になった時のみ付与されます。必須ではなく、内部の属性と値はユーザーが自由に定義できます
+- `afterMetadata`：後置メタデータ。あるコンポーネントの返信が `complete` になった時のみ付与されるメタ情報で、必須ではありません。内部の属性と値はユーザーが自由に定義できます
+
+コマンド結果：なし
