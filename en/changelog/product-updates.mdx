@@ -2,6 +2,10 @@
 title: "Product updates"
 description: "New updates and improvements"
 filters:
+  - label: "v2.0.2.0"
+    value: "v2.0.2.0"
+  - label: "v2.0.1.0"
+    value: "v2.0.1.0"
   - label: "v2.0.0.0"
     value: "v2.0.0.0"
   - label: "v2.0.0-RC2"
@@ -51,6 +55,53 @@ filters:
   - label: "v1.8.2.0"
     value: "v1.8.2.0"
 ---
+
+<Update label="v2.0.2.0" tags={["v2.0.2.0"]} rss={{ title: "Agentify v2.0.2.0", description: "User question form, default terminal skills, and app permission controls, with NL2SQL and auth enhancements plus multiple bug fixes" }}>
+  ## New Features
+
+  - **User question form**: Added a new user question form capability.
+  - **Default terminal skill settings**: You can set selected skills as terminal defaults in the skill list (for example, English or Japanese translation).
+  - **My Apps permission control**: Added a permission control mechanism for the "My Apps" module.
+
+  ## Enhancements
+
+  - **NL2SQL enhancement**: Added context support and custom prompt extensibility for the NL2SQL component.
+  - **Access and authentication**: Added user permission checks when accessing agents through non-external-link entry points.
+  - **Zhipu search API upgrade**: Switched Zhipu search to the new API interface.
+  - **Tenant token quota control**: When a tenant reaches the token consumption limit, the system now also disables advanced features such as auto code generation and Text2Agent, in addition to stopping agent conversations.
+  - **Variable passing optimization**: When an intelligent conversation node is connected to an input node, `{{text}}` is now passed by default even if it is not explicitly referenced in the prompt.
+
+  ## Bug Fixes
+
+  - **Agents and workflows**
+    - Fixed an issue where rerank model configuration changes did not take effect.
+    - Fixed a false "field already exists" error in the information extraction component during edit mode.
+    - Fixed an issue where the universal document parsing component failed in multi-document parsing.
+    - Fixed abnormal terminal skill query behavior.
+
+  - **Interaction and input experience**
+    - Fixed an issue on macOS input method where pressing Enter to confirm pinyin in the prompt input could duplicate text twice.
+
+  - **System and administration**
+    - Fixed a permission blocking issue where user information could not be edited when the "System Configuration" page was not enabled.
+</Update>
+
+<Update label="v2.0.1.0" tags={["v2.0.1.0"]} rss={{ title: "Agentify v2.0.1.0", description: "Database capability enhancements, skill management and skillHub, Lingda integration, and platform OpenAPI encapsulation with bug fixes" }}>
+  ## Feature Optimizations
+
+  - Database now supports create, update, and delete operations.
+  - Added skill management capabilities.
+  - Added skillHub support.
+  - Added Smart Terminal - Lingda.
+  - Optimized home menu styles.
+  - Unified OpenAPI protocol encapsulation for Lingda platform resources: agents / knowledge bases / databases / MCP / custom tools / document parsing / image parsing.
+  - Lingda models now support Anthropic protocol calls.
+
+  ## Bug Fixes
+
+  - Fixed a resolution-related issue where the "Unpublished" label wrapped unexpectedly.
+  - Fixed an issue where universal document parsing failed in tika mode.
+</Update>
 
 <Update label="April 07 - April 15" tags={["v2.0.0.0"]} rss={{ title: "Agentify v2.0.0.0", description: "MFA sign-in, usage and token reporting, API to MCP, multi-turn chat and code block fixes" }}>
   ## Feature Optimizations
