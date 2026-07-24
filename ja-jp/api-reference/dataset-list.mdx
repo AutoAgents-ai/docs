@@ -57,6 +57,37 @@ title: "データセット一覧の取得"
 }
 ```
 
+## cURL の例
+
+`{{host}}` は実際の環境アドレスに、`{authKey}`/`{authSecret}` はご自身の認証情報に置き換えてください（[インターフェース仕様](/ja-jp/api-reference/overview)を参照）：
+
+```bash
+curl -X POST "{{host}}/openapi/kb/ds/query" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer {authKey}.{authSecret}" \
+  -d '{
+  "pageNum": 1,
+  "pageSize": 20,
+  "keywords": "機械学習データセット",
+  "kbId": 123,
+  "parentId": 456,
+  "fileIds": [
+    "file_001",
+    "file_002",
+    "file_003"
+  ],
+  "dsIds": [
+    1001,
+    1002,
+    1003,
+    1004
+  ],
+  "taskStatus": 1,
+  "approvalState": 2,
+  "notSelf": false
+}'
+```
+
 ## レスポンスボディ
 
 | フィールド | 説明 |

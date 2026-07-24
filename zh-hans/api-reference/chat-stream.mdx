@@ -123,6 +123,30 @@ title: "Agent 聊天流式接口"
 }
 ```
 
+## cURL 示例
+
+将 `{{host}}` 替换为实际环境地址，`{authKey}`/`{authSecret}` 替换为你的密钥（参考[接口规范](/zh-hans/api-reference/overview)）：
+
+```bash
+curl -N -X POST "{{host}}/openapi/agents/chat/stream/v1" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer {authKey}.{authSecret}" \
+  -d '{
+    "agentId":"a2207c2f6d3d44d2b4a5dae5b5593750",
+    "chatId": null,
+    "userChatInput":"互联网是什么",
+    "images":[{"url":"your image url here"}],
+    "files":[],
+    "state":{
+        "yourKey1":"yourValue1",
+        "yourKey2":"yourValue2"
+    },
+    "buttonKey":"按钮id或者名字",
+    "debug":false,
+    "model": "model-id"
+}'
+```
+
 ## 流式响应体说明
 
 响应为 SSE 流，每行以 `data:` 开头，携带一个 JSON 对象。

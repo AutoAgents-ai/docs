@@ -123,6 +123,30 @@ title: "Agentチャットストリーミングインターフェース"
 }
 ```
 
+## cURL の例
+
+`{{host}}` は実際の環境アドレスに、`{authKey}`/`{authSecret}` はご自身の認証情報に置き換えてください（[インターフェース仕様](/ja-jp/api-reference/overview)を参照）：
+
+```bash
+curl -N -X POST "{{host}}/openapi/agents/chat/stream/v1" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer {authKey}.{authSecret}" \
+  -d '{
+    "agentId":"a2207c2f6d3d44d2b4a5dae5b5593750",
+    "chatId": null,
+    "userChatInput":"互联网是什么",
+    "images":[{"url":"your image url here"}],
+    "files":[],
+    "state":{
+        "yourKey1":"yourValue1",
+        "yourKey2":"yourValue2"
+    },
+    "buttonKey":"按钮id或者名字",
+    "debug":false,
+    "model": "model-id"
+}'
+```
+
 ## ストリーミングレスポンスボディ
 
 レスポンスは SSE ストリームであり、各行は `data:` で始まり、1 つの JSON オブジェクトを伴います。

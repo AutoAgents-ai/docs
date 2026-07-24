@@ -44,6 +44,22 @@ title: "Agentフィードバックインターフェース"
 }
 ```
 
+## cURL の例
+
+`{{host}}` は実際の環境アドレスに、`{authKey}`/`{authSecret}` はご自身の認証情報に置き換えてください（[インターフェース仕様](/ja-jp/api-reference/overview)を参照）：
+
+```bash
+curl -X GET "{{host}}/openapi/agents/chat/feedback" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer {authKey}.{authSecret}" \
+  -d '{
+  "chatId": 123,
+  "agentId": "addsfaslfjasofasofpoas",
+  "feedbackKey": "@.ksdf9as0f8sd0xxo",
+  "feedbackType": "over"
+}'
+```
+
 ## レスポンスボディ
 
 | フィールド | 説明 |

@@ -34,6 +34,19 @@ This endpoint only supports authentication using personal API keys (`authKey` / 
 }
 ```
 
+## cURL Example
+
+Replace `{{host}}` with your actual environment address, and `{authKey}`/`{authSecret}` with your credentials (see [API Specification](/en/api-reference/overview)):
+
+```bash
+curl -X POST "{{host}}/openapi/kb/deleteDs" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer {authKey}.{authSecret}" \
+  -d '{
+    "dsIdList": [2343, 2233]
+}'
+```
+
 ## Response Body
 
 | Field | Description |

@@ -38,6 +38,18 @@ agentId=4328bb87fdd145e2a25ec53bsada27c95
 requestId=2498bb87fdd145e2a25ec53b50b27c95
 ```
 
+## cURL 示例
+
+将 `{{host}}` 替换为实际环境地址，`{authKey}`/`{authSecret}` 替换为你的密钥（参考[接口规范](/zh-hans/api-reference/overview)）：
+
+```bash
+curl -X GET "{{host}}/openapi/agents/chat/completions/async/polling/v1" \
+  -H "Authorization: Bearer {authKey}.{authSecret}" \
+  -G \
+  --data-urlencode "agentId=4328bb87fdd145e2a25ec53bsada27c95" \
+  --data-urlencode "requestId=2498bb87fdd145e2a25ec53b50b27c95"
+```
+
 ## 响应体说明
 
 | 字段 | 说明 |

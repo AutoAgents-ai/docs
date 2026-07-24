@@ -34,6 +34,21 @@ Refer to the [API Specification](/en/api-reference/overview); supports ❌ Agent
 }
 ```
 
+## cURL Example
+
+Replace `{{host}}` with your actual environment address, and `{authKey}`/`{authSecret}` with your credentials (see [API Specification](/en/api-reference/overview)):
+
+```bash
+curl -X POST "{{host}}/openapi/deepdoc/fileTransfer" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer {authKey}.{authSecret}" \
+  -d '{
+  "fileName": "test file 111.xls",
+  "fileUrl": "https://uat.agentspro.cn/api/fs/xxxxx",
+  "format": "xlsx"
+}'
+```
+
 ## Response Body
 
 | Field | Description |

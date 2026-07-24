@@ -26,6 +26,16 @@ title: "音声認識インターフェース"
 | --- | --- | --- | --- |
 | `file` | file | はい | アップロードするファイル。音声ファイル、`wav` 形式、16kHz、モノラル |
 
+## cURL の例
+
+`{{host}}` は実際の環境アドレスに、`{authKey}`/`{authSecret}` はご自身の認証情報に置き換えてください（[インターフェース仕様](/ja-jp/api-reference/overview)を参照）：
+
+```bash
+curl -X POST "{{host}}/openapi/voice/recognize" \
+  -H "Authorization: Bearer {authKey}.{authSecret}" \
+  -F "file=@/path/to/your/audio.wav"
+```
+
 ## レスポンスボディ
 
 | フィールド | 説明 |

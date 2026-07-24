@@ -57,6 +57,37 @@ Refer to the [API Specification](/en/api-reference/overview); supports ❌ Agent
 }
 ```
 
+## cURL Example
+
+Replace `{{host}}` with your actual environment address, and `{authKey}`/`{authSecret}` with your credentials (see [API Specification](/en/api-reference/overview)):
+
+```bash
+curl -X POST "{{host}}/openapi/kb/ds/query" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer {authKey}.{authSecret}" \
+  -d '{
+  "pageNum": 1,
+  "pageSize": 20,
+  "keywords": "Machine learning dataset",
+  "kbId": 123,
+  "parentId": 456,
+  "fileIds": [
+    "file_001",
+    "file_002",
+    "file_003"
+  ],
+  "dsIds": [
+    1001,
+    1002,
+    1003,
+    1004
+  ],
+  "taskStatus": 1,
+  "approvalState": 2,
+  "notSelf": false
+}'
+```
+
 ## Response Body
 
 | Field | Description |

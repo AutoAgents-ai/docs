@@ -123,6 +123,30 @@ Supported form field types: `text`, `number`, `textarea`, `select`, `multiSelect
 }
 ```
 
+## cURL Example
+
+Replace `{{host}}` with your actual environment address, and `{authKey}`/`{authSecret}` with your credentials (see [API Specification](/en/api-reference/overview)):
+
+```bash
+curl -N -X POST "{{host}}/openapi/agents/chat/stream/v1" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer {authKey}.{authSecret}" \
+  -d '{
+    "agentId":"a2207c2f6d3d44d2b4a5dae5b5593750",
+    "chatId": null,
+    "userChatInput":"What is the internet",
+    "images":[{"url":"your image url here"}],
+    "files":[],
+    "state":{
+        "yourKey1":"yourValue1",
+        "yourKey2":"yourValue2"
+    },
+    "buttonKey":"button id or name",
+    "debug":false,
+    "model": "model-id"
+}'
+```
+
 ## Streaming Response Body
 
 The response is an SSE stream; each line starts with `data:` and carries a JSON object.

@@ -34,6 +34,19 @@ title: "データセットの削除"
 }
 ```
 
+## cURL の例
+
+`{{host}}` は実際の環境アドレスに、`{authKey}`/`{authSecret}` はご自身の認証情報に置き換えてください（[インターフェース仕様](/ja-jp/api-reference/overview)を参照）：
+
+```bash
+curl -X POST "{{host}}/openapi/kb/deleteDs" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer {authKey}.{authSecret}" \
+  -d '{
+    "dsIdList": [2343, 2233]
+}'
+```
+
 ## レスポンスボディ
 
 | フィールド | 説明 |

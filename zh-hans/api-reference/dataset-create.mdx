@@ -60,6 +60,22 @@ title: "创建数据集并开始任务"
 }
 ```
 
+## cURL 示例
+
+将 `{{host}}` 替换为实际环境地址，`{authKey}`/`{authSecret}` 替换为你的密钥（参考[接口规范](/zh-hans/api-reference/overview)）：
+
+```bash
+curl -X POST "{{host}}/openapi/kb/createDsAndTask" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer {authKey}.{authSecret}" \
+  -d '{
+    "kbId": 123,
+    "fileId": "67dccd3ae1138d0f6d12ca6a",
+    "name": "数据集名称",
+    "parserType": "custom"
+}'
+```
+
 ## 响应体说明
 
 | 字段 | 说明 |

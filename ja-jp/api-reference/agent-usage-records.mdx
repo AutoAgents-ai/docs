@@ -42,6 +42,25 @@ title: "Agent 利用履歴"
 }
 ```
 
+## cURL の例
+
+`{{host}}` は実際の環境アドレスに、`{authKey}`/`{authSecret}` はご自身の認証情報に置き換えてください（[インターフェース仕様](/ja-jp/api-reference/overview)を参照）：
+
+```bash
+curl -X POST "{{host}}/openapi/v2/chatHistory" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer {authKey}.{authSecret}" \
+  -d '{
+    "page": 1,
+    "pageSize": 10,
+    "startTime": "",
+    "endTime": "",
+    "userIdList": [],
+    "orgIdList": [],
+    "agentId": 2378
+}'
+```
+
 ## レスポンスボディ
 
 | フィールド | 説明 |

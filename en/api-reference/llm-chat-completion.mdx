@@ -66,6 +66,45 @@ Refer to the [API Specification](/en/api-reference/overview); supports ❌ Agent
 }
 ```
 
+## cURL Example
+
+Replace `{{host}}` with your actual environment address, and `{authKey}`/`{authSecret}` with your credentials (see [API Specification](/en/api-reference/overview)):
+
+```bash
+curl -X POST "{{host}}/openapi/ai-models/v1/chat/completions" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer {authKey}.{authSecret}" \
+  -d '{
+  "model": "gpt-5-mini-uuid-bZZbPyuuV@azure",
+  "messages": [
+    { "role": "user", "content": "Hello" }
+  ],
+  "stream": false,
+  "max_tokens": 1024,
+  "temperature": 0.7,
+  "tools": [
+    {
+      "type": "function",
+      "function": {
+        "name": "get_weather",
+        "description": "Get real-time weather information for a specified city",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "city": {
+              "type": "string",
+              "description": "City name, for example: Beijing"
+            }
+          },
+          "required": ["city"],
+          "additionalProperties": false
+        }
+      }
+    }
+  ]
+}'
+```
+
 ## Response Body
 
 The response format follows the standard OpenAI response format. When `stream` is `true`, an SSE streaming response is returned; when omitted or `false`, the following full JSON is returned:

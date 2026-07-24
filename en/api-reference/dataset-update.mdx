@@ -40,6 +40,22 @@ This endpoint only supports authentication using personal API keys (`authKey` / 
 }
 ```
 
+## cURL Example
+
+Replace `{{host}}` with your actual environment address, and `{authKey}`/`{authSecret}` with your credentials (see [API Specification](/en/api-reference/overview)):
+
+```bash
+curl -X POST "{{host}}/openapi/kb/modifyDsAndTask" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer {authKey}.{authSecret}" \
+  -d '{
+    "id": 123,
+    "fileId": "67dccd3ae1138d0f6d12ca6a",
+    "name": "Dataset name",
+    "extJson": "{}"
+}'
+```
+
 ## Response Body
 
 | Field | Description |

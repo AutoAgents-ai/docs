@@ -60,6 +60,22 @@ title: "データセットの作成とタスクの開始"
 }
 ```
 
+## cURL の例
+
+`{{host}}` は実際の環境アドレスに、`{authKey}`/`{authSecret}` はご自身の認証情報に置き換えてください（[インターフェース仕様](/ja-jp/api-reference/overview)を参照）：
+
+```bash
+curl -X POST "{{host}}/openapi/kb/createDsAndTask" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer {authKey}.{authSecret}" \
+  -d '{
+    "kbId": 123,
+    "fileId": "67dccd3ae1138d0f6d12ca6a",
+    "name": "データセット名",
+    "parserType": "custom"
+}'
+```
+
 ## レスポンスボディ
 
 | フィールド | 説明 |

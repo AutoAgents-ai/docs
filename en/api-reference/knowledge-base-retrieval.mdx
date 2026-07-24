@@ -54,6 +54,29 @@ Fields such as `vectorSimilarWeight`, `enableRerank`, `rerankModelType`, `rerank
 }
 ```
 
+## cURL Example
+
+Replace `{{host}}` with your actual environment address, and `{authKey}`/`{authSecret}` with your credentials (see [API Specification](/en/api-reference/overview)):
+
+```bash
+curl -X POST "{{host}}/openapi/kb/search" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer {authKey}.{authSecret}" \
+  -d '{
+    "vectorSimilarLimit": 0.15,
+    "vectorSimilarWeight": 0.72,
+    "topK": 20,
+    "enableRerank": false,
+    "expandChunks": false,
+    "expandNum": 1,
+    "rerankModelType": "oneapi-xinference:Qwen3-Reranker-0.6B",
+    "rerankSimilarLimit": 0,
+    "rerankTopK": 10,
+    "keywords": "test",
+    "kbId": "1827"
+}'
+```
+
 ## Response Body
 
 | Field | Description |

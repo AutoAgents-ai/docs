@@ -36,6 +36,18 @@ agentId：4328bb87fdd145e2a25ec53bsada27c95
 conversationId：2498bb87fdd145e2a25ec53b50b27c95
 ```
 
+## cURL の例
+
+`{{host}}` は実際の環境アドレスに、`{authKey}`/`{authSecret}` はご自身の認証情報に置き換えてください（[インターフェース仕様](/ja-jp/api-reference/overview)を参照）：
+
+```bash
+curl -X GET "{{host}}/openapi/agents/chat/close" \
+  -H "Authorization: Bearer {authKey}.{authSecret}" \
+  -G \
+  --data-urlencode "agentId=4328bb87fdd145e2a25ec53bsada27c95" \
+  --data-urlencode "conversationId=2498bb87fdd145e2a25ec53b50b27c95"
+```
+
 ## レスポンスボディ
 
 | フィールド | 説明 |

@@ -30,6 +30,15 @@ title: "Agent 基本信息列表接口"
 
 无。
 
+## cURL 示例
+
+将 `{{host}}` 替换为实际环境地址，`{authKey}`/`{authSecret}` 替换为你的密钥（参考[接口规范](/zh-hans/api-reference/overview)）：
+
+```bash
+curl -X GET "{{host}}/openapi/agents" \
+  -H "Authorization: Bearer {authKey}.{authSecret}"
+```
+
 ## 响应体说明
 
 | 字段 | 说明 |

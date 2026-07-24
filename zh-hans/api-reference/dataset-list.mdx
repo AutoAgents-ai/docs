@@ -57,6 +57,37 @@ title: "查询数据集列表"
 }
 ```
 
+## cURL 示例
+
+将 `{{host}}` 替换为实际环境地址，`{authKey}`/`{authSecret}` 替换为你的密钥（参考[接口规范](/zh-hans/api-reference/overview)）：
+
+```bash
+curl -X POST "{{host}}/openapi/kb/ds/query" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer {authKey}.{authSecret}" \
+  -d '{
+  "pageNum": 1,
+  "pageSize": 20,
+  "keywords": "机器学习数据集",
+  "kbId": 123,
+  "parentId": 456,
+  "fileIds": [
+    "file_001",
+    "file_002",
+    "file_003"
+  ],
+  "dsIds": [
+    1001,
+    1002,
+    1003,
+    1004
+  ],
+  "taskStatus": 1,
+  "approvalState": 2,
+  "notSelf": false
+}'
+```
+
 ## 响应体说明
 
 | 字段 | 说明 |

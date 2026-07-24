@@ -43,6 +43,17 @@ file: 文件流
 returnType: id
 ```
 
+## cURL 示例
+
+将 `{{host}}` 替换为实际环境地址，`{authKey}`/`{authSecret}` 替换为你的密钥（参考[接口规范](/zh-hans/api-reference/overview)）：
+
+```bash
+curl -X POST "{{host}}/openapi/fs/upload" \
+  -H "Authorization: Bearer {authKey}.{authSecret}" \
+  -F "file=@/path/to/your/file.pdf" \
+  -F "returnType=id"
+```
+
 ## 响应体说明
 
 | 字段 | 说明 |

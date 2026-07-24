@@ -26,6 +26,16 @@ This endpoint requires the `Content-Type: multipart/form-data` header.
 | --- | --- | --- | --- |
 | `file` | file | Yes | The uploaded audio file, in `wav` format, 16kHz, mono channel |
 
+## cURL Example
+
+Replace `{{host}}` with your actual environment address, and `{authKey}`/`{authSecret}` with your credentials (see [API Specification](/en/api-reference/overview)):
+
+```bash
+curl -X POST "{{host}}/openapi/voice/recognize" \
+  -H "Authorization: Bearer {authKey}.{authSecret}" \
+  -F "file=@/path/to/your/audio.wav"
+```
+
 ## Response Body
 
 | Field | Description |

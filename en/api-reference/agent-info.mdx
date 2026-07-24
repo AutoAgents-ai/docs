@@ -34,6 +34,15 @@ Refer to the [API Specification](/en/api-reference/overview); supports ✅ Agent
 {{host}}/openapi/agents/ogwerwr34rq3434234sf
 ```
 
+## cURL Example
+
+Replace `{{host}}` with your actual environment address, and `{authKey}`/`{authSecret}` with your credentials (see [API Specification](/en/api-reference/overview)):
+
+```bash
+curl -X GET "{{host}}/openapi/agents/{agentUUID}" \
+  -H "Authorization: Bearer {authKey}.{authSecret}"
+```
+
 ## Response Body
 
 | Field | Description |

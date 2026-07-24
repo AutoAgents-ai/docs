@@ -30,6 +30,15 @@ title: "Agent基本情報一覧インターフェース"
 
 なし。
 
+## cURL の例
+
+`{{host}}` は実際の環境アドレスに、`{authKey}`/`{authSecret}` はご自身の認証情報に置き換えてください（[インターフェース仕様](/ja-jp/api-reference/overview)を参照）：
+
+```bash
+curl -X GET "{{host}}/openapi/agents" \
+  -H "Authorization: Bearer {authKey}.{authSecret}"
+```
+
 ## レスポンスボディ
 
 | フィールド | 説明 |

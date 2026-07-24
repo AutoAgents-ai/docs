@@ -34,6 +34,15 @@ title: "Agent 单个基本信息接口"
 {{host}}/openapi/agents/ogwerwr34rq3434234sf
 ```
 
+## cURL 示例
+
+将 `{{host}}` 替换为实际环境地址，`{authKey}`/`{authSecret}` 替换为你的密钥（参考[接口规范](/zh-hans/api-reference/overview)）：
+
+```bash
+curl -X GET "{{host}}/openapi/agents/{agentUUID}" \
+  -H "Authorization: Bearer {authKey}.{authSecret}"
+```
+
 ## 响应体说明
 
 | 字段 | 说明 |

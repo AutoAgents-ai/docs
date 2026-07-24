@@ -66,6 +66,45 @@ title: "LLM 聊天补全"
 }
 ```
 
+## cURL 示例
+
+将 `{{host}}` 替换为实际环境地址，`{authKey}`/`{authSecret}` 替换为你的密钥（参考[接口规范](/zh-hans/api-reference/overview)）：
+
+```bash
+curl -X POST "{{host}}/openapi/ai-models/v1/chat/completions" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer {authKey}.{authSecret}" \
+  -d '{
+  "model": "gpt-5-mini-uuid-bZZbPyuuV@azure",
+  "messages": [
+    { "role": "user", "content": "你好" }
+  ],
+  "stream": false,
+  "max_tokens": 1024,
+  "temperature": 0.7,
+  "tools": [
+    {
+      "type": "function",
+      "function": {
+        "name": "get_weather",
+        "description": "获取指定城市的实时天气信息",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "city": {
+              "type": "string",
+              "description": "城市名称，例如：北京"
+            }
+          },
+          "required": ["city"],
+          "additionalProperties": false
+        }
+      }
+    }
+  ]
+}'
+```
+
 ## 响应体说明
 
 响应格式符合 OpenAI 标准响应格式。`stream` 为 `true` 时返回 SSE 流式响应；不填或为 `false` 时返回如下完整 JSON：

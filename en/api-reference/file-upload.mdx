@@ -43,6 +43,17 @@ file: file stream
 returnType: id
 ```
 
+## cURL Example
+
+Replace `{{host}}` with your actual environment address, and `{authKey}`/`{authSecret}` with your credentials (see [API Specification](/en/api-reference/overview)):
+
+```bash
+curl -X POST "{{host}}/openapi/fs/upload" \
+  -H "Authorization: Bearer {authKey}.{authSecret}" \
+  -F "file=@/path/to/your/file.pdf" \
+  -F "returnType=id"
+```
+
 ## Response Body
 
 | Field | Description |

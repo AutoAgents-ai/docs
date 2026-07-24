@@ -54,6 +54,29 @@ title: "ナレッジベース検索"
 }
 ```
 
+## cURL の例
+
+`{{host}}` は実際の環境アドレスに、`{authKey}`/`{authSecret}` はご自身の認証情報に置き換えてください（[インターフェース仕様](/ja-jp/api-reference/overview)を参照）：
+
+```bash
+curl -X POST "{{host}}/openapi/kb/search" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer {authKey}.{authSecret}" \
+  -d '{
+    "vectorSimilarLimit": 0.15,
+    "vectorSimilarWeight": 0.72,
+    "topK": 20,
+    "enableRerank": false,
+    "expandChunks": false,
+    "expandNum": 1,
+    "rerankModelType": "oneapi-xinference:Qwen3-Reranker-0.6B",
+    "rerankSimilarLimit": 0,
+    "rerankTopK": 10,
+    "keywords": "测试",
+    "kbId": "1827"
+}'
+```
+
 ## レスポンスボディ
 
 | フィールド | 説明 |

@@ -34,6 +34,21 @@ title: "文件类型转换"
 }
 ```
 
+## cURL 示例
+
+将 `{{host}}` 替换为实际环境地址，`{authKey}`/`{authSecret}` 替换为你的密钥（参考[接口规范](/zh-hans/api-reference/overview)）：
+
+```bash
+curl -X POST "{{host}}/openapi/deepdoc/fileTransfer" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer {authKey}.{authSecret}" \
+  -d '{
+  "fileName": "测试文件111.xls",
+  "fileUrl": "https://uat.agentspro.cn/api/fs/xxxxx",
+  "format": "xlsx"
+}'
+```
+
 ## 响应体说明
 
 | 字段 | 说明 |

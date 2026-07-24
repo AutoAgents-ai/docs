@@ -40,6 +40,21 @@ title: "メッセージいいね/イマイチインターフェース"
 }
 ```
 
+## cURL の例
+
+`{{host}}` は実際の環境アドレスに、`{authKey}`/`{authSecret}` はご自身の認証情報に置き換えてください（[インターフェース仕様](/ja-jp/api-reference/overview)を参照）：
+
+```bash
+curl -X POST "{{host}}/openapi/agents/likeViewDislike" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer {authKey}.{authSecret}" \
+  -d '{
+  "id": "673455996951a946c05c401a",
+  "lvdStatus": "thumbUp",
+  "agentId": "f9df7cafef2d44ce9e6b0316ca6c3b1a"
+}'
+```
+
 ## レスポンスボディ
 
 | フィールド | 説明 |

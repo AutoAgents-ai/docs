@@ -54,6 +54,29 @@ title: "知识库检索"
 }
 ```
 
+## cURL 示例
+
+将 `{{host}}` 替换为实际环境地址，`{authKey}`/`{authSecret}` 替换为你的密钥（参考[接口规范](/zh-hans/api-reference/overview)）：
+
+```bash
+curl -X POST "{{host}}/openapi/kb/search" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer {authKey}.{authSecret}" \
+  -d '{
+    "vectorSimilarLimit": 0.15,
+    "vectorSimilarWeight": 0.72,
+    "topK": 20,
+    "enableRerank": false,
+    "expandChunks": false,
+    "expandNum": 1,
+    "rerankModelType": "oneapi-xinference:Qwen3-Reranker-0.6B",
+    "rerankSimilarLimit": 0,
+    "rerankTopK": 10,
+    "keywords": "测试",
+    "kbId": "1827"
+}'
+```
+
 ## 响应体说明
 
 | 字段 | 说明 |

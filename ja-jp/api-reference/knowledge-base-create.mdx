@@ -44,6 +44,22 @@ title: "ナレッジベースの作成"
 `vectorModel` は、現在の環境で実際に利用可能なベクトルモデル（Embeddingモデル）の識別子に置き換えてください。
 </Info>
 
+## cURL の例
+
+`{{host}}` は実際の環境アドレスに、`{authKey}`/`{authSecret}` はご自身の認証情報に置き換えてください（[インターフェース仕様](/ja-jp/api-reference/overview)を参照）：
+
+```bash
+curl -X POST "{{host}}/openapi/kb/createKb" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer {authKey}.{authSecret}" \
+  -d '{
+    "name": "test",
+    "description": "説明",
+    "vectorModel": "oneapi-xinference:bce-embedding",
+    "avatarUrl": "/assets/avatar/63.png"
+}'
+```
+
 ## レスポンスボディ
 
 | フィールド | 説明 |

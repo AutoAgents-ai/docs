@@ -20,6 +20,15 @@ Refer to the [API Specification](/en/api-reference/overview); supports ❌ Agent
 
 No input parameters, no query parameters, and no request body.
 
+## cURL Example
+
+Replace `{{host}}` with your actual environment address, and `{authKey}`/`{authSecret}` with your credentials (see [API Specification](/en/api-reference/overview)):
+
+```bash
+curl -X GET "{{host}}/openapi/ai-models/v1/models" \
+  -H "Authorization: Bearer {authKey}.{authSecret}"
+```
+
 ## Response Body
 
 | Field | Description |

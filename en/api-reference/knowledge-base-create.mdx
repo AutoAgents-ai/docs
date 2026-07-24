@@ -44,6 +44,22 @@ This endpoint only supports authentication using personal API keys (`authKey` / 
 Replace `vectorModel` with the identifier of a vector model (embedding model) that is actually available in your current environment.
 </Info>
 
+## cURL Example
+
+Replace `{{host}}` with your actual environment address, and `{authKey}`/`{authSecret}` with your credentials (see [API Specification](/en/api-reference/overview)):
+
+```bash
+curl -X POST "{{host}}/openapi/kb/createKb" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer {authKey}.{authSecret}" \
+  -d '{
+    "name": "test",
+    "description": "description",
+    "vectorModel": "oneapi-xinference:bce-embedding",
+    "avatarUrl": "/assets/avatar/63.png"
+}'
+```
+
 ## Response Body
 
 | Field | Description |

@@ -42,6 +42,25 @@ Refer to the [API Specification](/en/api-reference/overview); supports ❌ Agent
 }
 ```
 
+## cURL Example
+
+Replace `{{host}}` with your actual environment address, and `{authKey}`/`{authSecret}` with your credentials (see [API Specification](/en/api-reference/overview)):
+
+```bash
+curl -X POST "{{host}}/openapi/v2/chatHistory" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer {authKey}.{authSecret}" \
+  -d '{
+    "page": 1,
+    "pageSize": 10,
+    "startTime": "",
+    "endTime": "",
+    "userIdList": [],
+    "orgIdList": [],
+    "agentId": 2378
+}'
+```
+
 ## Response Body
 
 | Field | Description |

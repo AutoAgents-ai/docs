@@ -36,6 +36,18 @@ agentId：4328bb87fdd145e2a25ec53bsada27c95
 conversationId：2498bb87fdd145e2a25ec53b50b27c95
 ```
 
+## cURL Example
+
+Replace `{{host}}` with your actual environment address, and `{authKey}`/`{authSecret}` with your credentials (see [API Specification](/en/api-reference/overview)):
+
+```bash
+curl -X GET "{{host}}/openapi/agents/chat/close" \
+  -H "Authorization: Bearer {authKey}.{authSecret}" \
+  -G \
+  --data-urlencode "agentId=4328bb87fdd145e2a25ec53bsada27c95" \
+  --data-urlencode "conversationId=2498bb87fdd145e2a25ec53b50b27c95"
+```
+
 ## Response Body
 
 | Field | Description |
