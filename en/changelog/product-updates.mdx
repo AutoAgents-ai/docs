@@ -2,6 +2,8 @@
 title: "Product updates"
 description: "New updates and improvements"
 filters:
+  - label: "v2.0.7.0"
+    value: "v2.0.7.0"
   - label: "v2.0.6.0"
     value: "v2.0.6.0"
   - label: "v2.0.5.0"
@@ -63,6 +65,29 @@ filters:
   - label: "v1.8.2.0"
     value: "v1.8.2.0"
 ---
+
+<Update label="v2.0.7.0" tags={["v2.0.7.0"]} rss={{ title: "Agentify v2.0.7.0", description: "New Data Management Center and Ticket Management approval workflow covering 7 core data resources, plus Skill editor import/export and My App visit statistics" }}>
+  ## New Features
+
+  - **New Data Management Center: unified governance and centralized permission control across 7 core data resources**: To address the "scattered resources, disorderly governance" pain point that enterprises face during digital transformation, the new data management module is now live.
+    - Full-scope resource governance: Centralized lifecycle management across 7 core data resource types — Agents, Apps, Knowledge Bases, Databases, MCP (Model Context Protocol), Custom Tools, and Skills.
+    - Centralized data permission control: Enables standardized consolidation and fine-grained control of enterprise-grade assets through centralized mode, safeguarding the security boundaries of sensitive data and core assets.
+    - Dual-mode architecture: Autonomous mode gives business teams high flexibility and agility for rapid resource iteration and configuration; Centralized mode is uniformly governed by platform administrators, with optional publish-approval and usage-approval toggles to meet strict compliance auditing and security requirements.
+
+  - **New Ticket Management feature: an end-to-end approval workflow**: Paired with the Data Management Center's centralized mode, the new ticket management feature is here.
+    - Full-category approval coverage: Centrally accepts and routes approval requests across all 7 core data resource types above.
+    - Streamlined workflow experience: Provides clear pending/completed views, routing details, and historical traceability, significantly reducing cross-team collaboration overhead and ensuring every production resource's launch and invocation is auditable and secure.
+
+  ## Enhancements
+
+  - **Skill editor: Agent description guidance plus import/export support**:
+    - Smart prompt copy: In the skill editor, when the linked Agent's description is detected as empty, a friendly prompt now appears automatically to guide developers to complete the description, ensuring accurate invocation of the skill in collaborative scenarios.
+    - Convenient import/export: The skill editor now fully supports import and export, greatly improving skill-asset reuse across teams, cross-environment migration, and backup convenience.
+
+  - **Data dashboard: added "My App Visit Statistics"**:
+    - Fine-grained operational insight: The data dashboard is upgraded again with a new "My App Visit Statistics" dimension.
+    - Quantified value analysis: Developers and operations staff can track the invocation popularity and user visit trends of the apps they created in real time and at a glance, providing solid data support for product iteration and value assessment.
+</Update>
 
 <Update label="June 26 - July 10" tags={["v2.0.6.0"]} rss={{ title: "Agentify v2.0.6.0", description: "Major upgrades across Agent and Skills experiences, covering Text2Agent, code blocks, rendering architecture, and interaction refinements" }}>
   ## I. Agent-related Updates
