@@ -2,6 +2,8 @@
 title: "Product updates"
 description: "New updates and improvements"
 filters:
+  - label: "v2.0.8.0"
+    value: "v2.0.8.0"
   - label: "v2.0.7.0"
     value: "v2.0.7.0"
   - label: "v2.0.6.0"
@@ -65,6 +67,71 @@ filters:
   - label: "v1.8.2.0"
     value: "v1.8.2.0"
 ---
+
+<Update label="July 24 - August 7" tags={["v2.0.8.0"]} rss={{ title: "Agentify v2.0.8.0", description: "Data Dashboard V2 launches with business overview and 8 dedicated analytics modules; Agent, App, Knowledge Base, and Skills enhancements plus system optimizations and bug fixes" }}>
+  ## I. Data Dashboard V2 Launch
+
+  - **Business overview**: View core operating metrics—visiting users, AI-active users, penetration rate, effective Q&A, and Token consumption—on a single screen, along with traffic trends, active-user trends, department usage distribution, Agent category mix, and popularity rankings for Agents, Apps, and Knowledge Bases, so you can quickly assess overall platform health and growth.
+  - **Operations analytics**: Added 8 dedicated analytics modules for Agents, Apps, Skills, MCP & Custom Tools, Knowledge Bases, Databases, Users, and Models. Each module shows resource scale, activity, usage trends, and Top 10 rankings, with support for detailed data views, conditional filters, and CSV export.
+  - **Department and time-range comparison**: Filter all data by department (with automatic roll-up of subordinate organizations) and a custom time range (up to 180 days) to support cross-department comparison and assessment.
+  - **Explainable metrics and multilingual support**: A new metrics dictionary clarifies the statistical definition of each indicator to reduce misinterpretation. The UI, data, and exported CSV filenames fully support Chinese, English, and Japanese, with filenames generated automatically based on the current locale.
+  - **Core value**: Turns previously scattered, manually aggregated operating data into a ready-to-use, drillable, and exportable unified data view—helping managers evaluate platform usage, identify high-value users and popular assets, and support department assessment and cost-control decisions.
+
+  ## II. Agent-related Updates
+
+  ### Enhancements
+  - **Sub-agent search and navigation**: Sub-agent nodes on the orchestration page now support search/locate and direct jump to the edit page.
+  - **Output artifact recording**: Added an Agent output-file API to record file artifacts produced by Agents.
+  - **Discover page redesign**: Fully redesigned the Agent Discover page UI for a clearer browsing experience.
+  - **Default grouping for NL2SQL charts**: Added default values for NL2SQL chart grouping conditions to reduce manual configuration.
+
+  ### Bug Fixes
+  - Fixed an issue where adding an input node failed abnormally in Text2Agent code blocks and when adding memory variables.
+  - Fixed an issue where the cpca Python library could not be imported.
+  - Fixed an issue where charts in Agent conversation history did not render and only raw data was shown.
+  - Fixed streaming output corruption when switching conversations during a chat.
+  - Fixed an issue where historical conversation records on the debug page could not be opened by click.
+  - Fixed an issue where max tokens were too small when generating code blocks.
+  - Fixed a patchelf loading error in code blocks.
+  - Fixed an issue where general document parsing did not support the fileUrl form (caused by a missing fileName during download).
+  - Fixed an issue where Apps and login-required apps could not reference/access Agents across tenants.
+  - Fixed an issue where the Text2Agent document switch did not take effect.
+
+  ## III. App-related Updates
+
+  ### Enhancements
+  - **Import/export support**: Apps now support import/export, including env.json, making it easier to migrate and quickly switch configurations in a new environment.
+  - **Creation flow optimization**: Fully redesigned the App creation flow for a smoother experience.
+
+  ### Bug Fixes
+  - Fixed an issue where the latest version code did not take effect after an App was published.
+
+  ## IV. Knowledge Base Updates
+
+  - **Chunk table rendering**: Retrieval-test chunk results now support Markdown table rendering.
+  - **API consolidation**: Merged the Graph API into the Test API and completed the corresponding adaptations.
+  - **Graph recall optimization**: Improved graph recall logic by presenting graph recall results as independent top-ranked chunks, improving Q&A recall quality.
+
+  ## V. Skills Updates
+
+  - **Import/export support**: The Skill editor now supports import/export for easier cross-environment migration.
+
+  ## VI. System Optimizations and Other Updates
+
+  ### Enhancements
+  - **Issue feedback**: Added an issue-feedback entry so users can submit system feedback; administrators can collect feedback for product improvement and reply to users.
+  - **Message queue expansion**: LingDa message queue now supports RocketMQ, improving message-processing reliability and scalability.
+  - **UI refresh**: Broad UI optimizations across system background colors, App/Agent creation flows, user profile, and card styles.
+  - **Chip compatibility**: Completed parser-component compatibility adaptation for the 910B environment.
+
+  ### Experience and Performance Optimizations
+  - **Organization-tree loading**: Optimized organization-tree loading for large-scale organization scenarios, significantly reducing load time.
+  - **Token statistics alignment**: Unified Token aggregation dimensions to resolve previous inconsistencies across multiple data sources.
+  - **Logging improvements**: Optimized inappropriately leveled logs to improve readability and troubleshooting efficiency.
+
+  ### Bug Fixes
+  - Fixed a data-permission issue in Agent evaluation requirements.
+</Update>
 
 <Update label="July 10 - July 24" tags={["v2.0.7.0"]} rss={{ title: "Agentify v2.0.7.0", description: "New Data Management Center and Ticket Management approval workflow covering 7 core data resources, plus Skill editor import/export and My App visit statistics" }}>
   ## New Features
