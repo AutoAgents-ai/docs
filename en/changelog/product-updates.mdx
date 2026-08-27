@@ -2,6 +2,8 @@
 title: "Product updates"
 description: "New updates and improvements"
 filters:
+  - label: "v2.0.9.0"
+    value: "v2.0.9.0"
   - label: "v2.0.8.0"
     value: "v2.0.8.0"
   - label: "v2.0.7.0"
@@ -67,6 +69,96 @@ filters:
   - label: "v1.8.2.0"
     value: "v1.8.2.0"
 ---
+
+<Update label="August 7 - August 21" tags={["v2.0.9.0"]} rss={{ title: "Agentify v2.0.9.0", description: "Refactored the resource permission system, added AutoGUI auto precompile-and-fix, and improved large-data loading and concurrency handling, with 23 bug fixes" }}>
+  ## Release Overview
+
+  This release refactors the resource permission system, adds AutoGUI auto precompile-and-fix so AI-generated apps are ready to run, and optimizes loading and concurrency for large-data scenarios. It includes 23 bug fixes.
+
+  ## Core Changes
+
+  ### I. Resource Permission System Upgrade
+
+  - Permission granularity moves from "whether a resource type is accessible" down to resource and action dimensions.
+  - **Covered resource types**: MCP, Apps, Skills, Custom Tools, Databases, and Models.
+  - **Unified action model**: Read / Write / Review / Manage, with consistent semantics across all resource types.
+  - **Data Management permission capabilities completed in sync**:
+    - Control delete and edit actions by permission
+    - Added intelligent visibility scope for view permissions
+    - Added governance-settings permission, separating data-governance configuration from data-usage capabilities
+    - Improved data query conditions
+  - Data governance settings now include a frontend switch; users without the corresponding permission no longer see the entry point.
+
+  ### II. AutoGUI Auto Precompile-and-Fix: AI-Generated Apps Ready to Run
+
+  - Even when AI-generated frontend logic is correct, static syntax errors often prevent the app from running. Users previously had to inspect errors and return to the editor to fix them, interrupting the value of AI-built apps at the final step.
+  - This release adds an automatic precompile step to AutoGUI's autonomous code-development flow: after code is generated, the system compiles it once, automatically checks and fixes static syntax errors, and then delivers the result. Users receive an app that can run directly, not a codebase that still needs debugging.
+
+  ### III. Login Session Kick-out
+
+  - Added login session kick-out capability, with a notification when a session is forced offline. Four modes are supported:
+    - **global**: Global kick-out — logging in on any client kicks all other clients
+    - **isolated**: Client-isolated kick-out (default) — terminal kicks terminal, Web kicks Web; terminal and Web do not affect each other
+    - **terminal**: Kick-out among terminals only
+    - **web**: Kick-out among Web clients only
+
+  ### IV. Multi-tenant Configuration Switching
+
+  - System configuration now supports tenant switching. The autoagents platform administrator can switch to any tenant to complete configuration; tenant-owned accounts do not have switching capability.
+
+  ## Other Updates
+
+  - **System configuration usage notes**: Added explanatory copy for each configuration item.
+  - **Workflow version records on Agent publish**: Each publish retains the corresponding workflow version for version tracing.
+  - **Organization-tree loading interaction redesign**: Redesigned frontend loading and interaction patterns to handle large-data scenarios.
+  - **Thread-pool optimization**: Optimized the thread pool and its queue strategy.
+  - **Smart terminal telemetry (capability preview)**: Provides reporting interfaces and observability for logs, conversations, and call chains. End-to-end integration with the terminal is not fully complete; this release is not yet recommended for formal troubleshooting or analysis.
+
+  ## Experience Changes
+
+  The following adjustments change existing UI behavior or operation paths:
+
+  - **Skill details page**: The previous "Publish" action is now "Enable in Workflow".
+  - **MCP in self-service mode**: The publish button is no longer shown, and the publish-request dialog no longer appears.
+  - **Agent cards**: The action entry (three-dot menu) is hidden when no actions are available.
+  - **History records**: Added a character limit of 50.
+
+  ## Bug Fixes
+
+  ### I. Permissions
+
+  - Fixed an issue where users with Manage permission could not use the three share-page features and were shown a no-permission message.
+  - Fixed an issue where users with Manage permission were missing the "Assign usage permission" button.
+  - Fixed an issue where users with Manage permission were shown a no-permission message when opening usage records.
+  - Fixed an error when entering the database details page with Read permission on a database.
+  - Fixed an issue where the tenant administrator "System Configuration - Security Control" page failed to load.
+
+  ### II. Modes and Configuration
+
+  - Fixed an issue where switching between self-service and centralized modes failed.
+  - Fixed an issue where MCP publish in self-service mode still showed the publish-request dialog.
+  - Fixed an error when switching language after the tenant-admin account (autoagents) selected a tenant in system configuration.
+
+  ### III. Workflows and Nodes
+
+  - Fixed an issue where nodes of any type could not connect to downstream nodes.
+  - Fixed an issue where switching a code block from Python to JS in the IDE left neither Python nor JS selected after returning to the component.
+
+  ### IV. Models and Conversations
+
+  - Fixed model extrabody override not taking effect, and added model error echo.
+  - Fixed an issue where the settings dialog did not appear after searching in the model list and clicking the settings button.
+  - Fixed an issue where switching chat tabs during streaming output caused content to disappear after returning to the original conversation.
+  - Fixed Text2Agent generating two initial inputs on the second question.
+  - Fixed history-record restore not taking effect.
+
+  ### V. Pages and Data
+
+  - Fixed a 500 error on the Data Management page.
+  - Fixed abnormal data on the usage records page.
+  - Fixed Agent usage records failing to display due to an internationalization issue.
+  - Fixed abnormal positioning of the dictionary-management delete dialog.
+</Update>
 
 <Update label="July 24 - August 7" tags={["v2.0.8.0"]} rss={{ title: "Agentify v2.0.8.0", description: "Data Dashboard V2 launches with business overview and 8 dedicated analytics modules; Agent, App, Knowledge Base, and Skills enhancements plus system optimizations and bug fixes" }}>
   ## I. Data Dashboard V2 Launch
