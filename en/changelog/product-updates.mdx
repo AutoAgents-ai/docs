@@ -2,6 +2,8 @@
 title: "Product updates"
 description: "New updates and improvements"
 filters:
+  - label: "v2.0.10.0"
+    value: "v2.0.10.0"
   - label: "v2.0.9.0"
     value: "v2.0.9.0"
   - label: "v2.0.8.0"
@@ -69,6 +71,92 @@ filters:
   - label: "v1.8.2.0"
     value: "v1.8.2.0"
 ---
+
+<Update label="August 21 - September 4" tags={["v2.0.10.0"]} rss={{ title: "Agentify v2.0.10.0", description: "Upgraded Discover page experience and resource favorites, improved permissions and application workflows, enhanced smart-terminal telemetry and OTA management, and completed independent file-storage refactoring plus small-model integration, with 11 bug fixes" }}>
+  ## Release Overview
+
+  This release focuses on upgrading the Discover page experience and resource favorites, improving the permission and application system, enhancing smart-terminal telemetry and OTA management, and completing independent file-storage service refactoring plus small-model integration expansion. It includes 11 bug fixes.
+
+  ## Core Changes
+
+  ### I. Discover Page Experience Upgrade
+
+  - Entering the platform now defaults to the Discover page; if the user lacks Discover permission, the system automatically redirects to the first menu they can access.
+  - Discover cards now show richer information:
+    - Display creator and subscription count
+    - Application-required Agents distinguish "Subscribed", "Subscribing", and "Not subscribed" states on the card
+    - The "No review required" field is unified as "No application required"; Agents that require an application flow are labeled "Application required"
+    - The no-application flow removes the frontend form; company, department, time, and applicant are recorded automatically in the backend
+  - Discover page styles are optimized accordingly.
+
+  ### II. Favorites for Seven Resource Types and Agent Filters
+
+  - Favorites are supported across seven resource types: Agents, Apps, Skills, Knowledge Bases, MCP, Databases, and Custom Tools.
+  - Agent creation, subscription, and authorization interfaces add category filters and support sorting by creation time / revision time.
+
+  ### III. Permission and Evaluation Enhancements
+
+  - Dictionaries gain assign-usage-permission capability, completing Read / Write / Manage permission control.
+  - Evaluation feature permissions are adjusted at a finer grain, with frontend interactions updated accordingly.
+
+  ### IV. Smart Terminal Capability Upgrade
+
+  - **Telemetry API service is now live**, supporting:
+    - Startup records
+    - Invocation logs
+    - Call chains
+    - Crash logs
+    - Conversation records
+  - **OTA management page optimization**: Version sequence numbers are removed; application codes are added, enabling independent version management and publishing for multiple applications.
+
+  ### V. Model and Knowledge Base Capability Expansion
+
+  - Model management supports small-model integration for scenarios such as OCR, ASR, and document parsing.
+  - Knowledge base files support external preview; the related capability integration is complete.
+
+  ### VI. Independent File Storage Service Refactoring
+
+  - The file storage service is independently refactored to offload file I/O pressure from the main service, improving overall stability and throughput.
+  - Aliyun OSS storage supports storing files under a specified root path.
+
+  ## Other Updates
+
+  - **System configuration**: In Agent types, "Hot recommendations" is changed to "All".
+  - **Application form**: Required fields on the submit form are moved upward for clearer completion.
+  - **Operation manual**: Added an entry link to the operation manual.
+  - **Code block**: Added the `networkx` dependency package.
+  - **Message queue**: RocketMQ supports One SDK invocation.
+  - **API adjustment**: Some pages deprecate `/bill/listAllUsers` and uniformly replace it with `user/suggest`.
+  - **Internationalization**: Related features above are internationalized in sync.
+
+  ## Experience Changes
+
+  The following adjustments change existing UI behavior or operation paths:
+
+  - **Default entry**: Entering the platform prioritizes the Discover page (falls back to the first available menu without permission).
+  - **No-application flow**: No-application Agents no longer show a frontend form; application information is recorded automatically in the backend.
+  - **Terminology**: "No review required" is unified as "No application required".
+  - **Smart terminal OTA**: Version sequence numbers are removed; multi-app versions are managed by application code.
+  - **Self-service mode**: Subscription counts should not be shown; the seven "Authorized to me" resource types uniformly display the creator.
+
+  ## Bug Fixes
+
+  ### I. Agents and Conversations
+
+  - Fixed an intermittent issue where intelligent conversation reply length unexpectedly became 5000.
+  - Fixed Agent orchestration button text overflowing the border.
+  - Fixed a brief avatar corruption issue during Agent streaming output.
+  - Fixed an error when an Agent node prompt contained special variable values.
+  - Fixed parent-child Agent result values being passed as null.
+  - Added node-status feedback messages to the Agent SSE API to keep the network link alive and resolve timeouts caused by long periods without feedback.
+
+  ### II. Components and Pages
+
+  - Fixed unsmooth left-right dragging on the preview page, including intermittent freezes that blocked dragging.
+  - Fixed OCR component not showing results after completion and incorrectly showing document-review loading.
+  - Fixed the first add dialog getting stuck and unclosable after refreshing the page when the sensitive-word library had no data.
+  - Fixed the sensitive-word component library list not showing "Authorized to me" libraries.
+</Update>
 
 <Update label="August 7 - August 21" tags={["v2.0.9.0"]} rss={{ title: "Agentify v2.0.9.0", description: "Refactored the resource permission system, added AutoGUI auto precompile-and-fix, and improved large-data loading and concurrency handling, with 23 bug fixes" }}>
   ## Release Overview
