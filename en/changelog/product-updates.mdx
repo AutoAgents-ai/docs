@@ -2,6 +2,8 @@
 title: "Product updates"
 description: "New updates and improvements"
 filters:
+  - label: "v2.1.0.0"
+    value: "v2.1.0.0"
   - label: "v2.0.10.0"
     value: "v2.0.10.0"
   - label: "v2.0.9.0"
@@ -71,6 +73,122 @@ filters:
   - label: "v1.8.2.0"
     value: "v1.8.2.0"
 ---
+
+<Update label="September 4 - September 18" tags={["v2.1.0.0"]} rss={{ title: "Agentify v2.1.0.0", description: "Upgraded Agent parallel execution and test-case sets, Text2Agent auto-debug, model health visualization, and Skill file attachments, plus dashboard stats, knowledge-base citation badges, and bulk model replacement, with 19 bug fixes" }}>
+  ## I. Release Overview
+
+  This release focuses on upgrading Agent parallel execution and test-case sets, Text2Agent automatic debugging, model health visualization and governance, and Skill file/attachment expansion. It also brings data dashboard statistics, knowledge-base citation badges, and bulk model replacement in orchestration, with 19 bug fixes and multiple system optimizations.
+
+  ## II. Core Changes
+
+  ### 2.1 Agent Parallel Execution Engine
+
+  Agent orchestration adds **parallel execution**, significantly improving efficiency while remaining compatible with serial mode:
+
+  - Agents support both **serial / parallel** run modes; **existing data remains serial by default**, and the new parallel capability is enabled via a switch
+  - Supports configuring **parallelism** (up to 16 per Agent; system-wide max 1000, configurable)
+  - Parallel scheduling uses a **serial + parallel dual-queue** strategy:
+    - **Serial**: `Speak` nodes, interruptible nodes, and write-memory nodes
+    - **Parallel**: general processing nodes
+  - Supports parallel execution in nested scenarios such as **sub-agents and for loops**
+
+  ### 2.2 Test Cases and Automatic Debugging
+
+  - Agent **component debugging** and **trial runs** both support adding **test-case sets**
+  - Supports **Text2Agent automated debugging**, improving Agent orchestration and validation efficiency
+
+  ### 2.3 Model Status Visualization
+
+  Model management adds **status detection and alerting**:
+
+  - Periodically detects model availability and response rate
+  - Across **all model-selection entrances**—Agent orchestration, code-block IDE, Skills, Apps, and more—shows model health with **red / yellow / green** status indicators
+  - Consumers can tell whether a model is available without extra troubleshooting
+
+  ### 2.4 Skill Files and Attachments
+
+  - Skills support **binary file storage** (common formats such as images, Word, PPTX, and PDF)
+  - **Text2Skill** supports uploading files, images, and other attachments as reference materials
+  - Further expands the material types and use cases Skills can carry
+
+  ### 2.5 Knowledge Base Citation Badges
+
+  After adding a knowledge base to an Agent component:
+
+  - Supports displaying **citation badges** for retrieved content
+  - When knowledge-base tool components are invoked during reasoning, also supports **badge generation and citation-source viewing**
+
+  ### 2.6 Data Dashboard Statistics
+
+  Added two model-invocation statistics summary tables:
+
+  - **Agent** model-invocation statistics summary
+  - **App** model-invocation statistics summary
+
+  App model billing and chat records add an **`app_id`** field to improve dashboard query logic and performance.
+
+  ### 2.7 Orchestration and Template Capabilities
+
+  - Orchestration page supports **bulk model replacement**
+  - Default backend **max_token** for intelligent nodes is adjusted to **32000** (Intelligent Dialogue / Agent nodes, Document Q&A nodes, Image Q&A nodes; previous default of 3000 was too small)
+  - Agent component removes the "Max iterations" parameter field; backend default is **200** (configurable)
+  - **Excel component** template-generation syntax optimizations:
+    - When variable input is an array, it is automatically wrapped as `{"list": []}`
+    - `for` / `hfor` loops support **Chinese variable names**
+  - Template functions support passing arguments by **referenced variables**, for example: `[@["functionName", "*{{args1}}", "*{{args2}}", ...]@]`
+  - Added **`KbMerge`** function: merge multiple knowledge-base query results and take TopK
+
+  ## III. Other Updates
+
+  - **System management**: User management supports configuring **whether to hide built-in system accounts**, meeting some customers' controls for non-natural-person accounts; the organization-tree area on the org structure page supports **drag-to-resize**
+  - **Files and storage**: File-storage **instant upload** can detect whether historical files have already been deleted; file uploads **write directly to disk** instead of loading all content into memory; added **OFD** extension support and completed **Chinese font** adaptation
+  - **Ops monitoring**: Provides service **liveness probes** and simple **monitoring APIs** to view backend system resource information, easing probe and monitoring integration
+  - **Performance**: Optimized the Token-consumption statistics scheduled task to reduce MongoDB pressure; optimized knowledge-base chunk MongoDB indexes
+
+  ## IV. Experience Changes
+
+  The following adjustments change existing UI behavior, defaults, or operation paths:
+
+  - **Agent parallel mode**: New orchestrations can enable parallel mode; **existing Agents remain serial by default** and require manually turning on the parallel switch
+  - **max_token default**: Intelligent Dialogue / Agent / Document Q&A / Image Q&A nodes change from 3000 to **32000**
+  - **Max iterations**: Agent component no longer shows this field in the UI; backend defaults to 200 (configurable)
+  - **Model selection**: Red / yellow / green status indicators are added at model-selection entrances
+  - **Orchestration page**: Adds a bulk model-replacement entry
+  - **Keyword recognition component**: Removes Debug / Test-case tabs; after enabling document review, the debug-page upload entry and interactions are adjusted accordingly
+
+  ## V. Bug Fixes
+
+  ### 5.1 Agents
+
+  - Fixed process interruption when encountering a **user question** during parallel execution
+  - Fixed scrambled output during **sub-agent parallel** execution
+  - Fixed an issue in parallel + sub-agent scenarios where **re-running the parent Agent** did not start from the parent Agent
+  - Fixed sub-agents that should run in parallel but actually ran **serially**
+  - Fixed components becoming unclickable after the orchestration page was **fully collapsed by left-right dragging**
+  - Fixed errors in Agent **information classification** component debugging
+  - Fixed errors in Agent **information extraction** component debugging
+  - Fixed errors in the **PPT generation** component
+  - Fixed errors when uploading TXT or OFD files in **Document Q&A**
+  - Fixed Agent **expanded questions** still running empty and erroring when the model was empty
+  - Fixed intermittent Python code-block failures loading third-party libraries (`patchelf` load failure) that caused subsequent code calls to fail
+
+  ### 5.2 Knowledge Base and Skills
+
+  - Fixed unresponsive **PPTX file parsing** in knowledge bases
+  - Fixed **Text2Skill** translation not being displayed
+  - Fixed **Text2Skill @ file** functionality not taking effect
+
+  ### 5.3 Apps and UI
+
+  - Improved an issue where some areas in the App module **could not copy text** (browser compatibility)
+  - Adjusted App error prompt wording to **Chinese**
+  - Fixed broken icons for **video-type files**
+  - Fixed missing document-upload entry on the debug page after enabling the **document review** switch
+
+  ### 5.4 Data Dashboard
+
+  - Fixed incorrect **model names** shown for model-analysis related metrics
+</Update>
 
 <Update label="August 21 - September 4" tags={["v2.0.10.0"]} rss={{ title: "Agentify v2.0.10.0", description: "Upgraded Discover page experience and resource favorites, improved permissions and application workflows, enhanced smart-terminal telemetry and OTA management, and completed independent file-storage refactoring plus small-model integration, with 11 bug fixes" }}>
   ## Release Overview
