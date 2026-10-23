@@ -2,6 +2,8 @@
 title: "Product updates"
 description: "New updates and improvements"
 filters:
+  - label: "v2.1.2.0"
+    value: "v2.1.2.0"
   - label: "v2.1.1.0"
     value: "v2.1.1.0"
   - label: "v2.1.0.0"
@@ -75,6 +77,89 @@ filters:
   - label: "v1.8.2.0"
     value: "v1.8.2.0"
 ---
+
+<Update label="October 10 - October 23" tags={["v2.1.2.0"]} rss={{ title: "Agentify v2.1.2.0", description: "Expanded Agent tools for search, database, workflow, knowledge base, and charts; memory variables now support multiple operations; knowledge bases add Doris / Milvus / Elasticsearch storage and engine migration; MCP upgraded to 2.0, with 3 bug fixes" }}>
+  ## I. Release Overview
+
+  This release expands Agent tools and charting, and lets memory variables replace, concatenate, append, merge, and calculate values. Knowledge-base storage adds Doris, Milvus, and Elasticsearch, with ops-side engine migration and multi-engine coexistence. MCP is upgraded to 2.0, orchestration validation and single-model health checks are improved, and 3 issues are fixed.
+
+  ## II. Core Changes
+
+  ### 2.1 Memory Variable Component Operations
+
+  The memory variable component now supports multiple operations on existing variables, so you can transform context directly in orchestration:
+
+  - **Replace**
+  - **String concatenation**
+  - **Array append**
+  - **Set append (deduplicated)**
+  - **Object merge**
+  - **Numeric calculation** (`+` `-` `*` `/`)
+
+  ### 2.2 Custom Tools Support Code-Block Type
+
+  - Custom tools add a **code-block** type
+  - You can define new **canvas components** with code blocks, making custom logic reusable as nodes
+
+  ### 2.3 Agent Tools and Context Capabilities
+
+  The Agent component adds more callable tools and better context-usage governance:
+
+  - **AI search tool**
+  - **Web search tool**
+  - **Database query tool**: query table schemas, update data, and query data
+  - **Call Workflow tool**
+  - **Ask User form**: can be enabled via a switch to collect information during conversation
+  - **Knowledge-base tools**: file keyword search, file list, chunk list, and tag list
+  - Support for **generating and displaying charts**
+  - **Context usage reminders**, with adjustable **compression parameters**
+
+  ### 2.4 Agent Chart Structures and Styles
+
+  The Agent component can generate chart structures and change chart styles. New chart types:
+
+  - Stacked column chart
+  - Stacked bar chart
+  - Funnel chart
+  - Rose chart
+  - Heatmap
+
+  ### 2.5 Knowledge-Base Storage Engines and Migration
+
+  Chunk and vector storage options are expanded:
+
+  - **Doris**, **Milvus**, and **Elasticsearch** can store chunks and vectors
+  - The **ops page** can migrate a selected knowledge base's vector and chunk storage engine
+  - Retrieval supports **coexistence of different vector models and storage engines**
+
+  ### 2.6 MCP Upgrade to 2.0
+
+  - MCP protocol upgraded to the latest **MCP 2.0**
+  - Compatible with **agent-mcp** as a server in **distributed stateful** scenarios
+
+  ## III. Experience Changes
+
+  The following adjustments change existing UI behavior or interaction patterns:
+
+  - **Agent creation assistant** is renamed **Agent Orchestration Assistant**
+  - The App counterpart is named **App Orchestration Assistant**
+  - Agent assistant chat pages support **Markdown** rendering
+  - Orchestration canvas adds a **validation check** to surface configuration issues before publish
+  - Agent Ask User form is added and must be enabled via a switch
+  - Model management supports **health checks for a single model**
+  - When a sub-agent has no published version, execution **falls back to the draft**
+
+  ## IV. Bug Fixes
+
+  ### 4.1 Agents and Skills
+
+  - Fixed **Text2Agent** and **Text2Skill** file-upload reading failures
+  - Fixed errors when external extension code-block components were assigned to virtual threads in parallel-node scenarios
+
+  ### 4.2 Models and Invocation
+
+  - Investigated and fixed Embedding model client call-cache issues
+</Update>
 
 <Update label="September 18 - October 10" tags={["v2.1.1.0"]} rss={{ title: "Agentify v2.1.1.0", description: "Refactored the knowledge-base storage layer with a chunk and vector storage abstraction, adapted MongoDB and pgvector, and added Markdown parsing, dynamic form data sources, and workflow connection hints, with 3 bug fixes" }}>
   ## I. Release Overview
