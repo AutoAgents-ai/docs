@@ -2,6 +2,8 @@
 title: "Product updates"
 description: "New updates and improvements"
 filters:
+  - label: "v2.1.3.0"
+    value: "v2.1.3.0"
   - label: "v2.1.2.0"
     value: "v2.1.2.0"
   - label: "v2.1.1.0"
@@ -77,6 +79,61 @@ filters:
   - label: "v1.8.2.0"
     value: "v1.8.2.0"
 ---
+
+<Update label="October 23 - November 6" tags={["v2.1.3.0"]} rss={{ title: "Agentify v2.1.3.0", description: "Unified semantic discovery and invocation across Agent platform resources, completed system-configuration docs, improved database table viewing, Agent cloning, dashboard timelines, and API Key masking, with 2 bug fixes" }}>
+  ## I. Release Overview
+
+  This release unifies semantic discovery and invocation of Agent platform resources, covering Agents, knowledge bases, custom tools, MCP, Skills, and databases. It also completes full system-configuration documentation, improves database table viewing, Agent cloning, and dashboard timeline display, and masks model API Keys returned to the frontend. 2 issues are fixed.
+
+  ## II. Core Changes
+
+  ### 2.1 Unified Semantic Discovery and Invocation
+
+  Resource tools on the Agent platform can now be discovered and invoked by semantics, covering:
+
+  - **Agents**
+  - **Knowledge bases**
+  - **Custom tools**
+  - **MCP**
+  - **Skills**
+  - **Databases**
+
+  ### 2.2 System Configuration Documentation
+
+  - Added **full system-configuration documentation** to make settings easier to look up and align during delivery
+
+  ### 2.3 Model API Key Masking
+
+  - Model **API Keys** returned to the frontend are now **masked**, so secrets are no longer sent back in plaintext
+
+  ### 2.4 Database Management
+
+  - The database management page supports **viewing** and **querying** table data
+
+  ### 2.5 Agent Copy
+
+  - Agents can be **copied**, so you can quickly clone an existing Agent
+
+  ### 2.6 Data Dashboard
+
+  - Adjusted dashboard **date confirmation rules**: charts whose x-axis is a timeline still display normally when the value is **0**
+
+  ## III. Experience Changes
+
+  The following adjustments change existing UI behavior or interaction patterns:
+
+  - **Model management**: API Keys returned to the frontend are shown masked
+  - **Database management**: table data can be viewed and queried directly on the management page
+  - **Agents**: copy is supported so existing Agents can be cloned quickly
+  - **Data dashboard**: timeline charts keep the corresponding ticks and still render when the value is 0
+
+  ## IV. Bug Fixes
+
+  ### 4.1 Permissions
+
+  - Fixed **role data permissions** not taking effect
+  - Fixed **department permissions** intermittently not taking effect
+</Update>
 
 <Update label="October 10 - October 23" tags={["v2.1.2.0"]} rss={{ title: "Agentify v2.1.2.0", description: "Expanded Agent tool calling and charts, added memory-variable operations and custom-tool code blocks; knowledge-base storage now includes Doris / Milvus / Elasticsearch, and MCP is upgraded to 2.0, with 3 bug fixes" }}>
   ## I. Release Overview
